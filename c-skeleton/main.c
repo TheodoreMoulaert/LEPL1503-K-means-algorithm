@@ -120,7 +120,7 @@ int main(int argc, char *argv[]) {
     
     
     // Définition de la fonction distance que l'on utilise 
-    squared_distance_func_t DISTANCE_SQUARED;if (program_arguments->squared_distance_func == squared_manhattan_distance) {
+    squared_distance_func_t DISTANCE_SQUARED;if (program_arguments ->squared_distance_func == squared_manhattan_distance) {
     DISTANCE_SQUARED = squared_manhattan_distance;
     } 
     else {
