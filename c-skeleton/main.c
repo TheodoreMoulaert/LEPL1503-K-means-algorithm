@@ -117,6 +117,18 @@ int main(int argc, char *argv[]) {
     fprintf(stderr, "\tquiet mode: %s\n", program_arguments.quiet ? "enabled" : "disabled");
     fprintf(stderr, "\tsquared distance function: %s\n", program_arguments.squared_distance_func == squared_manhattan_distance ? "manhattan" : "euclidean");
 
+    
+    
+    // Définition de la fonction distance que l'on utilise 
+    squared_distance_func_t DISTANCE_SQUARED;if (program_arguments->squared_distance_func == squared_manhattan_distance) {
+    DISTANCE_SQUARED = squared_manhattan_distance;
+    } 
+    else {
+        DISTANCE_SQUARED = squared_euclidean_distance
+    }
+
+
+
     // TODO: parse the binary input file, compute the k-means solutions and write the output in a csv
 
 
