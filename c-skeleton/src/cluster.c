@@ -5,6 +5,6 @@
 
 typedef struct {
     point_t tuple;
-} cluster_t;
+} cluster_t ;
 
 #endif //CLUSTER_H
