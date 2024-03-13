@@ -4,7 +4,7 @@
 #define CLUSTER_H
 
 /*
-Structure qui permet de définir les clusters et les centroïds tel que 
+Structure qui  permet de définir les clusters et les centroïds tel que 
 cluster est défini par cluster_t** et centroids est défini par cluster_t* 
 */ 
 typedef struct {
