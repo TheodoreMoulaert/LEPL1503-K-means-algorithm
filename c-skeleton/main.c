@@ -125,6 +125,15 @@ int main(int argc, char *argv[]) {
     else {
         DISTANCE_SQUARED = squared_euclidean_distance
     }
+    int input_stream = open(*input_stream, O_RDONLY); 
+    if (input_stream == -1) {
+        perror("Erreur lors de l'ouverture du fichier");
+        return -1;
+    }
+    int64_t K = (int64_t) program_arguments->k; 
+    int64_t picking_limit = (int64_t) program_arguments->n_first_initialization_points;
+
+
 
 
 
