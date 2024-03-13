@@ -1,9 +1,10 @@
 #ifndef CLUSTER_H
 #define CLUSTER_H
 
+#include "point.c" 
+
 typedef struct {
-    int x;
-    int y;
-} cluster_t;
+    point_t tuple;
+} cluster_t ;
 
 #endif //CLUSTER_H
