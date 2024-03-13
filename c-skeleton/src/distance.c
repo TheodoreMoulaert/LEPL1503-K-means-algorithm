@@ -70,7 +70,6 @@ int64_t squared_euclidean_distance(const point_t *p1, const point_t *p2) {
         result = carre_x + carre_y+ carre_z;
 
     }
-     
     // TODO
     return result;
 }
