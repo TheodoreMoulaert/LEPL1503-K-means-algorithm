@@ -87,7 +87,6 @@ int parse_args(args_t *args, int argc, char *argv[]) {
                 usage(argv[0]);
         }
     }
-
     if (optind == argc) {
         args->input_stream = stdin;
     } else {
