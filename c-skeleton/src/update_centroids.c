@@ -7,15 +7,16 @@
 #include "../headers/cluster.h"
 #include "../headers/update_centroids.h"
 
-int64_t update_centroids( cluster_t* clusters){
+cluster_t update_centroids( cluster_t* clusters){
     cluster_t centroids;
-    centroids->data = (point_t*)malloc(K*sizeof(point_t));
+
+    centroids.data = (point_t*)malloc(K*sizeof(point_t));
     
-    if (centroids->data == NULL){
+    if (centroids.data == NULL){
         for (uint32_t i =0;i<K;i++){
-            free(clusters[i]->data->coord);
+            free(clusters[i]->data->coords);
         }
-        return -1;
+        return NULL;
     }
 
     for (int k=0;k < K;k++){
@@ -26,21 +27,20 @@ int64_t update_centroids( cluster_t* clusters){
         if (vector_sum == NULL){
             free(vector_sum);
             for (uint32_t i =0;i<k;i++){
-                free(clusters[i]->data->coord);
+                free(clusters[i]->data->coords);
             }
-            return -1;
+            return NULL;
         }
 
         for (uint32_t i=0; i <clusters_length;i++){
             for (uint32_t m =0;m<dimension;m++){
-                vector_sum[m] += clusters[k].data[i].coord[m];
+                vector_sum[m] += clusters[k].data[i].coords[m];
             }
         }
 
         for (int m=0;m<dimension;m++){
             vector_sum[m] = vector_sum[m]/clusters_length;
         }
-
         centroids.data[k] = vector_sum;
         //free(vector_sum);
     }
@@ -48,8 +48,7 @@ int64_t update_centroids( cluster_t* clusters){
     for (int i =0; i<K;i++){
         free(centroids.data[i]);
     }
-    free(centroids);
-    
-    return 0;
+    //free(centroids);
+    return centroids;
 
 }
