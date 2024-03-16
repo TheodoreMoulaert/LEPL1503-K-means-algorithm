@@ -19,7 +19,7 @@ uint64_t update_centroids( cluster_t* clusters, uint32_t K){
         return -1;
     }
 
-    for (uint32_t k=0;k < K;k++){
+    for ( uint32_t k=0;k < K;k++){
         uint32_t clusters_length = (uint32_t)strlen(*clusters[k].data); // comment avoir la taille ????
         uint32_t dimension = clusters[k].data->dim;
         int64_t* vector_sum = (int64_t *)calloc(dimension,sizeof(int64_t)); //un tuple
