@@ -7,29 +7,29 @@
 #include "../headers/cluster.h"
 #include "../headers/update_centroids.h"
 
-cluster_t update_centroids( cluster_t* clusters){
+uint64_t update_centroids( cluster_t* clusters, uint32_t K){
     cluster_t centroids;
-
+    //uint32_t K = (uint32_t)strlen(*clusters);
     centroids.data = (point_t*)malloc(K*sizeof(point_t));
     
     if (centroids.data == NULL){
         for (uint32_t i =0;i<K;i++){
-            free(clusters[i]->data->coords);
+            free(clusters[i].data->coords);
         }
-        return NULL;
+        return -1;
     }
 
-    for (int k=0;k < K;k++){
-        int64_t clusters_length = (int64_t)strlen(clusters[k]);
-        uint32_t dimension = clusters[k]->data.dim;
+    for (uint32_t k=0;k < K;k++){
+        uint32_t clusters_length = (uint32_t)strlen(*clusters[k].data); // comment avoir la taille ????
+        uint32_t dimension = clusters[k].data->dim;
         int64_t* vector_sum = (int64_t *)calloc(dimension,sizeof(int64_t)); //un tuple
         
         if (vector_sum == NULL){
             free(vector_sum);
             for (uint32_t i =0;i<k;i++){
-                free(clusters[i]->data->coords);
+                free(clusters[i].data->coords);
             }
-            return NULL;
+            return -1;
         }
 
         for (uint32_t i=0; i <clusters_length;i++){
@@ -41,14 +41,16 @@ cluster_t update_centroids( cluster_t* clusters){
         for (int m=0;m<dimension;m++){
             vector_sum[m] = vector_sum[m]/clusters_length;
         }
-        centroids.data[k] = vector_sum;
+        centroids.data[k].coords = vector_sum;
+        centroids.data[k].dim = dimension;
         //free(vector_sum);
     }
 
     for (int i =0; i<K;i++){
-        free(centroids.data[i]);
+        free(centroids.data[i].coords);
     }
-    //free(centroids);
-    return centroids;
+    free(centroids.data);
+    //return centroids;
+    return 0;
 
 }
