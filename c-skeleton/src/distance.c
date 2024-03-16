@@ -1,6 +1,6 @@
 
 #include "../headers/distance.h"
-#include "point.h"
+#include "../headers/point.h" // Inclure si nécessaire
 #include <stdlib.h> // Pour llabs()
 
 int64_t dimension; 
