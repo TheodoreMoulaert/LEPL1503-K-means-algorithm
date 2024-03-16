@@ -3,7 +3,9 @@
 #include <stdint.h>
 #include <string.h>
 
-
+#include "../headers/point.h"
+#include "../headers/cluster.h"
+#include "../headers/update_centroids.h"
 
 int64_t update_centroids( cluster_t* clusters){
     cluster_t centroids;
