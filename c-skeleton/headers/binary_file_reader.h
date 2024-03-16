@@ -1,7 +1,7 @@
 #ifndef BINARY_FILE_READER_H
 #define BINARY_FILE_READER_H
+#include "../headers/point.h" // Inclure si nécessaire
 
-#include "point.h"
 
 #include <stdint.h>
 #include <stdio.h> // Inclure pour FILE *
@@ -18,6 +18,6 @@ uint32_t get_nbr_vectors_from_binary_file(FILE *file);
 
 //// Déclaration de la fonction pour obtenir les informations sur les coordonnées des points
 
-point_t** point_input(FILE* file)
+point_t** point_input(FILE* file);
 
 #endif // BINARY_FILE_READER_H
