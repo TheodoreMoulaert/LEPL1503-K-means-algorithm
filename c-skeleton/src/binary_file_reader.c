@@ -3,7 +3,8 @@
 
 # include <stdlib.h>
 #include <endian.h>
-
+#include <stdio.h>
+#include <netinet/in.h> // Pour be32toh
 
 uint32_t get_dimension_from_binary_file(FILE *file) {
     if (!file) {
@@ -23,23 +24,34 @@ uint32_t get_dimension_from_binary_file(FILE *file) {
     return dim;
 }
 
-uint32_t get_nbr_vectors_from_binary_file(FILE *file) {
+uint64_t get_nbr_vectors_from_binary_file(FILE *file) {
     if (!file) {
         perror("Le pointeur de fichier est nul");
         return 0;
     }
 
-    uint32_t temp_vectors;
-    if (fread(&temp_vectors, sizeof(uint32_t), 1, file) != 1) {
-        perror("Erreur lors de la lecture du nombre de vecteurs");
-      
-        return 0;
+    // Déclaration d'un uint64_t temporaire pour stocker les données lues depuis le fichier
+    uint64_t temp_vectors;
+
+    // On se déplace dans le fichier pour lire les 8 octets correspondant au nombre de vecteurs
+    if (fseek(file, sizeof(uint32_t), SEEK_CUR) != 0) {
+        perror("Erreur lors du déplacement dans le fichier");
+        return 0; // ou une autre action appropriée
     }
 
-    uint32_t nbr_vectors = be32toh(temp_vectors);
+    // On lit les 8 octets à partir de la position actuelle du curseur dans le fichier
+    if (fread(&temp_vectors, sizeof(uint64_t), 1, file) != 1) {
+        perror("Erreur lors de la lecture du nombre de vecteurs");
+        return 0; // ou une autre action appropriée
+    }
+
+    // On convertit l'ordre des octets si nécessaire
+    uint64_t nbr_vectors = be64toh(temp_vectors);
     
     return nbr_vectors;
 }
+
+
 point_t** point_input(FILE* file){
 
     if (!file) {
