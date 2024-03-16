@@ -6,7 +6,7 @@
 
 typedef struct {
     uint32_t dim; 
-    int64_t* coord; 
+    int64_t* coords; 
    
 } point_t;
 
