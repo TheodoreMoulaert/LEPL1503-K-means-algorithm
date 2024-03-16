@@ -16,7 +16,7 @@ void test_get_dimension_from_binary_file();
 
 // Définition de la fonction de test
 void test_get_dimension_from_binary_file() {
-    FILE *file = fopen("example.bin", "rb");
+    FILE *file = fopen("../python/exemple.bin", "rb");
     if (!file) {
         perror("Erreur lors de l'ouverture du fichier binaire");
         exit(EXIT_FAILURE);
