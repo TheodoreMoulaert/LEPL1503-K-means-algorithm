@@ -5,30 +5,64 @@
 
 #include "cluster.c"
 
+//  attention : ok si on redef point_t avec *coord ??? 
+typedef struct {
+    int64_t *coord;
+} point_t;
 
-cluster_t update_centroids(cluster_t** clusters){
-    cluster_t* centroids;
+typedef struct {
+    point_t* tuple;
+} cluster_t ;
+
+int8_t update_centroids(cluster_t* clusters){
+
+    point_t* vector_sum = malloc(sizeof(point_t)*K);
+    if (vector_sum==NULL){
+        for (uint32_t i =0;i<K;i++){
+            free(clusters[i].tuple->coord);
+    }
+    return -1;
+
     for (uint32_t k=0; k< K; k++){
-        // A modifier en fonction de l'écriture de point_t
-        cluster_t vector_sum;
-        //est ce qu'il faut faire un malloc 
-
-        vector_sum.tuple.x = 0;
-        vector_sum.tuple.y = 0;
-        vector_sum.tuple.z = 0;
-        for (uint32_t clusters_size=0; clusters_size < strlen(clusters[k]); clusters_size++){
-            vector_sum.tuple.x += (clusters[k][clusters_size].tuple.x)/strlen(clusters[k]);
-            vector_sum.tuple.y += (clusters[k][clusters_size].tuple.y)/strlen(clusters[k]);
-            vector_sum.tuple.z += (clusters[k][clusters_size].tuple.z)/strlen(clusters[k]);
-
-
+            // A modifier en fonction de l'écriture de point_t
+        vector_sum[k]->coord = calloc(dimension,sizeof(int64_t));
+    
+            if (vector_sum[k]->coord == NULL){
+                for (uint32_t i =0; i<k;i++){
+                    free(vector_sum[i]->coord);
+                
+                }
+                for (uint32_t i =0; i<K;i++){
+                    free(clusters[i].tuple->coord);
+                }
+                free(vector_sum);
+                return -1;
+                
+            }
+            memcpy(vector_sum[k]->coord,clusters[k].tuple->coord,sizeof(int64_t)*dimension);
+            /*for (uint32_t m=0;m<dimension;m++){
+                clusters[k].tuple->coord[m] =0;
+            }*/
         }
-        centroids[k] = vector_sum;
+        
+        for (uint32_t i=0; i < K; i++){
+            for (uint32_t j=0;j<dimension;j++){
+                vector_sum[i]->coord[j] += ((clusters[i].tuple->coord[j])/(int64_t)strlen(clusters[i]));
+
+            }
+        }
+
+        for (uint32_t i=0; i<K; i++){
+            free(vector_sum[i]->coord);
+        }
+        free(vector_sum);
+        return 0;
+        
 
 
     
     }
-
+/*
     if (LOG){
         fprintf(stderr, "\tUpdate centroids to {");
         for (uint32_t k=0; k < K; k++){
@@ -55,6 +89,6 @@ cluster_t update_centroids(cluster_t** clusters){
         fprintf(stderr, "}\n");
 
     }
-    return centroids;
+    return centroids;*/
 
 }
