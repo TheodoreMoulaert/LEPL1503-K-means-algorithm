@@ -141,7 +141,6 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    
 
 
     int64_t K = (int64_t) program_arguments->k; 
