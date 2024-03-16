@@ -125,11 +125,25 @@ int main(int argc, char *argv[]) {
     else {
         DISTANCE_SQUARED = squared_euclidean_distance
     }
-    int input_stream = open(*input_stream, O_RDONLY); 
-    if (input_stream == -1) {
-        perror("Erreur lors de l'ouverture du fichier");
-        return -1;
+    
+    // lecture des dimensions des points dans le fichier binaire
+
+    uint32_t dim = get_dimension_from_binary_file(file);
+    if (dim == 0) {
+        printf("Erreur lors de la récupération de la dimension.\n");
+        fclose(file);
+        return 1; // Ou une autre valeur d'erreur
     }
+    uint32_t nbr_vectors = get_nbr_vectors_from_binary_file(file);
+    if (nbr_vectors == 0) {
+        printf("Erreur lors de la récupération du nombre de vecteurs.\n");
+        fclose(file);
+        return 1;
+    }
+
+    
+
+
     int64_t K = (int64_t) program_arguments->k; 
     int64_t picking_limit = (int64_t) program_arguments->n_first_initialization_points;
 
