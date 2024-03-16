@@ -1,5 +1,9 @@
-#include "binary_file_reader.h"
-#include "point.h"
+#include "../headers/binary_file_reader.h" // Inclure le bon en-tête
+#include "../headers/point.h" // Inclure si nécessaire
+
+# include <stdlib.h>
+#include <endian.h>
+
 
 uint32_t get_dimension_from_binary_file(FILE *file) {
     if (!file) {
