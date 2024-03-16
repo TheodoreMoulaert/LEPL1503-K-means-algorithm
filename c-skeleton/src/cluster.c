@@ -1,7 +1,7 @@
 #ifndef CLUSTER_H
 #define CLUSTER_H
-
-#include "point.c" 
+#include <stdint.h>
+#include "../headers/point.h" 
 
 typedef struct {
     point_t center;
