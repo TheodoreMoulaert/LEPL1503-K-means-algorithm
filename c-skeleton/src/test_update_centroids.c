@@ -45,7 +45,8 @@ void test_update_centroids(void) {
 }
 
 int main(void) {
+    
     UNITY_BEGIN();
     RUN_TEST(test_update_centroids);
     return UNITY_END();
-}
+} 
