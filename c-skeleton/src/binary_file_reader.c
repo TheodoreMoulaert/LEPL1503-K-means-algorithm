@@ -50,8 +50,6 @@ uint64_t get_nbr_vectors_from_binary_file(FILE *file) {
     
     return nbr_vectors;
 }
-
-
 point_t** point_input(FILE* file){
 
     if (!file) {
@@ -66,7 +64,7 @@ point_t** point_input(FILE* file){
         return NULL;
     }
     // Obtention du nombre de vecteurs
-    uint32_t nbr_vectors = get_nbr_vectors_from_binary_file(file);
+    uint64_t nbr_vectors = get_nbr_vectors_from_binary_file(file);
     if (nbr_vectors == 0) {
         perror("Erreur lors de l'obtention du nombre de vecteurs");
         return NULL;
