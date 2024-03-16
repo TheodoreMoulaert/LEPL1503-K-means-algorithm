@@ -18,6 +18,7 @@ int64_t update_centroids( cluster_t* clusters){
 
     for (int k=0;k < K;k++){
         int64_t clusters_length = (int64_t)strlen(clusters[k]);
+        uint32_t dimension = clusters[k]->data.dim;
         int64_t* vector_sum = (int64_t *)calloc(dimension,sizeof(int64_t)); //un tuple
         
         if (vector_sum == NULL){
