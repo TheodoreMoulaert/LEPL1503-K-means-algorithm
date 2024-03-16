@@ -70,7 +70,7 @@ point_t** point_input(FILE* file){
         return NULL;
     }
     // Allocation de mémoire pour stocker les vecteurs
-    point_t **vectors = malloc(nbr_vectors * sizeof(point_t *));
+    point_t **vectors = malloc( nbr_vectors * sizeof(point_t *));
     if (!vectors) {
         perror("Erreur d'allocation mémoire pour les vecteurs");
         return NULL;
