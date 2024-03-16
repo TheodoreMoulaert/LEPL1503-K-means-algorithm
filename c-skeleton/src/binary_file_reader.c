@@ -14,12 +14,12 @@ uint32_t get_dimension_from_binary_file(FILE *file) {
     uint32_t temp_dim;
     if (fread(&temp_dim, sizeof(uint32_t), 1, file) != 1) {
         perror("Erreur lors de la lecture de la dimension");
-        fclose(file);
+        
         return 0;
     }
 
     uint32_t dim = be32toh(temp_dim);
-    fclose(file);
+    
     return dim;
 }
 
@@ -32,12 +32,12 @@ uint32_t get_nbr_vectors_from_binary_file(FILE *file) {
     uint32_t temp_vectors;
     if (fread(&temp_vectors, sizeof(uint32_t), 1, file) != 1) {
         perror("Erreur lors de la lecture du nombre de vecteurs");
-        fclose(file);
+      
         return 0;
     }
 
     uint32_t nbr_vectors = be32toh(temp_vectors);
-    fclose(file);
+    
     return nbr_vectors;
 }
 point_t** point_input(FILE* file){
