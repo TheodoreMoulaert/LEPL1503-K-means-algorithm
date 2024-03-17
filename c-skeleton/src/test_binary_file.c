@@ -10,6 +10,7 @@
 
 #include "../headers/binary_file_reader.h" // Inclure le bon en-tête
 #include "../headers/distance.h" // Inclure si nécessaire
+#include "../headers/point.h" // Inclure si nécessaire
 
 // Déclaration de la fonction test_point_input
 void test_get_dimension_from_binary_file();
