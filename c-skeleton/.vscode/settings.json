@@ -4,6 +4,7 @@
         "point.h": "c",
         "cluster.h": "c",
         "update_centroids.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "main.h": "c"
     }
 }
