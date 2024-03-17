@@ -69,37 +69,39 @@ point_t** point_input(FILE* file){
         perror("Erreur lors de l'obtention du nombre de vecteurs");
         return NULL;
     }
+
+
     // Allocation de mémoire pour stocker les vecteurs
-    point_t **vectors = malloc( nbr_vectors * sizeof(point_t *));
-    if (!vectors) {
+    point_t **vectors = (point_t**) malloc( nbr_vectors * sizeof(point_t *));
+    if (vectors == NULL) {
         perror("Erreur d'allocation mémoire pour les vecteurs");
         return NULL;
     }
     for (uint32_t i = 0; i < nbr_vectors; i++) {
-        point_t *vector = malloc(sizeof(point_t));
-        if (!vector) {
+        point_t *point = (point_t*) malloc(sizeof(point_t));
+        if (point == NULL) {
             perror("Erreur d'allocation mémoire pour le vecteur");
             return NULL;
         }
 
-        vector->dim = dim;
-        vector->coords = malloc(dim * sizeof(int64_t));
-        if (!vector->coords) {
+        point->dim = dim;
+        point->coords = (int64_t*) (dim * sizeof(int64_t));
+        if (point->coords == NULL) {
             perror("Erreur d'allocation mémoire pour les coordonnées du vecteur");
             return NULL;
         }
 
-        if (fread(vector->coords, sizeof(int64_t), dim, file) != dim) {
+        if (fread(point->coords, sizeof(int64_t), dim, file) != dim) {
             perror("Erreur lors de la lecture des coordonnées du vecteur");
             return NULL;
         }
 
         // Conversion de l'ordre des octets pour chaque coordonnée
         for (uint32_t j = 0; j < dim; j++) {
-            vector->coords[j] = be64toh(vector->coords[j]);
+            point->coords[j] = be64toh(point->coords[j]);
         }
 
-        vectors[i] = vector;
+        vectors[i] = point;
     }
 
     return vectors;
