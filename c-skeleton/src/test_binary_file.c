@@ -19,6 +19,7 @@ void test_point_input();
 
 
 
+
 // Définition de la fonction de test
 void test_get_dimension_from_binary_file() {
     FILE *file = fopen("../python/exemple.bin", "rb");
@@ -48,6 +49,8 @@ void test_get_nbr_vectors_from_binary_file() {
     // Affichage du nombre de vecteurs
     printf("Nombre de vecteurs dans le fichier binaire : %lu\n", nbr_vectors);
 }
+
+
 
 void test_point_input() {
     FILE *file = fopen("../python/exemple.bin", "rb");
@@ -99,6 +102,8 @@ int main() {
     CU_add_test(suite, "Test_dim", test_get_dimension_from_binary_file);
     CU_add_test(suite, "Test_nbr_vectors", test_get_nbr_vectors_from_binary_file);
     CU_add_test(suite, "Test_point_input", test_point_input);
+   
+
   
 
     // Exécution des tests
