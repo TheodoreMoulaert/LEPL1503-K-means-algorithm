@@ -76,13 +76,13 @@ void test_point_input() {
             printf("%" PRId64 " ", vectors[i]->coords[j]);
         }
         printf("\n");
-    }
 
-    // Libération de la mémoire allouée pour les vecteurs
-    for (int i = 0; vectors[i] != NULL; i++) {
+        // Libération de la mémoire allouée pour le vecteur actuel
         free(vectors[i]->coords);
         free(vectors[i]);
     }
+
+    // Libération de la mémoire allouée pour le tableau de vecteurs
     free(vectors);
 }
 
