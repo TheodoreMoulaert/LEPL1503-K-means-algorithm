@@ -1,52 +1,71 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include "../headers/cluster.h" 
-#include "../headers/point.h" 
-#include "../headers/update_centroids.h" 
+#include <string.h>
+#include <CUnit/Basic.h>
+
+#include "../headers/point.h"
+#include "../headers/cluster.h"
+#include "../headers/update_centroids.h"
 #include "../headers/main.h"
 
-// Définition des constantes K et dimension
-#define K 10
+// Définition des constantes pour les tests
+#define K 3
+#define DIMENSION 2
 
-
-
-// Fonction pour afficher les données d'un cluster
-void print_cluster(cluster_t cluster) {
-    printf("Cluster:\n");
-    for (int i = 0; i < k; i++) {
-        printf("\tData %d: ", i);
-        for (uint32_t j = 0; j < cluster.data[i].dim; j++) {
-            printf("%ld ", cluster.data[i].coords[j]);
+// Fonction de test
+void test_update_centroids() {
+    // Création des clusters fictifs pour le test
+    cluster_t clusters[K];
+    for (int i = 0; i < K; i++) {
+        clusters[i].size = 3; // Taille de chaque cluster
+        clusters[i].data = (point_t*)malloc(3 * sizeof(point_t));
+        for (int j = 0; j < 3; j++) {
+            clusters[i].data[j].dim = DIMENSION;
+            clusters[i].data[j].coords = (int64_t*)malloc(DIMENSION * sizeof(int64_t));
+            // Initialisation des coordonnées avec des valeurs arbitraires pour le test
+            for (int k = 0; k < DIMENSION; k++) {
+                clusters[i].data[j].coords[k] = i * 10 + j;
+            }
         }
-        printf("\n");
+    }
+
+    // Appel de la fonction à tester
+    uint64_t result = update_centroids(clusters);
+
+    // Vérification du résultat
+    CU_ASSERT_EQUAL(result, 0);
+
+    // Vérification que les coordonnées des centroids sont correctes
+    for (int i = 0; i < K; i++) {
+        for (int j = 0; j < DIMENSION; j++) {
+            // Les coordonnées des centroids devraient être la moyenne des coordonnées de chaque cluster
+            int64_t expected_coord = (i * 10 + 0 + i * 10 + 1 + i * 10 + 2) / 3;
+            CU_ASSERT_EQUAL(clusters[i].data[j].coords[j], expected_coord);
+        }
+    }
+
+    // Nettoyage
+    for (int i = 0; i < K; i++) {
+        for (int j = 0; j < 3; j++) {
+            free(clusters[i].data[j].coords);
+        }
+        free(clusters[i].data);
     }
 }
 
 int main() {
-    // Création de clusters de données de test
-    cluster_t clusters[K];
-    for (int i = 0; i < K; i++) {
-        clusters[i].data = (point_t *)malloc(sizeof(point_t));
-        clusters[i].data[0].dim = 3;
-        clusters[i].data[0].coords = (int64_t *)malloc(3 * sizeof(int64_t));
-        for (int j = 0; j < 3; j++) {
-            clusters[i].data[0].coords[j] = (i + 1) * (j + 1);
-        }
-    }
+    // Initialisation du framework de test
+    CU_initialize_registry();
 
-    // Appel de la fonction update_centroids
-    cluster_t centroids = update_centroids(clusters);
+    // Ajout des tests à la suite de tests
+    CU_pSuite suite = CU_add_suite("Suite_de_tests", NULL, NULL);
+    CU_add_test(suite, "test_update_centroids", test_update_centroids);
 
-    // Affichage des centroids
-    print_cluster(centroids);
+    // Exécution des tests
+    CU_basic_run_tests();
 
-    // Libération de la mémoire allouée
-    for (int i = 0; i < K; i++) {
-        free(clusters[i].data[0].coords);
-        free(clusters[i].data);
-    }
-    free(centroids.data);
-
+    // Nettoyage
+    CU_cleanup_registry();
     return 0;
 }
