@@ -18,9 +18,7 @@ uint32_t get_dimension_from_binary_file(FILE *file) {
         
         return 0;
     }
-
     uint32_t dim = be32toh(temp_dim);
-    
     return dim;
 }
 
@@ -29,27 +27,25 @@ uint64_t get_nbr_vectors_from_binary_file(FILE *file) {
         perror("Le pointeur de fichier est nul");
         return 0;
     }
-
-    // Déclaration d'un uint64_t temporaire pour stocker les données lues depuis le fichier
-    uint64_t temp_vectors;
-
-    // On se déplace dans le fichier pour lire les 8 octets correspondant au nombre de vecteurs
-    if (fseek(file, sizeof(uint32_t), SEEK_CUR) != 0) {
-        perror("Erreur lors du déplacement dans le fichier");
-        return 0; // ou une autre action appropriée
-    }
-
-    // On lit les 8 octets à partir de la position actuelle du curseur dans le fichier
-    if (fread(&temp_vectors, sizeof(uint64_t), 1, file) != 1) {
-        perror("Erreur lors de la lecture du nombre de vecteurs");
-        return 0; // ou une autre action appropriée
-    }
-
-    // On convertit l'ordre des octets si nécessaire
-    uint64_t nbr_vectors = be64toh(temp_vectors);
+    uint32_t dimBE; // en format Big Endian
+	uint64_t nbBE; // en format Big Endian
+	if(fread(&dimBE, sizeof(uint32_t), 1, file) == 0)
+	{
+		fprintf(stderr, "Pas de dimension de point spécifiée.");
+		return 0;
+	}; 
+	if(fread(&nbBE, sizeof(uint64_t), 1, file) == 0)
+	{
+		fprintf(stderr, "pas de nombre de points spécifié."); 
+		return 0;
+	}
+	uint32_t dim = be32toh(dimBE);
+	uint64_t nbr_vectors = be64toh(nbBE);
     
     return nbr_vectors;
 }
+
+
 
 point_t **point_input(FILE *file) {
     if (!file) {
@@ -70,8 +66,9 @@ point_t **point_input(FILE *file) {
 	}
 	uint32_t dim = be32toh(dimBE);
 	uint64_t nbr_vectors = be64toh(nbBE);
+    printf("Nombre de vecteurs dans le fichier binaire in : %lu\n", nbr_vectors);
+
 	
-    printf("Nombre de vecteurs dans le fichier binaire : %lu\n", nbr_vectors);
     if (nbr_vectors <= 0) {
         perror("Erreur lors de l'obtention du nombre de vecteurs");
         return NULL;
@@ -88,16 +85,16 @@ point_t **point_input(FILE *file) {
         point_t *point = (point_t*) malloc(sizeof(point_t));
         if (point == NULL) {
             perror("Erreur d'allocation mémoire pour le vecteur");
-            free_vectors(vectors, i);
+            free_vectors(vectors, i+1);
             return NULL;
         }
 
         point->dim = dim;
-        point->coords = (int64_t*) malloc(dim * sizeof(int64_t));
+        point->coords = (int64_t*) malloc(dim *sizeof(int64_t));
         if (point->coords == NULL) {
             perror("Erreur d'allocation mémoire pour les coordonnées du vecteur");
             free(point);
-            free_vectors(vectors, i);
+            free_vectors(vectors, i+1);
             return NULL;
         }
 
@@ -105,7 +102,7 @@ point_t **point_input(FILE *file) {
             perror("Erreur lors de la lecture des coordonnées du vecteur");
             free(point->coords);
             free(point);
-            free_vectors(vectors, i);
+            free_vectors(vectors, i+1);
             return NULL;
         }
 
@@ -114,6 +111,7 @@ point_t **point_input(FILE *file) {
         }
 
         vectors[i] = point;
+
     }
 
     return vectors;
