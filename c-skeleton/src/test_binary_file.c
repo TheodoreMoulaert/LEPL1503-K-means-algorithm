@@ -19,7 +19,6 @@ void test_point_input();
 
 
 
-
 // Définition de la fonction de test
 void test_get_dimension_from_binary_file() {
     FILE *file = fopen("../python/exemple.bin", "rb");
@@ -71,27 +70,25 @@ void test_point_input() {
     }
 
     // Impression des coordonnées de chaque vecteur
-    uint64_t nbr_vectors = 0;
-    while (vectors[nbr_vectors] != NULL) {
-        printf("Vecteur %lu:\n", nbr_vectors + 1);
-        printf("Dimensions: %u\n", vectors[nbr_vectors]->dim);
+    int i = 0;
+    while (vectors[i] != NULL) {
+        printf("Vecteur %d:\n", i + 1);
+        printf("Dimensions: %u\n", vectors[i]->dim);
         printf("Coordonnées: ");
-        for (int j = 0; j < vectors[nbr_vectors]->dim; j++) {
-            printf("%" PRId64 " ", vectors[nbr_vectors]->coords[j]);
+        for (int j = 0; j < vectors[i]->dim; j++) {
+            printf("%" PRId64 " ", vectors[i]->coords[j]);
         }
         printf("\n");
 
         // Libération de la mémoire allouée pour le vecteur actuel
-        free(vectors[nbr_vectors]->coords);
-        free(vectors[nbr_vectors]);
-
-        nbr_vectors++;
+        free(vectors[i]->coords);
+        free(vectors[i]);
+        i++;
     }
 
     // Libération de la mémoire allouée pour le tableau de vecteurs
     free(vectors);
 }
-
 
 // Fonction principale pour exécuter les tests
 int main() {
