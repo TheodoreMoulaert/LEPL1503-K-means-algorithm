@@ -1,7 +1,7 @@
 #include "../headers/binary_file_reader.h" // Inclure le bon en-tête
 #include "../headers/point.h" // Inclure si nécessaire
 
-# include <stdlib.h>
+#include <stdlib.h>
 #include <endian.h>
 #include <stdio.h>
 #include <netinet/in.h> // Pour be32toh
@@ -45,6 +45,57 @@ uint64_t get_nbr_vectors_from_binary_file(FILE *file) {
     return nbr_vectors;
 }
 
+point_t **select_vectors(point_t **vectors, uint64_t nbr_vectors) {
+    if (!vectors) {
+        perror("Le tableau de vecteurs est NULL");
+        return NULL;
+    }
+
+    // Allocation de mémoire pour stocker les vecteurs sélectionnés
+    point_t **selected_vectors = (point_t**) malloc(nbr_vectors * sizeof(point_t *));
+    if (!selected_vectors) {
+        perror("Erreur d'allocation mémoire pour les vecteurs sélectionnés");
+        return NULL;
+    }
+
+    // Copie des données des vecteurs d'origine dans les nouveaux vecteurs sélectionnés
+    for (uint64_t i = 0; i < nbr_vectors; i++) {
+        // Allocation de mémoire pour le nouveau vecteur sélectionné
+        selected_vectors[i] = (point_t*) malloc(sizeof(point_t));
+        if (!selected_vectors[i]) {
+            perror("Erreur d'allocation mémoire pour un vecteur sélectionné");
+            // Si une erreur se produit, libérez la mémoire allouée précédemment
+            for (uint64_t j = 0; j < i; j++) {
+                free(selected_vectors[j]);
+            }
+            free(selected_vectors);
+            return NULL;
+        }
+
+        // Copie de la dimension du vecteur
+        selected_vectors[i]->dim = vectors[i]->dim;
+
+        // Allocation de mémoire pour les coordonnées du nouveau vecteur
+        selected_vectors[i]->coords = (int64_t*) malloc(vectors[i]->dim * sizeof(int64_t));
+        if (!selected_vectors[i]->coords) {
+            perror("Erreur d'allocation mémoire pour les coordonnées d'un vecteur sélectionné");
+            // Si une erreur se produit, libérez la mémoire allouée précédemment
+            for (uint64_t j = 0; j < i; j++) {
+                free(selected_vectors[j]->coords);
+                free(selected_vectors[j]);
+            }
+            free(selected_vectors);
+            return NULL;
+        }
+
+        // Copie des coordonnées du vecteur d'origine dans le nouveau vecteur sélectionné
+        for (uint32_t j = 0; j < vectors[i]->dim; j++) {
+            selected_vectors[i]->coords[j] = vectors[i]->coords[j];
+        }
+    }
+
+    return selected_vectors;
+}
 
 
 point_t **point_input(FILE *file) {
@@ -110,11 +161,17 @@ point_t **point_input(FILE *file) {
             point->coords[j] = be64toh(point->coords[j]);
         }
 
+
         vectors[i] = point;
+        
 
     }
+    point_t **selected_vectors = select_vectors(vectors, nbr_vectors);
 
-    return vectors;
+    // Libération de la mémoire allouée pour vectors, car les éléments sélectionnés sont maintenant dans selected_vectors
+    free(vectors);
+
+    return selected_vectors;
 }
    
 void free_vectors(point_t **vectors, uint64_t nbr_vectors) {
