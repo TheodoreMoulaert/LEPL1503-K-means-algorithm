@@ -72,7 +72,8 @@ void test_point_input() {
 
     // Impression des coordonnées de chaque vecteur
     int i = 0;
-    while (i < get_size_of_double_pointer(vectors)-3) {
+    printf("Nombre de vecteurs dans le fichier binaire : %u\n", get_size_of_double_pointer(vectors));
+    while (i < get_size_of_double_pointer(vectors)-(get_size_of_double_pointer(vectors)-vectors[0]->nbr_vector)) {
         printf("Vecteur %d:\n", i + 1);
         printf("Dimensions: %u\n", vectors[i]->dim);
         printf("Coordonnées: ");
