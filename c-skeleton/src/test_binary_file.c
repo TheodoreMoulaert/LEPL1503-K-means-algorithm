@@ -16,6 +16,7 @@
 void test_get_dimension_from_binary_file();
 void test_get_nbr_vectors_from_binary_file(); 
 void test_point_input(); 
+int get_size_of_double_pointer(point_t **ptr);
 
 
 
@@ -71,7 +72,7 @@ void test_point_input() {
 
     // Impression des coordonnées de chaque vecteur
     int i = 0;
-    while (vectors[i] != NULL) {
+    while (i < get_size_of_double_pointer(vectors)-3) {
         printf("Vecteur %d:\n", i + 1);
         printf("Dimensions: %u\n", vectors[i]->dim);
         printf("Coordonnées: ");
@@ -88,6 +89,14 @@ void test_point_input() {
 
     // Libération de la mémoire allouée pour le tableau de vecteurs
     free(vectors);
+}
+
+int get_size_of_double_pointer(point_t **ptr) {
+    int count = 0;
+    while (ptr[count] != NULL) {
+        count++;
+    }
+    return count;
 }
 
 // Fonction principale pour exécuter les tests
