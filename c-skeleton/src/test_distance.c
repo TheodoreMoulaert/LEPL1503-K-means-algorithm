@@ -57,7 +57,7 @@ int main() {
     p2->coords[0] = 4; p2->coords[1] = 5; p2->coords[2] = 6;
 
     // Test de la fonction squared_manhattan_distance
-    int64_t expected_manhattan = 81; // (|1-4| + |2-5| + |3-6|)^2 = (3 + 3 + 3)^2 = 9^2 = 81
+    int64_t expected_manhattan = 81; // (|1-4| + |2-5| + |3-6|)^2 = (3 + 3 + 3)**2 = 9**2 = 81
     int64_t result_manhattan = squared_manhattan_distance(p1, p2);
     assert_equal_int64(expected_manhattan, result_manhattan, "Test de la squared_manhattan_distance");
 
