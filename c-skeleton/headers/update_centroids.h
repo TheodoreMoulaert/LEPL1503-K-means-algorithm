@@ -1,13 +1,11 @@
-#include <stdio.h>
-#include <stdint.h>
-#include <string.h>
-#include <stdlib.h>
+#ifndef UPDATE_CENTROIDS_H
+#define UPDATE_CENTROIDS_H
 
-#include "../headers/point.h"
-#include "../headers/cluster.h"
-#include "../headers/main.h"
+
 /*
 Cette fonction calcule le centroïd associé à un cluster donné.
 La fonction return -1 si une erreur se produit, 0 sinon.
 */
 uint64_t update_centroids(cluster_t* );
+
+#endif // UPDATE_CENTROIDS_H

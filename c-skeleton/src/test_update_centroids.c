@@ -7,12 +7,12 @@
 #include "../headers/point.h"
 #include "../headers/cluster.h"
 #include "../headers/update_centroids.h"
-#include "../headers/main.h"
+//#include "../headers/main.h"
 
 // Définition des constantes pour les tests
 #define K 3
 #define DIMENSION 2
-
+ 
 // Fonction de test
 void test_update_centroids() {
     // Création des clusters fictifs pour le test
@@ -67,5 +67,5 @@ int main() {
 
     // Nettoyage
     CU_cleanup_registry();
-    return 0;
+    return CU_get_error();
 }

@@ -7,7 +7,7 @@
 #include <errno.h>
 #include <inttypes.h>
 #include "../headers/distance.h"
-
+#include "../headers/main.h"
 
 
 typedef struct {

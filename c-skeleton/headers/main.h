@@ -25,6 +25,17 @@ typedef struct {
 
 uint32_t k; // nombre de clusters
 uint32_t dim; //dimension de chaque point
+FILE*fp;    
+//uint64_t p;                                         // number of point to consider in combinations
+squared_distance_func_t squared_distance_func;
+
+uint32_t dim;                                       // Dimension of each points
+uint32_t k;                                         // Number of cluster                                   
+uint8_t n_threads;                                  // number of threads
+uint8_t quiet;
+FILE*fp;                                             // number of point to consider in combinations
+squared_distance_func_t squared_distance_func;
+
 
 #endif
 
