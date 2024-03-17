@@ -43,7 +43,7 @@ uint64_t update_centroids( cluster_t* clusters){
             vector_sum[m] = vector_sum[m]/clusters_length;
         }
         centroids.data[k].coords = vector_sum;
-        centroids.data[k].dim = dimension;
+        centroids.data[k].dim =  dimension;
         //free(vector_sum);
     }
 
