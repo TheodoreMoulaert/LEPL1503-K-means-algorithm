@@ -1,94 +1,133 @@
-#include <stdio.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
-
-// Inclure les fonctions à tester
 #include "../headers/binary_file_reader.h" // Inclure le bon en-tête
-#include "../headers/distance.h" // Inclure si nécessaire
+#include "../headers/point.h" // Inclure si nécessaire
 
-// Déclaration de la fonction test_point_input
-void test_get_dimension_from_binary_file();
-void test_get_nbr_vectors_from_binary_file(); 
-void test_point_input(); 
+# include <stdlib.h>
+#include <endian.h>
+#include <stdio.h>
+#include <netinet/in.h> // Pour be32toh
 
-// Définition des variables globales nécessaires pour les tests
-FILE *test_file;
-
-// Fonction de configuration des tests
-void setUp(void) {
-    // Ouvrir un fichier test binaire
-    /*test_file = fopen("../python/exemple.bin", "wb");
-    if (!test_file) {
-        perror("Erreur lors de l'ouverture du fichier de test");
-        exit(EXIT_FAILURE);
+uint32_t get_dimension_from_binary_file(FILE *file) {
+    if (!file) {
+        perror("Le pointeur de fichier est nul");
+        return 0;
     }
-    // Écrire des données de test dans le fichier binaire
-    uint32_t dim = 3;
-    uint32_t dim_be = htobe32(dim);
-    fwrite(&dim_be, sizeof(uint32_t), 1, test_file); // Écrire la dimension
-    uint64_t nbr_vectors = 2;
-    uint64_t nbr_vectors_be = htobe64(nbr_vectors);
-    fwrite(&nbr_vectors_be, sizeof(uint64_t), 1, test_file); // Écrire le nombre de vecteurs
-    int64_t coords1[] = {1, 2, 3};
-    int64_t coords2[] = {4, 5, 6};
-    for (int i = 0; i < dim; i++) {
-        coords1[i] = htobe64(coords1[i]);
-        coords2[i] = htobe64(coords2[i]);
-    }
-    fwrite(coords1, sizeof(int64_t), dim, test_file); // Écrire les coordonnées du premier vecteur
-    fwrite(coords2, sizeof(int64_t), dim, test_file); // Écrire les coordonnées du deuxième vecteur
-    fclose(test_file);*/
-    test_file = fopen("../python/exemple.bin", "rb");
-    if (!test_file) {
-        perror("Erreur lors de l'ouverture du fichier de test");
-        exit(EXIT_FAILURE);
-    }
-}
-/*
-// Fonction de nettoyage des tests
-void tearDown(void) {
-    // Fermer le fichier de test
-    fclose(test_file);
-    // Supprimer le fichier de test
-    remove("test_input.bin");
-}*/
 
-// Test de la fonction get_dimension_from_binary_file
-void test_get_dimension_from_binary_file(void) {
-    TEST_ASSERT_EQUAL_UINT32(3, get_dimension_from_binary_file(test_file));
+    uint32_t temp_dim;
+    if (fread(&temp_dim, sizeof(uint32_t), 1, file) != 1) {
+        perror("Erreur lors de la lecture de la dimension");
+        
+        return 0;
+    }
+
+    uint32_t dim = be32toh(temp_dim);
+    
+    return dim;
 }
 
-// Test de la fonction get_nbr_vectors_from_binary_file
-void test_get_nbr_vectors_from_binary_file(void) {
-    TEST_ASSERT_EQUAL_UINT64(2, get_nbr_vectors_from_binary_file(test_file));
+uint64_t get_nbr_vectors_from_binary_file(FILE *file) {
+    if (!file) {
+        perror("Le pointeur de fichier est nul");
+        return 0;
+    }
+
+    // Déclaration d'un uint64_t temporaire pour stocker les données lues depuis le fichier
+    uint64_t temp_vectors;
+
+    // On se déplace dans le fichier pour lire les 8 octets correspondant au nombre de vecteurs
+    if (fseek(file, sizeof(uint32_t), SEEK_CUR) != 0) {
+        perror("Erreur lors du déplacement dans le fichier");
+        return 0; // ou une autre action appropriée
+    }
+
+    // On lit les 8 octets à partir de la position actuelle du curseur dans le fichier
+    if (fread(&temp_vectors, sizeof(uint64_t), 1, file) != 1) {
+        perror("Erreur lors de la lecture du nombre de vecteurs");
+        return 0; // ou une autre action appropriée
+    }
+
+    // On convertit l'ordre des octets si nécessaire
+    uint64_t nbr_vectors = be64toh(temp_vectors);
+    
+    return nbr_vectors;
 }
 
-// Test de la fonction point_input
-void test_point_input(void) {
-    point_t **vectors = point_input(test_file);
-    TEST_ASSERT_NOT_NULL(vectors);
-    TEST_ASSERT_NOT_NULL(vectors[0]);
-    TEST_ASSERT_NOT_NULL(vectors[1]);
-    TEST_ASSERT_EQUAL_INT64(1, vectors[0]->coords[0]);
-    TEST_ASSERT_EQUAL_INT64(2, vectors[0]->coords[1]);
-    TEST_ASSERT_EQUAL_INT64(3, vectors[0]->coords[2]);
-    TEST_ASSERT_EQUAL_INT64(4, vectors[1]->coords[0]);
-    TEST_ASSERT_EQUAL_INT64(5, vectors[1]->coords[1]);
-    TEST_ASSERT_EQUAL_INT64(6, vectors[1]->coords[2]);
-    free(vectors[0]->coords);
-    free(vectors[0]);
-    free(vectors[1]->coords);
-    free(vectors[1]);
+point_t **point_input(FILE *file) {
+    if (!file) {
+        perror("Le pointeur de fichier est nul");
+        return NULL;
+    }
+    uint32_t dimBE; // en format Big Endian
+	uint64_t nbBE; // en format Big Endian
+	if(fread(&dimBE, sizeof(uint32_t), 1, file) == 0)
+	{
+		fprintf(stderr, "Pas de dimension de point spécifiée.");
+		return NULL;
+	}; 
+	if(fread(&nbBE, sizeof(uint64_t), 1, file) == 0)
+	{
+		fprintf(stderr, "pas de nombre de points spécifié."); 
+		return NULL;
+	}
+	uint32_t dim = be32toh(dimBE);
+	uint64_t nbr_vectors = be64toh(nbBE);
+	
+    printf("Nombre de vecteurs dans le fichier binaire : %lu\n", nbr_vectors);
+    if (nbr_vectors <= 0) {
+        perror("Erreur lors de l'obtention du nombre de vecteurs");
+        return NULL;
+    }
+
+    // Allocation de mémoire pour stocker les vecteurs
+    point_t **vectors = (point_t**) malloc(nbr_vectors * sizeof(point_t *));
+    if (vectors == NULL) {
+        perror("Erreur d'allocation mémoire pour les vecteurs");
+        return NULL;
+    }
+
+    for (uint64_t i = 0; i < nbr_vectors; i++) {
+        point_t *point = (point_t*) malloc(sizeof(point_t));
+        if (point == NULL) {
+            perror("Erreur d'allocation mémoire pour le vecteur");
+            free_vectors(vectors, i);
+            return NULL;
+        }
+
+        point->dim = dim;
+        point->coords = (int64_t*) malloc(dim * sizeof(int64_t));
+        if (point->coords == NULL) {
+            perror("Erreur d'allocation mémoire pour les coordonnées du vecteur");
+            free(point);
+            free_vectors(vectors, i);
+            return NULL;
+        }
+
+        if (fread(point->coords, sizeof(int64_t), dim, file) != dim) {
+            perror("Erreur lors de la lecture des coordonnées du vecteur");
+            free(point->coords);
+            free(point);
+            free_vectors(vectors, i);
+            return NULL;
+        }
+
+        for (uint32_t j = 0; j < dim; j++) {
+            point->coords[j] = be64toh(point->coords[j]);
+        }
+
+        vectors[i] = point;
+    }
+
+    return vectors;
+}
+   
+void free_vectors(point_t **vectors, uint64_t nbr_vectors) {
+    if (vectors == NULL) return;
+
+    for (uint64_t i = 0; i < nbr_vectors; i++) {
+        if (vectors[i] != NULL){
+            free(vectors[i]->coords);
+            free(vectors[i]);
+        }
+    }
+
     free(vectors);
-}
-
-// Ajoutez d'autres tests si nécessaire
-
-int main(void) {
-    UNITY_BEGIN();
-    RUN_TEST(test_get_dimension_from_binary_file);
-    RUN_TEST(test_get_nbr_vectors_from_binary_file);
-    RUN_TEST(test_point_input);
-    return UNITY_END();
 }
