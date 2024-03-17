@@ -69,55 +69,36 @@ point_t **point_input(FILE *file) {
         perror("Erreur lors de l'obtention du nombre de vecteurs");
         return NULL;
     }
-    
 
     // Allocation de mémoire pour stocker les vecteurs
-    point_t **vectors = malloc( nbr_vectors * sizeof(point_t *));
+    point_t **vectors = (point_t**) malloc(nbr_vectors * sizeof(point_t *));
     if (vectors == NULL) {
         perror("Erreur d'allocation mémoire pour les vecteurs");
         return NULL;
     }
 
-    for (uint64_t i = 0; i < (nbr_vectors); i++) {
-        point_t *point = malloc(sizeof(point_t));
+    for (uint64_t i = 0; i < nbr_vectors; i++) {
+        point_t *point = (point_t*) malloc(sizeof(point_t));
         if (point == NULL) {
             perror("Erreur d'allocation mémoire pour le vecteur");
-
-            //free_vectors(vectors, i);
-            for (uint64_t j = 0; j < i; j++) {
-                free(vectors[j]->coords);
-                free(vectors[j]);
-            }
-            free(vectors);
+            free_vectors(vectors, i);
             return NULL;
         }
 
         point->dim = dim;
-        //int64_t* cord_p = (int64_t*) malloc(dim * sizeof(int64_t)); 
-        point->coords = malloc(dim * sizeof(int64_t));
-        //point->coords = (int64_t*) malloc(dim * sizeof(int64_t));
-        //if (cord_p== NULL) {
-        if (point->coords == NULL){
+        point->coords = (int64_t*) malloc(dim * sizeof(int64_t));
+        if (point->coords == NULL) {
             perror("Erreur d'allocation mémoire pour les coordonnées du vecteur");
             free(point);
-            //free_vectors(vectors, i);
-            for (uint64_t j = 0; j < i; j++) {
-                free(vectors[j]->coords);
-                free(vectors[j]);
-            }
-            free(vectors);
+            free_vectors(vectors, i);
             return NULL;
         }
-        
+
         if (fread(point->coords, sizeof(int64_t), dim, file) != dim) {
             perror("Erreur lors de la lecture des coordonnées du vecteur");
             free(point->coords);
             free(point);
-            for (uint64_t j = 0; j < i; j++) {
-                free(vectors[j]->coords);
-                free(vectors[j]);
-            }
-            free(vectors);
+            free_vectors(vectors, i);
             return NULL;
         }
 
@@ -126,20 +107,12 @@ point_t **point_input(FILE *file) {
         }
 
         vectors[i] = point;
-
-        /*fread(point->coords, sizeof(int64_t), dim, file); //cord_p
-        for(uint32_t j = 0; j<  dim; j++){
-            //cord_p[j] = be64toh(cord_p[j]);
-            point->coords[j] = be64toh(point->coords[j]);  
-
-        }
-        //point->coords = cord_p;
-        vectors[i] = point;*/
     }
+
     return vectors;
 }
-
-/*void free_vectors(point_t **vectors, uint64_t nbr_vectors) {
+    
+void free_vectors(point_t **vectors, uint64_t nbr_vectors) {
     if (vectors == NULL) return;
 
     for (uint64_t i = 0; i < nbr_vectors; i++) {
@@ -150,4 +123,4 @@ point_t **point_input(FILE *file) {
     }
 
     free(vectors);
-}*/
+}
