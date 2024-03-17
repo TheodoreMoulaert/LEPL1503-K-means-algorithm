@@ -73,38 +73,40 @@ point_t **point_input(FILE *file) {
 
     // Allocation de mémoire pour stocker les vecteurs
     point_t **vectors = malloc( nbr_vectors * sizeof(point_t *));
-    if (!vectors) {
+    if (vectors == NULL) {
         perror("Erreur d'allocation mémoire pour les vecteurs");
         return NULL;
     }
 
     for (uint64_t i = 0; i < (nbr_vectors); i++) {
-        point_t* point = (point_t*) malloc(sizeof(point_t));
+        point_t *point = malloc(sizeof(point_t));
         if (point == NULL) {
             perror("Erreur d'allocation mémoire pour le vecteur");
-            free_vectors(vectors, i+1);
+            free_vectors(vectors, i);
             return NULL;
         }
 
         point->dim = dim;
-        int64_t* cord_p = (int64_t*) malloc(dim * sizeof(int64_t)); 
-        
+        //int64_t* cord_p = (int64_t*) malloc(dim * sizeof(int64_t)); 
+        point->coords = malloc(dim * sizeof(int64_t));
         //point->coords = (int64_t*) malloc(dim * sizeof(int64_t));
-        if (cord_p== NULL) {
+        //if (cord_p== NULL) {
+        if (point->coords == NULL){
             perror("Erreur d'allocation mémoire pour les coordonnées du vecteur");
-            free_vectors(vectors, i+1);
+            free(point);
+            free_vectors(vectors, i);
             return NULL;
         }
 
-        fread(cord_p, sizeof(int64_t), dim, file); 
+        fread(point->coords, sizeof(int64_t), dim, file); //cord_p
         for(uint32_t j = 0; j<  dim; j++){
-            cord_p[j] = be64toh(cord_p[j]);                
-        }
+            //cord_p[j] = be64toh(cord_p[j]);
+            point->coords[j] = be64toh(point->coords[j]);  
 
-        point->coords = cord_p;
+        }
+        //point->coords = cord_p;
         vectors[i] = point;
     }
-
     return vectors;
 }
 
