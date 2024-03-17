@@ -5,7 +5,7 @@
 
 #include "../headers/point.h"
 #include "../headers/cluster.h"
-
+#include "../main.c"
 /*
 Cette fonction calcule le centroïd associé à un cluster donné.
 La fonction return -1 si une erreur se produit, 0 sinon.

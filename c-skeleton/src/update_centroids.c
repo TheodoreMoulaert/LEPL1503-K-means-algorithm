@@ -6,28 +6,29 @@
 #include "../headers/point.h"
 #include "../headers/cluster.h"
 #include "../headers/update_centroids.h"
+#include "../main.c"
 
 uint64_t update_centroids( cluster_t* clusters){
     cluster_t centroids;
     //uint32_t K = (uint32_t)strlen(*clusters);
-    centroids.data = (point_t*)malloc(K*sizeof(point_t));
+    centroids.data = (point_t*)malloc(k*sizeof(point_t));
     
     if (centroids.data == NULL){
-        for (uint32_t i =0;i<K;i++){
+        for (uint32_t i =0;i<k;i++){
             free(clusters[i].data->coords);
         }
         return -1;
     }
 
-    for ( uint32_t k=0;k < K;k++){
+    for ( uint32_t j=0;j < k;j++){
         //uint32_t clusters_length = (uint32_t)strlen(*clusters[k].data); // comment avoir la taille ????
-        uint64_t clusters_length = clusters[k].size;
-        uint32_t dimension = clusters[k].data->dim;
+        uint64_t clusters_length = clusters[j].size;
+        uint32_t dimension = clusters[j].data->dim;
         int64_t* vector_sum = (int64_t *)calloc(dimension,sizeof(int64_t)); //un tuple
         
         if (vector_sum == NULL){
             free(vector_sum);
-            for (uint32_t i =0;i<k;i++){
+            for (uint32_t i =0;i<j;i++){
                 free(clusters[i].data->coords);
             }
             return -1;
@@ -35,19 +36,19 @@ uint64_t update_centroids( cluster_t* clusters){
 
         for (uint32_t i=0; i <clusters_length;i++){
             for (uint32_t m =0;m<dimension;m++){
-                vector_sum[m] += clusters[k].data[i].coords[m];
+                vector_sum[m] += clusters[j].data[i].coords[m];
             }
         }
 
         for (int m=0;m<dimension;m++){
             vector_sum[m] = vector_sum[m]/clusters_length;
         }
-        centroids.data[k].coords = vector_sum;
-        centroids.data[k].dim =  dimension;
+        centroids.data[j].coords = vector_sum;
+        centroids.data[j].dim =  dimension;
         //free(vector_sum);
     }
 
-    for (int i =0; i<K;i++){
+    for (int i =0; i<k;i++){
         free(centroids.data[i].coords);
     }
     free(centroids.data);
