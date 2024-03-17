@@ -32,7 +32,7 @@ void usage(char *prog_name) {
     fprintf(stderr, "    -d distance (manhattan by default): can be either \"euclidean\" or \"manhattan\". Chooses the distance formula to use by the algorithm to compute the distance between the points\n");
 }
 
-int parse_args(args_t *args, int argc, char *argv[]) {
+int parse_args( args_t *args, int argc, char *argv[]) {
     memset(args, 0, sizeof(args_t));    // set everything to 0 by default
     // the default values are the following, they will be changed depending on the arguments given to the program
     args->k = 2;
@@ -117,11 +117,30 @@ int main(int argc, char *argv[]) {
     fprintf(stderr, "\tquiet mode: %s\n", program_arguments.quiet ? "enabled" : "disabled");
     fprintf(stderr, "\tsquared distance function: %s\n", program_arguments.squared_distance_func == squared_manhattan_distance ? "manhattan" : "euclidean");
 
+    /*k = program_arguments.k;
+    quiet =  program_arguments.quiet;
+    n_threads = program_arguments.n_threads;
+    fp = program_arguments.output_stream;
+    squared_distance_func = program_arguments.squared_distance_func;
+    p = program_arguments.n_first_initialization_points;
     
-    
+    int error_dim=  get_dimension_from_binary_file(program_arguments.input_stream);
+    int error_nbrvect= get_nbr_vectors_from_binary_file(program_arguments.input_stream);
+    int error_pointinput= point_input(program_arguments.input_stream);
+
+    if (error_dim == 0 | error_nbrvect==0 | error_pointinput==0){
+        if (quiet){
+            fprintf(fp, "initialisation de centroids, distortion\n");
+        }
+        else{
+            fprintf(fp,"initialisation de centroids, distortion, clusters\n");
+        }
+    }*/
+
     // Définition de la fonction distance que l'on utilise 
-    squared_distance_func_t DISTANCE_SQUARED;if (program_arguments ->squared_distance_func == squared_manhattan_distance) {
-    DISTANCE_SQUARED = squared_manhattan_distance;
+    squared_distance_func_t DISTANCE_SQUARED;
+    if (program_arguments ->squared_distance_func == squared_manhattan_distance) {
+        DISTANCE_SQUARED = squared_manhattan_distance;
     } 
     else {
         DISTANCE_SQUARED = squared_euclidean_distance
@@ -129,16 +148,16 @@ int main(int argc, char *argv[]) {
     
     // lecture des dimensions des points dans le fichier binaire
 
-    uint32_t dim = get_dimension_from_binary_file(file);
+    uint32_t dim = get_dimension_from_binary_file(program_arguments.input_stream); //file);
     if (dim == 0) {
         printf("Erreur lors de la récupération de la dimension.\n");
-        fclose(file);
+        fclose(program_arguments.input_stream);//file);
         return 1; // Ou une autre valeur d'erreur
     }
-    uint32_t nbr_vectors = get_nbr_vectors_from_binary_file(file);
+    uint32_t nbr_vectors = get_nbr_vectors_from_binary_file(program_arguments.input_stream);//file);
     if (nbr_vectors == 0) {
         printf("Erreur lors de la récupération du nombre de vecteurs.\n");
-        fclose(file);
+        fclose(program_arguments.input_stream);//file);
         return 1;
     }
 
@@ -146,22 +165,6 @@ int main(int argc, char *argv[]) {
 
     int64_t K = (int64_t) program_arguments->k; 
     int64_t picking_limit = (int64_t) program_arguments->n_first_initialization_points;
-
-
-
-#--
-    uint64_t distortion(cluster_t *centroids, cluster_t **clusters, uint32_t num_clusters) {
-        uint64_t current_sum = 0;
-        for (uint32_t k = 0; k < num_clusters; ++k) {
-            for (uint64_t j = 0; j < clusters[k]->surrounding; ++j) {
-                current_sum += DISTANCE_SQUARED;
-            }
-        }
-        return current_sum;
-    }
-#--
-
-
 
     // TODO: parse the binary input file, compute the k-means solutions and write the output in a csv
 
