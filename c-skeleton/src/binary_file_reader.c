@@ -82,7 +82,13 @@ point_t **point_input(FILE *file) {
         point_t *point = malloc(sizeof(point_t));
         if (point == NULL) {
             perror("Erreur d'allocation mémoire pour le vecteur");
-            free_vectors(vectors, i);
+
+            //free_vectors(vectors, i);
+            for (uint64_t j = 0; j < i; j++) {
+                free(vectors[j]->coords);
+                free(vectors[j]);
+            }
+            free(vectors);
             return NULL;
         }
 
@@ -94,23 +100,46 @@ point_t **point_input(FILE *file) {
         if (point->coords == NULL){
             perror("Erreur d'allocation mémoire pour les coordonnées du vecteur");
             free(point);
-            free_vectors(vectors, i);
+            //free_vectors(vectors, i);
+            for (uint64_t j = 0; j < i; j++) {
+                free(vectors[j]->coords);
+                free(vectors[j]);
+            }
+            free(vectors);
+            return NULL;
+        }
+        
+        if (fread(point->coords, sizeof(int64_t), dim, file) != dim) {
+            perror("Erreur lors de la lecture des coordonnées du vecteur");
+            free(point->coords);
+            free(point);
+            for (uint64_t j = 0; j < i; j++) {
+                free(vectors[j]->coords);
+                free(vectors[j]);
+            }
+            free(vectors);
             return NULL;
         }
 
-        fread(point->coords, sizeof(int64_t), dim, file); //cord_p
+        for (uint32_t j = 0; j < dim; j++) {
+            point->coords[j] = be64toh(point->coords[j]);
+        }
+
+        vectors[i] = point;
+
+        /*fread(point->coords, sizeof(int64_t), dim, file); //cord_p
         for(uint32_t j = 0; j<  dim; j++){
             //cord_p[j] = be64toh(cord_p[j]);
             point->coords[j] = be64toh(point->coords[j]);  
 
         }
         //point->coords = cord_p;
-        vectors[i] = point;
+        vectors[i] = point;*/
     }
     return vectors;
 }
 
-void free_vectors(point_t **vectors, uint64_t nbr_vectors) {
+/*void free_vectors(point_t **vectors, uint64_t nbr_vectors) {
     if (vectors == NULL) return;
 
     for (uint64_t i = 0; i < nbr_vectors; i++) {
@@ -121,4 +150,4 @@ void free_vectors(point_t **vectors, uint64_t nbr_vectors) {
     }
 
     free(vectors);
-}
+}*/

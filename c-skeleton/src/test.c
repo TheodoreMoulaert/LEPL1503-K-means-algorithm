@@ -49,7 +49,7 @@ void test_get_nbr_vectors_from_binary_file() {
 }
 
 void test_point_input() {
-    FILE *file = fopen("../python/exemple.bin", "r");
+    FILE *file = fopen("../python/exemple.bin", "rb");
     if (!file) {
         perror("Erreur lors de l'ouverture du fichier binaire");
         exit(EXIT_FAILURE);
