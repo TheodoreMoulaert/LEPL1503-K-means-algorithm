@@ -50,21 +50,28 @@ uint64_t get_nbr_vectors_from_binary_file(FILE *file) {
     
     return nbr_vectors;
 }
+
 point_t **point_input(FILE *file) {
     if (!file) {
         perror("Le pointeur de fichier est nul");
         return NULL;
     }
-
-    // Obtention de la dimension des points
-    uint32_t dim = get_dimension_from_binary_file(file);
-    if (dim <= 0) {
-        perror("Erreur lors de l'obtention de la dimension des points");
-        return NULL;
-    }
-
-    // Obtention du nombre de vecteurs
-    uint64_t nbr_vectors = get_nbr_vectors_from_binary_file(file);
+    uint32_t dimBE; // en format Big Endian
+	uint64_t nbBE; // en format Big Endian
+	if(fread(&dimBE, sizeof(uint32_t), 1, file) == 0)
+	{
+		fprintf(stderr, "Pas de dimension de point spécifiée.");
+		return NULL;
+	}; 
+	if(fread(&nbBE, sizeof(uint64_t), 1, file) == 0)
+	{
+		fprintf(stderr, "pas de nombre de points spécifié."); 
+		return NULL;
+	}
+	uint32_t dim = be32toh(dimBE);
+	uint64_t nbr_vectors = be64toh(nbBE);
+	
+    printf("Nombre de vecteurs dans le fichier binaire : %lu\n", nbr_vectors);
     if (nbr_vectors <= 0) {
         perror("Erreur lors de l'obtention du nombre de vecteurs");
         return NULL;
@@ -111,7 +118,7 @@ point_t **point_input(FILE *file) {
 
     return vectors;
 }
-    
+   
 void free_vectors(point_t **vectors, uint64_t nbr_vectors) {
     if (vectors == NULL) return;
 
