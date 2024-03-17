@@ -7,7 +7,7 @@
 #include "../headers/cluster.h"
 #include "../headers/update_centroids.h"
 
-uint64_t update_centroids( cluster_t* clusters, uint32_t K){
+uint64_t update_centroids( cluster_t* clusters){
     cluster_t centroids;
     //uint32_t K = (uint32_t)strlen(*clusters);
     centroids.data = (point_t*)malloc(K*sizeof(point_t));
@@ -20,7 +20,8 @@ uint64_t update_centroids( cluster_t* clusters, uint32_t K){
     }
 
     for ( uint32_t k=0;k < K;k++){
-        uint32_t clusters_length = (uint32_t)strlen(*clusters[k].data); // comment avoir la taille ????
+        //uint32_t clusters_length = (uint32_t)strlen(*clusters[k].data); // comment avoir la taille ????
+        uint64_t clusters_length = clusters[k].size;
         uint32_t dimension = clusters[k].data->dim;
         int64_t* vector_sum = (int64_t *)calloc(dimension,sizeof(int64_t)); //un tuple
         
