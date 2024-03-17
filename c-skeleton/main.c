@@ -6,7 +6,8 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <inttypes.h>
-#include "headers/distance.h"
+#include "../headers/distance.h"
+
 
 
 typedef struct {
