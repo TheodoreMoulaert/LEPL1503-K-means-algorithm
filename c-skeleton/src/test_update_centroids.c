@@ -4,6 +4,8 @@
 #include "../headers/cluster.h" 
 #include "../headers/point.h" 
 #include "../headers/update_centroids.h" 
+#include "../headers/main.h"
+
 // Définition des constantes K et dimension
 #define K 10
 
@@ -12,7 +14,7 @@
 // Fonction pour afficher les données d'un cluster
 void print_cluster(cluster_t cluster) {
     printf("Cluster:\n");
-    for (int i = 0; i < K; i++) {
+    for (int i = 0; i < k; i++) {
         printf("\tData %d: ", i);
         for (uint32_t j = 0; j < cluster.data[i].dim; j++) {
             printf("%ld ", cluster.data[i].coords[j]);

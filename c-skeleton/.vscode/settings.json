@@ -2,6 +2,8 @@
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
         "point.h": "c",
-        "cluster.h": "c"
+        "cluster.h": "c",
+        "update_centroids.h": "c",
+        "string.h": "c"
     }
 }
