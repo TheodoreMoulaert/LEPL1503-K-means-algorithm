@@ -28,6 +28,7 @@ uint64_t update_centroids( cluster_t* clusters){
         
         if (vector_sum == NULL){
             free(vector_sum);
+            free(centroids.data);
             for (uint32_t i =0;i<j;i++){
                 free(clusters[i].data->coords);
             }
