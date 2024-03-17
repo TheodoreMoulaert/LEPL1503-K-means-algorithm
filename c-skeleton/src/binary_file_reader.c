@@ -123,7 +123,7 @@ void free_vectors(point_t **vectors, uint64_t nbr_vectors) {
     if (vectors == NULL) return;
 
     for (uint64_t i = 0; i < nbr_vectors; i++) {
-        if (vectors[i] != NULL){
+        if (vectors[i] != NULL) {
             free(vectors[i]->coords);
             free(vectors[i]);
         }
@@ -131,3 +131,4 @@ void free_vectors(point_t **vectors, uint64_t nbr_vectors) {
 
     free(vectors);
 }
+
