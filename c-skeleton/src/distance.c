@@ -39,7 +39,7 @@ int64_t squared_euclidean_distance(const point_t *p1, const point_t *p2) {
     result : la distance euclidienne au carré entre les deux points
     */
 
-    int64_t result; 
+    int64_t result = 0; 
     uint32_t dim = p1->dim; 
 
     for (uint32_t i = 0; i< dim; i++){
