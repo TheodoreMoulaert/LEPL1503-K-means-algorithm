@@ -3,8 +3,6 @@
 #include "../headers/point.h" // Inclure si nécessaire
 #include <stdlib.h> // Pour llabs()
 
-int64_t dimension; 
-
 
 int64_t squared_manhattan_distance(const point_t *p1, const point_t *p2) {
     /*
@@ -19,14 +17,12 @@ int64_t squared_manhattan_distance(const point_t *p1, const point_t *p2) {
     result : la distance de Manhattan au carré entre les deux points
     */
     
-    
-    int64_t result; 
+    int64_t result = 0; 
     uint32_t dim = p1->dim; 
-    for(uint32_t i; i< dim; i++){
-        result = result+ llabs(p2->coord[i] - p1->coord[i] ); 
-        
+    for(uint32_t i = 0; i < dim; i++){
+        result += llabs(p2->coords[i] - p1->coords[i]); 
     }
-    return result*result;
+    return result * result;
 }
 
 
@@ -47,7 +43,7 @@ int64_t squared_euclidean_distance(const point_t *p1, const point_t *p2) {
     uint32_t dim = p1->dim; 
 
     for (uint32_t i = 0; i< dim; i++){
-        int64_t diff = p1->coord[i]- p2->coord[i]; 
+        int64_t diff = p1->coords[i]- p2->coords[i]; 
         result += diff*diff;
     }
     return result;
