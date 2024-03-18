@@ -2,6 +2,7 @@
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
         "binary_file_reader.h": "c",
-        "assign vector to centro ": "c"
+        "assign vector to centro ": "c",
+        "vector.h": "c"
     }
 }
