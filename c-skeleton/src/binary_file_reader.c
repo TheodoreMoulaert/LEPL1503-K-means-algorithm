@@ -6,6 +6,9 @@
 #include <stdio.h>
 #include <netinet/in.h> // Pour be32toh
 
+
+
+
 uint32_t get_dimension_from_binary_file(FILE *file) {
     if (!file) {
         perror("Le pointeur de fichier est nul");
