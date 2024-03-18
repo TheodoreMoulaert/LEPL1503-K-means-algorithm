@@ -22,12 +22,13 @@ clean:
 
 tests: kmeans
 	@echo Start tests:
-	./tests 
+	./tests/*.o 
 # pas certaine de la derniere ligne 
 
 tests_memoire: kmeans
 	@echo Start tests with Valgrind:
 	valgrind --leak-check=full ./tests 
+#pas certaine que la commande soit finie  
 
 # a .PHONY target forces make to execute the command even if the target already exists
 .PHONY: clean tests
