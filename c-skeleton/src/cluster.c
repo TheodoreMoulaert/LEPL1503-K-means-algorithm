@@ -5,7 +5,6 @@
 
 typedef struct {
     point_t center;
-    uint64_t surrounding;
     point_t *data;
     uint64_t size;
 
