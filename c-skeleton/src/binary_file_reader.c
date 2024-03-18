@@ -45,9 +45,6 @@ uint64_t get_nbr_vectors_from_binary_file(FILE *file) {
     return nbr_vectors;
 }
 
-
-
-
 point_t **point_input(FILE *file) {
     if (!file) {
         perror("Le pointeur de fichier est nul");
