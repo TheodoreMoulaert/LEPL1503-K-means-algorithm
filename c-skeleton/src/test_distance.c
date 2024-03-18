@@ -8,14 +8,12 @@
 #include <errno.h>
 #include <inttypes.h>
 
-#include "../headers/binary_file_reader.h" // Inclure le bon en-tête
+
 #include "../headers/distance.h" // Inclure si nécessaire
 #include "../headers/point.h" // Inclure si nécessaire
 
 void assert_equal_int64();
 point_t* create_point(); 
-
-
 
 // Fonction de comparaison pour les tests
 void assert_equal_int64(int64_t expected, int64_t actual, const char *message) {
