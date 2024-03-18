@@ -208,6 +208,7 @@ void k_means(Vector vectors[], int dimension, int nbr_vectors, int K, DistanceTy
     }
 }
 
+
 int main(int argc, char *argv[]) {
     FILE *input_file, *output_file;
     DistanceType distance;
