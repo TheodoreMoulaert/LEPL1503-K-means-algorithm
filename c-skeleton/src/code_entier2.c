@@ -140,8 +140,11 @@ void update_centroids(Cluster clusters[], int centroids[][MAX_DIMENSION], int di
     }
 }
 
+
 bool assign_vectors_to_centroids(Cluster clusters[], int centroids[][MAX_DIMENSION], int dimension, int K, DistanceType distance_type) {
     bool unchanged = true;
+    int assigned_indices[MAX_CLUSTERS][MAX_VECTORS] = {0}; // Tableau temporaire pour stocker les indices des vecteurs assignés
+
     for (int k = 0; k < K; k++) {
         for (int i = 0; i < clusters[k].size; i++) {
             int closest_centroid_idx = -1;
@@ -161,11 +164,21 @@ bool assign_vectors_to_centroids(Cluster clusters[], int centroids[][MAX_DIMENSI
             if (closest_centroid_idx != k) {
                 unchanged = false;
             }
-            clusters[closest_centroid_idx].vectors[clusters[closest_centroid_idx].size++] = clusters[k].vectors[i];
+            // Stocker l'index du vecteur assigné dans le tableau temporaire
+            assigned_indices[closest_centroid_idx][clusters[closest_centroid_idx].size++] = i;
         }
     }
+
+    // Réassigner les vecteurs aux clusters en fonction des indices stockés
+    for (int k = 0; k < K; k++) {
+        for (int i = 0; i < clusters[k].size; i++) {
+            clusters[k].vectors[i] = clusters[k].vectors[assigned_indices[k][i]];
+        }
+    }
+
     return unchanged;
 }
+
 
 
 void k_means(Vector vectors[], int dimension, int nbr_vectors, int K, DistanceType distance_type, int picking_limit, bool quiet_mode, FILE *output_file) {
@@ -208,7 +221,6 @@ void k_means(Vector vectors[], int dimension, int nbr_vectors, int K, DistanceTy
     }
 }
 
-
 int main(int argc, char *argv[]) {
     FILE *input_file, *output_file;
     DistanceType distance;
@@ -226,3 +238,4 @@ int main(int argc, char *argv[]) {
     }
     return 0;
 }
+  
