@@ -110,10 +110,7 @@ int main() {
     // Ajout des tests à la suite
     CU_add_test(suite, "Test_dim", test_get_dimension_from_binary_file);
     CU_add_test(suite, "Test_nbr_vectors", test_get_nbr_vectors_from_binary_file);
-    CU_add_test(suite, "Test_point_input", test_point_input);
-   
-
-  
+    CU_add_test(suite, "Test_point_input", test_point_input);  
 
     // Exécution des tests
     CU_basic_run_tests();
