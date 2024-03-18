@@ -20,7 +20,7 @@ uint64_t update_centroids( cluster_t* clusters){
         return -1;
     }
 
-    for ( uint32_t j=0;j < k;j++){
+    for ( uint32_t j=0;j < k;j++ ){
         //uint32_t clusters_length = (uint32_t)strlen(*clusters[k].data); // comment avoir la taille ????
         uint64_t clusters_length = clusters[j].size;
         uint32_t dimension = clusters[j].data->dim;

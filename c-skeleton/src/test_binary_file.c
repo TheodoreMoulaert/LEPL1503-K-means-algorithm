@@ -16,7 +16,7 @@
 void test_get_dimension_from_binary_file();
 void test_get_nbr_vectors_from_binary_file(); 
 void test_point_input(); 
-
+int get_size_of_double_pointer(point_t **ptr);
 
 
 
@@ -51,7 +51,6 @@ void test_get_nbr_vectors_from_binary_file() {
 }
 
 
-
 void test_point_input() {
     FILE *file = fopen("../python/exemple.bin", "rb");
     if (!file) {
@@ -72,7 +71,9 @@ void test_point_input() {
     }
 
     // Impression des coordonnées de chaque vecteur
-    for (int i = 0; vectors[i] != NULL; i++) {
+    int i = 0;
+    printf("Nombre de vecteurs dans le fichier binaire : %u\n", get_size_of_double_pointer(vectors));
+    while (i < get_size_of_double_pointer(vectors)-(get_size_of_double_pointer(vectors)-vectors[0]->nbr_vector)) {
         printf("Vecteur %d:\n", i + 1);
         printf("Dimensions: %u\n", vectors[i]->dim);
         printf("Coordonnées: ");
@@ -84,12 +85,20 @@ void test_point_input() {
         // Libération de la mémoire allouée pour le vecteur actuel
         free(vectors[i]->coords);
         free(vectors[i]);
+        i++;
     }
 
     // Libération de la mémoire allouée pour le tableau de vecteurs
     free(vectors);
 }
 
+int get_size_of_double_pointer(point_t **ptr) {
+    int count = 0;
+    while (ptr[count] != NULL) {
+        count++;
+    }
+    return count;
+}
 
 // Fonction principale pour exécuter les tests
 int main() {

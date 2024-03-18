@@ -24,4 +24,5 @@ point_t** point_input(FILE* file);
 
 void free_vectors(point_t **vectors, uint64_t nbr_vectors);
 
+
 #endif // BINARY_FILE_READER_H
