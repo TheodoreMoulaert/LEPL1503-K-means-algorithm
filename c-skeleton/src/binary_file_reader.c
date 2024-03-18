@@ -112,7 +112,6 @@ point_t **point_input(FILE *file) {
             point->coords[j] = be64toh(point->coords[j]);
         }
 
-
         vectors[i] = point;
     
     }
