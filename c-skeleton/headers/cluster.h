@@ -1,4 +1,3 @@
-
 #ifndef CLUSTER_H
 #define CLUSTER_H
 
@@ -8,7 +7,7 @@ cluster est défini par cluster_t** et centroids est défini par cluster_t*
 */ 
 typedef struct {
     point_t center;
-    uint64_t surrounding;
+    #uint64_t surrounding; #=size
     point_t *data;
     uint64_t size;
 
