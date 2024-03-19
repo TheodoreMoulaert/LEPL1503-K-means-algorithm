@@ -31,23 +31,23 @@ void test_get_dimension_from_binary_file() {
     uint32_t dim = get_dimension_from_binary_file(file);
     fclose(file);
 
-    printf("Dimension lue depuis le fichier binaire : %u\n", dim);
+    //printf("Dimension lue depuis le fichier binaire : %u\n", dim);
+    CU_ASSERT_EQUAL(dim, 2);
 }
 
 void test_get_nbr_vectors_from_binary_file() {
-    // Ouverture du fichier binaire
+   
     FILE *file = fopen("../python/exemple.bin", "rb");
     if (!file) {
         perror("Erreur lors de l'ouverture du fichier binaire");
         exit(EXIT_FAILURE);
     }
 
-    // Lecture du nombre de vecteurs à partir du fichier
     uint64_t nbr_vectors = get_nbr_vectors_from_binary_file(file);
     fclose(file);
-
-    // Affichage du nombre de vecteurs
-    printf("Nombre de vecteurs dans le fichier binaire : %lu\n", nbr_vectors);
+ 
+    //printf("Nombre de vecteurs dans le fichier binaire : %lu\n", nbr_vectors);
+    CU_ASSERT_EQUAL(nbr_vectors, 7);
 }
 
 void test_point_input1() {
