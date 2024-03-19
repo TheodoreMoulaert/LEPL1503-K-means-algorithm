@@ -161,11 +161,6 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-
-
-    int64_t K = (int64_t) program_arguments->k; 
-    int64_t picking_limit = (int64_t) program_arguments->n_first_initialization_points;
-
     // TODO: parse the binary input file, compute the k-means solutions and write the output in a csv
 
 
