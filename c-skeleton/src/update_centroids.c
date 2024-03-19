@@ -8,6 +8,7 @@
 #include "../headers/update_centroids.h"
 #include "../headers/main.h"
 
+
 uint64_t update_centroids( cluster_t* clusters){
     cluster_t centroids;
     //uint32_t K = (uint32_t)strlen(*clusters);
