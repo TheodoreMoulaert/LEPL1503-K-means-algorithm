@@ -35,7 +35,7 @@ void test_point_input1() {
     }
 
     // Obtention de la taille du tableau
-    int vector_count =vectors[0]->nbr_vector; 
+    int vector_count = vectors[0]->nbr_vector;
 
     // Impression des coordonnées de chaque vecteur
     for (int i = 0; i < vector_count; i++) {
@@ -47,12 +47,14 @@ void test_point_input1() {
         }
         printf("\n");
 
-        // Libération de la mémoire allouée pour le vecteur actuel
+        // Libération de la mémoire allouée pour les coordonnées du vecteur
         free(vectors[i]->coords);
+
+        // Libération de la mémoire allouée pour la structure point_t du vecteur
         free(vectors[i]);
     }
 
-    // Libération de la mémoire allouée pour le tableau de vecteurs
+    // Libération de la mémoire allouée pour le tableau de pointeurs de vecteur
     free(vectors);
 }
 
