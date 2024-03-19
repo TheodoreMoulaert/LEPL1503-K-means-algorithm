@@ -30,20 +30,20 @@ uint64_t get_nbr_vectors_from_binary_file(FILE *file) {
         perror("Le pointeur de fichier est nul");
         return 0;
     }
-    uint32_t dimBE; // en format Big Endian
-	uint64_t nbBE; // en format Big Endian
-	if(fread(&dimBE, sizeof(uint32_t), 1, file) == 0)
+    uint32_t dim_endian; // en format Big Endian
+	uint64_t nb_endian; // en format Big Endian
+	if(fread(&dim_endian, sizeof(uint32_t), 1, file) == 0)
 	{
 		fprintf(stderr, "Pas de dimension de point spécifiée.");
 		return 0;
 	}; 
-	if(fread(&nbBE, sizeof(uint64_t), 1, file) == 0)
+	if(fread(&nb_endian, sizeof(uint64_t), 1, file) == 0)
 	{
 		fprintf(stderr, "pas de nombre de points spécifié."); 
 		return 0;
 	}
-	uint32_t dim = be32toh(dimBE);
-	uint64_t nbr_vectors = be64toh(nbBE);
+	uint32_t dim = be32toh(dim_endian);
+	uint64_t nbr_vectors = be64toh(nb_endian);
     
     return nbr_vectors;
 }
@@ -53,20 +53,20 @@ point_t **point_input(FILE *file) {
         perror("Le pointeur de fichier est nul");
         return NULL;
     }
-    uint32_t dimBE; // en format Big Endian
-	uint64_t nbBE; // en format Big Endian
-	if(fread(&dimBE, sizeof(uint32_t), 1, file) == 0)
+    uint32_t dim_endian; // en format Big Endian
+	uint64_t nb_endian; // en format Big Endian
+	if(fread(&dim_endian, sizeof(uint32_t), 1, file) == 0)
 	{
 		fprintf(stderr, "Pas de dimension de point spécifiée.");
 		return NULL;
 	}; 
-	if(fread(&nbBE, sizeof(uint64_t), 1, file) == 0)
+	if(fread(&nb_endian, sizeof(uint64_t), 1, file) == 0)
 	{
 		fprintf(stderr, "pas de nombre de points spécifié."); 
 		return NULL;
 	}
-	uint32_t dim = be32toh(dimBE);
-	uint64_t nbr_vectors = be64toh(nbBE);
+	uint32_t dim = be32toh(dim_endian);
+	uint64_t nbr_vectors = be64toh(nb_endian);
     printf("Nombre de vecteurs dans le fichier binaire in : %lu\n", nbr_vectors);
 
 	
@@ -99,7 +99,7 @@ point_t **point_input(FILE *file) {
             free_vectors(vectors, i+1);
             return NULL;
         }
-        
+
         if (fread(point->coords, sizeof(int64_t), dim, file) != dim) {
             perror("Erreur lors de la lecture des coordonnées du vecteur");
             free(point->coords);
