@@ -11,12 +11,16 @@
 #include "../headers/binary_file_reader.h" // Inclure le bon en-tête
 #include "../headers/distance.h" // Inclure si nécessaire
 #include "../headers/point.h" // Inclure si nécessaire
+#include "../headers/binary_file_reader.h" 
+#include "../headers/point.h"
 
 // Déclaration de la fonction test_point_input
 void test_get_dimension_from_binary_file();
 void test_get_nbr_vectors_from_binary_file(); 
-void test_point_input(); 
-int get_size_of_double_pointer(point_t **ptr);
+void test_point_input1(); 
+void test_point_input2();  
+void test_point_input3(); 
+
 
 
 
@@ -31,28 +35,67 @@ void test_get_dimension_from_binary_file() {
     uint32_t dim = get_dimension_from_binary_file(file);
     fclose(file);
 
-    printf("Dimension lue depuis le fichier binaire : %u\n", dim);
+    //printf("Dimension lue depuis le fichier binaire : %u\n", dim);
+    CU_ASSERT_EQUAL(dim, 2);
 }
 
 void test_get_nbr_vectors_from_binary_file() {
-    // Ouverture du fichier binaire
+ 
     FILE *file = fopen("../python/exemple.bin", "rb");
     if (!file) {
         perror("Erreur lors de l'ouverture du fichier binaire");
         exit(EXIT_FAILURE);
     }
 
-    // Lecture du nombre de vecteurs à partir du fichier
+   
     uint64_t nbr_vectors = get_nbr_vectors_from_binary_file(file);
     fclose(file);
 
-    // Affichage du nombre de vecteurs
-    printf("Nombre de vecteurs dans le fichier binaire : %lu\n", nbr_vectors);
+    //printf("Nombre de vecteurs dans le fichier binaire : %lu\n", nbr_vectors);
+    CU_ASSERT_EQUAL(nbr_vectors, 7);
 }
 
-
-void test_point_input() {
+void test_point_input1() {
     FILE *file = fopen("../python/exemple.bin", "rb");
+    if (!file) {
+        perror("Erreur lors de l'ouverture du fichier binaire");
+        exit(EXIT_FAILURE);
+    }
+
+   
+    point_t **vectors = point_input(file);
+
+   
+    fclose(file);
+
+   
+    if (vectors == NULL) {
+        fprintf(stderr, "La fonction point_input a renvoyé NULL\n");
+        return;
+    }
+
+    int vector_count =vectors[0]->nbr_vector; 
+
+    
+    for (int i = 0; i < vector_count; i++) {
+        printf("Vecteur %d:\n", i + 1);
+        printf("Dimensions: %u\n", vectors[i]->dim);
+        printf("Coordonnées: ");
+        for (int j = 0; j < vectors[i]->dim; j++) {
+            printf("%" PRId64 " ", vectors[i]->coords[j]);
+        }
+        printf("\n");
+
+        
+        free(vectors[i]->coords);
+        free(vectors[i]);
+    }
+
+    
+    free(vectors);
+}
+void test_point_input2() {
+    FILE *file = fopen("../python/exemple3.bin", "rb");
     if (!file) {
         perror("Erreur lors de l'ouverture du fichier binaire");
         exit(EXIT_FAILURE);
@@ -70,10 +113,11 @@ void test_point_input() {
         return;
     }
 
+    // Obtention de la taille du tableau
+    int vector_count =vectors[0]->nbr_vector; 
+
     // Impression des coordonnées de chaque vecteur
-    int i = 0;
-    printf("Nombre de vecteurs dans le fichier binaire : %u\n", get_size_of_double_pointer(vectors));
-    while (i < get_size_of_double_pointer(vectors)-(get_size_of_double_pointer(vectors)-vectors[0]->nbr_vector)) {
+    for (int i = 0; i < vector_count; i++) {
         printf("Vecteur %d:\n", i + 1);
         printf("Dimensions: %u\n", vectors[i]->dim);
         printf("Coordonnées: ");
@@ -85,37 +129,73 @@ void test_point_input() {
         // Libération de la mémoire allouée pour le vecteur actuel
         free(vectors[i]->coords);
         free(vectors[i]);
-        i++;
     }
 
     // Libération de la mémoire allouée pour le tableau de vecteurs
     free(vectors);
 }
 
-int get_size_of_double_pointer(point_t **ptr) {
-    int count = 0;
-    while (ptr[count] != NULL) {
-        count++;
+void test_point_input3() {
+    FILE *file = fopen("../python/exemple4.bin", "rb");
+    if (!file) {
+        perror("Erreur lors de l'ouverture du fichier binaire");
+        exit(EXIT_FAILURE);
     }
-    return count;
+
+    // Appel de la fonction point_input pour obtenir les vecteurs à partir du fichier
+    point_t **vectors = point_input(file);
+
+    // Fermeture du fichier après utilisation
+    fclose(file);
+
+    // Vérification si la fonction a renvoyé un résultat valide
+    if (vectors == NULL) {
+        fprintf(stderr, "La fonction point_input a renvoyé NULL\n");
+        return;
+    }
+
+    // Obtention de la taille du tableau
+    int vector_count =vectors[0]->nbr_vector; 
+
+    // Impression des coordonnées de chaque vecteur
+    for (int i = 0; i < vector_count; i++) {
+        printf("Vecteur %d:\n", i + 1);
+        printf("Dimensions: %u\n", vectors[i]->dim);
+        printf("Coordonnées: ");
+        for (int j = 0; j < vectors[i]->dim; j++) {
+            printf("%" PRId64 " ", vectors[i]->coords[j]);
+        }
+        printf("\n");
+
+        // Libération de la mémoire allouée pour le vecteur actuel
+        free(vectors[i]->coords);
+        free(vectors[i]);
+    }
+
+    // Libération de la mémoire allouée pour le tableau de vecteurs
+    free(vectors);
 }
+
 
 // Fonction principale pour exécuter les tests
 int main() {
-    CU_initialize_registry(); // Initialisation du registre de tests
+    CU_initialize_registry(); 
 
-    // Création d'une suite de tests
+    
     CU_pSuite suite = CU_add_suite("Suite_de_tests", NULL, NULL);
 
-    // Ajout des tests à la suite
+   
     CU_add_test(suite, "Test_dim", test_get_dimension_from_binary_file);
     CU_add_test(suite, "Test_nbr_vectors", test_get_nbr_vectors_from_binary_file);
-    CU_add_test(suite, "Test_point_input", test_point_input);  
+    CU_add_test(suite, "Test_point_input1", test_point_input1);  
+    CU_add_test(suite, "Test_point_input2", test_point_input2);  
+    CU_add_test(suite, "Test_point_input3", test_point_input3);  
 
-    // Exécution des tests
+
+    
     CU_basic_run_tests();
 
-    // Nettoyage du registre de tests
+ 
     CU_cleanup_registry();
 
     return CU_get_error();
