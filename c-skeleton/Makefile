@@ -10,17 +10,16 @@ kmeans: main.c src/distance.o src/update_centroids.o src/assign_vector_to_centro
 
 %.o: %.c
 # if for example you want to compute example.c this will create an object file called example.o in the same directory as example.c. Don't forget to clean it in your "make clean"
-	@echo Compilation du kmeans                  
+	@echo Compilation de kmeans                  
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ -c $<
-	@echo
-	@echo Compilation des tests
-	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o tests_file tests_file.c src/*.o $(LIBS)
+#@echo
+#@echo Compilation des tests
+#$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o tests_file tests_file.c src/*.o $(LIBS)
 
 clean:
 	rm -f src/*.o
 	rm -f kmeans
-	rm -f tests_file/*.o 
- #ATTENTION il faut créer un répertoire tests pour mettre les tests (le faire quand personnes d'autres travaille sur le projet )
+	rm -f tests_file
 
 tests: kmeans
 	@echo Excécution des tests
@@ -28,12 +27,12 @@ tests: kmeans
 	@echo Excécution des tests avec Valgrind
 	valgrind --leak-check=full ./kmeans
 
-#pas certaine des 2 dernières lignes
+#pas certaine de la dernière ligne
 
 tests_memoire: tests_file
-	@echo Tests:
-	./tests_file/*.o
-	@echo
+#@echo Tests:
+#./tests_file
+#@echo
 	@echo Tests avec Valgrind:
 	valgrind --leak-check=full ./tests_file 
 	make clean
