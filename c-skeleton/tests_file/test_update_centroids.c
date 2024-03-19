@@ -15,7 +15,7 @@
 #define K 3
 #define DIMENSION 2
 
-// Fonction de test
+// Fonction de  test
 void test_update_centroids() {
     // Création des clusters pour le test
     cluster_t clusters[K];
