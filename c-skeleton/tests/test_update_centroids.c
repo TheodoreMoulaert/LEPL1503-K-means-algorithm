@@ -11,12 +11,13 @@
 
 
 // Définition des constantes pour les tests
+//est ce que je peux faire ça ? ou je dois initialiser ca comment sinon
 #define K 3
 #define DIMENSION 2
 
 // Fonction de test
 void test_update_centroids() {
-    // Création des clusters fictifs pour le test
+    // Création des clusters pour le test
     cluster_t clusters[K];
     for (int i = 0; i < K; i++) {
         clusters[i].size = 3; // Taille de chaque cluster
@@ -27,7 +28,7 @@ void test_update_centroids() {
             return;
         }
         for (int j = 0; j < 3; j++) {
-            clusters[i].data[j].dim = DIMENSION;
+            clusters[i].data[j].dim =DIMENSION;
             clusters[i].data[j].coords = (int64_t*)malloc(DIMENSION * sizeof(int64_t));
             if (clusters[i].data[j].coords == NULL) {
                 // Gestion de l'erreur : échec de l'allocation de mémoire pour les coordonnées des points
