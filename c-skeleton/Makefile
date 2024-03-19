@@ -5,29 +5,33 @@ INCLUDE_HEADERS_DIRECTORY= -Iheaders
 
 #ordre du fichier python, à discuter
 kmeans: main.c src/distance.o src/update_centroids.o src/assign_vector_to_centro.o src/k_means.o src/distortion.o src/binary_file_reader.o    # add your other object files needed to compile your program here. !! The ordering is important !! if file_a.o depends on file_b.o, file_a.o must be placed BEFORE file_b.o in the list !
-	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)    #this will run the following command: gcc -Wall -Werror -g -o kmeans src/distance.o other_object_filespresent_above.o ... -lcunit -lpthread
+	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)  
+#this will run the following command: gcc -Wall -Werror -g -o kmeans src/distance.o other_object_filespresent_above.o ... -lcunit -lpthread
 
 %.o: %.c
-	@echo Compilation du kmeans                  # if for example you want to compute example.c this will create an object file called example.o in the same directory as example.c. Don't forget to clean it in your "make clean"
+# if for example you want to compute example.c this will create an object file called example.o in the same directory as example.c. Don't forget to clean it in your "make clean"
+	@echo Compilation du kmeans                  
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ -c $<
 	@echo
 	@echo Compilation des tests
-	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o tests tests.c src/*.o $(LIBS)
+	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o tests_file tests_file.c src/*.o $(LIBS)
 
 clean:
 	rm -f src/*.o
 	rm -f kmeans
-	rm -f tests/*.o 
+	rm -f tests_file/*.o 
  #ATTENTION il faut créer un répertoire tests pour mettre les tests (le faire quand personnes d'autres travaille sur le projet )
 
 tests: kmeans
-	@echo Start tests:
-	./tests/*.o 
-# pas certaine de la derniere ligne 
+	@echo Tests:
+	./tests_file/*.o
+	make clean 
+#pas certaine des 2 dernières lignes
 
-tests_memoire: kmeans
-	@echo Start tests with Valgrind:
-	valgrind --leak-check=full ./tests 
+tests_memoire: tests_file
+	@echo Tests avec Valgrind:
+	valgrind --leak-check=full ./tests_file
+	make clean  
 #pas certaine que la commande soit finie  
 
 # a .PHONY target forces make to execute the command even if the target already exists
