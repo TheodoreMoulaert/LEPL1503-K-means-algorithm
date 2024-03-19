@@ -5,6 +5,7 @@
         "cluster.h": "c",
         "update_centroids.h": "c",
         "string.h": "c",
-        "main.h": "c"
+        "main.h": "c",
+        "cstdlib": "c"
     }
 }
