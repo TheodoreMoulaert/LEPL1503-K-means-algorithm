@@ -4,7 +4,7 @@
 #include "../headers/point.h" 
 
 typedef struct {
-    point_t center;
+    //point_t center;
     point_t *data;
     uint64_t size;
 
