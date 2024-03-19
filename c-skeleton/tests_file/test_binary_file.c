@@ -50,7 +50,6 @@ void test_get_nbr_vectors_from_binary_file() {
     printf("Nombre de vecteurs dans le fichier binaire : %lu\n", nbr_vectors);
 }
 
-
 void test_point_input() {
     FILE *file = fopen("../python/exemple.bin", "rb");
     if (!file) {
@@ -70,10 +69,11 @@ void test_point_input() {
         return;
     }
 
+    // Obtention de la taille du tableau
+    int vector_count =vectors[0]->nbr_vector; 
+
     // Impression des coordonnées de chaque vecteur
-    int i = 0;
-    printf("Nombre de vecteurs dans le fichier binaire : %u\n", get_size_of_double_pointer(vectors));
-    while (i < get_size_of_double_pointer(vectors)-(get_size_of_double_pointer(vectors)-vectors[0]->nbr_vector)) {
+    for (int i = 0; i < vector_count; i++) {
         printf("Vecteur %d:\n", i + 1);
         printf("Dimensions: %u\n", vectors[i]->dim);
         printf("Coordonnées: ");
@@ -85,37 +85,28 @@ void test_point_input() {
         // Libération de la mémoire allouée pour le vecteur actuel
         free(vectors[i]->coords);
         free(vectors[i]);
-        i++;
     }
 
     // Libération de la mémoire allouée pour le tableau de vecteurs
     free(vectors);
 }
 
-int get_size_of_double_pointer(point_t **ptr) {
-    int count = 0;
-    while (ptr[count] != NULL) {
-        count++;
-    }
-    return count;
-}
-
 // Fonction principale pour exécuter les tests
 int main() {
-    CU_initialize_registry(); // Initialisation du registre de tests
+    CU_initialize_registry(); 
 
-    // Création d'une suite de tests
+    
     CU_pSuite suite = CU_add_suite("Suite_de_tests", NULL, NULL);
 
-    // Ajout des tests à la suite
+   
     CU_add_test(suite, "Test_dim", test_get_dimension_from_binary_file);
     CU_add_test(suite, "Test_nbr_vectors", test_get_nbr_vectors_from_binary_file);
     CU_add_test(suite, "Test_point_input", test_point_input);  
 
-    // Exécution des tests
+    
     CU_basic_run_tests();
 
-    // Nettoyage du registre de tests
+ 
     CU_cleanup_registry();
 
     return CU_get_error();
