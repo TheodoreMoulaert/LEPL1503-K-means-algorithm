@@ -99,7 +99,7 @@ point_t **point_input(FILE *file) {
             free_vectors(vectors, i+1);
             return NULL;
         }
-
+        
         if (fread(point->coords, sizeof(int64_t), dim, file) != dim) {
             perror("Erreur lors de la lecture des coordonnées du vecteur");
             free(point->coords);
