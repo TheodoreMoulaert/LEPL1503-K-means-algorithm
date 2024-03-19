@@ -118,6 +118,9 @@ void test_centro_fonction1(){
         printf("La mise à jour des centroids a échoué\n");
         return;
     }
+    else{
+        ("Les centroids ont été mis à jour !\n");
+    }
 
     // Vous pouvez effectuer d'autres validations ici si nécessaire
     // ...
