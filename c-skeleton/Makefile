@@ -23,16 +23,21 @@ clean:
  #ATTENTION il faut créer un répertoire tests pour mettre les tests (le faire quand personnes d'autres travaille sur le projet )
 
 tests: kmeans
-	@echo Tests:
-	./tests_file/*.o
-	make clean 
+	@echo Excécution des tests
+	./kmeans
+	@echo Excécution des tests avec Valgrind
+	valgrind --leak-check=full ./kmeans
+
 #pas certaine des 2 dernières lignes
 
 tests_memoire: tests_file
+	@echo Tests:
+	./tests_file/*.o
+	@echo
 	@echo Tests avec Valgrind:
-	valgrind --leak-check=full ./tests_file
-	make clean  
+	valgrind --leak-check=full ./tests_file 
+	make clean
 #pas certaine que la commande soit finie  
 
 # a .PHONY target forces make to execute the command even if the target already exists
-.PHONY: clean tests
+.PHONY: clean tests tests_memoire
