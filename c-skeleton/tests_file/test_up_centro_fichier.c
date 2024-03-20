@@ -40,7 +40,7 @@ void test_up_centro_f1() {
     cluster_t clusters[vector_count];//[size_clusters];
     for (int i = 0; i < K; i++){
         clusters[i].size = 0; // Taille de chaque cluster
-        clusters[i].data = (point_t*)malloc(dim * sizeof(point_t));
+        clusters[i].data = (point_t*)malloc(vector_count* sizeof(point_t));
 
         if (clusters[i].data == NULL) {
             // Gestion de l'erreur : échec de l'allocation de mémoire pour les clusters

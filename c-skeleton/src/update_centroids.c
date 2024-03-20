@@ -14,9 +14,9 @@ uint64_t update_centroids(cluster_t* clusters){
     centroids.data = (point_t*)malloc(k*sizeof(point_t));
     
     if (centroids.data == NULL){
-        for (uint32_t i =0;i<k;i++){
-            free(clusters[i].data->coords);
-        }
+        //for (uint32_t i =0;i<k;i++){
+            //free(clusters[i].data->coords);
+        //}
         return -1;
     }
 
@@ -27,10 +27,11 @@ uint64_t update_centroids(cluster_t* clusters){
         int64_t* vector_sum =(int64_t *)calloc(dimension,sizeof(int64_t)); //un tuple
         
         if (vector_sum == NULL){
-            free(vector_sum);
+            //free(vector_sum);
             free(centroids.data);
             for (uint32_t i =0;i<j;i++){
-                free(clusters[i].data->coords);
+                //free(clusters[i].data->coords);
+                free(clusters[i].data[j].coords);
             }
             return -1;
         }
