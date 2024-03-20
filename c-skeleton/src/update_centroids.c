@@ -30,9 +30,6 @@ uint64_t update_centroids(cluster_t* clusters,uint32_t K ){
             return -1;
         }
     
-
-    
-        //uint32_t clusters_length = (uint32_t)strlen(*clusters[k].data); // comment avoir la taille ????
         uint64_t clusters_length = clusters[j].size;
         uint32_t dimension = clusters[j].data->dim;
         int64_t* vector_sum =(int64_t *)calloc(dimension,sizeof(int64_t)); //un tuple
@@ -52,6 +49,8 @@ uint64_t update_centroids(cluster_t* clusters,uint32_t K ){
             for (uint32_t m =0;m<dimension;m++){
                 vector_sum[m] += clusters[j].data[i].coords[m];
             }
+            centroids[j].data[i].coords = vector_sum;
+            centroids[j].data[i].dim = dimension;
         }
 
         for (int m=0;m<dimension;m++){
@@ -60,8 +59,8 @@ uint64_t update_centroids(cluster_t* clusters,uint32_t K ){
         //centroids[i].data[j].coords = vector_sum;
         //centroids[i].data[j].dim =  dimension;
         //free(vector_sum);
-        centroids[j].data->coords = vector_sum;
-        centroids[j].data->dim = dimension;
+        //centroids[j].data->coords = vector_sum;
+        //centroids[j].data->dim = dimension;
     }
 
     /*for (int i =0; i<k;i++){
@@ -74,5 +73,4 @@ uint64_t update_centroids(cluster_t* clusters,uint32_t K ){
     }
     //return centroids;
     return 0;
-
 }
