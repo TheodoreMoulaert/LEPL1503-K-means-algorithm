@@ -48,7 +48,7 @@ test_distance_fichier : tests_file/test_distance_fichier.c src/distance.o src/bi
 test_binary_beaucoup_de_points : tests_file/test_binary_beaucoup_de_points.c src/binary_file_reader.o
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
-test_up_centroids: tests_file/test_update_centroids.c src/update_centroids.o 
+test_update_centroids: tests_file/test_update_centroids.c src/update_centroids.o 
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
 test_up_centro_fichier : tests_file/test_up_centro_fichier.c src/update_centroids.o src/binary_file_reader.o
