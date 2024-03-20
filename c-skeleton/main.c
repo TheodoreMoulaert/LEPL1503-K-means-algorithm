@@ -10,7 +10,6 @@
 #include "../headers/main.h"
 
 
-
 typedef struct {
     FILE *input_stream;
     FILE *output_stream;
