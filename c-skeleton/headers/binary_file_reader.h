@@ -20,6 +20,10 @@ uint64_t get_nbr_vectors_from_binary_file(FILE *file);
 
 point_t** point_input(FILE* file);
 
+//Déclaration de la fonction pour obtenir le nombre de clusters 
+
+uint64_t size_clusters( point_t** clusters);
+
 // Déclaration de la fonction pour free
 
 void free_vectors(point_t **vectors, uint64_t nbr_vectors);
