@@ -33,7 +33,7 @@ void test_up_centro_f1() {
     }
     //uint64_t size_clu = size_clusters(vectors); //1
     uint32_t dim = vectors[0]->dim; //2
-    //uint64_t vector_count = vectors[0]->nbr_vector; //7
+    uint64_t vector_count = vectors[0]->nbr_vector; //7
 
     //uint32_t K = (uint64_t)size_clu; //nombre de centroids à trouver
     uint32_t K = 2;
@@ -49,7 +49,7 @@ void test_up_centro_f1() {
             return;
         }
 
-        for (int j = 0; j < 1; j++) { //vector_count
+        for (int j = 0; j < vector_count; j++) { //vector_count
             clusters[i].data[j].dim = dim;
             clusters[i].data[j].coords = (int64_t*)malloc(dim * sizeof(int64_t));
 
@@ -118,7 +118,7 @@ void test_up_centro_f1() {
     free(clusters[1].data);*/
     //free(clusters);
     for (int i = 0; i < K; i++) {
-        for (int j = 0; j < 1; j++) { //vector_count
+        for (int j = 0; j < vector_count; j++) { //vector_count
             free(clusters[i].data[j].coords);
         }
         free(clusters[i].data);
