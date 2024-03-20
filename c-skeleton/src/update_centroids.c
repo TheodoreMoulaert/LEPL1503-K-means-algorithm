@@ -49,13 +49,19 @@ uint64_t update_centroids(cluster_t* clusters,uint32_t K ){
             for (uint32_t m =0;m<dimension;m++){
                 vector_sum[m] += clusters[j].data[i].coords[m];
             }
+            for (int m=0;m<dimension;m++){
+            vector_sum[m] = vector_sum[m]/clusters_length;
+            }
             centroids[j].data[i].coords = vector_sum;
             centroids[j].data[i].dim = dimension;
+    
         }
 
-        for (int m=0;m<dimension;m++){
+        /*for (int m=0;m<dimension;m++){
             vector_sum[m] = vector_sum[m]/clusters_length;
         }
+        centroids[j].data[i].coords = vector_sum;
+        centroids[j].data[i].dim = dimension;*/
         //centroids[i].data[j].coords = vector_sum;
         //centroids[i].data[j].dim =  dimension;
         //free(vector_sum);
