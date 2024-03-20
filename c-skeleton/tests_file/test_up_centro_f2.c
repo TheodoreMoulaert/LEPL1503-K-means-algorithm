@@ -14,9 +14,9 @@
 #include "../headers/binary_file_reader.h" 
 #include "../headers/update_centroids.h"
 
-void test_up_centro_f2();
+void test_up_centro_f1();
 
-void test_up_centro_f2(){
+void test_up_centro_f1(){
 
     FILE *file = fopen("../python/exemple.bin", "rb");
     if (!file) {
