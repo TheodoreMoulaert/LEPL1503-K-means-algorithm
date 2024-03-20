@@ -1,12 +1,11 @@
 #include "../headers/binary_file_reader.h" 
 #include "../headers/point.h"
+#include "../headers/cluster.h"
 
 #include <stdlib.h>
 #include <endian.h>
 #include <stdio.h>
 #include <netinet/in.h> // Pour be32toh
-
-
 
 
 uint32_t get_dimension_from_binary_file(FILE *file) {
@@ -46,6 +45,7 @@ uint64_t get_nbr_vectors_from_binary_file(FILE *file) {
     
     return nbr_vectors;
 }
+
 
 point_t **point_input(FILE *file) {
     if (!file) {
@@ -116,6 +116,14 @@ point_t **point_input(FILE *file) {
     }
     return vectors; // attention vector n'est pas de bonne dimension aller voir les tests pour la selection; 
 }
+
+/*uint64_t size_clusters( cluster_t* clusters){
+    uint64_t size =0;
+    while ( clusters[size] != NULL){
+        size++;
+    }
+    return size;
+}*/
    
 void free_vectors(point_t **vectors, uint64_t nbr_vectors) {
     if (vectors == NULL) return;
