@@ -81,7 +81,6 @@ tests:  test_binary_file test_distance test_update_centroids test_distance_fichi
 	./test_up_centro_fichier
 
 #pas certaine de la dernière ligne
-
 tests_memoire: test_binary_file
 #@echo Tests:
 #./tests_file
