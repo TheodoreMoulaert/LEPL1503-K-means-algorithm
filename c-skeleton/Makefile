@@ -30,25 +30,48 @@ kmeans: main.c src/binary_file_reader.o src/distance.o src/update_centroids.o sr
 #@echo Compilation des tests
 #$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o tests_file tests_file.c src/*.o $(LIBS)
 
+# Règle de compilation des tests
+#tests_file: tests_file.c src/binary_file_reader.o src/distance.o src/update_centroids.o src/assign_vector_to_centro.o src/k_means.o src/distortion.o src/binary_file_reader.o$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
+
+test_binary_file: tests_file/test_binary_file.c src/binary_file_reader.o
+	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
+
+test_distance: tests_file/test_distance.c src/distance.o
+	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
+
+
+test_up_centro_f2: tests_file/test_up_centro_f2.c src/update_centroids.o
+	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
+
+
+
 clean:
 	rm -f src/*.o
 	rm -f kmeans
-	rm -f tests_file
+	rm -f test_distance
+	rm -f test_binary_file
+	rm -f test_up_centro_f2
 
-tests: kmeans
-	@echo Excécution des tests
-	./kmeans
-	@echo Excécution des tests avec Valgrind
-	valgrind --leak-check=full ./kmeans
+#tests: kmeans
+	#@echo Excécution des tests
+	#./kmeans
+	#@echo Excécution des tests avec Valgrind
+	#valgrind --leak-check=full ./kmeans
 
+# Règle pour exécuter les tests
+tests:  test_binary_file test_distance test_up_centro_f2
+	@echo "Exécution des tests"
+	./test_binary_file
+	./test_distance
+	./test_up_centro_f2
 #pas certaine de la dernière ligne
 
-tests_memoire: tests_file
+tests_memoire: test_binary_file
 #@echo Tests:
 #./tests_file
 #@echo
 	@echo Tests avec Valgrind:
-	valgrind --leak-check=full ./tests_file 
+	valgrind --leak-check=full ./test_binary_file
 	make clean
 #pas certaine que la commande soit finie  --> si  ça me semble ok
 
