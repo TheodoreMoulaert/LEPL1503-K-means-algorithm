@@ -14,6 +14,22 @@
 #include "../headers/binary_file_reader.h" 
 #include "../headers/update_centroids.h"
 
+/*camou09@LAPTOP-F1DRRSU3:~/m-03/c-skeleton$ make test_up_centro_fichier
+Compilation de kmeans
+gcc -Iheaders -Wall -Werror -g -o src/update_centroids.o -c src/update_centroids.c
+Compilation de kmeans
+gcc -Iheaders -Wall -Werror -g -o src/binary_file_reader.o -c src/binary_file_reader.c
+gcc -Iheaders -Wall -Werror -g -o test_up_centro_fichier tests_file/test_up_centro_fichier.c src/update_centroids.o src/binary_file_reader.o -lcunit -lpthread
+tests_file/test_up_centro_fichier.c: In function ‘test_up_centro_f1’:
+tests_file/test_up_centro_fichier.c:90:28: error: "/*" within comment [-Werror=comment]
+   90 |     /*cluster_t *clusters;//*clusters[2];
+      |                             
+tests_file/test_up_centro_fichier.c:38:14: error: unused variable ‘K’ [-Werror=unused-variable]
+   38 |     uint32_t K = (uint64_t)size_clu; //nombre de centroids à trouver
+      |              ^
+cc1: all warnings being treated as errors
+make: * [Makefile:55: test_up_centro_fichier] Error 1*/
+
 void test_up_centro_f1();
 
 void test_up_centro_f1(){
@@ -35,7 +51,7 @@ void test_up_centro_f1(){
     uint32_t dim = vectors[0]->dim; //2
     uint64_t vector_count = vectors[0]->nbr_vector; //7
 
-    uint32_t K = (uint64_t)size_clu; //nombre de centroids à trouver
+    //uint32_t K = (uint64_t)size_clu; //nombre de centroids à trouver
 
     cluster_t clusters[vector_count];//[size_clusters];
     for (int i = 0; i < size_clu; i++) {
@@ -87,7 +103,7 @@ void test_up_centro_f1(){
         }
     }
 
-    /*cluster_t *clusters;//*clusters[2];
+    /*cluster_t *clusters; clusters[2];
     //clusters = (cluster_t)malloc(sizeof(cluster_t));
     for (uint32_t i =0; i<1;i++){
         clusters = (point_t*)malloc(sizeof(cluster_t));
