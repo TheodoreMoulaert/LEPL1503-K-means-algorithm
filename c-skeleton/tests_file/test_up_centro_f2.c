@@ -38,19 +38,33 @@ void test_up_centro_f2(){
     cluster_t *clusters;//*clusters[2];
     //clusters = (cluster_t)malloc(sizeof(cluster_t));
     for (uint32_t i =0; i<1;i++){
-        clusters[i] = (cluster_t)malloc(sizeof(cluster_t));
-        clusters[i]->size = 2;
-        clusters[i]->data = (point_t *) malloc(sizeof(point_t));
-        clusters[i]->data->dim = dim;
-        clusters[i]->data->coords = (int64_t *) malloc(sizeof(int64_t) * dim);
+        clusters = (point_t*)malloc(sizeof(cluster_t));
+        if (clusters == NULL){
+            free(clusters);
+            return ;
+        }
+        clusters->size = 2;
+        clusters->data = (point_t *) malloc(sizeof(point_t));
+        if (clusters->data == NULL){
+            free(clusters->data);
+            free(clusters);
+            return ;
+        }
+        clusters->data->dim = dim;
+        clusters->data->coords = (int64_t *) malloc(sizeof(int64_t) * dim);
+        if (clusters->data->coords ==NULL){
+            free(clusters->data->coords);
+            free(clusters->data);
+            free(clusters);
+            return ;
+        }
         //clusters[i]->vectors = (point_t **) malloc(0);
-
     }
     //Création du clusters
-    clusters->data[0]->coords[0] = (int64_t)1;
-    clusters->data[0]->coords[1] = (int64_t)1;
-    clusters->data[1]->coords[0] = (int64_t)2;
-    clusters->data[1]->coords[1] = (int64_t)2;
+    clusters->data->coords[0] = (int64_t)1;
+    clusters->data->coords[1] = (int64_t)1;
+    clusters->data->coords[0] = (int64_t)2;
+    clusters->data->coords[1] = (int64_t)2;
     //Initialisation des centroids
     /*clusters[0]->data->coords[0] = (int64_t)1;
     clusters[0]->data->coords[1] = (int64_t)1;
