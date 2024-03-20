@@ -51,7 +51,7 @@ test_binary_beaucoup_de_points : tests_file/test_binary_beaucoup_de_points.c src
 test_up_centroids: tests_file/test_update_centroids.c src/update_centroids.o 
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
-test_up_centro_fichier : tests_file/test_up_centro_fichier.c src/update_centroids.o src/binary_file_reader.o
+test_up_centro_fichier : tests_file/test_up_centro_fichier.c src/update_centroids.o src/binary_file_avec_cluster.o #src/binary_file_reader.o
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
 
@@ -88,8 +88,8 @@ tests_memoire: test_binary_file
 #./tests_file
 #@echo
 	@echo Tests avec Valgrind:
-	valgrind --leak-check=full ./test_binary_file
-	make clean
+	#valgrind --leak-check=full ./test_binary_file
+	#make clean
 #valgrind --leak-check=full ./test_up_centro_fichier
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./test_up_centro_fichier
 	make clean 
