@@ -3,8 +3,9 @@
 
 #include "../headers/point.h"
 #include "../headers/cluster.h"
+#include "../headers/write_csv.h"
 
-// vraiment pas sur écrit très rapidement avec aide de chatgpt
+// vraiment pas sur écrit très rapidement avec aide de chatgpt et il manque un bout de code pour la recherche des meilleurs centroides
 
 int8_t create_CSV(point_t* inits, cluster_t *clusters, uint64_t distortion, uint32_t *clusterParPoint, uint32_t k) {
     FILE *fp = fopen("output.csv", "w"); // Ouvrir le fichier CSV en écriture
