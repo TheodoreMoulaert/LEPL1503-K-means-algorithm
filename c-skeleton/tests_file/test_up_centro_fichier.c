@@ -39,7 +39,7 @@ void test_up_centro_f1() {
     uint32_t K = 2;
     cluster_t clusters[vector_count];//[size_clusters];
     for (int i = 0; i < 2; i++){
-        clusters[i].size = 1; // Taille de chaque cluster
+        clusters[i].size = 0; // Taille de chaque cluster
         clusters[i].data = (point_t*)malloc(dim * sizeof(point_t));
 
         if (clusters[i].data == NULL) {
@@ -64,7 +64,7 @@ void test_up_centro_f1() {
                 return;
             }
 
-            // Initialisation des coordonnées avec des valeurs arbitraires pour le test
+            // Initialisation des coordonnées avec les valeurs du test
             clusters[0].data[0].coords[0] = (int64_t)1;
             clusters[0].data[0].coords[1] = (int64_t)1;
 
