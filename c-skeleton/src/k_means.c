@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "../headers/k_means.h"
 #include "../headers/point.h"
+#include "../headers/update_centroids.h"
 
 point_t* k_means(point_t *initial_centroids, int K, double **vectors, int num_vectors, int dimensions) {
     // Implémentation de la fonction k_means
