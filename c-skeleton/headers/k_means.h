@@ -2,26 +2,15 @@
 #define K_MEANS_H
 
 #include <stdbool.h>
-
-// Structure pour représenter un tuple
-typedef struct {
-    int x;
-    int y;
-} Tuple;
-
-// Structure pour représenter une liste de tuples
-typedef struct {
-    Tuple *items;
-    int length;
-} TupleList;
+#include "../headers/point.h"
 
 // Fonction pour assigner les vecteurs aux centroids les plus proches
-bool assign_vectors_to_centroids(TupleList centroids, TupleList *clusters);
+bool assign_vectors_to_centroids(point_t *centroids, point_t **clusters, int num_centroids, int num_vectors, int dimensions);
 
 // Fonction pour mettre à jour les centroids
-TupleList update_centroids(TupleList *clusters);
+point_t* update_centroids(point_t **clusters, int K);
 
 // Fonction k_means
-TupleList k_means(TupleList initial_centroids, int K);
+point_t* k_means(point_t *initial_centroids, int K, double **vectors, int num_vectors, int dimensions);
 
 #endif /* K_MEANS_H */

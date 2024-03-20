@@ -1,5 +1,5 @@
-#include "../headers/binary_file_reader.h" // Inclure le bon en-tête
-#include "../headers/point.h" // Inclure si nécessaire
+#include "../headers/binary_file_reader.h" 
+#include "../headers/point.h"
 
 #include <stdlib.h>
 #include <endian.h>
@@ -42,7 +42,6 @@ uint64_t get_nbr_vectors_from_binary_file(FILE *file) {
 		fprintf(stderr, "pas de nombre de points spécifié."); 
 		return 0;
 	}
-	uint32_t dim = be32toh(dim_endian);
 	uint64_t nbr_vectors = be64toh(nb_endian);
     
     return nbr_vectors;
@@ -75,7 +74,7 @@ point_t **point_input(FILE *file) {
         return NULL;
     }
 
-    // Allocation de mémoire pour stocker les vecteurs
+    
     point_t **vectors = (point_t**) malloc(nbr_vectors * sizeof(point_t *));
     if (vectors == NULL) {
         perror("Erreur d'allocation mémoire pour les vecteurs");
