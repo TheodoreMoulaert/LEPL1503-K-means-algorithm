@@ -1,16 +1,28 @@
+# Variables ( noms d'usage) exemple :  exécutable on les initialise parce qu'on les utilise beaucoup pour y faire référence on note $(CC) 
+# pour que ce soit plus dynamique
+#https://www.youtube.com/watch?v=-riHEHGP2DU&t=965s --> lien vidéo youtube pour comprendre
+
 CC=gcc
 CFLAGS=-Wall -Werror -g
 LIBS=-lcunit -lpthread
 INCLUDE_HEADERS_DIRECTORY= -Iheaders
 
-// Il faut ajouter commande pour écrire dans un fichier csv je pense
+# varaible spéciales
+#$@ : nom de la cible
+#$< : nom de la première dépendance
+# $^ : liste des dépendances
+# $* : nom du fichier sans son extension
+
+
+
+#Il faut ajouter commande pour écrire dans un fichier csv je pense
 
 #ordre du fichier python, à discuter
 kmeans: main.c src/binary_file_reader.o src/distance.o src/update_centroids.o src/assign_vector_to_centro.o src/k_means.o src/distortion.o src/binary_file_reader.o    # add your other object files needed to compile your program here. !! The ordering is important !! if file_a.o depends on file_b.o, file_a.o must be placed BEFORE file_b.o in the list !
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)  
 #this will run the following command: gcc -Wall -Werror -g -o kmeans src/distance.o other_object_filespresent_above.o ... -lcunit -lpthread
 
-%.o: %.c
+%.o: %.c # toutes les cibles en dépendance c sont crées comme ceci
 # if for example you want to compute example.c this will create an object file called example.o in the same directory as example.c. Don't forget to clean it in your "make clean"
 	@echo Compilation de kmeans                  
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ -c $<
