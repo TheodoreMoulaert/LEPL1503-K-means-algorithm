@@ -1,7 +1,8 @@
-#ifndef WRITE_CSV.H
-#define WRITE_CSV.H
+#ifndef WRITE_CSV_H
+#define WRITE_CSV_H
 #include <stdint.h>
 #include <stdio.h>
+#include <inttypes.h> // Ajout de l'en-tête inttypes.h
 
 #include "../headers/point.h"
 #include "../headers/cluster.h"
@@ -48,4 +49,5 @@ Arguments :
 La fonction imprime les coordonnées des points dans le tableau arrayPts dans le fichier CSV associé au pointeur fp.
 */
 void fprintArrayPoints(FILE *fp, point_t* arrayPts, uint64_t nb);
+
 #endif 
