@@ -47,10 +47,11 @@ void test_update_centroids() {
     }
 
     // Appel de la fonction à tester
-    uint64_t result = update_centroids(clusters);
+    uint64_t result = update_centroids(clusters,K);
 
     // Vérification du résultat
     CU_ASSERT_EQUAL_FATAL(result, 0); // Échoue le test si la mise à jour des centroids a échoué
+    //fprintf(stderr, "Le premier centroid a les coordonnées : (%" PRId64 ",%" PRId64 ") \n", clusters[0].data[1].coords[0], clusters[0].data[1].coords[1]);
     //fprintf(stderr,"Correct");
     // Nettoyage
     for (int i = 0; i < K; i++) {
