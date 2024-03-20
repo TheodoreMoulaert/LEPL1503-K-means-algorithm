@@ -42,11 +42,11 @@ test_distance: tests_file/test_distance.c src/distance.o
 test_distance_fichier : tests_file/test_distance_fichier.c src/distance.o src/binary_file_reader.o
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
+test_binary_beaucoup_de_points : tests_file/test_binary_beaucoup_de_points.c src/binary_file_reader.o
+	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
 test_update_centroids: tests_file/test_update_centroids.c src/update_centroids.o 
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
-
-
 
 clean:
 	rm -f src/*.o
@@ -55,6 +55,8 @@ clean:
 	rm -f test_binary_file
 	rm -f test_update_centroids
 	rm -f test_distance_fichier
+	rm -f test_binary_beaucoup_de_points
+
 
 #tests: kmeans
 	#@echo Excécution des tests
@@ -69,6 +71,8 @@ tests:  test_binary_file test_distance test_update_centroids test_distance_fichi
 	./test_distance
 	./test_update_centroids
 	./test_distance_fichier
+	./test_binary_beaucoup_de_points
+
 #pas certaine de la dernière ligne
 
 tests_memoire: test_binary_file
