@@ -54,6 +54,10 @@ test_up_centroids: tests_file/test_update_centroids.c src/update_centroids.o
 test_up_centro_fichier : tests_file/test_up_centro_fichier.c src/update_centroids.o src/binary_file_avec_cluster.o #src/binary_file_reader.o
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
+test_distortion : tests_file/test_distortion.c src/distance.o src/distortion.o
+	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
+
+
 
 clean:
 	rm -f src/*.o
@@ -64,6 +68,7 @@ clean:
 	rm -f test_distance_fichier
 	rm -f test_binary_beaucoup_de_points
 	rm -f test_up_centro_fichier
+	rm -f test_distortion 
 
 
 #tests: kmeans
@@ -73,7 +78,7 @@ clean:
 	#valgrind --leak-check=full ./kmeans
 
 # Règle pour exécuter les tests
-tests:  test_binary_file test_distance test_update_centroids test_distance_fichier test_up_centro_fichier
+tests:  test_binary_file test_distance test_update_centroids test_distance_fichier test_up_centro_fichier test_distortion 
 	@echo "Exécution des tests"
 	./test_binary_file
 	./test_distance
@@ -81,17 +86,20 @@ tests:  test_binary_file test_distance test_update_centroids test_distance_fichi
 	./test_distance_fichier
 	./test_binary_beaucoup_de_points
 	./test_up_centro_fichier
+	./test_distortion 
 
 #pas certaine de la dernière ligne
-tests_memoire: test_binary_file
+tests_memoire: test_distance_fichier test_binary_file test_up_centro_fichier
 #@echo Tests:
 #./tests_file
 #@echo
 	@echo Tests avec Valgrind:
+	#valgrind --leak-check=full ./test_distance_fichier
 	#valgrind --leak-check=full ./test_binary_file
 	#make clean
+
+#valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./test_up_centro_fichier
 #valgrind --leak-check=full ./test_up_centro_fichier
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./test_up_centro_fichier
 	make clean 
 #pas certaine que la commande soit  finie  --> si  ça me semble ok
 
