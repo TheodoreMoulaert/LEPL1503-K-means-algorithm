@@ -1,12 +1,10 @@
 #ifndef WRITE_CSV.H
 #define WRITE_CSV.H
 #include <stdint.h>
+#include <stdio.h>
 
 #include "../headers/point.h"
 #include "../headers/cluster.h"
-
-
-
 /*
 Fonction pour créer un fichier CSV contenant les résultats de l'algorithme K-means.
 
