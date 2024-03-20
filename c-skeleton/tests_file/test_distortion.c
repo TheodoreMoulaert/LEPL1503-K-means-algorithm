@@ -58,7 +58,7 @@ void test_distortion() {
     }
     
     // Call distortion function
-    uint64_t result = distortion(centroids, clusters, num_clusters);
+    uint64_t result = distortion(centroids, clusters, num_clusters,squared_euclidean_distance); //marche comme ça ? 
     
     // Define expected result based on dummy data
     uint64_t expected_result = 0; // You need to set the expected result based on your dummy data
