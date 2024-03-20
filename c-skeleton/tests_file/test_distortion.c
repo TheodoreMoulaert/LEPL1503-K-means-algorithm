@@ -1,83 +1,71 @@
 #include <stdio.h>
 #include <stdint.h>
-#include <stdlib.h> // For malloc
-#include <math.h>   // For pow and sqrt
-
-#include "../headers/point.h"
-#include "../headers/cluster.h"
-#include "../headers/distance.h" 
-#include "../headers/distortion.h"
-
+#include <stdlib.h>
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
+#include "../headers/point.h"
+#include "../headers/cluster.h"
+#include "../headers/distance.h"
+#include "../headers/distortion.h"
 
-
-// Test case initialization function
+// Function to initialize test suite
 int init_suite(void) {
-    return 0; // Return 0 for success
+    return 0;
 }
 
-// Test case cleanup function
+// Function to clean up test suite
 int clean_suite(void) {
-    return 0; // Return 0 for success
+    return 0;
 }
 
-
-// Function to test distortion function
+// Test case for distortion function
+// Test case for distortion function
 void test_distortion() {
-    // Initialize dummy data for testing
-    uint32_t num_clusters = 2; // Number of clusters for testing
-    cluster_t *centroids = malloc(num_clusters * sizeof(cluster_t)); // Allocate memory for centroids
-    cluster_t **clusters = malloc(num_clusters * sizeof(cluster_t *)); // Allocate memory for clusters
-    
-    // Initialize centroids
-    for (uint32_t i = 0; i < num_clusters; ++i) {
-        centroids[i].center.dimension = 2; // Dimension for testing
-        centroids[i].center.coordinates = malloc(2 * sizeof(int64_t)); // Allocate memory for coordinates
-        
-        // Assigning arbitrary coordinates for centroids for testing
-        centroids[i].center.coordinates[0] = i * 10;
-        centroids[i].center.coordinates[1] = i * 10 + 1;
-    }
-    
-    // Initialize clusters
-    for (uint32_t i = 0; i < num_clusters; ++i) {
-        clusters[i] = malloc(sizeof(cluster_t)); // Allocate memory for cluster
-        clusters[i]->surrounding = 3; // Example surrounding
-        clusters[i]->data = malloc(clusters[i]->surrounding * sizeof(point_t)); // Allocate memory for data
-        
-        // Assigning arbitrary coordinates for cluster data for testing
-        for (uint64_t j = 0; j < clusters[i]->surrounding; ++j) {
-            clusters[i]->data[j].dimension = 2; // Dimension for testing
-            clusters[i]->data[j].coordinates = malloc(2 * sizeof(int64_t)); // Allocate memory for coordinates
-            
-            // Assigning arbitrary coordinates for cluster data for testing
-            clusters[i]->data[j].coordinates[0] = i * 10 + j;
-            clusters[i]->data[j].coordinates[1] = i * 10 + j + 1;
+    // Define dummy data for testing
+    uint32_t k = 2; // Number of clusters
+    cluster_t **clusters = malloc(k * sizeof(cluster_t *));
+    for (uint32_t i = 0; i < k; ++i) {
+        clusters[i] = malloc(sizeof(cluster_t));
+        clusters[i]->size = 3; // Example size
+        clusters[i]->center.dim = 2;
+        clusters[i]->center.coords = malloc(2 * sizeof(int64_t));
+        clusters[i]->center.coords[0] = i * 10;
+        clusters[i]->center.coords[1] = i * 10 + 1;
+        clusters[i]->data = malloc(clusters[i]->size * sizeof(point_t));
+        for (uint64_t j = 0; j < clusters[i]->size; ++j) {
+            clusters[i]->data[j].dim = 2;
+            clusters[i]->data[j].coords = malloc(2 * sizeof(int64_t));
+            clusters[i]->data[j].coords[0] = i * 10 + j;
+            clusters[i]->data[j].coords[1] = i * 10 + j + 1;
         }
     }
-    
-    // Call distortion function
-    uint64_t result = distortion(centroids, clusters, num_clusters,squared_euclidean_distance); //marche comme ça ? 
-    
-    // Define expected result based on dummy data
-    uint64_t expected_result = 0; // You need to set the expected result based on your dummy data
-    
-    // Check if the result matches the expected result
+
+    // quelle distance on utilise pour les tests
+    squared_distance_func_t dummy_func = squared_euclidean_distance;
+
+
+    uint64_t result = distortion((cluster_t const **)clusters, k, dummy_func);
+    printf("Result of distortion function: %lu\n", result);
+
+  
+    uint64_t expected_result = 20; 
+
     CU_ASSERT_EQUAL(result, expected_result);
-    
-    // Free allocated memory
-    for (uint32_t i = 0; i < num_clusters; ++i) {
-        free(centroids[i].center.coordinates);
-        for (uint64_t j = 0; j < clusters[i]->surrounding; ++j) {
-            free(clusters[i]->data[j].coordinates);
+
+    // cleean avec free
+    for (uint32_t i = 0; i < k; ++i) {
+        free(clusters[i]->center.coords);
+        for (uint64_t j = 0; j < clusters[i]->size; ++j) {
+            free(clusters[i]->data[j].coords);
         }
         free(clusters[i]->data);
         free(clusters[i]);
     }
     free(clusters);
-    free(centroids);
 }
+
+
+
 // Main function to set up test suite and run tests
 int main() {
     // Initialize the CUnit test registry
