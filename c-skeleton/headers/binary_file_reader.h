@@ -22,7 +22,7 @@ point_t** point_input(FILE* file);
 
 //Déclaration de la fonction pour obtenir le nombre de clusters 
 
-uint64_t size_clusters( point_t** clusters);
+//uint64_t size_clusters( point_t** clusters);
 
 // Déclaration de la fonction pour free
 
