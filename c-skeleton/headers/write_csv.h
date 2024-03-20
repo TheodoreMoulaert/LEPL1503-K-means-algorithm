@@ -50,3 +50,4 @@ Arguments :
 La fonction imprime les coordonnées des points dans le tableau arrayPts dans le fichier CSV associé au pointeur fp.
 */
 void fprintArrayPoints(FILE *fp, point_t* arrayPts, uint64_t nb);
+#endif 
