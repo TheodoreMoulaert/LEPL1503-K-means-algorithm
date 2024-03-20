@@ -39,8 +39,11 @@ test_binary_file: tests_file/test_binary_file.c src/binary_file_reader.o
 test_distance: tests_file/test_distance.c src/distance.o
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
+test_distance_fichier : tests_file/test_distance_fichier.c src/distance.o src/binary_file_reader.o
+	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
-test_up_centro_f2: tests_file/test_up_centro_f2.c src/update_centroids.o
+
+test_update_centroids: tests_file/test_update_centroids.c src/update_centroids.o 
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
 
@@ -50,7 +53,8 @@ clean:
 	rm -f kmeans
 	rm -f test_distance
 	rm -f test_binary_file
-	rm -f test_up_centro_f2
+	rm -f test_update_centroids
+	rm -f test_distance_fichier
 
 #tests: kmeans
 	#@echo Excécution des tests
@@ -59,11 +63,12 @@ clean:
 	#valgrind --leak-check=full ./kmeans
 
 # Règle pour exécuter les tests
-tests:  test_binary_file test_distance test_up_centro_f2
+tests:  test_binary_file test_distance test_update_centroids test_distance_fichier
 	@echo "Exécution des tests"
 	./test_binary_file
 	./test_distance
-	./test_up_centro_f2
+	./test_update_centroids
+	./test_distance_fichier
 #pas certaine de la dernière ligne
 
 tests_memoire: test_binary_file
