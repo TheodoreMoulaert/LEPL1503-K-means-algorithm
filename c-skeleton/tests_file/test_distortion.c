@@ -3,38 +3,12 @@
 #include <stdlib.h> // For malloc
 #include <math.h>   // For pow and sqrt
 
-// Definition of point_t structure
-typedef struct {
-    int64_t *coordinates;
-    uint32_t dimension;
-} point_t;
+#include "../headers/point.h"
+#include "../headers/cluster.h"
+#include "../headers/distance.h" 
+#include "../headers/distortion.h"
 
-// Definition of cluster_t structure
-typedef struct {
-    point_t center;
-    uint64_t surrounding;
-    point_t *data;
-} cluster_t;
 
-// Function to calculate squared distance between two points
-uint64_t distance_squared(point_t p1, point_t p2) {
-    uint64_t sum = 0;
-    for (uint32_t i = 0; i < p1.dimension; ++i) {
-        sum += pow(p1.coordinates[i] - p2.coordinates[i], 2);
-    }
-    return sum;
-}
-
-// Function to calculate distortion
-uint64_t distortion(cluster_t *centroids, cluster_t **clusters, uint32_t num_clusters) {
-    uint64_t current_sum = 0;
-    for (uint32_t k = 0; k < num_clusters; ++k) {
-        for (uint64_t j = 0; j < clusters[k]->surrounding; ++j) {
-            current_sum += distance_squared(clusters[k]->data[j], centroids[k].center);
-        }
-    }
-    return current_sum;
-}
 
 // Function to test distortion function
 void test_distortion() {
