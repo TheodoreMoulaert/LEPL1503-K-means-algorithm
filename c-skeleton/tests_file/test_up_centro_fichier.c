@@ -101,7 +101,7 @@ void test_up_centro_f1() {
     fprintf(stderr, "Le premier centroid a les coordonnées : (%" PRId64 ",%" PRId64 ") \n", clusters[0].data[0].coords[0], clusters[0].data[0].coords[1]);
     CU_ASSERT_EQUAL(clusters[1].data[0].coords[0], (int64_t)4);
     CU_ASSERT_EQUAL(clusters[1].data[0].coords[1], (int64_t)5);
-    fprintf(stderr, "Le deuxième centroid a les coordonnées : (%" PRId64 ",%" PRId64 ") \n", clusters[1].data[0].coords[0], cclusters[1].data[0].coords[1]);
+    fprintf(stderr, "Le deuxième centroid a les coordonnées : (%" PRId64 ",%" PRId64 ") \n", clusters[1].data[0].coords[0], clusters[1].data[0].coords[1]);
     // Vérification de la taille des centroids
     /*CU_ASSERT_EQUAL(clusters->size, 1);*/
 
