@@ -39,9 +39,9 @@ void test_up_centro_f1() {
     uint32_t K = 2;
     cluster_t clusters[K];//[size_clusters];
     for (int i = 0; i < K; i++){
-        
+        clusters[i].size = 3;
         clusters[i].data = (point_t*)malloc(vector_count* sizeof(point_t));
-        clusters[i].size = clusters[i].data->nbr_vector;//size_clusters(clusters[i]); // Taille de chaque cluster
+        //clusters[i].size = clusters[i].data->nbr_vector;//size_clusters(clusters[i]); // Taille de chaque cluster
 
         if (clusters[i].data == NULL) {
             // Gestion de l'erreur : échec de l'allocation de mémoire pour les clusters
