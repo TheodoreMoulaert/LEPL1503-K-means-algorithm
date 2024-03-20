@@ -10,13 +10,13 @@ uint64_t distortion(cluster_t const **clusters, uint32_t num_clusters, squared_d
     
     for(uint32_t i = 0; i < num_clusters; i++) {
         uint64_t current_sum = 0;
-
-        for (uint64_t j = 0; j < clusters[i]->size; j++) {
-            current_sum += DISTANCE_SQUARED(&clusters[i]->center, &clusters[i]->data[j]);
-        }
+        
+            for (uint64_t j = 0; j < clusters[i]->size; j++) {
+                current_sum += DISTANCE_SQUARED(&clusters[i]->center, &clusters[i]->data[j]);
+            }
 
         result += current_sum;
-    }
-    
-    return result; 
+        }
+        
+    return result;
 }
