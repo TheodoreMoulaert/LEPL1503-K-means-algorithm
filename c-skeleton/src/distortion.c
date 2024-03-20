@@ -6,7 +6,7 @@
 #include "../headers/cluster.h"
 
 uint64_t distortion(cluster_t const **clusters, uint32_t num_clusters, squared_distance_func_t DISTANCE_SQUARED) {
-    uint64_t sum_totale = 0;
+    uint64_t result = 0;
     
     for(uint32_t i = 0; i < num_clusters; i++) {
         uint64_t current_sum = 0;
@@ -15,8 +15,8 @@ uint64_t distortion(cluster_t const **clusters, uint32_t num_clusters, squared_d
             current_sum += DISTANCE_SQUARED(&clusters[i]->center, &clusters[i]->data[j]);
         }
 
-        sum_totale += current_sum;
+        result += current_sum;
     }
     
-    return sum_totale; 
+    return result; 
 }
