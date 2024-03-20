@@ -177,6 +177,32 @@ void test_point_input3() {
 }
 
 
+void test_size_clusters() {
+    FILE *file = fopen("../python/exemple.bin", "rb");
+    if (!file) {
+        perror("Erreur lors de l'ouverture du fichier binaire");
+        exit(EXIT_FAILURE);
+    }
+
+    // Appel de la fonction point_input pour obtenir les vecteurs à partir du fichier
+    point_t **vectors = point_input(file);
+
+    // Fermeture du fichier après utilisation
+    fclose(file);
+
+    // Vérification si la fonction a renvoyé un résultat valide
+    if (vectors == NULL) {
+        fprintf(stderr, "La fonction point_input a renvoyé NULL\n");
+        return;
+    }
+
+    uint64_t size = size_clusters(vectors);
+    printf("Le clusters a une taille de %" PRId64 " ", size);
+    free(vectors);
+
+}
+
+
 // Fonction principale pour exécuter les tests
 int main() {
     CU_initialize_registry(); 
@@ -189,7 +215,8 @@ int main() {
     CU_add_test(suite, "Test_nbr_vectors", test_get_nbr_vectors_from_binary_file);
     CU_add_test(suite, "Test_point_input1", test_point_input1);  
     CU_add_test(suite, "Test_point_input2", test_point_input2);  
-    CU_add_test(suite, "Test_point_input3", test_point_input3);  
+    CU_add_test(suite, "Test_point_input3", test_point_input3);
+    CU_add_test(suite, "Test_size_clusters", test_size_clusters);  
 
 
     
