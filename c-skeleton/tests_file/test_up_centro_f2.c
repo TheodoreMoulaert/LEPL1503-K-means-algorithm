@@ -37,16 +37,16 @@ void test_up_centro_f2(){
 
     uint32_t K = 1; //nombre de centroids à trouver
 
-    cluster_t clusters[size_clusters];
-    for (int i = 0; i < size_clusters; i++) {
-        clusters[i].size = size_clusters; // Taille de chaque cluster
+    cluster_t clusters[1];//[size_clusters];
+    for (int i = 0; i < 2; i++) {
+        clusters[i].size = 1; // Taille de chaque cluster
         clusters[i].data = (point_t*)malloc(dim * sizeof(point_t));
         if (clusters[i].data == NULL) {
             // Gestion de l'erreur : échec de l'allocation de mémoire pour les clusters
             CU_FAIL("Erreur d'allocation de mémoire pour les clusters");
             return;
         }
-        for (int j = 0; j < dim; j++) {
+        for (int j = 0; j < size_clusters; j++) {
             clusters[i].data[j].dim =dim;
             clusters[i].data[j].coords = (int64_t*)malloc(dim* sizeof(int64_t));
             if (clusters[i].data[j].coords == NULL) {
