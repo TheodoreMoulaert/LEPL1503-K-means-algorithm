@@ -195,7 +195,6 @@ void test_size_clusters() {
         fprintf(stderr, "La fonction point_input a renvoyé NULL\n");
         return;
     }
-
     uint64_t size = size_clusters(vectors);
     printf("Le clusters a une taille de %" PRId64 " ", size);
     free(vectors);
