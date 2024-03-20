@@ -40,7 +40,7 @@ void test_up_centro_f1() {
     cluster_t clusters[K];//[size_clusters];
     for (int i = 0; i < K; i++){
         clusters[i].size = 2;
-        clusters[i].data = (point_t*)malloc(1* sizeof(point_t));//vector_count
+        clusters[i].data = (point_t*)malloc(vector_count* sizeof(point_t));//vector_count
         //clusters[i].size = clusters[i].data->nbr_vector;//size_clusters(clusters[i]); // Taille de chaque cluster
 
         if (clusters[i].data == NULL) {
