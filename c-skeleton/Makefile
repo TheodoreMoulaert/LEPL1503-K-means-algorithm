@@ -89,9 +89,10 @@ tests_memoire: test_binary_file
 #@echo
 	@echo Tests avec Valgrind:
 	valgrind --leak-check=full ./test_binary_file
-	valgrind --leak-check=full ./test_up_centro_fichier
 	make clean
-#pas certaine que la commande soit finie  --> si  ça me semble ok
+	valgrind --leak-check=full ./test_up_centro_fichier
+	make clean 
+#pas certaine que la commande soit  finie  --> si  ça me semble ok
 
 # a .PHONY target forces make to execute the command even if the target already exists
 .PHONY: clean tests tests_memoire
