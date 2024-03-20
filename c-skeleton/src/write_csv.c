@@ -1,11 +1,12 @@
 #include <stdio.h>
+#include <inttypes.h> // Ajout de l'en-tête inttypes.h
 
 #include "../headers/point.h"
 #include "../headers/cluster.h"
 
 // vraiment pas sur écrit très rapidement avec aide de chatgpt
 
-int8_t create_CSV(point_t* inits, cluster_t *clusters, uint64_t distortion, uint32_t *clusterParPoint) {
+int8_t create_CSV(point_t* inits, cluster_t *clusters, uint64_t distortion, uint32_t *clusterParPoint, uint32_t k) {
     FILE *fp = fopen("output.csv", "w"); // Ouvrir le fichier CSV en écriture
 
     if (fp == NULL) {
