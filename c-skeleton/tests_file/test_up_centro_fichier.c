@@ -47,14 +47,14 @@ void test_up_centro_f1(){
         fprintf(stderr, "La fonction point_input a renvoyé NULL\n");
         return;
     }
-    uint64_t size_clu = size_clusters(vectors); //1
+    //uint64_t size_clu = size_clusters(vectors); //1
     uint32_t dim = vectors[0]->dim; //2
     uint64_t vector_count = vectors[0]->nbr_vector; //7
 
     //uint32_t K = (uint64_t)size_clu; //nombre de centroids à trouver
 
     cluster_t clusters[vector_count];//[size_clusters];
-    for (int i = 0; i < size_clu; i++) {
+    for (int i = 0; i < 1; i++){
         clusters[i].size = 1; // Taille de chaque cluster
         clusters[i].data = (point_t*)malloc(dim * sizeof(point_t));
         if (clusters[i].data == NULL) {
