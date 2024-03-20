@@ -36,7 +36,7 @@ void test_up_centro_f2(){
 
     uint32_t k = 1;
     cluster_t clusters[1];//*clusters[2];
-
+    clusters = (cluster_t)malloc(sizeof(cluster_t));
     for (uint32_t i =0; i<1;i++){
         clusters[i] = (cluster_t)malloc(sizeof(cluster_t));
         clusters[i]->size = 2;
