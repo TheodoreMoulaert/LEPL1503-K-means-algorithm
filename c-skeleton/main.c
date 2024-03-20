@@ -10,6 +10,7 @@
 #include "../headers/main.h"
 
 
+
 typedef struct {
     FILE *input_stream;
     FILE *output_stream;
@@ -160,6 +161,11 @@ int main(int argc, char *argv[]) {
         fclose(program_arguments.input_stream);//file);
         return 1;
     }
+
+
+
+    int64_t K = (int64_t) program_arguments->k; 
+    int64_t picking_limit = (int64_t) program_arguments->n_first_initialization_points;
 
     // TODO: parse the binary input file, compute the k-means solutions and write the output in a csv
 
