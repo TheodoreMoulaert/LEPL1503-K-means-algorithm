@@ -8,21 +8,23 @@
 #include "../headers/distance.h"
 #include "../headers/distortion.h"
 
-// Function to initialize test suite
 int init_suite(void) {
     return 0;
 }
 
-// Function to clean up test suite
 int clean_suite(void) {
     return 0;
 }
 
-// Test case for distortion function
-// Test case for distortion function
+
 void test_distortion() {
-    // Define dummy data for testing
-    uint32_t k = 2; // Number of clusters
+
+    // initiation
+
+    uint32_t k = 2; 
+
+    // construction d'un cluster
+
     cluster_t **clusters = malloc(k * sizeof(cluster_t *));
     for (uint32_t i = 0; i < k; ++i) {
         clusters[i] = malloc(sizeof(cluster_t));
@@ -43,16 +45,16 @@ void test_distortion() {
     // quelle distance on utilise pour les tests
     squared_distance_func_t dummy_func = squared_euclidean_distance;
 
-
+    // on applique la fonction distortion
     uint64_t result = distortion((cluster_t const **)clusters, k, dummy_func);
-    printf("Result of distortion function: %lu\n", result);
-
-  
+    
+    // la valeur que l'on devrait obtenir
     uint64_t expected_result = 20; 
 
+    // on test si c'est bien égale
     CU_ASSERT_EQUAL(result, expected_result);
 
-    // cleean avec free
+    // cleean avec free aide de chatgpt
     for (uint32_t i = 0; i < k; ++i) {
         free(clusters[i]->center.coords);
         for (uint64_t j = 0; j < clusters[i]->size; ++j) {
@@ -66,27 +68,26 @@ void test_distortion() {
 
 
 
-// Main function to set up test suite and run tests
 int main() {
-    // Initialize the CUnit test registry
+ 
     if (CUE_SUCCESS != CU_initialize_registry()) {
         return CU_get_error();
     }
 
-    // Add a suite to the registry
+   
     CU_pSuite pSuite = CU_add_suite("Suite", init_suite, clean_suite);
     if (NULL == pSuite) {
         CU_cleanup_registry();
         return CU_get_error();
     }
 
-    // Add the test function to the suite
+
     if ((NULL == CU_add_test(pSuite, "test of distortion function", test_distortion))) {
         CU_cleanup_registry();
         return CU_get_error();
     }
 
-    // Run the tests
+  
     CU_basic_set_mode(CU_BRM_VERBOSE);
     CU_basic_run_tests();
     CU_cleanup_registry();
