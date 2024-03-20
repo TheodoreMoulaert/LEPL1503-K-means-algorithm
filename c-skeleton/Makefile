@@ -3,6 +3,8 @@ CFLAGS=-Wall -Werror -g
 LIBS=-lcunit -lpthread
 INCLUDE_HEADERS_DIRECTORY= -Iheaders
 
+// Il faut ajouter commande pour écrire dans un fichier csv je pense
+
 #ordre du fichier python, à discuter
 kmeans: main.c src/binary_file_reader.o src/distance.o src/update_centroids.o src/assign_vector_to_centro.o src/k_means.o src/distortion.o src/binary_file_reader.o    # add your other object files needed to compile your program here. !! The ordering is important !! if file_a.o depends on file_b.o, file_a.o must be placed BEFORE file_b.o in the list !
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)  
@@ -36,7 +38,7 @@ tests_memoire: tests_file
 	@echo Tests avec Valgrind:
 	valgrind --leak-check=full ./tests_file 
 	make clean
-#pas certaine que la commande soit finie  
+#pas certaine que la commande soit finie  --> si  ça me semble ok
 
 # a .PHONY target forces make to execute the command even if the target already exists
 .PHONY: clean tests tests_memoire
