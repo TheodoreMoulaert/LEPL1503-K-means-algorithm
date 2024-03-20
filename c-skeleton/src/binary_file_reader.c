@@ -42,7 +42,6 @@ uint64_t get_nbr_vectors_from_binary_file(FILE *file) {
 		fprintf(stderr, "pas de nombre de points spécifié."); 
 		return 0;
 	}
-	uint32_t dim = be32toh(dim_endian);
 	uint64_t nbr_vectors = be64toh(nb_endian);
     
     return nbr_vectors;
