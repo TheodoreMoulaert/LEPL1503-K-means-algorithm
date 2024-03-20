@@ -90,7 +90,8 @@ tests_memoire: test_binary_file
 	@echo Tests avec Valgrind:
 	valgrind --leak-check=full ./test_binary_file
 	make clean
-	valgrind --leak-check=full ./test_up_centro_fichier
+#valgrind --leak-check=full ./test_up_centro_fichier
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./test_up_centro_fichier
 	make clean 
 #pas certaine que la commande soit  finie  --> si  ça me semble ok
 
