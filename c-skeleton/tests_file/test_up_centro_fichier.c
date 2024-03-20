@@ -37,7 +37,7 @@ void test_up_centro_f1() {
 
     //uint32_t K = (uint64_t)size_clu; //nombre de centroids à trouver
     uint32_t K = 2;
-    cluster_t clusters[vector_count];//[size_clusters];
+    cluster_t clusters[K];//[size_clusters];
     for (int i = 0; i < K; i++){
         clusters[i].size = 0; // Taille de chaque cluster
         clusters[i].data = (point_t*)malloc(vector_count* sizeof(point_t));
@@ -90,7 +90,7 @@ void test_up_centro_f1() {
     clusters[1].data[6].coords[0] = (int64_t)5;
 
     uint64_t result;
-    result = update_centroids(clusters);
+    result = update_centroids(clusters,K);
     CU_ASSERT_EQUAL_FATAL(result, 0);
     fprintf(stderr, "La fonction update_centroids n'a pas d'erreurs !\n");
 

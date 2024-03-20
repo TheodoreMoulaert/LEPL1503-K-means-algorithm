@@ -8,19 +8,30 @@
 #include "../headers/update_centroids.h"
 #include "../headers/main.h"
 
-uint64_t update_centroids(cluster_t* clusters){
-    cluster_t centroids;
+uint64_t update_centroids(cluster_t* clusters,uint32_t K ){
+    cluster_t centroids[K];
     //uint32_t K = (uint32_t)strlen(*clusters);
-    centroids.data = (point_t*)malloc(k*sizeof(point_t));
+    /*centroids.data = (point_t*)malloc(k*sizeof(point_t));
     
     if (centroids.data == NULL){
         //for (uint32_t i =0;i<k;i++){
             //free(clusters[i].data->coords);
         //}
         return -1;
-    }
+    }*/
+    for (uint32_t j = 0; j < K; j++) {
+        centroids[j].data = (point_t*)malloc(clusters[j].size * sizeof(point_t));
 
-    for ( uint32_t j=0;j < k;j++ ){
+        if (centroids[j].data == NULL) {
+            // Gestion de l'erreur : échec de l'allocation de mémoire pour centroids[j].data
+            for (uint32_t i = 0; i < j; i++) {
+                free(centroids[i].data);
+            }
+            return -1;
+        }
+    
+
+    
         //uint32_t clusters_length = (uint32_t)strlen(*clusters[k].data); // comment avoir la taille ????
         uint64_t clusters_length = clusters[j].size;
         uint32_t dimension = clusters[j].data->dim;
@@ -31,7 +42,8 @@ uint64_t update_centroids(cluster_t* clusters){
             free(centroids.data);
             for (uint32_t i =0;i<j;i++){
                 //free(clusters[i].data->coords);
-                free(clusters[i].data[j].coords);
+                //free(clusters[i].data[j].coords);
+                free(centroids[i].data);
             }
             return -1;
         }
@@ -45,15 +57,21 @@ uint64_t update_centroids(cluster_t* clusters){
         for (int m=0;m<dimension;m++){
             vector_sum[m] = vector_sum[m]/clusters_length;
         }
-        centroids.data[j].coords = vector_sum;
-        centroids.data[j].dim =  dimension;
+        //centroids[i].data[j].coords = vector_sum;
+        //centroids[i].data[j].dim =  dimension;
         //free(vector_sum);
+        centroids[j].data->coords = vector_sum;
+        centroids[j].data->dim = dimension;
     }
 
-    for (int i =0; i<k;i++){
+    /*for (int i =0; i<k;i++){
         free(centroids.data[i].coords);
     }
-    free(centroids.data);
+    free(centroids.data);*/
+    for (uint32_t i = 0; i < K; i++) {
+        free(centroids[i].data->coords);
+        free(centroids[i].data);
+    }
     //return centroids;
     return 0;
 
