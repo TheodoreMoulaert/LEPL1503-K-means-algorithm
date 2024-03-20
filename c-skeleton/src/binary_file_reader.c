@@ -1,5 +1,5 @@
-#include "../headers/binary_file_reader.h" // Inclure le bon en-tête
-#include "../headers/point.h" // Inclure si nécessaire
+#include "../headers/binary_file_reader.h" 
+#include "../headers/point.h"
 
 #include <stdlib.h>
 #include <endian.h>
@@ -75,7 +75,7 @@ point_t **point_input(FILE *file) {
         return NULL;
     }
 
-    // Allocation de mémoire pour stocker les vecteurs
+    
     point_t **vectors = (point_t**) malloc(nbr_vectors * sizeof(point_t *));
     if (vectors == NULL) {
         perror("Erreur d'allocation mémoire pour les vecteurs");
