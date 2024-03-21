@@ -29,7 +29,7 @@ void test_update_centroids() {
             clusters[k].data[i].coords[1] = i + 1;
         }
     }
-    
+
     cluster_t centroids = update_centroids(clusters, 2);
     
     // Vérification des résultats
