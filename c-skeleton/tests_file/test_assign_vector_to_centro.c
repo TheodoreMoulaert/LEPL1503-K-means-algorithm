@@ -54,7 +54,7 @@ int main() {
     for (int i = 0; i < 2; i++) {
         printf("Centroid %d:\n", i + 1);
         for (int j = 0; j < centroids[i].size; j++) {
-            printf("(%d, %d)\n", centroids[i].data[j].coords[0], centroids[i].data[j].coords[1]);
+            printf("(%" PRId64 ", %" PRId64 ")\n", centroids[i].data[j].coords[0], centroids[i].data[j].coords[1]);
         }
     }
 
