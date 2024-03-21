@@ -14,9 +14,9 @@ bool assign_vectors_to_centroids(cluster_t clusters[], int centroids[][MAX_DIMEN
             for (int j = 0; j < K; j++) {
                 int distance;
                 if (distance_type == squared_manhattan_distance) {
-                    distance = manhattan_distance_squared(clusters[k].data[i], centroids[j], dimension);
+                    distance = squared_manhattan_distance(clusters[k].data[i], centroids[j], dimension);
                 } else {
-                    distance = euclidean_distance_squared(clusters[k].data[i], centroids[j], dimension);
+                    distance = squared_manhattan_distance(clusters[k].data[i], centroids[j], dimension);
                 }
                 if (distance < closest_distance) {
                     closest_distance = distance;
