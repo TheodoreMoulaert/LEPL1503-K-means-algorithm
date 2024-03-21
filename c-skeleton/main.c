@@ -15,6 +15,7 @@
 #include "../headers/point.h"
 #include "../headers/cluster.h"
 #include "../headers/distortion.h"
+#include "../headers/combinaison.h"
 
 
 typedef struct {
@@ -161,13 +162,108 @@ int main(int argc, char *argv[]) {
         fclose(program_arguments.input_stream);
         return 1;
     }
-
     uint64_t distortion_result = distortion(clusters, program_arguments.k, DISTANCE_SQUARED);
     if (distortion_result == 0) {
         printf("Error computing distortion.\n");
         fclose(program_arguments.input_stream);
         return 1;
     }
+    /*
+    point_t* sol_init_centroids;
+    cluster_t sol_centro;
+    cluster_t* sol_clusters;
+    uint64_t sol_distortion;
+
+    point_t *list_init_centroids;
+    point_t *list_centro;
+    cluster_t **list_clusters;
+    uint64_t *list_distortion;
+
+    cluster_t *centro_initial_list;*/
+
+    point_t *sol_init_centroids = NULL;
+    point_t *sol_centro;
+    cluster_t **sol_clusters = NULL;
+    uint64_t sol_distortion = UINT64_MAX; // Utilisez UINT64_MAX pour initialiser sol_distortion à la plus grande valeur possible
+
+    point_t *list_init_centroids = NULL;
+    point_t *list_centro = NULL;
+    cluster_t **list_clusters = NULL;
+    uint64_t *list_distortion = NULL;
+
+    uint64_t combi = combinaison(p, program_arguments.k);
+
+    // Allocation dynamique de mémoire pour les tableaux
+    list_init_centroids = malloc(combi * sizeof(point_t));
+    list_centro = malloc(combi * sizeof(point_t));
+    list_clusters = malloc(combi * sizeof(cluster_t *));
+    list_distortion = malloc(combi * sizeof(uint64_t));
+
+    // Vérification des allocations mémoire
+    if (list_init_centroids == NULL || list_centro == NULL || list_clusters == NULL || list_distortion == NULL) {
+        fprintf(stderr, "Erreur lors de l'allocation de mémoire\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // Initialisation des clusters initiaux
+    cluster_t *centro_initial_list = malloc(combi * sizeof(cluster_t));
+    if (centro_initial_list == NULL) {
+        fprintf(stderr, "Erreur lors de l'allocation de mémoire pour les clusters initiaux\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // Initialisation des combinaisons
+    point_t **vect = malloc(combi * sizeof(point_t *));
+    if (vect == NULL) {
+        fprintf(stderr, "Erreur lors de l'allocation de mémoire pour les vecteurs\n");
+        exit(EXIT_FAILURE);
+    }
+
+
+    //uint64_t combi = combinaison(p,program_arguments.k);
+    point_t **vect;
+    for (uint64_t i = 0; i < combi;i++) {
+        vect[i] = vectors[i];
+    }
+
+    for (uint64_t i = 0; i < combi; ++i) {
+
+        centro_initial_list[i]->data = vect[i];
+
+        cluster_t *combi_cluster = kmeans(centro_initial_list, program_arguments.k, num_points, dim, DISTANCE_SQUARED);//, cluster_t combi_clu k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions)
+        point_t *combi_centro;
+        for (int i=0;i< combi_cluster.size){
+            combi_centro[i] = combi_cluster[i]->center;
+        }
+        uint64_t combi_distortion = distortion(combi_cluster, program_arguments.k , DISTANCE_SQUARED);//(cluster_t const **clusters, uint32_t num_clusters, squared_distance_func_t DISTANCE_SQUARED)
+        //uint64_t distortion(cluster_t const **clusters, uint32_t num_clusters, DISTANCE_SQUARED) {
+        if (sol_distortion > combi_distortion){
+            sol_distortion = combi_distortion;
+            sol_centro = combi_centro;//combi_cluster[i]->center;
+            sol_clusters = combi_cluster;
+            sol_init_centroids = &centro_initial_list[i].center;// centro_initial_list;
+        }
+        list_init_centroids[i] = list_init_centroids;
+        list_distortion[i] = combi_distortion;
+        list_centro[i] = combi_centro;
+        list_clusters[i] = combi_clusters;
+    }
+    free(centro_initial_list);
+    free(vect);
+
+    for (uint64_t i = 0; i < combi; ++i) {
+        free(list_clusters[i]);
+    }
+    free(list_clusters);
+    free(list_init_centroids);
+    free(list_centro);
+    free(list_distortion);
+    // A MODIFIER
+    fprintf(stderr,"Best initialisation centroids: % \n",);
+    fprintf(stderr,"Best centroids: (%" PRId64 ",%" PRId64 ")\n",sol_centro.data.coords[0],sol_centro.data.coords[1]);
+    fprintf(stderr,"Best clusters: (%" PRId64 ",%" PRId64 ")\n",sol_clusters.data.coords[0],sol_clusters.data.coords[1]);
+    fprintf(stderr,"Minimal sum of squared distances: %" PRId64 "\n",sol_distortion);
+
 
 
     int write_result = write_csv(centroids, distortion, program_arguments.output_stream, points, num_points, program_arguments.k, dim);
