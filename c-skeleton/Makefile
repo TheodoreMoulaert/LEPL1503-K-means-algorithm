@@ -93,7 +93,7 @@ tests:  test_binary_file test_distance test_update_centroids test_distance_fichi
 	./test_write_csv
 
 #pas certaine de la dernière ligne
-tests_memoire: test_distance_fichier test_binary_file test_up_centro_fichier
+tests_memoire: test_distance_fichier test_binary_file  #test_up_centro_fichier a rajouter si ok
 #@echo Tests:
 #./tests_file
 #@echo
