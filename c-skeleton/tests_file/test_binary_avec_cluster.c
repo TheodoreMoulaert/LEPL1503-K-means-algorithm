@@ -11,7 +11,7 @@
 #include "../headers/binary_file_reader.h" // Inclure le bon en-tête
 #include "../headers/distance.h" // Inclure si nécessaire
 #include "../headers/point.h" // Inclure si nécessaire
-#include "../headers/binary_file_reader.h" 
+#include "../headers/binary_file_avec_cluster.h" 
 #include "../headers/point.h"
 
 // Déclaration de la fonction test_point_input
@@ -195,8 +195,9 @@ void test_size_clusters() {
         fprintf(stderr, "La fonction point_input a renvoyé NULL\n");
         return;
     }
-    uint64_t size = size_clusters(vectors);
-    printf("Le clusters a une taille de %" PRId64 " ", size);
+    uint64_t s;// = test_size_clusters(vectors);
+    s = size_clusters(vectors);
+    printf("Le clusters a une taille de %" PRId64 " ", s);
     free(vectors);
 
 }
@@ -209,7 +210,6 @@ int main() {
     
     CU_pSuite suite = CU_add_suite("Suite_de_tests", NULL, NULL);
 
-   
     CU_add_test(suite, "Test_dim", test_get_dimension_from_binary_file);
     CU_add_test(suite, "Test_nbr_vectors", test_get_nbr_vectors_from_binary_file);
     CU_add_test(suite, "Test_point_input1", test_point_input1);  
