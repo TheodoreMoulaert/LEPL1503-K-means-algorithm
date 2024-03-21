@@ -4,16 +4,16 @@
 
 
 point_t* sol_init_centroids;
-point_t sol_centro;
-cluster_t sol_clusters;
+cluster_t sol_centro;
+cluster_t* sol_clusters;
 uint64_t sol_distortion;
 
 point_t *list_init_centroids;
 point_t *list_centro;
-cluster_t *list_clusters;
+cluster_t **list_clusters;
 uint64_t *list_distortion;
 
-point_t *centro_initial_list;
+cluster_t *centro_initial_list;
 
 uint64_t combi = combinaison(p,program_arguments.k);
 point_t **vect;
@@ -23,12 +23,12 @@ for (uint64_t i = 0; i < combi;i++) {
 
 for (uint64_t i = 0; i < combi; ++i) {
 
-    centro_initial_list[i] = vect[i];
+    centro_initial_list[i]->data = vect[i];
 
-    cluster_t combi_cluster = kmeans(centro_initial_list, program_arguments.k, num_points, dim, DISTANCE_SQUARED);//, cluster_t combi_clu k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions)
+    cluster_t *combi_cluster = kmeans(centro_initial_list, program_arguments.k, num_points, dim, DISTANCE_SQUARED);//, cluster_t combi_clu k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions)
     point_t *combi_centro;
     for (int i=0;i< combi_cluster.size){
-        combi_centro[i] = combi_cluster.center;
+        combi_centro[i] = combi_cluster[i]->center;
     }
     uint64_t combi_distortion = distortion(combi_cluster, program_arguments.k , DISTANCE_SQUARED);//(cluster_t const **clusters, uint32_t num_clusters, squared_distance_func_t DISTANCE_SQUARED)
     //uint64_t distortion(cluster_t const **clusters, uint32_t num_clusters, DISTANCE_SQUARED) {
@@ -43,8 +43,8 @@ for (uint64_t i = 0; i < combi; ++i) {
     list_centro[i] = combi_centro;
     list_clusters[i] = combi_clusters;
 }
-
+//MODIFIER
 fprintf(stderr,"Best initialisation centroids: % \n",);
-fprintf(stderr,"Best centroids: % \n",);
-fprintf(stderr,"Best clusters: % \n",);
+fprintf(stderr,"Best centroids: (%" PRId64 ",%" PRId64 ")\n",sol_centro.data.coords[0],sol_centro.data.coords[1]);
+fprintf(stderr,"Best clusters: (%" PRId64 ",%" PRId64 ")\n",sol_clusters.data.coords[0],sol_clusters.data.coords[1]);
 fprintf(stderr,"Minimal sum of squared distances: %" PRId64 "\n",sol_distortion);

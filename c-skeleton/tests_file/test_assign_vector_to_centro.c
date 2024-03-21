@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "../headers/assign_vector_to_centro.h"
+#include "../headers/distance.h"
+#include "../headers/point.h"
+
+
+
 
 // Function to compare two arrays of points
 bool compare_arrays(point_t arr1[], point_t arr2[], uint64_t size) {
