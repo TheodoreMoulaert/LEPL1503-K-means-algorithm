@@ -1,0 +1,11 @@
+point_t sol_init_centroids;
+point_t sol_centro;
+cluster_t sol_clusters;
+uint64_t sol_distortion;
+
+point_t *list_init_centroids;
+point_t *list_centro;
+cluster_t *list_clusters;
+uint64_t *list_distortion;
+
+

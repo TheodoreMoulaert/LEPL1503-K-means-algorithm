@@ -9,7 +9,7 @@
 #include <stdint.h>
 #include <stdio.h> 
 
-bool assign_vectors_to_centroids(cluster_t clusters[], int centroids[][MAX_DIMENSION], int dimension, int K, squared_distance_func_t distance_type); 
+bool assign_vectors_to_centroids(cluster_t clusters[], cluster_t centroids[], uint64_t K, squared_distance_func_t distance_type);
 
 
 #endif 
