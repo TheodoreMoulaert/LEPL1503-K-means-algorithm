@@ -15,6 +15,6 @@
 
 // Fonction k_means
 //point_t* k_means(point_t *initial_centroids, int K, double **vectors, int num_vectors, int dimensions);
-cluster_t* k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions);
+cluster_t* k_means(cluster_t initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions);
 
 #endif  // K_MEANS_H
