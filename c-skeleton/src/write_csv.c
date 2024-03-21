@@ -5,8 +5,6 @@
 #include "../headers/cluster.h"
 #include "../headers/write_csv.h"
 
-// vraiment pas sur écrit très rapidement avec aide de chatgpt et il manque un bout de code pour la recherche des meilleurs centroides
-
 int8_t create_CSV(point_t* inits, cluster_t *clusters, uint64_t distortion, uint32_t *clusterParPoint, uint32_t k) {
     FILE *fp = fopen("output.csv", "w"); // Ouvrir le fichier CSV en écriture
 
@@ -15,22 +13,45 @@ int8_t create_CSV(point_t* inits, cluster_t *clusters, uint64_t distortion, uint
         return -1;
     }
 
-    // Écrire les centroïdes initiaux et la distortion
-    fprintf(fp, "Centroïdes initiaux,");
-    fprintArrayPoints(fp, inits, k);
-    fprintf(fp, ",%" PRIu64 "\n", distortion);
+    // Écrire les noms des colonnes
+    fprintf(fp, "initialization centroids, distortion, centroids, clusters\n");
 
-    // Écrire les centroïdes finaux et les points associés à chaque cluster
+    // Écrire les données pour chaque cluster
     for (uint32_t i = 0; i < k; i++) {
-        fprintf(fp, "Cluster %d,", i+1);
-        fprintCoordPoint(fp, clusters[i].center);
-        fprintf(fp, ",\"");
-        fprintArrayPoints(fp, clusters[i].data, clusters[i].size);
-        fprintf(fp, "\"\n");
+        // Écrire les centroïdes initiaux
+        fprintf(fp, "\"");
+        fprintArrayPoints(fp, inits, k);
+        fprintf(fp, "\", %" PRIu64 ", \"", distortion);
+
+        // Écrire les centroïdes finaux
+        fprintArrayPoints(fp, &(clusters[i].center), 1);
+        fprintf(fp, "\", \"");
+
+        // Écrire les points associés à chaque cluster
+        fprintArrayClusters(fp, &(clusters[i]));
+        fprintf(fp, "\"");
+
+        // Si ce n'est pas le dernier cluster, ajouter une virgule pour séparer les lignes
+        if (i < k - 1) {
+            fprintf(fp, ", ");
+        } else { // Sinon, passer à la ligne suivante
+            fprintf(fp, "\n");
+        }
     }
 
-    fclose(fp); 
+    fclose(fp);
     return 0;
+}
+
+void fprintArrayClusters(FILE *fp, cluster_t *cluster) {
+    fprintf(fp, "[");
+    for (uint32_t i = 0; i < cluster->size; i++) {
+        fprintCoordPoint(fp, cluster->data[i]);
+        if (i < cluster->size - 1) {
+            fprintf(fp, ",");
+        }
+    }
+    fprintf(fp, "]");
 }
 
 
@@ -44,9 +65,11 @@ void fprintCoordPoint(FILE *fp, point_t pt) {
 
 
 void fprintArrayPoints(FILE *fp, point_t* arrayPts, uint64_t nb) {
+    fprintf(fp, "[");
     fprintCoordPoint(fp, arrayPts[0]);
     for (uint64_t i = 1; i < nb; i++) {
         fprintf(fp, ", ");
         fprintCoordPoint(fp, arrayPts[i]);
     }
+    fprintf(fp, "]");
 }

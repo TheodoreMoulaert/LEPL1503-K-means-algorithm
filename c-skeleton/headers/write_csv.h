@@ -9,6 +9,8 @@
 
 int8_t create_CSV(point_t* inits, cluster_t *clusters, uint64_t distortion, uint32_t *clusterParPoint, uint32_t k);
 
+void fprintArrayClusters(FILE *fp, cluster_t *cluster); 
+
 void fprintCoordPoint(FILE *fp, point_t pt);
 
 void fprintArrayPoints(FILE *fp, point_t* arrayPts, uint64_t nb);
