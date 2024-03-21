@@ -11,7 +11,7 @@
 #include "../headers/point.h"
 #include "../headers/cluster.h"
 #include "../headers/distance.h" 
-#include "../headers/binary_file_avec_cluster.h" 
+#include "../headers/binary_file_reader.h" 
 #include "../headers/update_centroids.h"
 
 void test_up_centro_f1();
