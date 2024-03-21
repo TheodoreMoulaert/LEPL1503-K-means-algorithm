@@ -9,6 +9,7 @@
 #include "../headers/distance.h"
 #include "../headers/main.h"
 #include "../headers/parse_binary_input.h"
+#include "../headers/binary_file_reader.h" 
 #include "../headers/k_means.h"
 #include "../headers/write_csv.h"
 
@@ -148,6 +149,7 @@ int main(int argc, char *argv[]) {
         fclose(program_arguments.input_stream);
         return 1;
     }
+    // est ce qu'on n'utiliserait pas la fonction de binary_file_reader --> point_input
 
     point_t *centroids = k_means(points, program_arguments.k, num_points, dim, DISTANCE_SQUARED);
     if (centroids == NULL) {
