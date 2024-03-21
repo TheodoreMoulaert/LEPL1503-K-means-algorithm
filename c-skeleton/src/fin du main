@@ -8,4 +8,9 @@ point_t *list_centro;
 cluster_t *list_clusters;
 uint64_t *list_distortion;
 
+for i ...{
+    point_t* combi_centro = kmeans(centro_initial_list, program_arguments.k, num_points, dim, DISTANCE_SQUARED);//, cluster_t combi_clu k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions)
+    uint64_t combi_distortion = distortion( num_points, DISTANCE_SQUARED);
+    (cluster_t const **clusters, uint32_t num_clusters, squared_distance_func_t DISTANCE_SQUARED)
 
+}
