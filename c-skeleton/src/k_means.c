@@ -11,8 +11,8 @@
 point_t* k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions) {
     // Implémentation de la fonction k_means
     point_t *centroids = initial_centroids;
-    cluster_t *clusters[K];
-
+    cluster_t *clusters[K] ;
+ 
 
     // Initialisation des clusters
     for (uint32_t k = 0; k < K; k++) {
