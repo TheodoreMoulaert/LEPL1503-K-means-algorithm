@@ -117,13 +117,6 @@ point_t **point_input(FILE *file) {
     return vectors; // attention vector n'est pas de bonne dimension aller voir les tests pour la selection; 
 }
 
-/*uint64_t size_clusters( point_t** clusters){
-    uint64_t size =0;
-    while ( clusters[size] != NULL){
-        size++;
-    }
-    return size;
-}*/
    
 void free_vectors(point_t **vectors, uint64_t nbr_vectors) {
     if (vectors == NULL) return;
