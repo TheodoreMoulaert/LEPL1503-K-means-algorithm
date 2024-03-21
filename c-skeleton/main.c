@@ -12,6 +12,9 @@
 #include "../headers/binary_file_reader.h" 
 #include "../headers/k_means.h"
 #include "../headers/write_csv.h"
+#include "../headers/point.h"
+#include "../headers/cluster.h"
+#include "../headers/distortion.h"
 
 
 typedef struct {
@@ -143,12 +146,13 @@ int main(int argc, char *argv[]) {
 
     point_t *points;
     uint32_t num_points;
-    int parse_result = parse_binary_input(program_arguments.input_stream, &points, &num_points, &dim);
+    point_t** vectors = point_input(program_arguments.input_stream);
+    /*int parse_result = parse_binary_input(program_arguments.input_stream, &points, &num_points, &dim);
     if (parse_result != 0) {
         printf("Error parsing binary input.\n");
         fclose(program_arguments.input_stream);
         return 1;
-    }
+    }*/
     // est ce qu'on n'utiliserait pas la fonction de binary_file_reader --> point_input
 
     point_t *centroids = k_means(points, program_arguments.k, num_points, dim, DISTANCE_SQUARED);
@@ -158,12 +162,13 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    uint64_t distortion = compute_distortion(centroids, points, num_points, dim, DISTANCE_SQUARED);
-    if (distortion == 0) {
+    uint64_t distortion_result = distortion(clusters, program_arguments.k, DISTANCE_SQUARED);
+    if (distortion_result == 0) {
         printf("Error computing distortion.\n");
         fclose(program_arguments.input_stream);
         return 1;
     }
+
 
     int write_result = write_csv(centroids, distortion, program_arguments.output_stream, points, num_points, program_arguments.k, dim);
     if (write_result != 0) {
