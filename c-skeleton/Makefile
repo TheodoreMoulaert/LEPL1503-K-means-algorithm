@@ -49,7 +49,7 @@ test_binary_beaucoup_de_points : tests_file/test_binary_beaucoup_de_points.c src
 test_up_centroids: tests_file/test_update_centroids.c src/update_centroids.o 
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
-test_up_centro_fichier : tests_file/test_up_centro_fichier.c src/update_centroids.o src/binary_file_avec_cluster.o #src/binary_file_reader.o
+test_up_centro_fichier : tests_file/test_up_centro_fichier.c src/update_centroids.o src/binary_file_reader.o #src/binary_file_reader.o src/binary_file_avec_cluster.o
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
 test_distortion : tests_file/test_distortion.c src/distance.o src/distortion.o
