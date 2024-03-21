@@ -9,6 +9,65 @@
 point_t* k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions) {
     // Implémentation de la fonction k_means
     point_t *centroids = initial_centroids;
+    cluster_t *clusters[K];
+
+
+    // Initialisation des clusters
+    for (uint32_t k = 0; k < K; k++) {
+        clusters[k] = malloc(sizeof(cluster_t));
+        if (clusters[k] == NULL) {
+            fprintf(stderr, "Erreur lors de l'allocation de mémoire pour le cluster\n");
+            exit(EXIT_FAILURE);
+        }
+        clusters[k]->data = malloc(num_vectors * sizeof(point_t));
+        if (clusters[k]->data == NULL) {
+            fprintf(stderr, "Erreur lors de l'allocation de mémoire pour les données du cluster\n");
+            exit(EXIT_FAILURE);
+        }
+        clusters[k]->size = num_vectors;
+        clusters[k]->center.dim = dimensions;
+        clusters[k]->center.coords = calloc(dimensions, sizeof(int64_t));
+        if (clusters[k]->center.coords == NULL) {
+            fprintf(stderr, "Erreur lors de l'allocation de mémoire pour les coordonnées du centre du cluster\n");
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    // Copier les données de vectors dans les clusters
+    for (uint64_t i = 0; i < num_vectors; i++) {
+        for (uint32_t j = 0; j < dimensions; j++) {
+            clusters[i]->data[i].coords[j] = vectors[i][j];
+        }
+    }
+
+    bool changed = true;
+    while (changed) {
+        //bool assign_vectors_to_centroids(cluster_t clusters[], cluster_t centroids[], uint64_t K, squared_distance_func_t distance_type)
+        changed = assign_vectors_to_centroids(clusters, centroids, K, num_vectors, dimensions);
+        centroids = update_centroids(clusters);
+    }
+
+    // Libération de la mémoire allouée pour les clusters
+    for (uint32_t i = 0; i < K; i++) {
+        free(clusters[i]->data);
+        free(clusters[i]->center.coords);
+        free(clusters[i]);
+    }
+
+    return centroids;
+}
+
+/*#include <stdbool.h>
+#include <stdio.h>
+#include <assert.h>
+#include <stdlib.h>
+#include "../headers/k_means.h"
+#include "../headers/point.h"
+#include "../headers/update_centroids.h"
+
+point_t* k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions) {
+    // Implémentation de la fonction k_means
+    point_t *centroids = initial_centroids;
     point_t *clusters[K];
     
     // Initialisation des clusters
@@ -58,3 +117,4 @@ point_t* k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint
 
     return centroids;
 }
+*/
