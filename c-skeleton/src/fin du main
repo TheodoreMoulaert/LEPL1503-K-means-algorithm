@@ -15,7 +15,11 @@ uint64_t *list_distortion;
 
 uint64_t combi = combinaison(p,program_arguments.k);
 for (uint64_t i = 0; i < combi; ++i) {
-    point_t* combi_centro = kmeans(centro_initial_list, program_arguments.k, num_points, dim, DISTANCE_SQUARED);//, cluster_t combi_clu k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions)
-    uint64_t combi_distortion = distortion( num_points, DISTANCE_SQUARED);//(cluster_t const **clusters, uint32_t num_clusters, squared_distance_func_t DISTANCE_SQUARED)
-bool assign_vectors_to_centroids(cluster_t clusters[], cluster_t centroids[], uint64_t K, squared_distance_func_t distance_type)
+    point_t *combi_centro;
+    for (int i=0;i< combi_cluster.size){
+        combi_centro[i] = combi_cluster.center;
+    }
+    cluster_t combi_cluster = kmeans(centro_initial_list, program_arguments.k, num_points, dim, DISTANCE_SQUARED);//, cluster_t combi_clu k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions)
+    uint64_t combi_distortion = distortion(combi_cluster,uint32_t num_clusters , DISTANCE_SQUARED);//(cluster_t const **clusters, uint32_t num_clusters, squared_distance_func_t DISTANCE_SQUARED)
+    //uint64_t distortion(cluster_t const **clusters, uint32_t num_clusters, DISTANCE_SQUARED) {
 }
