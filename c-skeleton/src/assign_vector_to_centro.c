@@ -4,15 +4,16 @@
 #include <limits.h> // For INT_MAX
 #include <stdbool.h>
 #include "cluster.h"
+#include <stdint.h> // Include for int64_t and uint64_t
 
-bool assign_vectors_to_centroids(cluster_t clusters[], int centroids[][MAX_DIMENSION], int dimension, int K, squared_distance_func_t distance_type) {
+bool assign_vectors_to_centroids(cluster_t clusters[], int64_t centroids[][MAX_DIMENSION], int64_t dimension, uint64_t K, squared_distance_func_t distance_type) {
     bool unchanged = true;
-    for (int k = 0; k < K; k++) {
-        for (int i = 0; i < clusters[k].size; i++) {
-            int closest_centroid_idx = -1;
-            int closest_distance = INT_MAX;
-            for (int j = 0; j < K; j++) {
-                int distance;
+    for (uint64_t k = 0; k < K; k++) {
+        for (int64_t i = 0; i < clusters[k].size; i++) {
+            int64_t closest_centroid_idx = -1;
+            int64_t closest_distance = INT_MAX;
+            for (uint64_t j = 0; j < K; j++) {
+                int64_t distance;
                 if (distance_type == squared_manhattan_distance) {
                     distance = squared_manhattan_distance(clusters[k].data[i], centroids[j], dimension);
                 } else {
@@ -32,4 +33,3 @@ bool assign_vectors_to_centroids(cluster_t clusters[], int centroids[][MAX_DIMEN
     }
     return unchanged;
 }
-
