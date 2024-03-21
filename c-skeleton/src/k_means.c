@@ -6,7 +6,7 @@
 #include "../headers/point.h"
 #include "../headers/update_centroids.h"
 
-point_t* k_means(point_t *initial_centroids, int K, double **vectors, int num_vectors, int dimensions) {
+point_t* k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions) {
     // Implémentation de la fonction k_means
     point_t *centroids = initial_centroids;
     point_t *clusters[K];
