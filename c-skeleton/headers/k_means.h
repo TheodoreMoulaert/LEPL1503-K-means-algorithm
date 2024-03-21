@@ -11,6 +11,6 @@ bool assign_vectors_to_centroids(point_t *centroids, point_t **clusters, int num
 point_t* update_centroids(point_t **clusters, int K);
 
 // Fonction k_means
-point_t* k_means(point_t *initial_centroids, int K, double **vectors, int num_vectors, int dimensions);
-
+//point_t* k_means(point_t *initial_centroids, int K, double **vectors, int num_vectors, int dimensions);
+point_t* k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions);
 #endif /* K_MEANS_H */
