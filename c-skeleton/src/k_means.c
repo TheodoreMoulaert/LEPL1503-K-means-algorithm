@@ -8,7 +8,7 @@
 #include "../headers/assign_vector_to_centro.h"
 #include "../headers/cluster.h"
 
-cluster_t k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions) {
+cluster_t* k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions) {
     // Implémentation de la fonction k_means
     point_t *centroids = initial_centroids;
     cluster_t *clusters[K] ;
@@ -42,8 +42,6 @@ cluster_t k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uin
         }
     }
 
-    
-
     bool changed = true;
     while (changed) {
         //bool assign_vectors_to_centroids(cluster_t clusters[], cluster_t centroids[], uint64_t K, squared_distance_func_t distance_type)
@@ -58,7 +56,7 @@ cluster_t k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uin
         free(clusters[i]);
     }
 
-    return centroids;
+    return clusters;
 }
 
 /*#include <stdbool.h>
