@@ -70,7 +70,7 @@ clean:
 	rm -f kmeans
 	rm -f test_distance
 	rm -f test_binary_file
-	rm -f test_update_centroids
+	rm -f test_up_centroids
 	rm -f test_distance_fichier
 	rm -f test_binary_beaucoup_de_points
 	rm -f test_up_centro_fichier
@@ -85,26 +85,27 @@ clean:
 	#valgrind --leak-check=full ./kmeans
 
 # Règle pour exécuter les tests
-tests:  test_binary_file test_distance test_update_centroids test_distance_fichier test_up_centro_fichier test_distortion test_write_csv test_distortion_update 
+tests:  test_binary_file test_distance test_up_centroids test_distance_fichier test_up_centro_fichier test_distortion test_write_csv test_distortion_update 
 	@echo "Exécution des tests"
+	./test_binary_beaucoup_de_points
 	./test_binary_file
 	./test_distance
-	./test_update_centroids
+	./test_up_centroids
 	./test_distance_fichier
-	./test_binary_beaucoup_de_points
 	./test_up_centro_fichier
 	./test_distortion 
 	./test_write_csv
 	./test_distortion_update 
 
 #pas certaine de la dernière ligne
-tests_memoire: test_distance_fichier test_binary_file  #test_up_centro_fichier a rajouter si ok
+tests_memoire: test_distance_fichier test_binary_file  test_binary_beaucoup_de_points #test_up_centro_fichier a rajouter si ok
 #@echo Tests:
 #./tests_file
 #@echo
 	@echo Tests avec Valgrind:
 	#valgrind --leak-check=full ./test_distance_fichier
 	#valgrind --leak-check=full ./test_binary_file
+	#valgrind --leak-check=full ./test_binary_beaucoup_de_points
 	#make clean
 
 #valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./test_up_centro_fichier
