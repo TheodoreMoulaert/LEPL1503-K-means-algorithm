@@ -5,10 +5,10 @@
 #include "../headers/point.h"
 
 // Fonction pour assigner les vecteurs aux centroids les plus proches
-bool assign_vectors_to_centroids(point_t *centroids, point_t **clusters, int num_centroids, int num_vectors, int dimensions);
+bool assign_vectors_to_centroids(point_t *centroids, point_t **clusters, uint64_t  num_centroids, uint64_t  num_vectors, uint32_t dimensions);
 
 // Fonction pour mettre à jour les centroids
-point_t* update_centroids(point_t **clusters, int K);
+point_t* update_centroids(point_t **clusters, uint32_t K);
 
 // Fonction k_means
 //point_t* k_means(point_t *initial_centroids, int K, double **vectors, int num_vectors, int dimensions);
