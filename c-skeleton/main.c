@@ -162,12 +162,13 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    uint64_t distortion = distortion(&centroids,num_points, DISTANCE_SQUARED);
-    if (distortion == 0) {
+    uint64_t distortion_result = distortion(clusters, program_arguments.k, DISTANCE_SQUARED);
+    if (distortion_result == 0) {
         printf("Error computing distortion.\n");
         fclose(program_arguments.input_stream);
         return 1;
     }
+
 
     int write_result = write_csv(centroids, distortion, program_arguments.output_stream, points, num_points, program_arguments.k, dim);
     if (write_result != 0) {
