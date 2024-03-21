@@ -21,11 +21,12 @@ int main() {
 
     // Initialize clusters and centroids with sample data
     // Note: This data initialization is just for testing purposes and may not represent actual cluster data
-    point_t cluster1_data[] = {{1, {1, 2}}, {2, {3, 4}}};
-    point_t cluster2_data[] = {{1, {5, 6}}, {2, {7, 8}}, {3, {9, 10}}};
-    point_t cluster3_data[] = {{1, {11, 12}}, {2, {13, 14}}, {3, {15, 16}}, {4, {17, 18}}};
-    point_t centroid1_data[] = {{2, {1, 1}}, {2, {2, 2}}};
-    point_t centroid2_data[] = {{2, {10, 10}}, {2, {12, 12}}};
+    point_t cluster1_data[] = {{{1, {1, 2}}}, {{2, {3, 4}}}};
+    point_t cluster2_data[] = {{{1, {5, 6}}}, {{2, {7, 8}}}, {{3, {9, 10}}}};
+    point_t cluster3_data[] = {{{1, {11, 12}}}, {{2, {13, 14}}}, {{3, {15, 16}}}, {{4, {17, 18}}}};
+    point_t centroid1_data[] = {{{2, {1, 1}}}, {{2, {2, 2}}}};
+    point_t centroid2_data[] = {{{2, {10, 10}}}, {{2, {12, 12}}}};
+
 
     clusters[0].size = 2;
     clusters[0].data = cluster1_data;
