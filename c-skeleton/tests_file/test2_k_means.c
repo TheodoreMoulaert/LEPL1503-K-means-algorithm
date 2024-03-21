@@ -36,7 +36,7 @@ void test_k_means() {
     uint32_t K = 2;
 
     // Appel de la fonction à tester
-    point_t *centroids = k_means(initial_centroids, K, vectors, num_vectors, dimensions);
+    cluster_t centroids = k_means(initial_centroids, K, vectors, num_vectors, dimensions);
 
     // Vérifier les résultats
     CU_ASSERT_PTR_NOT_NULL(centroids);
