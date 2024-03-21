@@ -2,7 +2,6 @@
 
 #include "../headers/distance.h"
 #include "../headers/point.h" // Inclure si nécessaire
-#include "../headers/main.h"
 #include "../headers/cluster.h"
 #include "../headers/distortion.h"
 
