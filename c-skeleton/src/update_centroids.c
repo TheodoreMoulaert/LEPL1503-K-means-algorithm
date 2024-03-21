@@ -40,7 +40,7 @@ cluster_t update_centroids( cluster_t *clusters, uint32_t K) {
         }
 
         centroid.data[k] = vector_sum;
-        clusters[k]->center = vector_sum;
+        clusters[k].center = vector_sum;
         position +=1; 
         
 
