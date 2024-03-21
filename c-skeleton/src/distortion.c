@@ -4,6 +4,7 @@
 #include "../headers/point.h" // Inclure si nécessaire
 #include "../headers/main.h"
 #include "../headers/cluster.h"
+#include "../headers/distortion.h"
 
 uint64_t distortion(cluster_t const **clusters, uint32_t num_clusters, squared_distance_func_t DISTANCE_SQUARED) {
     uint64_t result = 0;
