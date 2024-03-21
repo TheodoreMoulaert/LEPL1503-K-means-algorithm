@@ -12,15 +12,13 @@
 
 void test_k_means() {
     // Définir les valeurs initiales pour le test
-    point_t initial_centroids[2];
-    initial_centroids[0].dim = 2;
-    initial_centroids[0].coords = (int64_t *)malloc(2 * sizeof(int64_t));
-    initial_centroids[0].coords[0] = 1;
-    initial_centroids[0].coords[1] = 1;
-    initial_centroids[1].dim = 2;
-    initial_centroids[1].coords = (int64_t *)malloc(2 * sizeof(int64_t));
-    initial_centroids[1].coords[0] = 5;
-    initial_centroids[1].coords[1] = 5;
+    cluster_t initial_centroids = {
+        .size = 2,
+        .data = (point_t[]){
+            {.dim = 2, .coords = (int64_t[]){1, 1}},
+            {.dim = 2, .coords = (int64_t[]){5, 5}}
+        }
+    };
 
     point_t *vectors[3];
     for (int i = 0; i < 3; i++) {
@@ -36,20 +34,21 @@ void test_k_means() {
     uint32_t K = 2;
 
     // Appel de la fonction à tester
-    cluster_t centroids = k_means(initial_centroids, K, vectors, num_vectors, dimensions);
+    cluster_t *centroids = k_means(initial_centroids, K, vectors, num_vectors, dimensions);
 
     // Vérifier les résultats
     CU_ASSERT_PTR_NOT_NULL(centroids);
 
     // Nettoyage de la mémoire
     for (int i = 0; i < K; i++) {
-        free(initial_centroids[i].coords);
+        free(centroids[i].data);
+        free(centroids[i].center.coords);
     }
+    free(centroids);
     for (int i = 0; i < num_vectors; i++) {
         free(vectors[i]->coords);
         free(vectors[i]);
     }
-    free(centroids);
 }
 
 int main() {

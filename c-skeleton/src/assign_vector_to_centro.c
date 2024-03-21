@@ -1,10 +1,11 @@
 #include "../headers/assign_vector_to_centro.h"
 #include "../headers/distance.h"
 #include "../headers/cluster.h"
+#include "../headers/main.h"
 #include <limits.h>
 #include <stdbool.h>
 
-bool assign_vectors_to_centroids(cluster_t clusters[], cluster_t centroids[], uint64_t K, squared_distance_func_t distance_type) {
+bool assign_vectors_to_centroids(cluster_t *clusters, cluster_t *centroids, uint64_t K, squared_distance_func_t distance_type) {
     bool unchanged = true;
     for (uint64_t k = 0; k < K; k++) {
         for (uint64_t i = 0; i < clusters[k].size; i++) {
