@@ -66,11 +66,13 @@ void test_up_centro_f1() {
                 return;
             }
 
-            
+            for (int d=0;d<dim;d++){
+                clusters[i].data[j].coords[d] = vectors[i]->coords[d];
+            }  
         }
     }
     // Initialisation des coordonnées avec les valeurs du test
-    clusters[0].data[0].coords[0] = (int64_t)1;
+    /*clusters[0].data[0].coords[0] = (int64_t)1;
     clusters[0].data[0].coords[1] = (int64_t)1;
 
     clusters[0].data[1].coords[0] = (int64_t)2;
@@ -90,7 +92,7 @@ void test_up_centro_f1() {
     clusters[1].data[2].coords[1] = (int64_t)5;
 
     clusters[1].data[3].coords[0] = (int64_t)4;
-    clusters[1].data[3].coords[1] = (int64_t)5;
+    clusters[1].data[3].coords[1] = (int64_t)5;*/
 
     cluster_t result;
     result = update_centroids(clusters, K);
@@ -100,10 +102,10 @@ void test_up_centro_f1() {
     // Tests sur les coordonnées des centroids
     CU_ASSERT_EQUAL(result.data[0].coords[0], (int64_t)1);
     CU_ASSERT_EQUAL(result.data[0].coords[1], (int64_t)1);
-    //fprintf(stderr, "Le premier centroid a les coordonnées : (%" PRId64 ",%" PRId64 ") \n", clusters[0].data[0].coords[0], clusters[0].data[0].coords[1]);
-    CU_ASSERT_EQUAL(clusters.data[1].coords[0], (int64_t)4);
-    CU_ASSERT_EQUAL(clusters.data[1].coords[1], (int64_t)5);
-    //fprintf(stderr, "Le deuxième centroid a les coordonnées : (%" PRId64 ",%" PRId64 ") \n", clusters[1].data[0].coords[0], clusters[1].data[0].coords[1]);
+    fprintf(stderr, "Le premier centroid a les coordonnées : (%" PRId64 ",%" PRId64 ") \n", result.data[0].coords[0], result.data[0].coords[1]);
+    CU_ASSERT_EQUAL(result.data[1].coords[0], (int64_t)2);
+    CU_ASSERT_EQUAL(result.data[1].coords[1], (int64_t)2);
+    fprintf(stderr, "Le deuxième centroid a les coordonnées : (%" PRId64 ",%" PRId64 ") \n", result.data[1].coords[0], result.data[1].coords[1]);
 
     //fprintf(stderr, "Le deuxième centroid a les coordonnées : (%" PRId64 ",%" PRId64 ") \n", clusters[1].data[6].coords[0], clusters[0].data[0].coords[1]);
     //fprintf(stderr, "Le deuxième centroid a les coordonnées : (%" PRId64 ",%" PRId64 ") \n", clusters[1].data[0].coords[0], clusters[1].data[0].coords[1]);
