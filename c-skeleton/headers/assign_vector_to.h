@@ -6,9 +6,9 @@
 
 
 #include <stdint.h>
-#include <stdio.h> // Inclure pour FILE *
+#include <stdio.h> 
 
 int assign_vectors_to_centroids(double **centroids, double ***clusters, int num_centroids, int num_vectors, int dimensions); 
 
 
-#endif // BINARY_FILE_READER_H
+#endif 

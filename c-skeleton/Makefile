@@ -21,8 +21,8 @@ INCLUDE_HEADERS_DIRECTORY= -Iheaders
 kmeans: main.c src/binary_file_reader.o src/distance.o src/update_centroids.o src/assign_vector_to_centro.o src/k_means.o src/distortion.o src/binary_file_reader.o    # add your other object files needed to compile your program here. !! The ordering is important !! if file_a.o depends on file_b.o, file_a.o must be placed BEFORE file_b.o in the list !
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)  
 #this will run the following command: gcc -Wall -Werror -g -o kmeans src/distance.o other_object_filespresent_above.o ... -lcunit -lpthread
-#kmeans: main.c src/binary_file_reader.o src/distance.o src/update_centroids.o src/assign_vector_to_centro.o src/k_means.o src/distortion.o src/binary_file_reader.o    # add your other object files needed to compile your program here. !! The ordering is important !! if file_a.o depends on file_b.o, file_a.o must be placed BEFORE file_b.o in the list !
-#	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)  
+kmeans: main.c src/binary_file_reader.o src/distance.o src/update_centroids.o src/assign_vector_to_centro.o src/k_means.o src/distortion.o src/binary_file_reader.o    # add your other object files needed to compile your program here. !! The ordering is important !! if file_a.o depends on file_b.o, file_a.o must be placed BEFORE file_b.o in the list !
+	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)  
 #this will run the following command: gcc -Wall -Werror -g -o kmeans src/distance.o other_object_filespresent_above.o ... -lcunit -lpthread
 
 %.o: %.c # toutes les cibles en dépendance c sont crées comme ceci
@@ -57,6 +57,9 @@ test_up_centro_fichier : tests_file/test_up_centro_fichier.c src/update_centroid
 test_distortion : tests_file/test_distortion.c src/distance.o src/distortion.o
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
+test_write_csv : tests_file/test_write_csv.c src/write_csv.o
+	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
+
 
 
 clean:
@@ -69,7 +72,7 @@ clean:
 	rm -f test_binary_beaucoup_de_points
 	rm -f test_up_centro_fichier
 	rm -f test_distortion 
-
+	rm -f test_write_csv 
 
 #tests: kmeans
 	#@echo Excécution des tests
@@ -78,7 +81,7 @@ clean:
 	#valgrind --leak-check=full ./kmeans
 
 # Règle pour exécuter les tests
-tests:  test_binary_file test_distance test_update_centroids test_distance_fichier test_up_centro_fichier test_distortion 
+tests:  test_binary_file test_distance test_update_centroids test_distance_fichier test_up_centro_fichier test_distortion test_write_csv
 	@echo "Exécution des tests"
 	./test_binary_file
 	./test_distance
@@ -87,6 +90,7 @@ tests:  test_binary_file test_distance test_update_centroids test_distance_fichi
 	./test_binary_beaucoup_de_points
 	./test_up_centro_fichier
 	./test_distortion 
+	./test_write_csv
 
 #pas certaine de la dernière ligne
 tests_memoire: test_distance_fichier test_binary_file test_up_centro_fichier

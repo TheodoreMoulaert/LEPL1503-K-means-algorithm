@@ -8,7 +8,7 @@
 #include "../headers/update_centroids.h"
 #include "../headers/main.h"
 
-cluster_t update_centroids(cluster_list *clusters, uint32_t K) {
+cluster_t update_centroids( cluster_list *clusters, uint32_t K) {
     uint64_t position = 0; 
     cluster_t centroid;
     centroid.size = K;
@@ -28,7 +28,7 @@ cluster_t update_centroids(cluster_list *clusters, uint32_t K) {
             exit(EXIT_FAILURE);
         }
 
-        for (uint32_t i = 0; i < clusters[k].size; i++) {
+        for (uint32_t  i = 0; i < clusters[k].size; i++) {
             for (uint32_t j = 0; j < clusters[k].data[i].dim; j++) {
                 v_sum.elements[j] += clusters[k].data[i].coord[j];
 
