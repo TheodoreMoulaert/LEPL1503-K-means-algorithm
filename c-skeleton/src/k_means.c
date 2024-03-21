@@ -33,11 +33,12 @@ point_t* k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint
             fprintf(stderr, "Erreur lors de l'allocation de mémoire pour les coordonnées du centre du cluster\n");
             exit(EXIT_FAILURE);
         }
-        // Copier les données de vectors dans les clusters
-        for (uint64_t i = 0; i < num_vectors; i++) {
-            for (uint32_t j = 0; j < dimensions; j++) {
-                clusters[k]->data[i].coords[j] = vectors[i]->coords[j];
-            }
+        
+    }
+    // Copier les données de vectors dans les clusters
+    for (uint64_t i = 0; i < num_vectors; i++) {
+        for (uint32_t j = 0; j < dimensions; j++) {
+            clusters[0]->data[i].coords[j] = vectors[i]->coords[j];
         }
     }
 
