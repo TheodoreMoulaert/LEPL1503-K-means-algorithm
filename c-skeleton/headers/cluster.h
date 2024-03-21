@@ -2,6 +2,8 @@
 #ifndef CLUSTER_H
 #define CLUSTER_H
 
+#include "point.h"
+
 /*
 Structure qui  permet de définir les clusters et les centroïds tel que 
 cluster est défini par cluster_t** et centroids est défini par cluster_t* 
