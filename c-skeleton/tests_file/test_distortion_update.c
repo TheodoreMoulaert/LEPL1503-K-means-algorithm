@@ -20,7 +20,8 @@ int clean_suite(void) {
 }
 
 void test_distortion_with_update_centroids() {
-    // Initialisation des clusters avec des données de test
+
+
     uint32_t taille = 2;
     cluster_t *clusters = malloc(taille * sizeof(cluster_t));
     // Initialisation du premier cluster
@@ -63,7 +64,6 @@ void test_distortion_with_update_centroids() {
     clusters[1].data[2].coords[0] = 1;
     clusters[1].data[2].coords[1] = 1;
 
-    // Appel de la fonction update_centroids pour obtenir les nouveaux centres des clusters
     cluster_t new_centroids = update_centroids(clusters, taille);
     printf("Nouveaux centroïdes :\n");
     for (uint32_t i = 0; i < new_centroids.size; i++) {
@@ -82,13 +82,13 @@ void test_distortion_with_update_centroids() {
     uint64_t result = distortion(clusters, taille, dummy_func);
     printf("Résultat de la fonction distortion : %lu\n", result);
 
-    // Valeur attendue en fonction des données de test
+
     uint64_t expected_result = 7; // Pour chaque cluster, la somme des carrés des différences entre les coordonnées des points et du centre est 0 + 1*1 + 2*2 = 5. Comme il y a deux clusters, la distorsion totale est 2 * 5 = 10.
 
-    // Vérification du résultat
+  
     CU_ASSERT_EQUAL(result, expected_result);
 
-    // Nettoyage de la mémoire
+  
     for (uint32_t i = 0; i < taille; ++i) {
         free(clusters[i].center.coords);
         for (uint64_t j = 0; j < clusters[i].size; ++j) {
