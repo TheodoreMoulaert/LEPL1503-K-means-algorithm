@@ -5,6 +5,8 @@
 #include "../headers/k_means.h"
 #include "../headers/point.h"
 #include "../headers/update_centroids.h"
+#include "../headers/assign_vector_to_centro.h"
+#include "../headers/cluster.h"
 
 point_t* k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions) {
     // Implémentation de la fonction k_means
