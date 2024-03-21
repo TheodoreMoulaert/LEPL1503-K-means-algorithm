@@ -57,6 +57,9 @@ test_up_centro_fichier : tests_file/test_up_centro_fichier.c src/update_centroid
 test_distortion : tests_file/test_distortion.c src/distance.o src/distortion.o
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
+test_write_csv : tests_file/test_write_csv.c src/write_csv.o
+	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
+
 
 
 clean:
@@ -69,7 +72,7 @@ clean:
 	rm -f test_binary_beaucoup_de_points
 	rm -f test_up_centro_fichier
 	rm -f test_distortion 
-
+	rm -f test_write_csv 
 
 #tests: kmeans
 	#@echo Excécution des tests
@@ -78,7 +81,7 @@ clean:
 	#valgrind --leak-check=full ./kmeans
 
 # Règle pour exécuter les tests
-tests:  test_binary_file test_distance test_update_centroids test_distance_fichier test_up_centro_fichier test_distortion 
+tests:  test_binary_file test_distance test_update_centroids test_distance_fichier test_up_centro_fichier test_distortion test_write_csv
 	@echo "Exécution des tests"
 	./test_binary_file
 	./test_distance
@@ -87,6 +90,7 @@ tests:  test_binary_file test_distance test_update_centroids test_distance_fichi
 	./test_binary_beaucoup_de_points
 	./test_up_centro_fichier
 	./test_distortion 
+	./test_write_csv
 
 #pas certaine de la dernière ligne
 tests_memoire: test_distance_fichier test_binary_file test_up_centro_fichier
