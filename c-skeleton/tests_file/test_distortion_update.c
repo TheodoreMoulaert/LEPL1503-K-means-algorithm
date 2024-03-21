@@ -20,9 +20,9 @@ int clean_suite(void) {
 
 void test_distortion_with_update_centroids() {
     // Initialisation des clusters avec des données de test
-    uint32_t k = 2;
-    cluster_t *clusters = malloc(k * sizeof(cluster_t));
-    for (uint32_t i = 0; i < k; ++i) {
+    uint32_t taille = 2;
+    cluster_t *clusters = malloc(taille * sizeof(cluster_t));
+    for (uint32_t i = 0; i < taille; ++i) {
         clusters[i].size = 3; // Taille arbitraire pour le test
         clusters[i].center.dim = 2;
         clusters[i].center.coords = malloc(2 * sizeof(int64_t));
@@ -40,11 +40,11 @@ void test_distortion_with_update_centroids() {
     }
 
     // Appel de la fonction update_centroids pour obtenir les nouveaux centres des clusters
-    cluster_t new_centroids = update_centroids(clusters, k);
+    cluster_t new_centroids = update_centroids(clusters, taille);
 
     // Appel de la fonction distortion avec les nouveaux centres des clusters
     squared_distance_func_t dummy_func = squared_euclidean_distance;
-    uint64_t result = distortion(clusters, k, dummy_func);
+    uint64_t result = distortion(clusters, taille, dummy_func);
 
     // Valeur attendue en fonction des données de test
     // Vous devez ajuster cette valeur en fonction de vos données de test réelles
@@ -54,7 +54,7 @@ void test_distortion_with_update_centroids() {
     CU_ASSERT_EQUAL(result, expected_result);
 
     // Nettoyage de la mémoire
-    for (uint32_t i = 0; i < k; ++i) {
+    for (uint32_t i = 0; i < taille; ++i) {
         free(clusters[i].center.coords);
         for (uint64_t j = 0; j < clusters[i].size; ++j) {
             free(clusters[i].data[j].coords);
