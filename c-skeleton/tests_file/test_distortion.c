@@ -58,9 +58,6 @@ void test_distortion() {
     free(clusters);
 }
 
-
-
-
 int main() {
  
     if (CUE_SUCCESS != CU_initialize_registry()) {
