@@ -1,6 +1,7 @@
 #include "../headers/assign_vector_to_centro.h"
 #include "../headers/distance.h"
 #include "../headers/cluster.h"
+#include "../headers/main.h"
 #include <limits.h>
 #include <stdbool.h>
 
