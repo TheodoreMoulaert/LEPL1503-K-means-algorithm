@@ -3,12 +3,13 @@
 #include "../headers/point.h" // Inclure si nécessaire
 #include "../headers/cluster.h"
 #include "../headers/update_centroids.h"
+#include "../headers/main.h"
 
-
+#define MAX_DIMENSION 1000
 #include <stdint.h>
 #include <stdio.h> 
 
-int assign_vectors_to_centroids(double **centroids, double ***clusters, int num_centroids, int num_vectors, int dimensions); 
+bool assign_vectors_to_centroids(cluster_t clusters[], int centroids[][MAX_DIMENSION], int dimension, int K, squared_distance_func_t distance_type); 
 
 
 #endif 
