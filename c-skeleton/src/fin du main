@@ -42,5 +42,9 @@ for (uint64_t i = 0; i < combi; ++i) {
     list_distortion[i] = combi_distortion;
     list_centro[i] = combi_centro;
     list_clusters[i] = combi_clusters;
-
 }
+
+fprintf(stderr,"Best initialisation centroids: % \n",);
+fprintf(stderr,"Best centroids: % \n",);
+fprintf(stderr,"Best clusters: % \n",);
+fprintf(stderr,"Minimal sum of squared distances: %" PRId64 "\n",sol_distortion);
