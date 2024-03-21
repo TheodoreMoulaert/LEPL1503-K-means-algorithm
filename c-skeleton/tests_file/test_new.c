@@ -7,7 +7,7 @@
 
 void test_update_centroids() {
     // Création de clusters factices pour le test
-    cluster_list clusters;
+    cluster_t clusters;
     clusters.size = 3; // Nombre de clusters
     clusters.data = (cluster_t*)malloc(clusters.size * sizeof(cluster_t));
     
