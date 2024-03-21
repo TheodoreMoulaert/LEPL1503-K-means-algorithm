@@ -8,6 +8,9 @@
 #include <inttypes.h>
 #include "../headers/distance.h"
 #include "../headers/main.h"
+#include "../headers/parse_binary_input.h"
+#include "../headers/k_means.h"
+#include "../headers/write_csv.h"
 
 
 typedef struct {
@@ -102,76 +105,77 @@ int parse_args( args_t *args, int argc, char *argv[]) {
 }
 
 int main(int argc, char *argv[]) {
-    args_t program_arguments;   // allocate the args on the stack
+    args_t program_arguments;   // Allocate the args on the stack
     parse_args(&program_arguments, argc, argv);
 
     if (program_arguments.n_first_initialization_points < program_arguments.k) {
-        fprintf(stderr, "Cannot generate an instance of k-means with less initialization points than needed clusters: %"PRIu32" < %"PRIu32"\n",
+        fprintf(stderr, "Cannot generate an instance of k-means with fewer initialization points than needed clusters: %"PRIu32" < %"PRIu32"\n",
                 program_arguments.n_first_initialization_points, program_arguments.k);
         return -1;
     }
-    // the following fprintf (and every code already present in this skeleton) can be removed, it is just an example to show you how to use the program arguments
-    fprintf(stderr, "\tnumber of threads executing the LLoyd's algoprithm in parallel: %" PRIu32 "\n", program_arguments.n_threads);
+
+    fprintf(stderr, "\tnumber of threads executing the Lloyd's algorithm in parallel: %" PRIu32 "\n", program_arguments.n_threads);
     fprintf(stderr, "\tnumber of clusters (k): %" PRIu32 "\n", program_arguments.k);
-    fprintf(stderr, "\twe consider all the combinations of the %" PRIu32 " first points of the input as initializations of the Lloyd's algorithm\n", program_arguments.n_first_initialization_points);
+    fprintf(stderr, "\tconsidering all the combinations of the %" PRIu32 " first points of the input as initializations of the Lloyd's algorithm\n", program_arguments.n_first_initialization_points);
     fprintf(stderr, "\tquiet mode: %s\n", program_arguments.quiet ? "enabled" : "disabled");
     fprintf(stderr, "\tsquared distance function: %s\n", program_arguments.squared_distance_func == squared_manhattan_distance ? "manhattan" : "euclidean");
 
-    /*k = program_arguments.k;
-    quiet =  program_arguments.quiet;
-    n_threads = program_arguments.n_threads;
-    fp = program_arguments.output_stream;
-    squared_distance_func = program_arguments.squared_distance_func;
-    p = program_arguments.n_first_initialization_points;
-    
-    int error_dim=  get_dimension_from_binary_file(program_arguments.input_stream);
-    int error_nbrvect= get_nbr_vectors_from_binary_file(program_arguments.input_stream);
-    int error_pointinput= point_input(program_arguments.input_stream);
-
-    if (error_dim == 0 | error_nbrvect==0 | error_pointinput==0){
-        if (quiet){
-            fprintf(fp, "initialisation de centroids, distortion\n");
-        }
-        else{
-            fprintf(fp,"initialisation de centroids, distortion, clusters\n");
-        }
-    }*/
-
-    // Définition de la fonction distance que l'on utilise 
     squared_distance_func_t DISTANCE_SQUARED;
     if (program_arguments.squared_distance_func == squared_manhattan_distance) {
         DISTANCE_SQUARED = squared_manhattan_distance;
-    } 
-    else{
+    } else {
         DISTANCE_SQUARED = squared_euclidean_distance;
     }
-    
-    // lecture des dimensions des points dans le fichier binaire
 
-    uint32_t dim = get_dimension_from_binary_file(program_arguments.input_stream); //file);
+    uint32_t dim = get_dimension_from_binary_file(program_arguments.input_stream);
     if (dim == 0) {
-        printf("Erreur lors de la récupération de la dimension.\n");
-        fclose(program_arguments.input_stream);//file);
-        return 1; // Ou une autre valeur d'erreur
+        printf("Error retrieving dimension.\n");
+        fclose(program_arguments.input_stream);
+        return 1;
     }
-    uint32_t nbr_vectors = get_nbr_vectors_from_binary_file(program_arguments.input_stream);//file);
+    uint32_t nbr_vectors = get_nbr_vectors_from_binary_file(program_arguments.input_stream);
     if (nbr_vectors == 0) {
-        printf("Erreur lors de la récupération du nombre de vecteurs.\n");
-        fclose(program_arguments.input_stream);//file);
+        printf("Error retrieving the number of vectors.\n");
+        fclose(program_arguments.input_stream);
         return 1;
     }
 
-    // TODO: parse the binary input file, compute the k-means solutions and write the output in a csv
-
-
-
-
-    // close the files opened by parse_args
-    if (program_arguments.input_stream != stdin) {
+    point_t *points;
+    uint32_t num_points;
+    int parse_result = parse_binary_input(program_arguments.input_stream, &points, &num_points, &dim);
+    if (parse_result != 0) {
+        printf("Error parsing binary input.\n");
         fclose(program_arguments.input_stream);
+        return 1;
     }
+
+    point_t *centroids = k_means(points, program_arguments.k, num_points, dim, DISTANCE_SQUARED);
+    if (centroids == NULL) {
+        printf("Error running k-means algorithm.\n");
+        fclose(program_arguments.input_stream);
+        return 1;
+    }
+
+    uint64_t distortion = compute_distortion(centroids, points, num_points, dim, DISTANCE_SQUARED);
+    if (distortion == 0) {
+        printf("Error computing distortion.\n");
+        fclose(program_arguments.input_stream);
+        return 1;
+    }
+
+    int write_result = write_csv(centroids, distortion, program_arguments.output_stream, points, num_points, program_arguments.k, dim);
+    if (write_result != 0) {
+        printf("Error writing results to CSV.\n");
+        fclose(program_arguments.input_stream);
+        return 1;
+    }
+
+    free(points);
+    free(centroids);
+    fclose(program_arguments.input_stream);
     if (program_arguments.output_stream != stdout) {
         fclose(program_arguments.output_stream);
     }
+
     return 0;
 }
