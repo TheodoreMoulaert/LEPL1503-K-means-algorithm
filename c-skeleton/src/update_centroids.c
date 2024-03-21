@@ -8,7 +8,7 @@
 #include "../headers/update_centroids.h"
 #include "../headers/main.h"
 
-cluster_t update_centroids( cluster_list *clusters, uint32_t K) {
+cluster_t update_centroids( cluster_t *clusters, uint32_t K) {
     uint64_t position = 0; 
     cluster_t centroid;
     centroid.size = K;
