@@ -1,10 +1,9 @@
 #include "../headers/assign_vector_to_centro.h"
-#include "../headers/distance.h" // Include if necessary
-#include "../headers/cluster.h" // Include if necessary
-#include <limits.h> // For INT_MAX
+#include "../headers/distance.h"
+#include "../headers/cluster.h"
+#include <limits.h>
 #include <stdbool.h>
-#include "cluster.h"
-#include <stdint.h> // Include for int64_t and uint64_t
+#include <stdint.h>
 
 bool assign_vectors_to_centroids(cluster_t clusters[], cluster_t centroids[], int64_t dimension, uint64_t K, squared_distance_func_t distance_type) {
     bool unchanged = true;
@@ -15,9 +14,9 @@ bool assign_vectors_to_centroids(cluster_t clusters[], cluster_t centroids[], in
             for (uint64_t j = 0; j < K; j++) {
                 int64_t distance;
                 if (distance_type == squared_manhattan_distance) {
-                    distance = squared_manhattan_distance(clusters[k].data[i], centroids[j].data, dimension);
+                    distance = squared_manhattan_distance(&clusters[k].data[i], &centroids[j].center);
                 } else {
-                    distance = squared_manhattan_distance(clusters[k].data[i], centroids[j].data, dimension);
+                    distance = squared_euclidean_distance(&clusters[k].data[i], &centroids[j].center);
                 }
                 if (distance < closest_distance) {
                     closest_distance = distance;
@@ -33,3 +32,4 @@ bool assign_vectors_to_centroids(cluster_t clusters[], cluster_t centroids[], in
     }
     return unchanged;
 }
+
