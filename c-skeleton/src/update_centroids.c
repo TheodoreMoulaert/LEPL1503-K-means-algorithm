@@ -8,7 +8,47 @@
 #include "../headers/update_centroids.h"
 #include "../headers/main.h"
 
-uint64_t update_centroids(cluster_t* clusters, uint32_t K) {
+cluster_t update_centroids( cluster_list *clusters, uint32_t K) {
+    uint64_t position = 0; 
+    cluster_t centroid;
+    centroid.size = K;
+    centroid.data = (point_t*)malloc(K * sizeof(point_t));
+    if (centroid.data == NULL) {
+        fprintf(stderr, "Erreur lors de l'allocation de mémoire\n");
+        exit(EXIT_FAILURE);
+    }
+
+    for (uint32_t k = 0; k < K; k++) {
+        point_t vector_sum;
+        vector_sum.dim = clusters[k].data[position].dim;
+        vector_sum.coords = (int64_t*)calloc(vector_sum.dim, sizeof(int64_t));
+        if (vector_sum.coords == NULL) {
+            
+            fprintf(stderr, "Erreur lors de l'allocation de mémoire\n"); 
+            exit(EXIT_FAILURE);
+        }
+
+        for (uint32_t  i = 0; i < clusters[k].size; i++) {
+            for (uint32_t j = 0; j < clusters[k].data[i].dim; j++) {
+                v_sum.elements[j] += clusters[k].data[i].coord[j];
+
+            }
+        }
+
+        for (uint32_t j = 0; j < vector_sum.dim; j++) {
+            vector_sum.dim[j] /= clusters[k].size;
+             
+        }
+
+        centroid.data[k] = v_sum;
+
+        position +=1; 
+
+    }
+    return centroid;
+}
+
+/*uint64_t update_centroids(cluster_t* clusters, uint32_t K) {
     cluster_t centroids[K];
 
     for (uint32_t j = 0; j < K; j++) {
@@ -70,7 +110,7 @@ uint64_t update_centroids(cluster_t* clusters, uint32_t K) {
     }
 
     return 0;
-}
+}*/
 /*uint64_t update_centroids(cluster_t* clusters,uint32_t K ){
     cluster_t centroids[K];
     //uint32_t K = (uint32_t)strlen(*clusters);
@@ -144,28 +184,28 @@ cluster_t update_centroids(cluster_list *clusters, uint32_t K) {
     }
 
     for (uint32_t k = 0; k < K; k++) {
-        point_t v_sum;
-        v_sum.dim = clusters->liste[k].data[position].dim;
-        v_sum.elements = (int64_t*)calloc(v_sum.dim, sizeof(int64_t));
-        if (v_sum.elements == NULL) {
+        point_t vector_sum;
+        vector_sum.dim = clusters[k].data[position].dim;
+        vector_sum.coords = (int64_t*)calloc(vector_sum.dim, sizeof(int64_t));
+        if (vector_sum.coords == NULL) {
             
             fprintf(stderr, "Erreur lors de l'allocation de mémoire\n"); 
             exit(EXIT_FAILURE);
         }
 
-        for (uint32_t i = 0; i < clusters->liste[k].size; i++) {
-            for (uint32_t j = 0; j < clusters->liste[k].tableau[i].dim; j++) {
-                v_sum.elements[j] += clusters->liste[k].tableau[i].elements[j];
+        for (uint32_t i = 0; i < clusters[k].size; i++) {
+            for (uint32_t j = 0; j < clusters[k].data[i].dim; j++) {
+                v_sum.elements[j] += clusters[k].data[i].coord[j];
 
             }
         }
 
-        for (uint32_t j = 0; j < v_sum.dim; j++) {
-            v_sum.elements[j] /= clusters->liste[k].size;
+        for (uint32_t j = 0; j < vector_sum.dim; j++) {
+            vector_sum.dim[j] /= clusters[k].size;
              
         }
 
-        centroid.tableau[k] = v_sum;
+        centroid.data[k] = v_sum;
 
         position +=1; 
 
