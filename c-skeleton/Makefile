@@ -55,11 +55,14 @@ test_up_centro_fichier : tests_file/test_up_centro_fichier.c src/update_centroid
 test_distortion : tests_file/test_distortion.c src/distance.o src/distortion.o
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
-test_write_csv : tests_file/test_write_csv.c src/write_csv.o
-	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
 test_distortion_update : tests_file/test_distortion_update.c src/distortion.o src/update_centroids.o 
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
+
+test_write_csv : tests_file/test_write_csv.c src/write_csv.o
+	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
+
+
 
 
 
