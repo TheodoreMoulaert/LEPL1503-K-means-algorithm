@@ -48,7 +48,7 @@ point_t* k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint
     while (changed) {
         //bool assign_vectors_to_centroids(cluster_t clusters[], cluster_t centroids[], uint64_t K, squared_distance_func_t distance_type)
         changed = assign_vectors_to_centroids(clusters, centroids, K, num_vectors, dimensions);
-        centroids = update_centroids(clusters);
+        centroids = update_centroids(clusters,K);
     }
 
     // Libération de la mémoire allouée pour les clusters
