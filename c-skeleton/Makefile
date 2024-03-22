@@ -85,7 +85,7 @@ clean:
 	#valgrind --leak-check=full ./kmeans
 
 # Règle pour exécuter les tests
-tests:  test_binary_file test_distance test_up_centroids test_distance_fichier test_up_centro_fichier test_distortion test_write_csv test_distortion_update 
+tests:  test_binary_file test_binary_beaucoup_de_points test_distance test_up_centroids test_distance_fichier test_up_centro_fichier test_distortion test_write_csv test_distortion_update 
 	@echo "Exécution des tests"
 	./test_binary_beaucoup_de_points
 	./test_binary_file
