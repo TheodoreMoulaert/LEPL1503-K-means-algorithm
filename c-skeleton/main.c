@@ -318,7 +318,7 @@ int main(int argc, char *argv[]) {
     free(vect);
 
     for (uint64_t i = 0; i < combi; i++) {
-        free(list_clusters[i]);
+        free(list_clusters[i].data);
     }
     free(list_clusters);
     free(list_init_centroids);
