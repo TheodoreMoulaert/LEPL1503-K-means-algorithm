@@ -70,18 +70,20 @@ void test_k_means() {
     CU_ASSERT_PTR_NOT_NULL(clusters);
 
     // Nettoyage de la mémoire
-    for (int i = 0; i < K; i++) {
+    /*for (int i = 0; i < K; i++) {
         for (uint64_t j = 0; j < clusters[i].size; j++) {
             free(clusters[i].data[j].coords);
         }
         free(clusters[i].data);
     }
-    free(clusters);
+    free(clusters);*/
     
     for (int i = 0; i < num_vectors; i++) {
         free(vectors[i]->coords);
         free(vectors[i]);
     }
+    free(initial_centroids.data);
+    free(clusters);
 }
 int main() {
     // Initialiser le registre de tests
