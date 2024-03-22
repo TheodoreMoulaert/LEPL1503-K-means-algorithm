@@ -89,7 +89,7 @@ clean:
 	#valgrind --leak-check=full ./kmeans
 
 # Règle pour exécuter les tests
-tests:  test_binary_file test_binary_beaucoup_de_points test_distance test_up_centroids test_distance_fichier test_up_centro_fichier test_distortion test_write_csv 
+tests:  test_binary_file test_binary_beaucoup_de_points test_distance test_up_centroids test_distance_fichier test_up_centro_fichier test_distortion test_write_csv test2_k_means
 	@echo "Exécution des tests"
 	./test_binary_beaucoup_de_points
 	./test_binary_file
@@ -104,7 +104,7 @@ tests:  test_binary_file test_binary_beaucoup_de_points test_distance test_up_ce
 	make clean 
 
 #pas certaine de la dernière ligne
-tests_memoire: test_distance_fichier test_binary_file  test_binary_beaucoup_de_points test_distance test_distance_fichier test_distortion test_up_centroids test_assign_vector test_distortion_update 
+tests_memoire: test_distance_fichier test_binary_file  test_binary_beaucoup_de_points test_distance test_distance_fichier test_distortion test_up_centroids test2_k_means #test_assign_vector test_distortion_update 
 #@echo Tests:
 #./tests_file
 #@echo
