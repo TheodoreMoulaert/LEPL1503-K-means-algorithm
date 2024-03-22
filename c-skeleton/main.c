@@ -228,7 +228,7 @@ int main(int argc, char *argv[]) {
     }*/
     // est ce qu'on n'utiliserait pas la fonction de binary_file_reader --> point_input
 
-    cluster_t *centroids = k_means(initial_centroids, program_arguments.k, vector_count, dim, DISTANCE_SQUARED );
+    cluster_t *centroids = k_means(initial_centroids, program_arguments.k,vectors, vector_count, dim, DISTANCE_SQUARED );
     //(cluster_t initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions,squared_distance_func_t distance_func)
     if (centroids == NULL) {
         printf("Error running k-means algorithm.\n");
