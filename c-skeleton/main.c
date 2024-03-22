@@ -148,7 +148,7 @@ int main(int argc, char *argv[]) {
     point_t *points;
     uint32_t num_points;
     point_t** vectors = point_input(program_arguments.input_stream);
-    /*int parse_result = parse_binary_input(program_arguments.input_stream, &points, &num_points, &dim);
+         /*int parse_result = parse_binary_input(program_arguments.input_stream, &points, &num_points, &dim);
     if (parse_result != 0) {
         printf("Error parsing binary input.\n");
         fclose(program_arguments.input_stream);
@@ -186,7 +186,7 @@ int main(int argc, char *argv[]) {
     list_centro = malloc(combi * sizeof(point_t));
     list_clusters = malloc(combi * sizeof(cluster_t *));
     list_distortion = malloc(combi * sizeof(uint64_t));
-
+    
     // Vérification des allocations mémoire
     if (list_init_centroids == NULL || list_centro == NULL || list_clusters == NULL || list_distortion == NULL) {
         fprintf(stderr, "Erreur lors de l'allocation de mémoire\n");
