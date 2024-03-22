@@ -8,6 +8,21 @@ uint64_t assign_vector_to_centroids(cluster_t * centroids, cluster_t * clusters,
     uint64_t unchanged = 1; // Flag to indicate if the assignment remains unchanged
 
     // Loop through each centroid
+    // Iterate over centroids and clusters to allocate memory
+    for (uint32_t i = 0; i < K; i++) {
+        // Allocate memory for centroids and clusters
+        centroids[i].data = (point_t *)malloc(sizeof(point_t) * centroids[i].size);
+        clusters[i].data = (point_t *)malloc(sizeof(point_t) * clusters[i].size);
+
+        // Check for allocation failure
+        if (centroids[i].data == NULL || clusters[i].data == NULL) {
+            // Handle memory allocation failure
+            fprintf(stderr, "Memory allocation failed\n");
+            return -1;
+        }
+    }
+
+    // Iterate over clusters to assign vectors to centroids
     for (uint32_t current_centroid_idx = 0; current_centroid_idx < K; current_centroid_idx++) {
         // Loop through each vector in the current centroid's cluster
         for (uint32_t i = 0; i < clusters[current_centroid_idx].size; i++) {
@@ -34,6 +49,7 @@ uint64_t assign_vector_to_centroids(cluster_t * centroids, cluster_t * clusters,
             point_t* new_point = realloc(clusters[closest_centroid_idx].data, (clusters[closest_centroid_idx].size + 1) * sizeof(point_t));
             if (new_point == NULL) {
                 // Handle memory allocation failure
+                fprintf(stderr, "Memory allocation failed\n");
                 return -1;
             }
 
