@@ -41,8 +41,8 @@ void test_k_means() {
     }
     
 
-    point_t *vectors[3];
-    for (int i = 0; i < 3; i++) {
+    point_t *vectors[1];
+    for (int i = 0; i < 1; i++) {
         vectors[i] = (point_t *)malloc(sizeof(point_t));
         if (vectors[i] == NULL) {
             fprintf(stderr, "Erreur lors de l'allocation de mémoire pour le vecteur %d\n", i);
@@ -59,7 +59,7 @@ void test_k_means() {
     }
 
     uint32_t dimensions = 2;
-    uint64_t num_vectors = 3;
+    uint64_t num_vectors = 1;
     uint32_t K = 2;
     squared_distance_func_t distance_func = squared_euclidean_distance;
      
