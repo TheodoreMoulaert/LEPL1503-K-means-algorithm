@@ -156,7 +156,7 @@ int main(int argc, char *argv[]) {
     }*/
     // est ce qu'on n'utiliserait pas la fonction de binary_file_reader --> point_input
 
-    point_t *centroids = k_means(points, program_arguments.k, num_points, dim, DISTANCE_SQUARED);
+    cluster_t *centroids = k_means(initial_centroids, program_arguments.k, vector_count, dim, DISTANCE_SQUARED);
     if (centroids == NULL) {
         printf("Error running k-means algorithm.\n");
         fclose(program_arguments.input_stream);
@@ -176,7 +176,7 @@ int main(int argc, char *argv[]) {
 
     point_t *list_init_centroids = NULL;
     point_t *list_centro = NULL;
-    cluster_t **list_clusters = NULL;
+    cluster_t *list_clusters = NULL;
     uint64_t *list_distortion = NULL;
 
     uint64_t combi = combinaison(p, program_arguments.k);
@@ -211,10 +211,13 @@ int main(int argc, char *argv[]) {
         vect[i] = vectors[i];
     }
 
+    //cluster_t *combi_cluster;
+
+
     for (uint64_t i = 0; i < combi; i++) {
 
-        centro_initial_list[i]->data = vect[i];
-        cluster_t *combi_cluster = kmeans(centro_initial_list, program_arguments.k, num_points, dim, DISTANCE_SQUARED);//, cluster_t combi_clu k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions)
+        centro_initial_list.data = vect[i];
+        cluster_t *combi_cluster = kmeans(centro_initial_list, program_arguments.k, vector_count, dim, DISTANCE_SQUARED);//, cluster_t combi_clu k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions)
         point_t *combi_centro;
         for (uint64_t j = 0; j < combi_cluster->size; j++) {
                 combi_centro[j] = combi_cluster->center;
@@ -227,12 +230,12 @@ int main(int argc, char *argv[]) {
             sol_clusters = combi_cluster;
             sol_init_centroids = &centro_initial_list[i].center;// centro_initial_list;
         }
-        list_init_centroids[i] = centro_initial_list[i]; //centro_initial_list[i].center;
+        list_init_centroids = centro_initial_list.data; //centro_initial_list[i].center;
         list_distortion[i] = combi_distortion;
-        list_centro[i] = combi_centro;
-        list_clusters[i] = combi_clusters;
+        list_centro = combi_centro;
+        list_clusters = combi_cluster;
     }
-    free(centro_initial_list);
+    free(centro_initial_list.data);
     free(vect);
 
     for (uint64_t i = 0; i < combi; i++) {
@@ -245,15 +248,18 @@ int main(int argc, char *argv[]) {
     
     //fprintf(stderr,"Best initialisation centroids: % \n",);
     fprintf(stderr, "Best initialisation centroids: :\n");
-    for (uint64_t i = 0; i < sol_init_centroids->nbr_vector; ++i) {
-        fprintf(stderr, "Centroid %lu : (%" PRId64 ",%" PRId64 ")\n", i + 1, sol_init_centroids[i]->coords[0], sol_init_centroids[i]->coords[1]);
+    for (uint64_t i = 0; i < sol_init_centroids.data->nbr_vector; ++i) {
+        fprintf(stderr, "Centroid %lu : (%" PRId64 ",%" PRId64 ")\n", i + 1, sol_init_centroids.data->coords[0], sol_init_centroids.data->coords[1]);
     }
     fprintf(stderr,"Best centroids: (%" PRId64 ",%" PRId64 ")\n",sol_centro->coords[0],sol_centro->coords[1]);
     //fprintf(stderr,"Best clusters: (%" PRId64 ",%" PRId64 ")\n",sol_clusters->data->coords[0],sol_clusters->data->coords[1]);
     fprintf(stderr, "Best clusters: :\n");
-    for (uint64_t i = 0; i < sol_clusters->size; ++i) {
-        fprintf(stderr, "Cluster %lu : (%" PRId64 ",%" PRId64 ")\n", i + 1, sol_clusters->data[i].coords[0], sol_clusters->data[i].coords[1]);
+    for (uint64_t j=0;j< program_arguments.k;j++){
+        for (uint64_t i = 0; i < sol_clusters[j]->size; ++i) {
+        fprintf(stderr, "Cluster %lu : (%" PRId64 ",%" PRId64 ")\n", i + 1, sol_clusters[j]->data[i].coords[0], sol_clusters[j]->data[i].coords[1]);
     }
+    }
+    
     fprintf(stderr,"Minimal sum of squared distances: %" PRId64 "\n",sol_distortion);
 
 
