@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 //#include <assert.h>
+#include <inttypes.h>
 #include <stdlib.h>
 #include "../headers/k_means.h"
 #include "../headers/point.h"
@@ -66,9 +67,12 @@ void test_k_means() {
     // Appel de la fonction à tester
     cluster_t *clusters = k_means(initial_centroids, K, vectors, num_vectors, dimensions,distance_func);
     fprintf(stderr, "Best clusters: :\n");
-    for (uint64_t i = 0; i < sol_clusters->size; ++i) {
-        fprintf(stderr, "Cluster %d : (%" PRId64 ",%" PRId64 ")\n", i + 1, sol_clusters->data[i].coords[0], sol_clusters->data[i].coords[1]);
+    for (uint64_t j=0;j <2;j++){
+        for (uint64_t i = 0; i < 1; ++i) {
+            fprintf(stderr, "Cluster %ld: (%" PRId64 ",%" PRId64 ")\n", j + 1, clusters[j].data[i].coords[0], clusters[j].data[i].coords[1]);
+        }
     }
+    
     // Vérifier les résultats
     CU_ASSERT_PTR_NOT_NULL(clusters);
 
