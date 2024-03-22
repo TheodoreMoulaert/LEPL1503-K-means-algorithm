@@ -295,7 +295,7 @@ int main(int argc, char *argv[]) {
 
     for (uint64_t i = 0; i < combi; i++) {
 
-        centro_initial_list.data = vect[i];
+        centro_initial_list[i].data = vect[i]; //centro_initial_list[i].data = vect[i];
         cluster_t *combi_cluster = kmeans(centro_initial_list, program_arguments.k, vector_count, dim, DISTANCE_SQUARED);//, cluster_t combi_clu k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions)
         point_t *combi_centro;
         for (uint64_t j = 0; j < combi_cluster->size; j++) {
@@ -307,14 +307,14 @@ int main(int argc, char *argv[]) {
             sol_distortion = combi_distortion;
             sol_centro = combi_centro;//combi_cluster[i]->center;
             sol_clusters = combi_cluster;
-            sol_init_centroids = &centro_initial_list[i].center;// centro_initial_list;
+            sol_init_centroids = centro_initial_list[i];//.center;// centro_initial_list;
         }
-        list_init_centroids = centro_initial_list.data; //centro_initial_list[i].center;
+        list_init_centroids = centro_initial_list[i].data; //centro_initial_list[i].center;
         list_distortion[i] = combi_distortion;
         list_centro = combi_centro;
         list_clusters = combi_cluster;
     }
-    free(centro_initial_list.data);
+    free(centro_initial_list->data);
     free(vect);
 
     for (uint64_t i = 0; i < combi; i++) {
