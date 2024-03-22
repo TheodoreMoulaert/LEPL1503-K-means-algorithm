@@ -65,7 +65,10 @@ void test_k_means() {
 
     // Appel de la fonction à tester
     cluster_t *clusters = k_means(initial_centroids, K, vectors, num_vectors, dimensions,distance_func);
-
+    fprintf(stderr, "Best clusters: :\n");
+    for (uint64_t i = 0; i < sol_clusters->size; ++i) {
+        fprintf(stderr, "Cluster %d : (%" PRId64 ",%" PRId64 ")\n", i + 1, sol_clusters->data[i].coords[0], sol_clusters->data[i].coords[1]);
+    }
     // Vérifier les résultats
     CU_ASSERT_PTR_NOT_NULL(clusters);
 
