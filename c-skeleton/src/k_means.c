@@ -49,7 +49,7 @@ cluster_t* k_means(cluster_t initial_centroids, uint32_t K, point_t **vectors, u
 
     int changed = 1;
     while (changed) {
-        changed = assign_vector_to_centroids(centroids, clusters, K,squared_distance_func_t distance_func );
+        changed = assign_vector_to_centroids(centroids, clusters, K, distance_func );
         for (uint32_t i = 0; i < K; i++) {
             centroids[i] = update_centroids(&clusters[i], 1);
         }
