@@ -54,6 +54,22 @@ void test_k_means() {
         free(vectors[i]);
     }
 }
+int main() {
+    // Initialiser le registre de tests
+    CU_initialize_registry();
+
+    // Ajouter une suite de tests
+    CU_pSuite suite = CU_add_suite("Suite de tests pour k_means", NULL, NULL);
+    CU_add_test(suite, "Test de k_means", test_k_means);
+
+    // Exécuter les tests
+    CU_basic_run_tests();
+
+    // Nettoyer le registre de tests
+    CU_cleanup_registry();
+
+    return 0;
+}
 /*void test_k_means() {
     // Définir les valeurs initiales pour le test
     cluster_t initial_centroids = {
