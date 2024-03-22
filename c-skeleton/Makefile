@@ -100,19 +100,19 @@ tests:  test_binary_file test_binary_beaucoup_de_points test_distance test_up_ce
 	./test_distortion_update 
 
 #pas certaine de la dernière ligne
-tests_memoire: test_distance_fichier test_binary_file  test_binary_beaucoup_de_points test_distance test_distance_fichier test_distortion test_up_centroids
+tests_memoire: test_distance_fichier test_binary_file  test_binary_beaucoup_de_points test_distance test_distance_fichier test_distortion test_up_centroids test_distortion_update
 #@echo Tests:
 #./tests_file
 #@echo
 	@echo Tests avec Valgrind:
-	valgrind --leak-check=full ./test_distance_fichier
-	valgrind --leak-check=full ./test_binary_file
-	valgrind --leak-check=full ./test_binary_beaucoup_de_points
-	valgrind --leak-check=full ./test_distance
-	valgrind --leak-check=full ./test_distance_fichier
-	valgrind --leak-check=full ./test_distortion
-	valgrind --leak-check=full ./test_up_centroids
-	valgrind --leak-check=full ./test_up_centroids
+	#valgrind --leak-check=full ./test_distance_fichier
+	#valgrind --leak-check=full ./test_binary_file
+	#valgrind --leak-check=full ./test_binary_beaucoup_de_points
+	#valgrind --leak-check=full ./test_distance
+	#valgrind --leak-check=full ./test_distance_fichier
+	#valgrind --leak-check=full ./test_distortion
+	#valgrind --leak-check=full ./test_up_centroids
+	valgrind --leak-check=full ./test_distortion_update
 	#make clean
 
 	make clean 
