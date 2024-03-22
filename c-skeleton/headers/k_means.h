@@ -9,7 +9,7 @@
 
 // Fonction pour assigner les vecteurs aux centroids les plus proches
 //bool assign_vectors_to_centroids(point_t *centroids, point_t **clusters, uint64_t  num_centroids, uint64_t  num_vectors, uint32_t dimensions);
-int assign_vector_to_centroids(cluster_t* centroids, cluster_t* clusters, uint32_t K, squared_distance_func_t distance_func);
+uint64_t assign_vector_to_centroids(cluster_t* centroids, cluster_t* clusters, uint32_t K, squared_distance_func_t distance_func);
 // Fonction pour mettre à jour les centroids
 //point_t* update_centroids(point_t **clusters, uint32_t K);
 cluster_t update_centroids( cluster_t *clusters, uint32_t K);
