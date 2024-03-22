@@ -13,11 +13,7 @@ INCLUDE_HEADERS_DIRECTORY= -Iheaders
 # $^ : liste des dépendances
 # $* : nom du fichier sans son extension
 
-#Il faut ajouter commande pour écrire dans un fichier csv je pense
 
-#ordre du fichier python, à discuter
-#kmeans: main.c src/binary_file_reader.o src/distance.o src/update_centroids.o src/assign_vector_to_centro.o src/k_means.o src/distortion.o src/binary_file_reader.o    # add your other object files needed to compile your program here. !! The ordering is important !! if file_a.o depends on file_b.o, file_a.o must be placed BEFORE file_b.o in the list ! $(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)  
-#this will run the following command: gcc -Wall -Werror -g -o kmeans src/distance.o other_object_filespresent_above.o ... -lcunit -lpthread
 kmeans: main.c src/binary_file_reader.o src/distance.o src/update_centroids.o src/assign_vector_to_centro.o src/k_means.o src/distortion.o src/binary_file_reader.o    # add your other object files needed to compile your program here. !! The ordering is important !! if file_a.o depends on file_b.o, file_a.o must be placed BEFORE file_b.o in the list !
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)  
 #this will run the following command: gcc -Wall -Werror -g -o kmeans src/distance.o other_object_filespresent_above.o ... -lcunit -lpthread
@@ -32,8 +28,7 @@ kmeans: main.c src/binary_file_reader.o src/distance.o src/update_centroids.o sr
 #@echo Compilation des tests
 #$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o tests_file tests_file.c src/*.o $(LIBS)
 
-# Règle de compilation des tests
-#tests_file: tests_file.c src/binary_file_reader.o src/distance.o src/update_centroids.o src/assign_vector_to_centro.o src/k_means.o src/distortion.o src/binary_file_reader.o$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
+
 
 test_binary_file: tests_file/test_binary_file.c src/binary_file_reader.o
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
@@ -67,26 +62,24 @@ test_k_means : tests_file/test2_k_means.c src/k_means.o src/update_centroids.o s
 
 
 
-
-clean:
-	rm -f src/*.o
-	rm -f kmeans
-	rm -f test_distance
-	rm -f test_binary_file
-	rm -f test_up_centroids
-	rm -f test_distance_fichier
-	rm -f test_binary_beaucoup_de_points
-	rm -f test_up_centro_fichier
-	rm -f test_distortion 
-	rm -f test_write_csv 
-	rm -f test_assign_vector 
-	rm -f test2_k_means
-
 #tests: kmeans
 	#@echo Excécution des tests
 	#./kmeans
 	#@echo Excécution des tests avec Valgrind
 	#valgrind --leak-check=full ./kmeans
+
+tests_fonctions : test_binary_file test_binary_beaucoup_de_points test_distance test_up_centroids test_distance_fichier test_up_centro_fichier test_distortion test_write_csv 
+	@echo "Exécution des tests"
+	./test_binary_beaucoup_de_points
+	./test_binary_file
+	./test_distance
+	./test_up_centroids
+	./test_distance_fichier
+	./test_up_centro_fichier
+	./test_distortion 
+	./test_write_csv
+	
+	make clean 
 
 # Règle pour exécuter les tests
 tests:  test_binary_file test_binary_beaucoup_de_points test_distance test_up_centroids test_distance_fichier test_up_centro_fichier test_distortion test_write_csv 
@@ -99,8 +92,14 @@ tests:  test_binary_file test_binary_beaucoup_de_points test_distance test_up_ce
 	./test_up_centro_fichier
 	./test_distortion 
 	./test_write_csv
-	./test_distortion_update 
-	./test2_k_means
+	@echo "Exécution des tests avec Valgrind"
+	valgrind --leak-check=full ./test_binary_beaucoup_de_points
+	valgrind --leak-check=full ./test_binary_file
+	valgrind --leak-check=full ./test_distance
+	valgrind --leak-check=full ./test_up_centroids
+	valgrind --leak-check=full ./test_distance_fichier
+	valgrind --leak-check=full ./test_distortion
+	valgrind --leak-check=full ./test_write_csv
 	make clean 
 
 #pas certaine de la dernière ligne
@@ -121,7 +120,18 @@ tests_memoire: test_distance_fichier test_binary_file  test_binary_beaucoup_de_p
 	#valgrind --leak-check=full ./test2_k_means
 
 	make clean 
-#pas certaine que la commande soit  finie  --> si  ça me semble ok
 
+clean:
+	rm -f src/*.o
+	rm -f kmeans
+	rm -f test_distance
+	rm -f test_binary_file
+	rm -f test_up_centroids
+	rm -f test_distance_fichier
+	rm -f test_binary_beaucoup_de_points
+	rm -f test_up_centro_fichier
+	rm -f test_distortion 
+	rm -f test_write_csv 
+	
 # a .PHONY target forces make to execute the command even if the target already exists
 .PHONY: clean tests tests_memoire
