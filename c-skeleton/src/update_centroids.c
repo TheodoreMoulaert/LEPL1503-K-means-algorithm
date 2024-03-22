@@ -26,12 +26,19 @@ cluster_t update_centroids(cluster_t *clusters, uint32_t K) {
             exit(EXIT_FAILURE);
         }
 
+        // Initialiser vector_sum à zéro
+        for (uint32_t j = 0; j < vector_sum.dim; j++) {
+            vector_sum.coords[j] = 0;
+        }
+
+        // Calculer la somme des coordonnées de tous les points dans le cluster
         for (uint32_t i = 0; i < clusters[k].size; i++) {
             for (uint32_t j = 0; j < clusters[k].data[i].dim; j++) {
                 vector_sum.coords[j] += clusters[k].data[i].coords[j];
             }
         }
 
+        // Calculer la moyenne en divisant par le nombre de points dans le cluster
         for (uint32_t j = 0; j < vector_sum.dim; j++) {
             vector_sum.coords[j] /= clusters[k].size;
         }
