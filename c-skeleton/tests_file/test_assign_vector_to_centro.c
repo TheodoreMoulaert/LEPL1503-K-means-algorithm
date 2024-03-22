@@ -1,12 +1,11 @@
 #include <stdio.h>
 #include <stdint.h>
-#include <stdlib.h>  // Include stdlib.h for realloc function
+#include <stdlib.h>
 
-#include "../headers/point.h"  // Include point.h for point_t definition
-#include "../headers/cluster.h" 
+#include "../headers/point.h"
+#include "../headers/cluster.h"
 #include "../headers/assign_vector_to_centro.h"
 #include "../headers/distance.h"
-
 
 int main() {
     // Define sample points and clusters
@@ -15,34 +14,31 @@ int main() {
     point_t point3 = {2, (int64_t[]){5, 6}};
     point_t point4 = {2, (int64_t[]){7, 8}};
 
-    cluster_t clusters[2]; // Assuming 2 clusters
+    // Initialize centroids
     cluster_t centroids[2]; // Assuming 2 centroids
+    centroids[0].size = 0;
+    centroids[0].data = NULL;
+    centroids[1].size = 0;
+    centroids[1].data = NULL;
 
     // Initialize clusters
+    cluster_t clusters[2]; // Assuming 2 clusters
     clusters[0].size = 2;
     clusters[0].data = (point_t[]) {point1, point2};
-
     clusters[1].size = 2;
     clusters[1].data = (point_t[]) {point3, point4};
-
-    // Initialize centroids
-    centroids[0].size = 0; // Initially no points in centroid 0
-    centroids[0].data = NULL;
-
-    centroids[1].size = 0; // Initially no points in centroid 1
-    centroids[1].data = NULL;
 
     // Print initial assignments
     printf("Initial Assignments:\n");
     printf("Cluster 0:\n");
     for (uint32_t i = 0; i < clusters[0].size; i++) {
-        printf("(%ld, %ld) ", clusters[0].data[i].coords[0], clusters[0].data[i].coords[1]); // Modified format specifiers
+        printf("(%ld, %ld) ", clusters[0].data[i].coords[0], clusters[0].data[i].coords[1]);
     }
     printf("\n");
 
     printf("Cluster 1:\n");
     for (uint32_t i = 0; i < clusters[1].size; i++) {
-        printf("(%ld, %ld) ", clusters[1].data[i].coords[0], clusters[1].data[i].coords[1]); // Modified format specifiers
+        printf("(%ld, %ld) ", clusters[1].data[i].coords[0], clusters[1].data[i].coords[1]);
     }
     printf("\n");
 
@@ -53,13 +49,13 @@ int main() {
     printf("\nAssignments after assign_vectors_to_centroids function call:\n");
     printf("Cluster 0:\n");
     for (uint32_t i = 0; i < clusters[0].size; i++) {
-        printf("(%ld, %ld) ", clusters[0].data[i].coords[0], clusters[0].data[i].coords[1]); // Modified format specifiers
+        printf("(%ld, %ld) ", clusters[0].data[i].coords[0], clusters[0].data[i].coords[1]);
     }
     printf("\n");
 
     printf("Cluster 1:\n");
     for (uint32_t i = 0; i < clusters[1].size; i++) {
-        printf("(%ld, %ld) ", clusters[1].data[i].coords[0], clusters[1].data[i].coords[1]); // Modified format specifiers
+        printf("(%ld, %ld) ", clusters[1].data[i].coords[0], clusters[1].data[i].coords[1]);
     }
     printf("\n");
 
@@ -70,9 +66,7 @@ int main() {
         printf("\nAssignment changed.\n");
     }
 
-    // Free memory if dynamically allocated
+    // Free dynamically allocated memory if needed
 
     return 0;
 }
-
-// gcc -o test tests_file/test_assign_vector_to_centro.c src/assign_vector_to_centro.c src/distance.c -Icunit

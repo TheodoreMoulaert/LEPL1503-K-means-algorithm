@@ -8,6 +8,20 @@
 int assign_vector_to_centroids(cluster_t* centroids, cluster_t* clusters, uint32_t K, squared_distance_func_t distance_type) {
     int unchanged = 1; // Flag to indicate if the assignment remains unchanged
 
+
+    // Allocate memory for centroids
+    for (uint32_t i = 0; i < K; i++) {
+        centroids[i].size = 0; // Initially no points in centroid
+        centroids[i].data = NULL; // Initialize data pointer to NULL
+    }
+
+    // Allocate memory for clusters
+    for (uint32_t i = 0; i < K; i++) {
+        clusters[i].size = 0; // Initially no points in cluster
+        clusters[i].data = NULL; // Initialize data pointer to NULL
+    }
+
+
     for (uint32_t current_centroid_idx = 0; current_centroid_idx < K; current_centroid_idx++) {
         for (uint32_t i = 0; i < clusters[current_centroid_idx].size; i++) {
             // Find the closest centroid for the vector
@@ -40,8 +54,9 @@ int assign_vector_to_centroids(cluster_t* centroids, cluster_t* clusters, uint32
 
             // Remove the vector from the current centroid's cluster
             for (uint32_t j = i; j < clusters[current_centroid_idx].size - 1; j++) {
-                clusters[current_centroid_idx].data[j] = clusters[current_centroid_idx].data[j + 1];
+               clusters[current_centroid_idx].data[j] = clusters[current_centroid_idx].data[j + 1];
             }
+
             clusters[current_centroid_idx].size--;
             i--; // Adjust the index as we removed an element
         }
