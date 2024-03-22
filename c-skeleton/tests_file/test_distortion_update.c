@@ -88,7 +88,7 @@ void test_distortion_with_update_centroids() {
     uint64_t expected_result = 7; // Pour chaque cluster, la somme des carrés des différences entre les coordonnées des points et du centre est 0 + 1*1 + 2*2 = 5. Comme il y a deux clusters, la distorsion totale est 2 * 5 = 10.
 
   
-    CU_ASSERT_EQUAL(result, expected_result);
+    assert(result == expected_result);
 
     /*for (uint32_t i = 0; i < new_centroids.size; ++i) {
         free(new_centroids.data[i].coords);
