@@ -158,7 +158,9 @@ int main(int argc, char *argv[]) {
 
     //uint32_t K = (uint64_t)size_clu; //nombre de centroids à trouver
     uint32_t K = program_arguments.k;
-    cluster_t initial_centroids;//[size_clusters];
+
+    //Partie pas utile je pense mais à vérifier !
+    /*cluster_t initial_centroids;//[size_clusters];
     
         //vector_count = vector_count/K;
     initial_centroids.size = vector_count;
@@ -220,12 +222,12 @@ int main(int argc, char *argv[]) {
     }
     
     //uint32_t num_points = vectors[0]->nbr_vector;
-    /*int parse_result = parse_binary_input(program_arguments.input_stream, &points, &num_points, &dim);
-    if (parse_result != 0) {
-        printf("Error parsing binary input.\n");
-        fclose(program_arguments.input_stream);
-        return 1;
-    }*/
+    //int parse_result = parse_binary_input(program_arguments.input_stream, &points, &num_points, &dim);
+    //if (parse_result != 0) {
+       // printf("Error parsing binary input.\n");
+       // fclose(program_arguments.input_stream);
+       // return 1;
+    //}
     // est ce qu'on n'utiliserait pas la fonction de binary_file_reader --> point_input
 
     cluster_t *centroids = k_means(initial_centroids, program_arguments.k,vectors, vector_count, dim, DISTANCE_SQUARED );
@@ -240,16 +242,16 @@ int main(int argc, char *argv[]) {
         printf("Error computing distortion.\n");
         fclose(program_arguments.input_stream);
         return 1;
-    }
+    }*/
 
     cluster_t sol_init_centroids;
-    sol_init_centroids.data = (point_t*)malloc(sizeof(cluster_t));
+    sol_init_centroids.data = (point_t*)malloc(K*sizeof(cluster_t));
     if (sol_init_centroids.data == NULL) {
         fprintf(stderr, "Erreur lors de l'allocation de mémoire pour les clusters initiaux\n");
         exit(EXIT_FAILURE);
     }
     point_t *sol_centro = NULL;
-    cluster_t **sol_clusters = NULL;
+    cluster_t *sol_clusters = NULL;
     uint64_t sol_distortion = UINT64_MAX; // Utilisez UINT64_MAX pour initialiser sol_distortion à la plus grande valeur possible
 
     point_t **list_init_centroids = NULL;
@@ -338,17 +340,18 @@ int main(int argc, char *argv[]) {
     fprintf(stderr,"Best centroids: (%" PRId64 ",%" PRId64 ")\n",sol_centro->coords[0],sol_centro->coords[1]);
     //fprintf(stderr,"Best clusters: (%" PRId64 ",%" PRId64 ")\n",sol_clusters->data->coords[0],sol_clusters->data->coords[1]);
     fprintf(stderr, "Best clusters: :\n");
-    for (uint64_t j=0;j< program_arguments.k;j++){
-        for (uint64_t i = 0; i < sol_clusters[j]->size; ++i) {
-        fprintf(stderr, "Cluster %lu : (%" PRId64 ",%" PRId64 ")\n", i + 1, sol_clusters[j]->data[i].coords[0], sol_clusters[j]->data[i].coords[1]);
-    }
+    //for (uint64_t j=0;j< program_arguments.k;j++){
+    for (uint64_t i = 0; i < sol_clusters->size; ++i) {
+        fprintf(stderr, "Cluster %lu : (%" PRId64 ",%" PRId64 ")\n", i + 1, sol_clusters->data[i].coords[0], sol_clusters->data[i].coords[1]);
+        
     }
     
     fprintf(stderr,"Minimal sum of squared distances: %" PRId64 "\n",sol_distortion);
 
 
-
-    int write_result = write_csv(centroids, distortion, program_arguments.output_stream, points, vector_count, program_arguments.k, dim); //num_point = vector_count
+    int8_t write_result = write_csv(sol_clusters, sol_init_centroids, sol_distortion, points, vector_count, program_arguments.k, dim);
+    //int write_result = write_csv(sol_clusters, distortion, program_arguments.output_stream, points, vector_count, program_arguments.k, dim); //num_point = vector_count
+    //int8_t create_CSV(cluster_t *clusters, cluster_t centroid_init, uint64_t distortion, uint32_t *clusterParPoint, uint32_t k)
     if (write_result != 0) {
         printf("Error writing results to CSV.\n");
         fclose(program_arguments.input_stream);
@@ -356,7 +359,7 @@ int main(int argc, char *argv[]) {
     }
 
     free(points);
-    free(centroids);
+    free(sol_clusters);
     fclose(program_arguments.input_stream);
     if (program_arguments.output_stream != stdout) {
         fclose(program_arguments.output_stream);
