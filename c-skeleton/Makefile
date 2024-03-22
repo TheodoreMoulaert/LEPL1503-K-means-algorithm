@@ -118,7 +118,7 @@ tests_memoire: test_distance_fichier test_binary_file  test_binary_beaucoup_de_p
 	valgrind --leak-check=full ./test_up_centroids
 	#valgrind --leak-check=full ./test_assign_vector 
 	#valgrind --leak-check=full ./test_distortion_update
-	valgrind --leak-check=full ./test2_k_means
+	valgrind --leak-check=full ./test_k_means
 
 	make clean 
 #pas certaine que la commande soit  finie  --> si  ça me semble ok
