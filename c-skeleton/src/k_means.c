@@ -10,26 +10,30 @@
 
 cluster_t* k_means(cluster_t initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions) {
     // Implémentation de la fonction k_means
-    cluster_t centroids = initial_centroids;
-    cluster_t *clusters[K] ;
- 
+    cluster_t* centroids = malloc(K * sizeof(cluster_t));
+    if (centroids == NULL) {
+        fprintf(stderr, "Erreur lors de l'allocation de mémoire pour les centroids\n");
+        exit(EXIT_FAILURE);
+    }
+    for (uint32_t i = 0; i < K; i++) {
+        centroids[i] = initial_centroids;
+    }
 
-    // Initialisation des clusters
-    for (uint32_t k = 0; k < K; k++) {
-        clusters[k] = malloc(sizeof(cluster_t));
-        if (clusters[k] == NULL) {
-            fprintf(stderr, "Erreur lors de l'allocation de mémoire pour le cluster\n");
-            exit(EXIT_FAILURE);
-        }
-        clusters[k]->data = malloc(num_vectors * sizeof(point_t));
-        if (clusters[k]->data == NULL) {
+    cluster_t* clusters = malloc(K * sizeof(cluster_t));
+    if (clusters == NULL) {
+        fprintf(stderr, "Erreur lors de l'allocation de mémoire pour les clusters\n");
+        exit(EXIT_FAILURE);
+    }
+    for (uint32_t i = 0; i < K; i++) {
+        clusters[i].data = malloc(num_vectors * sizeof(point_t));
+        if (clusters[i].data == NULL) {
             fprintf(stderr, "Erreur lors de l'allocation de mémoire pour les données du cluster\n");
             exit(EXIT_FAILURE);
         }
-        clusters[k]->size = num_vectors;
-        clusters[k]->center.dim = dimensions;
-        clusters[k]->center.coords = calloc(dimensions, sizeof(int64_t));
-        if (clusters[k]->center.coords == NULL) {
+        clusters[i].size = num_vectors;
+        clusters[i].center.dim = dimensions;
+        clusters[i].center.coords = calloc(dimensions, sizeof(int64_t));
+        if (clusters[i].center.coords == NULL) {
             fprintf(stderr, "Erreur lors de l'allocation de mémoire pour les coordonnées du centre du cluster\n");
             exit(EXIT_FAILURE);
         }
@@ -38,26 +42,28 @@ cluster_t* k_means(cluster_t initial_centroids, uint32_t K, point_t **vectors, u
     // Copier les données de vectors dans les clusters
     for (uint64_t i = 0; i < num_vectors; i++) {
         for (uint32_t j = 0; j < dimensions; j++) {
-            clusters[0]->data[i].coords[j] = vectors[i]->coords[j];
+            clusters[0].data[i].coords[j] = vectors[i]->coords[j];
         }
     }
 
-    bool changed = true;
+    int changed = 1;
     while (changed) {
-        //bool assign_vectors_to_centroids(cluster_t clusters[], cluster_t centroids[], uint64_t K, squared_distance_func_t distance_type)
-        changed = assign_vectors_to_centroids(clusters, &centroids, K, num_vectors, dimensions);
-        centroids = update_centroids(clusters,K);
+        changed = assign_vector_to_centroids(centroids, clusters, K);
+        for (uint32_t i = 0; i < K; i++) {
+            centroids[i] = update_centroids(&clusters[i], 1);
+        }
     }
 
     // Libération de la mémoire allouée pour les clusters
     for (uint32_t i = 0; i < K; i++) {
-        free(clusters[i]->data);
-        free(clusters[i]->center.coords);
-        free(clusters[i]);
+        free(clusters[i].data);
+        free(clusters[i].center.coords);
     }
+    free(clusters);
 
-    return clusters;
+    return centroids;
 }
+
 
 /*#include <stdbool.h>
 #include <stdio.h>
