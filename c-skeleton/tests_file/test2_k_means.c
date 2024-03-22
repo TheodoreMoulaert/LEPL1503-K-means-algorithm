@@ -34,17 +34,17 @@ void test_k_means() {
     uint32_t K = 2;
 
     // Appel de la fonction à tester
-    cluster_t *centroids = k_means(initial_centroids, K, vectors, num_vectors, dimensions);
+    cluster_t *clusters = k_means(initial_centroids, K, vectors, num_vectors, dimensions);
 
     // Vérifier les résultats
-    CU_ASSERT_PTR_NOT_NULL(centroids);
+    CU_ASSERT_PTR_NOT_NULL(clusters);
 
     // Nettoyage de la mémoire
     for (int i = 0; i < K; i++) {
-        free(centroids[i].data);
-        free(centroids[i].center.coords);
+        free(clusters[i].data);
+        free(clusters[i].center.coords);
     }
-    free(centroids);
+    free(clusters);
     for (int i = 0; i < num_vectors; i++) {
         free(vectors[i]->coords);
         free(vectors[i]);
