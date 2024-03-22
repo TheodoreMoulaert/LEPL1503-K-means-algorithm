@@ -13,8 +13,6 @@ INCLUDE_HEADERS_DIRECTORY= -Iheaders
 # $^ : liste des dépendances
 # $* : nom du fichier sans son extension
 
-
-
 #Il faut ajouter commande pour écrire dans un fichier csv je pense
 
 #ordre du fichier python, à discuter
@@ -61,9 +59,6 @@ test_distortion : tests_file/test_distortion.c src/distance.o src/distortion.o
 test_write_csv : tests_file/test_write_csv.c src/write_csv.o
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
-test_distortion_update : tests_file/test_distortion_update.c src/distortion.o src/update_centroids.o src/distance.o
-	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
-
 test_assign_vector : tests_file/test_assign_vector_to_centro.c src/assign_vector_to_centro.o  src/distance.o
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
@@ -84,7 +79,6 @@ clean:
 	rm -f test_up_centro_fichier
 	rm -f test_distortion 
 	rm -f test_write_csv 
-	rm -f test_distortion_update
 	rm -f test_assign_vector 
 	rm -f test2_k_means
 
@@ -95,7 +89,7 @@ clean:
 	#valgrind --leak-check=full ./kmeans
 
 # Règle pour exécuter les tests
-tests:  test_binary_file test_binary_beaucoup_de_points test_distance test_up_centroids test_distance_fichier test_up_centro_fichier test_distortion test_write_csv test_distortion_update 
+tests:  test_binary_file test_binary_beaucoup_de_points test_distance test_up_centroids test_distance_fichier test_up_centro_fichier test_distortion test_write_csv 
 	@echo "Exécution des tests"
 	./test_binary_beaucoup_de_points
 	./test_binary_file
