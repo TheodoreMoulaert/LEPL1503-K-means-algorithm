@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "cluster.h": "c",
-        "distortion.h": "c"
+        "distortion.h": "c",
+        "distance.h": "c"
     }
 }

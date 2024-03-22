@@ -20,7 +20,8 @@ INCLUDE_HEADERS_DIRECTORY= -Iheaders
 #ordre du fichier python, à discuter
 #kmeans: main.c src/binary_file_reader.o src/distance.o src/update_centroids.o src/assign_vector_to_centro.o src/k_means.o src/distortion.o src/binary_file_reader.o    # add your other object files needed to compile your program here. !! The ordering is important !! if file_a.o depends on file_b.o, file_a.o must be placed BEFORE file_b.o in the list ! $(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)  
 #this will run the following command: gcc -Wall -Werror -g -o kmeans src/distance.o other_object_filespresent_above.o ... -lcunit -lpthread
-#kmeans: main.c src/binary_file_reader.o src/distance.o src/update_centroids.o src/assign_vector_to_centro.o src/k_means.o src/distortion.o src/binary_file_reader.o    # add your other object files needed to compile your program here. !! The ordering is important !! if file_a.o depends on file_b.o, file_a.o must be placed BEFORE file_b.o in the list ! $(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)  
+kmeans: main.c src/binary_file_reader.o src/distance.o src/update_centroids.o src/assign_vector_to_centro.o src/k_means.o src/distortion.o src/binary_file_reader.o    # add your other object files needed to compile your program here. !! The ordering is important !! if file_a.o depends on file_b.o, file_a.o must be placed BEFORE file_b.o in the list !
+	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)  
 #this will run the following command: gcc -Wall -Werror -g -o kmeans src/distance.o other_object_filespresent_above.o ... -lcunit -lpthread
 
 
@@ -63,7 +64,8 @@ test_write_csv : tests_file/test_write_csv.c src/write_csv.o
 test_distortion_update : tests_file/test_distortion_update.c src/distortion.o src/update_centroids.o src/distance.o
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
-#test_assign_vector : tests_file/test_assign_vector.c src/assign_vector_to_centro.o  src/distance.o $(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
+test_assign_vector : tests_file/test_assign_vector_to_centro.c src/assign_vector_to_centro.o  src/distance.o
+	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
 
 
@@ -80,6 +82,7 @@ clean:
 	rm -f test_distortion 
 	rm -f test_write_csv 
 	rm -f test_distortion_update
+	rm -f test_assign_vector 
 
 #tests: kmeans
 	#@echo Excécution des tests
@@ -99,9 +102,10 @@ tests:  test_binary_file test_binary_beaucoup_de_points test_distance test_up_ce
 	./test_distortion 
 	./test_write_csv
 	./test_distortion_update 
+	make clean 
 
 #pas certaine de la dernière ligne
-tests_memoire: test_distance_fichier test_binary_file  test_binary_beaucoup_de_points test_distance test_distance_fichier test_distortion test_up_centroids 
+tests_memoire: test_distance_fichier test_binary_file  test_binary_beaucoup_de_points test_distance test_distance_fichier test_distortion test_up_centroids test_assign_vector test_distortion_update 
 #@echo Tests:
 #./tests_file
 #@echo
@@ -113,8 +117,8 @@ tests_memoire: test_distance_fichier test_binary_file  test_binary_beaucoup_de_p
 	valgrind --leak-check=full ./test_distance_fichier
 	valgrind --leak-check=full ./test_distortion
 	valgrind --leak-check=full ./test_up_centroids
+	#valgrind --leak-check=full ./test_assign_vector 
 	#valgrind --leak-check=full ./test_distortion_update
-	#make clean
 
 	make clean 
 #pas certaine que la commande soit  finie  --> si  ça me semble ok
