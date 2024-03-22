@@ -109,14 +109,14 @@ tests_memoire: test_distance_fichier test_binary_file  test_binary_beaucoup_de_p
 #./tests_file
 #@echo
 	@echo Tests avec Valgrind:
-	#valgrind --leak-check=full ./test_distance_fichier
-	#valgrind --leak-check=full ./test_binary_file
-	#valgrind --leak-check=full ./test_binary_beaucoup_de_points
-	#valgrind --leak-check=full ./test_distance
-	#valgrind --leak-check=full ./test_distance_fichier
-	#valgrind --leak-check=full ./test_distortion
-	#valgrind --leak-check=full ./test_up_centroids
-	valgrind --leak-check=full ./test_assign_vector 
+	valgrind --leak-check=full ./test_distance_fichier
+	valgrind --leak-check=full ./test_binary_file
+	valgrind --leak-check=full ./test_binary_beaucoup_de_points
+	valgrind --leak-check=full ./test_distance
+	valgrind --leak-check=full ./test_distance_fichier
+	valgrind --leak-check=full ./test_distortion
+	valgrind --leak-check=full ./test_up_centroids
+	#valgrind --leak-check=full ./test_assign_vector 
 	#valgrind --leak-check=full ./test_distortion_update
 	#make clean
 
