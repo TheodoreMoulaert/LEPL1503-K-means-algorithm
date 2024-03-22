@@ -146,8 +146,80 @@ int main(int argc, char *argv[]) {
     }
 
     point_t *points;
-    uint32_t num_points;
+    //uint32_t num_points;
     point_t** vectors = point_input(program_arguments.input_stream);
+     if (vectors == NULL) {
+        fprintf(stderr, "La fonction point_input a renvoyé NULL\n");
+        return;
+    }
+    //uint64_t size_clu = size_clusters(vectors); //1
+    uint32_t dim = vectors[0]->dim; //2
+    uint64_t vector_count = vectors[0]->nbr_vector; //7
+
+    //uint32_t K = (uint64_t)size_clu; //nombre de centroids à trouver
+    uint32_t K = program_arguments.k;
+    cluster_t initial_centroids;//[size_clusters];
+    
+        //vector_count = vector_count/K;
+    initial_centroids.size = vector_count;
+    initial_centroids.data = (point_t*)malloc(vector_count* sizeof(point_t));//vector_count
+        //clusters[i].size = clusters[i].data->nbr_vector;//size_clusters(clusters[i]); // Taille de chaque cluster
+
+    if (initial_centroids.data == NULL) {
+            // Gestion de l'erreur : échec de l'allocation de mémoire pour les clusters
+        CU_FAIL("Erreur d'allocation de mémoire pour les clusters");
+        return;
+    }
+
+    for (int j = 0; j < vector_count; j++) { //vector_count
+        initial_centroids.data[j].dim = dim;
+        initial_centroids.data[j].coords = (int64_t*)malloc(dim * sizeof(int64_t));
+
+        if (initial_centroids.data[j].coords == NULL) {
+            // Gestion de l'erreur : échec de l'allocation de mémoire pour les coordonnées des points
+            CU_FAIL("Erreur d'allocation de mémoire pour les coordonnées des points");
+
+            for (int k = 0; k < j; k++) {
+                free(initial_centroids.data[k].coords);
+            }
+
+            free(initial_centroids.data);
+            return;
+        }
+    }
+
+    cluster_t clusters[K];//[size_clusters];
+    for (int i = 0; i < K; i++){
+        //vector_count = vector_count/K;
+        clusters[i].size = vector_count;
+        clusters[i].data = (point_t*)malloc(vector_count* sizeof(point_t));//vector_count
+        //clusters[i].size = clusters[i].data->nbr_vector;//size_clusters(clusters[i]); // Taille de chaque cluster
+
+        if (clusters[i].data == NULL) {
+            // Gestion de l'erreur : échec de l'allocation de mémoire pour les clusters
+            CU_FAIL("Erreur d'allocation de mémoire pour les clusters");
+            return;
+        }
+
+        for (int j = 0; j < vector_count; j++) { //vector_count
+            clusters[i].data[j].dim = dim;
+            clusters[i].data[j].coords = (int64_t*)malloc(dim * sizeof(int64_t));
+
+            if (clusters[i].data[j].coords == NULL) {
+                // Gestion de l'erreur : échec de l'allocation de mémoire pour les coordonnées des points
+                CU_FAIL("Erreur d'allocation de mémoire pour les coordonnées des points");
+
+                for (int k = 0; k < j; k++) {
+                    free(clusters[i].data[k].coords);
+                }
+
+                free(clusters[i].data);
+                return;
+            }
+        }
+    }
+    
+    //uint32_t num_points = vectors[0]->nbr_vector;
     /*int parse_result = parse_binary_input(program_arguments.input_stream, &points, &num_points, &dim);
     if (parse_result != 0) {
         printf("Error parsing binary input.\n");
@@ -156,13 +228,13 @@ int main(int argc, char *argv[]) {
     }*/
     // est ce qu'on n'utiliserait pas la fonction de binary_file_reader --> point_input
 
-    point_t *centroids = k_means(points, program_arguments.k, num_points, dim, DISTANCE_SQUARED);
+    cluster_t *centroids = k_means(initial_centroids, program_arguments.k, vector_count, dim, DISTANCE_SQUARED);
     if (centroids == NULL) {
         printf("Error running k-means algorithm.\n");
         fclose(program_arguments.input_stream);
         return 1;
     }
-    uint64_t distortion_result = distortion(clusters, program_arguments.k, DISTANCE_SQUARED);
+    uint64_t distortion_result = distortion(clusters, program_arguments.k, DISTANCE_SQUARED); //cluster_t const *clusters
     if (distortion_result == 0) {
         printf("Error computing distortion.\n");
         fclose(program_arguments.input_stream);
@@ -214,7 +286,7 @@ int main(int argc, char *argv[]) {
     for (uint64_t i = 0; i < combi; i++) {
 
         centro_initial_list[i]->data = vect[i];
-        cluster_t *combi_cluster = kmeans(centro_initial_list, program_arguments.k, num_points, dim, DISTANCE_SQUARED);//, cluster_t combi_clu k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions)
+        cluster_t *combi_cluster = kmeans(centro_initial_list, program_arguments.k, vector_count, dim, DISTANCE_SQUARED);//, cluster_t combi_clu k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions)
         point_t *combi_centro;
         for (uint64_t j = 0; j < combi_cluster->size; j++) {
                 combi_centro[j] = combi_cluster->center;
@@ -258,7 +330,7 @@ int main(int argc, char *argv[]) {
 
 
 
-    int write_result = write_csv(centroids, distortion, program_arguments.output_stream, points, num_points, program_arguments.k, dim);
+    int write_result = write_csv(centroids, distortion, program_arguments.output_stream, points, vector_count, program_arguments.k, dim); //num_point = vector_count
     if (write_result != 0) {
         printf("Error writing results to CSV.\n");
         fclose(program_arguments.input_stream);

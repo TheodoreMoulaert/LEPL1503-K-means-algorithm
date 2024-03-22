@@ -122,6 +122,8 @@ void test_centro_fonction1(){
         ("Les centroids ont été mis à jour !\n");
     }
 
+
+
     // Vous pouvez effectuer d'autres validations ici si nécessaire
     // ...
 
