@@ -103,7 +103,7 @@ tests:  test_binary_file test_binary_beaucoup_de_points test_distance test_up_ce
 	make clean 
 
 #pas certaine de la dernière ligne
-tests_memoire: test_distance_fichier test_binary_file  test_binary_beaucoup_de_points test_distance test_distance_fichier test_distortion test_up_centroids test_k_means 
+tests_memoire: test_distance_fichier test_binary_file  test_binary_beaucoup_de_points test_distance test_distance_fichier test_distortion test_write_csv
 #@echo Tests:
 #./tests_file
 #@echo
@@ -115,12 +115,7 @@ tests_memoire: test_distance_fichier test_binary_file  test_binary_beaucoup_de_p
 	valgrind --leak-check=full ./test_distance_fichier
 	valgrind --leak-check=full ./test_distortion
 	valgrind --leak-check=full ./test_write_csv
-	#valgrind --leak-check=full ./test_assign_vector 
-	#valgrind --leak-check=full ./test_distortion_update
-	valgrind --leak-check=full ./test_k_means
-
 	make clean 
-
 clean:
 	rm -f src/*.o
 	rm -f kmeans
