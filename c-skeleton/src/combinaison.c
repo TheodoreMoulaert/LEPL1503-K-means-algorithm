@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include "../headers/combination.h"
+#include "../headers/combinaison.h"
 
 uint64_t comb(uint64_t p, uint32_t k) {
     if (k >= p/2) {

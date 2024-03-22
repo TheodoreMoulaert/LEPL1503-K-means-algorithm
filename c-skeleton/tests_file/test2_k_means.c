@@ -45,18 +45,18 @@ void test_k_means() {
     for (int i = 0; i < 1; i++) {
         vectors[i] = (point_t *)malloc(sizeof(point_t));
         if (vectors[i] == NULL) {
-            //fprintf(stderr, "Erreur lors de l'allocation de mémoire pour le vecteur %d\n", i);
+            fprintf(stderr, "Erreur lors de l'allocation de mémoire pour le vecteur %d\n", i);
             exit(EXIT_FAILURE);
         }
         vectors[i]->dim = 2;
         vectors[i]->coords = (int64_t *)malloc(2 * sizeof(int64_t));
         if (vectors[i]->coords == NULL) {
-            //fprintf(stderr, "Erreur lors de l'allocation de mémoire pour les coordonnées du vecteur %d\n", i);
+            fprintf(stderr, "Erreur lors de l'allocation de mémoire pour les coordonnées du vecteur %d\n", i);
             exit(EXIT_FAILURE);
         }
         vectors[i]->coords[0] = 6;
         vectors[i]->coords[1] = 2;
-        fprintf(stderr, "Vecteur %d: (%" PRId64 ",%" PRId64 ")\n", i+ 1, vectors[i]->coords[0], vectors[i]->coords[1]);
+        fprintf(stderr, "Vecteur : (%" PRId64 ",%" PRId64 ")\n",  vectors[i]->coords[0], vectors[i]->coords[1]);
     }
 
     uint32_t dimensions = 2;
@@ -67,12 +67,11 @@ void test_k_means() {
 
     // Appel de la fonction à tester
     cluster_t *clusters = k_means(initial_centroids, K, vectors, num_vectors, dimensions,distance_func);
-    fprintf(stderr, "Best clusters: :\n");
-    for (uint64_t j=0;j <1;j++){
-        for (uint64_t i = 0; i < 1; ++i) {
-            fprintf(stderr, "Cluster %ld: (%" PRId64 ",%" PRId64 ")\n", j + 1, clusters[j].data[i].coords[0], clusters[j].data[i].coords[1]);
-        }
-    }
+    //fprintf(stderr, "Best clusters: :\n");
+    
+    fprintf(stderr, "Cluster : (%" PRId64 ",%" PRId64 ")\n",  clusters[0].data[0].coords[0], clusters[0].data[0].coords[1]);
+    
+    
     
     // Vérifier les résultats
     CU_ASSERT_PTR_NOT_NULL(clusters);
