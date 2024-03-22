@@ -2,7 +2,7 @@
 #include <CUnit/Basic.h>
 #include <stdbool.h>
 #include <stdio.h>
-#include <assert.h>
+//#include <assert.h>
 #include <stdlib.h>
 #include "../headers/k_means.h"
 #include "../headers/point.h"
@@ -10,6 +10,7 @@
 #include "../headers/assign_vector_to_centro.h"
 #include "../headers/cluster.h"
 #include "../headers/distance.h"
+
 
 void test_k_means() {
     // Définir les valeurs initiales pour le test
@@ -33,7 +34,7 @@ void test_k_means() {
     uint32_t dimensions = 2;
     uint64_t num_vectors = 3;
     uint32_t K = 2;
-    squared_distance_func_t distance_func = squared_manhattan_distance;
+    squared_distance_func_t distance_func = squared_euclidean_distance;
      
 
     // Appel de la fonction à tester
