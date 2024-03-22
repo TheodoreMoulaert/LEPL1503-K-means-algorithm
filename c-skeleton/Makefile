@@ -102,7 +102,7 @@ tests:  test_binary_file test_binary_beaucoup_de_points test_distance test_up_ce
 	make clean 
 
 #pas certaine de la dernière ligne
-tests_memoire: test_distance_fichier test_binary_file  test_binary_beaucoup_de_points test_distance test_distance_fichier test_distortion test_write_csv
+tests_memoire: test_distance_fichier test_binary_file  test_binary_beaucoup_de_points test_distance test_distance_fichier test_distortion test_write_csv test_up_centroids
 #@echo Tests:
 #./tests_file
 #@echo
