@@ -11,9 +11,7 @@
 #include "../headers/binary_file_reader.h" 
 #include "../headers/point.h"
 
-
 void test_point_input1();
-
 
 void test_point_input1() {
     FILE *file = fopen("../python/exemple1000.bin", "rb");
@@ -37,6 +35,9 @@ void test_point_input1() {
     // Obtention de la taille du tableau
     int vector_count = vectors[0]->nbr_vector;
 
+    // Assert pour vérifier que le nombre de vecteurs est égal à 1000
+    CU_ASSERT_EQUAL(vector_count, 1000);
+
     // Impression des coordonnées de chaque vecteur
     for (int i = 0; i < vector_count; i++) {
         printf("Vecteur %d:\n", i + 1);
@@ -58,23 +59,16 @@ void test_point_input1() {
     free(vectors);
 }
 
-
 // Fonction principale pour exécuter les tests
 int main() {
     CU_initialize_registry(); 
 
-    
     CU_pSuite suite = CU_add_suite("Suite_de_tests", NULL, NULL);
 
-   
-
     CU_add_test(suite, "Test_point_input1", test_point_input1);  
-    
 
-    
     CU_basic_run_tests();
 
- 
     CU_cleanup_registry();
 
     return CU_get_error();
