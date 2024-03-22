@@ -14,17 +14,13 @@ int main() {
     point_t point3 = {2, (int64_t[]){5, 6}};
     point_t point4 = {2, (int64_t[]){7, 8}};
 
-    // Initialize centroids
-    cluster_t centroids[2]; // Assuming 2 centroids
-    centroids[0].size = 0;
-    centroids[0].data = NULL;
-    centroids[1].size = 0;
-    centroids[1].data = NULL;
-
-    // Initialize clusters
     cluster_t clusters[2]; // Assuming 2 clusters
+    cluster_t centroids[2]; // Assuming 2 centroids
+
+    // Initialize clusters with sample points
     clusters[0].size = 2;
     clusters[0].data = (point_t[]) {point1, point2};
+
     clusters[1].size = 2;
     clusters[1].data = (point_t[]) {point3, point4};
 
@@ -65,8 +61,6 @@ int main() {
     } else {
         printf("\nAssignment changed.\n");
     }
-
-    // Free dynamically allocated memory if needed
 
     return 0;
 }
