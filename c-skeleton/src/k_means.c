@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
+#include <inttypes.h>
 #include "../headers/k_means.h"
 #include "../headers/point.h"
 #include "../headers/update_centroids.h"

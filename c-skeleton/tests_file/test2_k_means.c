@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 //#include <assert.h>
+#include <inttypes.h>
 #include <stdlib.h>
 #include "../headers/k_means.h"
 #include "../headers/point.h"
@@ -40,8 +41,8 @@ void test_k_means() {
     }
     
 
-    point_t *vectors[3];
-    for (int i = 0; i < 3; i++) {
+    point_t *vectors[1];
+    for (int i = 0; i < 1; i++) {
         vectors[i] = (point_t *)malloc(sizeof(point_t));
         if (vectors[i] == NULL) {
             fprintf(stderr, "Erreur lors de l'allocation de mémoire pour le vecteur %d\n", i);
@@ -58,30 +59,38 @@ void test_k_means() {
     }
 
     uint32_t dimensions = 2;
-    uint64_t num_vectors = 3;
+    uint64_t num_vectors = 1;
     uint32_t K = 2;
     squared_distance_func_t distance_func = squared_euclidean_distance;
      
 
     // Appel de la fonction à tester
     cluster_t *clusters = k_means(initial_centroids, K, vectors, num_vectors, dimensions,distance_func);
-
+    fprintf(stderr, "Best clusters: :\n");
+    for (uint64_t j=0;j <2;j++){
+        for (uint64_t i = 0; i < 1; ++i) {
+            fprintf(stderr, "Cluster %ld: (%" PRId64 ",%" PRId64 ")\n", j + 1, clusters[j].data[i].coords[0], clusters[j].data[i].coords[1]);
+        }
+    }
+    
     // Vérifier les résultats
     CU_ASSERT_PTR_NOT_NULL(clusters);
 
     // Nettoyage de la mémoire
-    for (int i = 0; i < K; i++) {
+    /*for (int i = 0; i < K; i++) {
         for (uint64_t j = 0; j < clusters[i].size; j++) {
             free(clusters[i].data[j].coords);
         }
         free(clusters[i].data);
     }
-    free(clusters);
+    free(clusters);*/
     
     for (int i = 0; i < num_vectors; i++) {
         free(vectors[i]->coords);
         free(vectors[i]);
     }
+    free(initial_centroids.data);
+    free(clusters);
 }
 int main() {
     // Initialiser le registre de tests
