@@ -39,7 +39,7 @@ int main() {
     printf("\n");
 
     // Call the function to assign vectors to centroids
-    int unchanged = assign_vector_to_centroids(centroids, clusters, 2, squared_euclidean_distance);
+    uint64_t unchanged = assign_vector_to_centroids(centroids, clusters, 2, squared_euclidean_distance);
 
     // Print assignments after function call
     printf("\nAssignments after assign_vectors_to_centroids function call:\n");
@@ -64,3 +64,6 @@ int main() {
 
     return 0;
 }
+
+// gcc -o test tests_file/test_assign_vector_to_centro.c src/assign_vector_to_centro.c src/distance.c -Icunit
+// ./test
