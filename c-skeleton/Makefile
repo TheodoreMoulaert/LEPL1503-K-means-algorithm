@@ -104,7 +104,7 @@ tests:  test_binary_file test_binary_beaucoup_de_points test_distance test_up_ce
 	./test_assign_vector 
 
 #pas certaine de la dernière ligne
-tests_memoire: test_distance_fichier test_binary_file  test_binary_beaucoup_de_points test_distance test_distance_fichier test_distortion test_up_centroids test_assign_vector 
+tests_memoire: test_distance_fichier test_binary_file  test_binary_beaucoup_de_points test_distance test_distance_fichier test_distortion test_up_centroids test_assign_vector test_distortion_update 
 #@echo Tests:
 #./tests_file
 #@echo
@@ -117,7 +117,7 @@ tests_memoire: test_distance_fichier test_binary_file  test_binary_beaucoup_de_p
 	valgrind --leak-check=full ./test_distortion
 	valgrind --leak-check=full ./test_up_centroids
 	#valgrind --leak-check=full ./test_assign_vector 
-	#valgrind --leak-check=full ./test_distortion_update
+	valgrind --leak-check=full ./test_distortion_update
 	#make clean
 
 	make clean 
