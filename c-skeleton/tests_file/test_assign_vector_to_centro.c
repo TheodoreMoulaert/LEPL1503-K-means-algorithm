@@ -43,7 +43,7 @@ int main() {
     }
 
     // Call the function to assign vectors to centroids
-    int unchanged = assign_vector_to_centroids(centroids, clusters, 2, squared_euclidean_distance);
+    int unchanged = assign_vector_to_centroids(centroids, clusters, 2, squared_manhattan_distance);
 
     // Print assignments after function call
     printf("\nAssignments after assign_vectors_to_centroids function call:\n");
