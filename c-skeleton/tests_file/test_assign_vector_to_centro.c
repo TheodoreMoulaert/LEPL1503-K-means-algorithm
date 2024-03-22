@@ -56,7 +56,7 @@ int main() {
     printf("\n");
 
     // Validate if the assignment remains unchanged
-    if (unchanged) {
+    if (unchanged==1) {
         printf("\nAssignment remains unchanged.\n");
     } else {
         printf("\nAssignment changed.\n");

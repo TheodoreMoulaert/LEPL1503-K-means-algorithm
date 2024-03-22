@@ -2,12 +2,10 @@
 #include <stddef.h>
 #include "../headers/distance.h"
 #include <stdlib.h>
-
-
+#include <stdio.h>
 
 uint64_t assign_vector_to_centroids(cluster_t* centroids, cluster_t* clusters, uint32_t K, squared_distance_func_t distance_type) {
     uint64_t unchanged = 1; // Flag to indicate if the assignment remains unchanged
-
 
     // Allocate memory for centroids
     for (uint32_t i = 0; i < K; i++) {
@@ -21,11 +19,10 @@ uint64_t assign_vector_to_centroids(cluster_t* centroids, cluster_t* clusters, u
         clusters[i].data = NULL; // Initialize data pointer to NULL
     }
 
-
     for (uint32_t current_centroid_idx = 0; current_centroid_idx < K; current_centroid_idx++) {
         for (uint32_t i = 0; i < clusters[current_centroid_idx].size; i++) {
             // Find the closest centroid for the vector
-            int closest_centroid_idx = -1;
+            int64_t closest_centroid_idx = -1;
             int64_t closest_centroid_distance = INT64_MAX;
 
             for (uint32_t centroid_idx = 0; centroid_idx < K; centroid_idx++) {
@@ -47,7 +44,11 @@ uint64_t assign_vector_to_centroids(cluster_t* centroids, cluster_t* clusters, u
                 // Handle memory allocation failure
                 return -1;
             }
-            clusters[closest_centroid_idx].data = new_point;
+
+            // Check if it's the first allocation
+            if (clusters[closest_centroid_idx].data == NULL) {
+                clusters[closest_centroid_idx].data = new_point;
+            }
 
             clusters[closest_centroid_idx].data[clusters[closest_centroid_idx].size] = clusters[current_centroid_idx].data[i];
             clusters[closest_centroid_idx].size++;
@@ -60,6 +61,16 @@ uint64_t assign_vector_to_centroids(cluster_t* centroids, cluster_t* clusters, u
             clusters[current_centroid_idx].size--;
             i--; // Adjust the index as we removed an element
         }
+    }
+
+    // Print the content of clusters
+    printf("Clusters at the end:\n");
+    for (uint32_t i = 0; i < K; i++) {
+        printf("Cluster %u:\n", i);
+        for (uint32_t j = 0; j < clusters[i].size; j++) {
+            printf("(%ld, %ld) ", clusters[i].data[j].coords[0], clusters[i].data[j].coords[1]);
+        }
+        printf("\n");
     }
 
     return unchanged;
