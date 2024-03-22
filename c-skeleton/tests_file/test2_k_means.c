@@ -43,6 +43,11 @@ void test_k_means() {
     // Vérifier les résultats
     CU_ASSERT_PTR_NOT_NULL(clusters);
 
+    for (int i = 0; i < K; i++) {
+        free(clusters[i].data->coords);
+    }
+    free(clusters);
+    
     // Nettoyage de la mémoire
     for (int i = 0; i < K; i++) {
         free(clusters[i].data);
@@ -71,3 +76,8 @@ int main() {
 
     return 0;
 }
+
+
+//test_k_means : tests_file/test2_k_means.c src/k_means.o src/update_centroids.o src/distance.o src/assign_vector_to_centro.o
+	//$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
+
