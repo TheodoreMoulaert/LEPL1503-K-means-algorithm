@@ -78,11 +78,10 @@ tests_fonctions : test_binary_file test_binary_beaucoup_de_points test_distance 
 	./test_up_centro_fichier
 	./test_distortion 
 	./test_write_csv
-	
 	make clean 
 
 # Règle pour exécuter les tests
-tests:  test_binary_file test_binary_beaucoup_de_points test_distance test_up_centroids test_distance_fichier test_up_centro_fichier test_distortion test_write_csv test_k_means
+tests:  test_binary_file test_binary_beaucoup_de_points test_distance test_up_centroids test_distance_fichier test_up_centro_fichier test_distortion test_write_csv 
 	@echo "Exécution des tests"
 	./test_binary_beaucoup_de_points
 	./test_binary_file
@@ -127,6 +126,6 @@ clean:
 	rm -f test_up_centro_fichier
 	rm -f test_distortion 
 	rm -f test_write_csv 
-	
+	rm -f test_k_means 
 # a .PHONY target forces make to execute the command even if the target already exists
 .PHONY: clean tests tests_memoire
