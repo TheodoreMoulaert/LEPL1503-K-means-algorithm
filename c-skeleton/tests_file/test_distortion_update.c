@@ -90,20 +90,24 @@ void test_distortion_with_update_centroids() {
   
     CU_ASSERT_EQUAL(result, expected_result);
 
+    for (uint32_t i = 0; i < new_centroids.size; ++i) {
+        free(new_centroids.data[i].coords);
+    }
+    free(new_centroids.data);
+
   
     for (uint32_t i = 0; i < taille; ++i) {
         free(clusters[i].center.coords);
-        // Libération de la mémoire allouée pour les coordonnées des points
+        // Free memory for the coordinates of the points
         for (uint64_t j = 0; j < clusters[i].size; ++j) {
             free(clusters[i].data[j].coords);
         }
-        // Libération de la mémoire allouée pour les données des clusters
+        // Free memory for the data of the clusters
         free(clusters[i].data);
     }
-    // Libération de la mémoire allouée pour les clusters
+    // Free memory for clusters
     free(clusters);
-    // Libération de la mémoire allouée pour les nouveaux centroids
-    free(new_centroids.data);
+        
 }
 
 
