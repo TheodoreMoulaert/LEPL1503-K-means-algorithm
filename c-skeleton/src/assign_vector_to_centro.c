@@ -13,6 +13,8 @@ uint64_t assign_vector_to_centroids(cluster_t * centroids, cluster_t * clusters,
         // Allocate memory for centroids and clusters
         centroids[i].data = (point_t *)malloc(sizeof(point_t) * centroids[i].size);
         clusters[i].data = (point_t *)malloc(sizeof(point_t) * clusters[i].size);
+        printf("%d\n", 1);
+
 
         // Check for allocation failure
         if (centroids[i].data == NULL || clusters[i].data == NULL) {
@@ -29,9 +31,11 @@ uint64_t assign_vector_to_centroids(cluster_t * centroids, cluster_t * clusters,
             // Find the closest centroid for the vector
             int64_t closest_centroid_idx = -1;
             int64_t closest_centroid_distance = INT64_MAX;
+            printf("%d\n",2);
 
             for (uint32_t centroid_idx = 0; centroid_idx < K; centroid_idx++) {
                 int64_t distance = distance_type(&clusters[current_centroid_idx].data[i], &centroids[centroid_idx].data[0]);
+                printf("%d\n", 3);
 
 
                 if (distance < closest_centroid_distance) {
