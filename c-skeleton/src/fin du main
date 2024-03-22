@@ -1,4 +1,4 @@
-#include "../headers/combinaison.h"
+/*#include "../headers/combinaison.h"
 #include "../headers/point.h"
 #include "../headers/cluster.h"
 #include "../headers/distance.h" // Assurez-vous que vous avez inclus le fichier de distance
@@ -106,4 +106,4 @@ int main() {
     fprintf(stderr, "Minimal sum of squared distances: %" PRId64 "\n", sol_distortion);
 
     return 0;
-}
+}*/
