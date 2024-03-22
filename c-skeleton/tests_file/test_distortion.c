@@ -16,7 +16,6 @@ int clean_suite(void) {
     return 0;
 }
 
-
 void test_distortion() {
     // initiation
     uint32_t k = 2; 
@@ -53,6 +52,9 @@ void test_distortion() {
     // clean-up
     for (uint32_t i = 0; i < k; ++i) {
         free(clusters[i].center.coords);
+        for (uint64_t j = 0; j < clusters[i].size; ++j) {
+            free(clusters[i].data[j].coords);
+        }
         free(clusters[i].data);
     }
     free(clusters);
