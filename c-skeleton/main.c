@@ -148,7 +148,6 @@ int main(int argc, char *argv[]) {
     point_t *points;
     uint32_t num_points;
     point_t** vectors = point_input(program_arguments.input_stream);
-<<<<<<< HEAD
      if (vectors == NULL) {
         fprintf(stderr, "La fonction point_input a renvoyé NULL\n");
         return;
@@ -229,14 +228,6 @@ int main(int argc, char *argv[]) {
        // fclose(program_arguments.input_stream);
        // return 1;
     //}
-=======
-         /*int parse_result = parse_binary_input(program_arguments.input_stream, &points, &num_points, &dim);
-    if (parse_result != 0) {
-        printf("Error parsing binary input.\n");
-        fclose(program_arguments.input_stream);
-        return 1;
-    }*/
->>>>>>> 7d3e1e1897885b244d08a4516c5db6d7f24e50ef
     // est ce qu'on n'utiliserait pas la fonction de binary_file_reader --> point_input
 
     cluster_t *centroids = k_means(initial_centroids, program_arguments.k, vector_count, dim, DISTANCE_SQUARED);
@@ -252,16 +243,12 @@ int main(int argc, char *argv[]) {
         return 1;
     }*/
 
-<<<<<<< HEAD
     cluster_t sol_init_centroids;
     sol_init_centroids.data = (point_t*)malloc(K*sizeof(cluster_t));
     if (sol_init_centroids.data == NULL) {
         fprintf(stderr, "Erreur lors de l'allocation de mémoire pour les clusters initiaux\n");
         exit(EXIT_FAILURE);
     }
-=======
-    point_t *sol_init_centroids = NULL;
->>>>>>> 7d3e1e1897885b244d08a4516c5db6d7f24e50ef
     point_t *sol_centro = NULL;
     cluster_t *sol_clusters = NULL;
     uint64_t sol_distortion = UINT64_MAX; // Utilisez UINT64_MAX pour initialiser sol_distortion à la plus grande valeur possible
