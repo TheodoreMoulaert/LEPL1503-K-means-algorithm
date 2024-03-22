@@ -168,21 +168,9 @@ int main(int argc, char *argv[]) {
         fclose(program_arguments.input_stream);
         return 1;
     }
-    /*
-    point_t* sol_init_centroids;
-    cluster_t sol_centro;
-    cluster_t* sol_clusters;
-    uint64_t sol_distortion;
-
-    point_t *list_init_centroids;
-    point_t *list_centro;
-    cluster_t **list_clusters;
-    uint64_t *list_distortion;
-
-    cluster_t *centro_initial_list;*/
 
     point_t *sol_init_centroids = NULL;
-    point_t *sol_centro;
+    point_t *sol_centro = NULL;
     cluster_t **sol_clusters = NULL;
     uint64_t sol_distortion = UINT64_MAX; // Utilisez UINT64_MAX pour initialiser sol_distortion à la plus grande valeur possible
 
@@ -219,21 +207,17 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-
-    //uint64_t combi = combinaison(p,program_arguments.k);
-    point_t **vect;
     for (uint64_t i = 0; i < combi;i++) {
         vect[i] = vectors[i];
     }
 
-    for (uint64_t i = 0; i < combi; ++i) {
+    for (uint64_t i = 0; i < combi; i++) {
 
         centro_initial_list[i]->data = vect[i];
-
         cluster_t *combi_cluster = kmeans(centro_initial_list, program_arguments.k, num_points, dim, DISTANCE_SQUARED);//, cluster_t combi_clu k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions)
         point_t *combi_centro;
-        for (int i=0;i< combi_cluster.size){
-            combi_centro[i] = combi_cluster[i]->center;
+        for (uint64_t j = 0; j < combi_cluster->size; j++) {
+                combi_centro[j] = combi_cluster->center;
         }
         uint64_t combi_distortion = distortion(combi_cluster, program_arguments.k , DISTANCE_SQUARED);//(cluster_t const **clusters, uint32_t num_clusters, squared_distance_func_t DISTANCE_SQUARED)
         //uint64_t distortion(cluster_t const **clusters, uint32_t num_clusters, DISTANCE_SQUARED) {
@@ -243,7 +227,7 @@ int main(int argc, char *argv[]) {
             sol_clusters = combi_cluster;
             sol_init_centroids = &centro_initial_list[i].center;// centro_initial_list;
         }
-        list_init_centroids[i] = list_init_centroids;
+        list_init_centroids[i] = centro_initial_list[i]; //centro_initial_list[i].center;
         list_distortion[i] = combi_distortion;
         list_centro[i] = combi_centro;
         list_clusters[i] = combi_clusters;
@@ -251,17 +235,25 @@ int main(int argc, char *argv[]) {
     free(centro_initial_list);
     free(vect);
 
-    for (uint64_t i = 0; i < combi; ++i) {
+    for (uint64_t i = 0; i < combi; i++) {
         free(list_clusters[i]);
     }
     free(list_clusters);
     free(list_init_centroids);
     free(list_centro);
     free(list_distortion);
-    // A MODIFIER
-    fprintf(stderr,"Best initialisation centroids: % \n",);
-    fprintf(stderr,"Best centroids: (%" PRId64 ",%" PRId64 ")\n",sol_centro.data.coords[0],sol_centro.data.coords[1]);
-    fprintf(stderr,"Best clusters: (%" PRId64 ",%" PRId64 ")\n",sol_clusters.data.coords[0],sol_clusters.data.coords[1]);
+    
+    //fprintf(stderr,"Best initialisation centroids: % \n",);
+    fprintf(stderr, "Best initialisation centroids: :\n");
+    for (uint64_t i = 0; i < sol_init_centroids->nbr_vector; ++i) {
+        fprintf(stderr, "Centroid %lu : (%" PRId64 ",%" PRId64 ")\n", i + 1, sol_init_centroids[i]->coords[0], sol_init_centroids[i]->coords[1]);
+    }
+    fprintf(stderr,"Best centroids: (%" PRId64 ",%" PRId64 ")\n",sol_centro->coords[0],sol_centro->coords[1]);
+    //fprintf(stderr,"Best clusters: (%" PRId64 ",%" PRId64 ")\n",sol_clusters->data->coords[0],sol_clusters->data->coords[1]);
+    fprintf(stderr, "Best clusters: :\n");
+    for (uint64_t i = 0; i < sol_clusters->size; ++i) {
+        fprintf(stderr, "Cluster %lu : (%" PRId64 ",%" PRId64 ")\n", i + 1, sol_clusters->data[i].coords[0], sol_clusters->data[i].coords[1]);
+    }
     fprintf(stderr,"Minimal sum of squared distances: %" PRId64 "\n",sol_distortion);
 
 
