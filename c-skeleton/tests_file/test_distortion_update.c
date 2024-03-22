@@ -90,10 +90,10 @@ void test_distortion_with_update_centroids() {
   
     CU_ASSERT_EQUAL(result, expected_result);
 
-    for (uint32_t i = 0; i < new_centroids.size; ++i) {
+    /*for (uint32_t i = 0; i < new_centroids.size; ++i) {
         free(new_centroids.data[i].coords);
     }
-    free(new_centroids.data);
+    free(new_centroids.data);*/
 
   
     for (uint32_t i = 0; i < taille; ++i) {
