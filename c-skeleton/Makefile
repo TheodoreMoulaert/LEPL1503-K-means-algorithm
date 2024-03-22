@@ -63,6 +63,7 @@ test_write_csv : tests_file/test_write_csv.c src/write_csv.o
 test_distortion_update : tests_file/test_distortion_update.c src/distortion.o src/update_centroids.o src/distance.o
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
+#test_assign_vector : tests_file/test_assign_vector.c src/assign_vector_to_centro.o  src/distance.o $(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
 
 
