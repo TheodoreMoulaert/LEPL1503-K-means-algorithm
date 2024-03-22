@@ -241,14 +241,19 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    point_t *sol_init_centroids = NULL;
+    cluster_t sol_init_centroids;
+    sol_init_centroids.data = (point_t*)malloc(sizeof(cluster_t));
+    if (sol_init_centroids.data == NULL) {
+        fprintf(stderr, "Erreur lors de l'allocation de mémoire pour les clusters initiaux\n");
+        exit(EXIT_FAILURE);
+    }
     point_t *sol_centro = NULL;
     cluster_t **sol_clusters = NULL;
     uint64_t sol_distortion = UINT64_MAX; // Utilisez UINT64_MAX pour initialiser sol_distortion à la plus grande valeur possible
 
     point_t *list_init_centroids = NULL;
     point_t *list_centro = NULL;
-    cluster_t **list_clusters = NULL;
+    cluster_t *list_clusters = NULL;
     uint64_t *list_distortion = NULL;
 
     uint64_t combi = combinaison(p, program_arguments.k);
@@ -258,6 +263,7 @@ int main(int argc, char *argv[]) {
     list_centro = malloc(combi * sizeof(point_t));
     list_clusters = malloc(combi * sizeof(cluster_t *));
     list_distortion = malloc(combi * sizeof(uint64_t));
+    
 
     // Vérification des allocations mémoire
     if (list_init_centroids == NULL || list_centro == NULL || list_clusters == NULL || list_distortion == NULL) {
@@ -266,8 +272,9 @@ int main(int argc, char *argv[]) {
     }
 
     // Initialisation des clusters initiaux
-    cluster_t *centro_initial_list = malloc(combi * sizeof(cluster_t));
-    if (centro_initial_list == NULL) {
+    cluster_t centro_initial_list;
+    centro_initial_list.data = (point_t*)malloc(sizeof(cluster_t));
+    if (centro_initial_list.data == NULL) {
         fprintf(stderr, "Erreur lors de l'allocation de mémoire pour les clusters initiaux\n");
         exit(EXIT_FAILURE);
     }
@@ -283,9 +290,12 @@ int main(int argc, char *argv[]) {
         vect[i] = vectors[i];
     }
 
+    //cluster_t *combi_cluster;
+
+
     for (uint64_t i = 0; i < combi; i++) {
 
-        centro_initial_list[i]->data = vect[i];
+        centro_initial_list.data = vect[i];
         cluster_t *combi_cluster = kmeans(centro_initial_list, program_arguments.k, vector_count, dim, DISTANCE_SQUARED);//, cluster_t combi_clu k_means(point_t *initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions)
         point_t *combi_centro;
         for (uint64_t j = 0; j < combi_cluster->size; j++) {
@@ -297,12 +307,12 @@ int main(int argc, char *argv[]) {
             sol_distortion = combi_distortion;
             sol_centro = combi_centro;//combi_cluster[i]->center;
             sol_clusters = combi_cluster;
-            sol_init_centroids = &centro_initial_list[i].center;// centro_initial_list;
+            sol_init_centroids = centro_initial_list;// centro_initial_list;
         }
-        list_init_centroids[i] = centro_initial_list[i]; //centro_initial_list[i].center;
+        list_init_centroids = centro_initial_list.data; //centro_initial_list[i].center;
         list_distortion[i] = combi_distortion;
-        list_centro[i] = combi_centro;
-        list_clusters[i] = combi_clusters;
+        list_centro = combi_centro;
+        list_clusters = combi_cluster;
     }
     free(centro_initial_list);
     free(vect);
