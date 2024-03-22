@@ -5,7 +5,7 @@
 
 
 
-int assign_vector_to_centroids(cluster_t* centroids, cluster_t* clusters, uint32_t K) {
+int assign_vector_to_centroids(cluster_t* centroids, cluster_t* clusters, uint32_t K, squared_distance_func_t distance_type) {
     int unchanged = 1; // Flag to indicate if the assignment remains unchanged
 
     for (uint32_t current_centroid_idx = 0; current_centroid_idx < K; current_centroid_idx++) {
@@ -15,7 +15,7 @@ int assign_vector_to_centroids(cluster_t* centroids, cluster_t* clusters, uint32
             int64_t closest_centroid_distance = INT64_MAX;
 
             for (uint32_t centroid_idx = 0; centroid_idx < K; centroid_idx++) {
-                int64_t distance = squared_euclidean_distance(&clusters[current_centroid_idx].data[i], &centroids[centroid_idx].data[0]);
+                int64_t distance = distance_type(&clusters[current_centroid_idx].data[i], &centroids[centroid_idx].data[0]);
 
                 if (distance < closest_centroid_distance) {
                     closest_centroid_idx = centroid_idx;
