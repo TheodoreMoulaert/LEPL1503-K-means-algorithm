@@ -9,6 +9,7 @@
 #include "../headers/update_centroids.h"
 #include "../headers/assign_vector_to_centro.h"
 #include "../headers/cluster.h"
+#include "../headers/distance.h"
 
 void test_k_means() {
     // Définir les valeurs initiales pour le test
@@ -32,9 +33,11 @@ void test_k_means() {
     uint32_t dimensions = 2;
     uint64_t num_vectors = 3;
     uint32_t K = 2;
+    squared_distance_func_t distance_func = squared_manhattan_distance;
+     
 
     // Appel de la fonction à tester
-    cluster_t *clusters = k_means(initial_centroids, K, vectors, num_vectors, dimensions);
+    cluster_t *clusters = k_means(initial_centroids, K, vectors, num_vectors, dimensions,distance_func);
 
     // Vérifier les résultats
     CU_ASSERT_PTR_NOT_NULL(clusters);
