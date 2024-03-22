@@ -5,7 +5,7 @@
 
 
 
-int assign_vector_to_centroids(cluster_t* centroids, cluster_t* clusters, uint32_t K, squared_distance_func_t distance_type) {
+uint64_t assign_vector_to_centroids(cluster_t* centroids, cluster_t* clusters, uint32_t K, squared_distance_func_t distance_type) {
     uint64_t unchanged = 1; // Flag to indicate if the assignment remains unchanged
 
 
