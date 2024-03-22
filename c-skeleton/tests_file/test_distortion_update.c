@@ -20,10 +20,12 @@ int clean_suite(void) {
 }
 
 void test_distortion_with_update_centroids() {
-
-
     uint32_t taille = 2;
     cluster_t *clusters = malloc(taille * sizeof(cluster_t));
+    if (clusters == NULL) {
+        // Gestion d'erreur si l'allocation échoue
+        return;
+    }
     // Initialisation du premier cluster
     clusters[0].size = 3;
     clusters[0].center.dim = 2;
@@ -91,12 +93,16 @@ void test_distortion_with_update_centroids() {
   
     for (uint32_t i = 0; i < taille; ++i) {
         free(clusters[i].center.coords);
+        // Libération de la mémoire allouée pour les coordonnées des points
         for (uint64_t j = 0; j < clusters[i].size; ++j) {
             free(clusters[i].data[j].coords);
         }
+        // Libération de la mémoire allouée pour les données des clusters
         free(clusters[i].data);
     }
+    // Libération de la mémoire allouée pour les clusters
     free(clusters);
+    // Libération de la mémoire allouée pour les nouveaux centroids
     free(new_centroids.data);
 }
 
