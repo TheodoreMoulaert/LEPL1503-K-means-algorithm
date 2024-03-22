@@ -45,13 +45,13 @@ void test_k_means() {
     for (int i = 0; i < 1; i++) {
         vectors[i] = (point_t *)malloc(sizeof(point_t));
         if (vectors[i] == NULL) {
-            fprintf(stderr, "Erreur lors de l'allocation de mémoire pour le vecteur %d\n", i);
+            //fprintf(stderr, "Erreur lors de l'allocation de mémoire pour le vecteur %d\n", i);
             exit(EXIT_FAILURE);
         }
         vectors[i]->dim = 2;
         vectors[i]->coords = (int64_t *)malloc(2 * sizeof(int64_t));
         if (vectors[i]->coords == NULL) {
-            fprintf(stderr, "Erreur lors de l'allocation de mémoire pour les coordonnées du vecteur %d\n", i);
+            //fprintf(stderr, "Erreur lors de l'allocation de mémoire pour les coordonnées du vecteur %d\n", i);
             exit(EXIT_FAILURE);
         }
         vectors[i]->coords[0] = 6;
