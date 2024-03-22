@@ -67,4 +67,4 @@ int main() {
     return 0;
 }
 // gcc -o test tests_file/test_assign_vector_to_centro.c src/assign_vector_to_centro.c src/distance.c -Icunit
-// 
+// ./test
