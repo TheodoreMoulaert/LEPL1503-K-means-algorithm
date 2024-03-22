@@ -244,7 +244,7 @@ int main(int argc, char *argv[]) {
     }*/
 
     cluster_t sol_init_centroids;
-    sol_init_centroids.data = (point_t*)malloc(K*sizeof(cluster_t));
+    sol_init_centroids.data = (point_t*)malloc(K*sizeof(point_t));
     if (sol_init_centroids.data == NULL) {
         fprintf(stderr, "Erreur lors de l'allocation de mémoire pour les clusters initiaux\n");
         exit(EXIT_FAILURE);
@@ -314,11 +314,15 @@ int main(int argc, char *argv[]) {
         list_centro = combi_centro;
         list_clusters = combi_cluster;
     }
-    free(centro_initial_list->data);
+    for (uint64_t i = 0; i < combi; i++) {
+        free(centro_initial_list[i].data);
+    }
+    free(centro_initial_list);
     free(vect);
 
     for (uint64_t i = 0; i < combi; i++) {
-        free(list_clusters[i]);
+        free(list_clusters[i].data);
+        //free(list_clusters[i]);
     }
     free(list_clusters);
     free(list_init_centroids);
