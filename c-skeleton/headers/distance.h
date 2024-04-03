@@ -3,6 +3,7 @@
 #include <stdint.h>
 
 #include "../headers/point.h"
+#include "../headers/cluster.h"
 
 /**
  * This typedef below defines the distance_func_t type, a function pointer type that groups all
