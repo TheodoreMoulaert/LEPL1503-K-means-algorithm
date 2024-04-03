@@ -6,7 +6,6 @@
 #include "../headers/point.h"
 #include "../headers/cluster.h"
 #include "../headers/distance.h"
-#include "../headers/distortion.h"
 
 int init_suite(void) {
     return 0;
