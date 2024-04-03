@@ -1,70 +1,122 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdint.h>
-#include <stdlib.h>  // Include stdlib.h for realloc function
-
-#include "../headers/point.h"  // Include point.h for point_t definition
-#include "../headers/cluster.h" 
+#include <CUnit/CUnit.h>
+#include <CUnit/Basic.h>
 #include "../headers/assign_vector_to_centro.h"
-#include "../headers/distance.h"
 
-int main() {
-    // Define sample points for clusters
-    point_t cluster_point1 = {2, (int64_t[]){1, 2}};
-    point_t cluster_point2 = {2, (int64_t[]){3, 4}};
-    point_t cluster_point3 = {2, (int64_t[]){5, 6}};
-    point_t cluster_point4 = {2, (int64_t[]){7, 8}};
-
-    // Initialize clusters with sample points
-    cluster_t clusters[2]; // Assuming 2 clusters
-    clusters[0].size = 2;
-    clusters[0].data = (point_t[]) {cluster_point1, cluster_point2};
-    clusters[1].size = 2;
-    clusters[1].data = (point_t[]) {cluster_point3, cluster_point4};
-
-    // Define sample points for centroids
-    point_t centroid_point1 = {2, (int64_t[]){10, 20}}; // Sample centroid point 1
-    point_t centroid_point2 = {2, (int64_t[]){30, 40}}; // Sample centroid point 2
-
-    // Initialize centroids with sample points
-    cluster_t centroids[2];
-    centroids[0].size = 1; // Assuming 1 point in centroid 0
-    centroids[0].data = &centroid_point1;
-    centroids[1].size = 1; // Assuming 1 point in centroid 1
-    centroids[1].data = &centroid_point2;
-
-    // Print initial assignments
-    printf("Initial Assignments:\n");
-    for (uint32_t i = 0; i < 2; i++) {
-        printf("Cluster %d:\n", i);
-        for (uint32_t j = 0; j < clusters[i].size; j++) {
-            printf("(%ld, %ld) ", clusters[i].data[j].coords[0], clusters[i].data[j].coords[1]);
-        }
-        printf("\n");
+// Function to print centroids
+void print_centroids(const char* title, point_t centroids[], int num_centroids) {
+    printf("%s:\n", title);
+    for (int i = 0; i < num_centroids; ++i) {
+        printf("Centroid %d: (%ld, %ld)\n", i, centroids[i].coords[0], centroids[i].coords[1]);
     }
-
-    // Call the function to assign vectors to centroids
-    int unchanged = assign_vector_to_centroids(centroids, clusters, 2, squared_manhattan_distance);
-
-    // Print assignments after function call
-    printf("\nAssignments after assign_vectors_to_centroids function call:\n");
-    for (uint32_t i = 0; i < 2; i++) {
-        printf("Cluster %d:\n", i);
-        for (uint32_t j = 0; j < clusters[i].size; j++) {
-            printf("(%ld, %ld) ", clusters[i].data[j].coords[0], clusters[i].data[j].coords[1]);
-        }
-        printf("\n");
-    }
-
-    // Validate if the assignment remains unchanged
-    if (unchanged) {
-        printf("\nAssignment remains unchanged.\n");
-    } else {
-        printf("\nAssignment changed.\n");
-    }
-
-    // Free memory if dynamically allocated
-
-    return 0;
 }
-// gcc -o test tests_file/test_assign_vector_to_centro.c src/assign_vector_to_centro.c src/distance.c -Icunit
-// ./test
+
+// Function to print cluster points
+void print_clusters(const char* title, cluster_t **clusters, uint64_t nbr_vectors, uint32_t K) {
+    printf("%s:\n", title);
+    for (int i = 0; i < K; ++i) {
+        printf("Cluster %d:\n", i);
+        for (int j = 0; j < clusters[i]->size; ++j) {
+            printf("Point %d: (%ld, %ld)\n", j, clusters[i]->data[j]->coords[0], clusters[i]->data[j]->coords[1]);
+        }
+    }
+}
+
+// Test case for assign_vectors_to_centroids
+void test_assign_vectors_to_centroids() {
+    // Define centroids
+    point_t centroids[2];
+    centroids[0].coords = malloc(2 * sizeof(int64_t));
+    centroids[0].coords[0] = 4;
+    centroids[0].coords[1] = 2;
+
+    centroids[1].coords = malloc(2 * sizeof(int64_t));
+    centroids[1].coords[0] = 2;
+    centroids[1].coords[1] = 0;
+
+    // Define clusters
+    cluster_t *cluster1 = (cluster_t*) malloc(sizeof(cluster_t));
+    cluster1->size = 3;
+    cluster1->data = (point_t**) malloc(cluster1->size * sizeof(point_t *));
+    for (int i = 0; i < cluster1->size; ++i) {
+        cluster1->data[i] = (point_t*) malloc(sizeof(point_t));
+        cluster1->data[i]->dim = 2;
+        cluster1->data[i]->coords = malloc(2 * sizeof(int64_t));
+        cluster1->data[i]->coords[0] = i;
+        cluster1->data[i]->coords[1] = i + 1;
+    }
+
+    cluster_t *cluster2 = (cluster_t*) malloc(sizeof(cluster_t));
+    cluster2->size = 3;
+    cluster2->data = (point_t**) malloc(cluster2->size * sizeof(point_t *));
+    for (int i = 0; i < cluster2->size; ++i) {
+        cluster2->data[i] = (point_t*) malloc(sizeof(point_t));
+        cluster2->data[i]->dim = 2;
+        cluster2->data[i]->coords = malloc(2 * sizeof(int64_t));
+        cluster2->data[i]->coords[0] = i + 1;
+        cluster2->data[i]->coords[1] = i + 2;
+    }
+
+    // Allocation dynamique pour le tableau de pointeurs clusters
+    cluster_t **clusters = (cluster_t**) malloc(2 * sizeof(cluster_t *));
+    for (int i = 0; i < 2; ++i) {
+        clusters[i] = (cluster_t*) malloc(sizeof(cluster_t));
+    }
+    clusters[0] = cluster1;
+    clusters[1] = cluster2;
+
+    // Print centroids and clusters before assignment
+    print_centroids("Centroids", centroids, 2);
+    print_clusters("Clusters", clusters, 3, 2);
+
+    // Perform the assignment
+    clusters =  assign_vectors_to_centroides(centroids, clusters, 3, 2, squared_euclidean_distance);
+    
+    // Print centroids and clusters after assignment
+    print_centroids("Centroids", centroids, 2);
+    print_clusters("Clusters", clusters, 3, 2);
+
+    // Cleanup
+    for (int i = 0; i < 2; ++i) {
+        for (int j = 0; j < clusters[i]->size; ++j) {
+            free(clusters[i]->data[j]->coords);
+            free(clusters[i]->data[j]);
+        }
+        free(clusters[i]->data);
+        free(clusters[i]);
+    }
+    for (int i = 0; i < 2; ++i) {
+        free(centroids[i].coords);
+    }
+    free(clusters);
+}
+
+// Main function
+int main() {
+    // Initialize CUnit test registry
+    if (CUE_SUCCESS != CU_initialize_registry()) {
+        return CU_get_error();
+    }
+
+    // Add a suite to the registry
+    CU_pSuite pSuite = CU_add_suite("Suite", NULL, NULL);
+    if (NULL == pSuite) {
+        CU_cleanup_registry();
+        return CU_get_error();
+    }
+
+    // Add the test case to the suite
+    if ((NULL == CU_add_test(pSuite, "test_assign_vectors_to_centroids", test_assign_vectors_to_centroids))) {
+        CU_cleanup_registry();
+        return CU_get_error();
+    }
+
+    // Run the tests
+    CU_basic_set_mode(CU_BRM_VERBOSE);
+    CU_basic_run_tests();
+    CU_cleanup_registry();
+
+    return CU_get_error();
+}
