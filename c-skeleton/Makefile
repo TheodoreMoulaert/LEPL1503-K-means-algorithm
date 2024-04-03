@@ -42,9 +42,6 @@ test_distance_fichier : tests_file/test_distance_fichier.c src/distance.o src/bi
 test_up_centroids: tests_file/test_update_centroids.c src/update_centroids.o 
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
-test_up_centro_fichier : tests_file/test_up_centro_fichier.c src/update_centroids.o src/binary_file_reader.o #src/binary_file_reader.o src/binary_file_avec_cluster.o
-	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
-
 test_distortion : tests_file/test_distortion.c src/distance.o 
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
@@ -65,38 +62,34 @@ test_k_means : tests_file/test2_k_means.c src/k_means.o src/update_centroids.o s
 	#@echo Excécution des tests avec Valgrind
 	#valgrind --leak-check=full ./kmeans
 
-tests_fonctions : test_binary_file  test_distance test_up_centroids test_distance_fichier test_up_centro_fichier test_distortion test_write_csv 
+tests_fonctions : test_binary_file  test_distance test_up_centroids test_distance_fichier  test_distortion 
 	@echo "Exécution des tests"
 	./test_binary_file
 	./test_distance
 	./test_up_centroids
 	./test_distance_fichier
-	./test_up_centro_fichier
 	./test_distortion 
-	./test_write_csv
 	make clean 
 
 # Règle pour exécuter les tests
-tests:  test_binary_file  test_distance test_up_centroids test_distance_fichier test_up_centro_fichier test_distortion test_write_csv 
+tests:  test_binary_file  test_distance test_up_centroids test_distance_fichier  test_distortion 
 	@echo "Exécution des tests"
 	./test_binary_file
 	./test_distance
 	./test_up_centroids
 	./test_distance_fichier
-	./test_up_centro_fichier
 	./test_distortion 
-	./test_write_csv
+	
 	@echo "Exécution des tests avec Valgrind"
 	valgrind --leak-check=full ./test_binary_file
 	valgrind --leak-check=full ./test_distance
 	valgrind --leak-check=full ./test_up_centroids
 	valgrind --leak-check=full ./test_distance_fichier
 	valgrind --leak-check=full ./test_distortion
-	valgrind --leak-check=full ./test_write_csv
 	make clean 
 
 #pas certaine de la dernière ligne
-tests_memoire: test_distance_fichier test_binary_file  test_binary_beaucoup_de_points test_distance test_distance_fichier test_distortion test_write_csv test_up_centroids
+tests_memoire: test_distance_fichier test_binary_file  test_distance test_distance_fichier test_distortion  test_up_centroids
 #@echo Tests:
 #./tests_file
 #@echo
@@ -107,7 +100,6 @@ tests_memoire: test_distance_fichier test_binary_file  test_binary_beaucoup_de_p
 	valgrind --leak-check=full ./test_up_centroids
 	valgrind --leak-check=full ./test_distance_fichier
 	valgrind --leak-check=full ./test_distortion
-	valgrind --leak-check=full ./test_write_csv
 	make clean 
 clean:
 	rm -f src/*.o
@@ -116,8 +108,6 @@ clean:
 	rm -f test_binary_file
 	rm -f test_up_centroids
 	rm -f test_distance_fichier
-	rm -f test_binary_beaucoup_de_points
-	rm -f test_up_centro_fichier
 	rm -f test_distortion 
 	rm -f test_write_csv 
 	rm -f test_k_means 
