@@ -9,12 +9,7 @@
 // Déclaration de la fonction pour obtenir la dimension des points et le nombre de vecteurs à partir du fichier binaire
 
 
-uint32_t get_dimension_from_binary_file(FILE* file);
-
-
-// Déclaration de la fonction pour obtenir le nombre de vecteurs à partir du fichier binaire
-
-uint64_t get_nbr_vectors_from_binary_file(FILE *file);
+uint32_t get_dimension_from_binary_file(FILE *file, uint32_t* dim, uint64_t* nbr_vector); 
 
 // Déclaration de la fonction pour obtenir les informations sur les coordonnées des points
 
