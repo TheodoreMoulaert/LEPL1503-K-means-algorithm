@@ -12,7 +12,6 @@
 
 cluster_t** update_centroids(cluster_t *clusters[], uint32_t K) {
 
-    uint8_t hasChanged = 0;
     for (uint32_t i = 0; i < K; i++)
     {
         cluster_t *currentCluster = clusters[i];
@@ -46,7 +45,7 @@ cluster_t** update_centroids(cluster_t *clusters[], uint32_t K) {
                 if (currentCluster->centroide.coords[xi] != moyenne[xi])
                 {
                     currentCluster->centroide.coords[xi] = moyenne[xi];
-                    hasChanged = 1;
+                    
                 }
             }
 
