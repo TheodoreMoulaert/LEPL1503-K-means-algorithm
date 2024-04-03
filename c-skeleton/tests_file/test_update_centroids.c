@@ -18,7 +18,6 @@ int clean_suite(void) {
 }
 
 // Test de la fonction update_centroids
-// Test de la fonction update_centroids
 void test_update_centroids() {
     // Initialisation des données
     uint32_t k = 2;
@@ -140,6 +139,10 @@ void test_update_centroids() {
         // Vérification des nouvelles coordonnées des centroïdes
         CU_ASSERT_EQUAL(clusters[i]->centroide.coords[0], avg_x);
         CU_ASSERT_EQUAL(clusters[i]->centroide.coords[1], avg_y);
+
+        // Vérification que les coordonnées initiales ne sont pas modifiées
+        CU_ASSERT_EQUAL(clusters[i]->centroide.coords[0], initial_coords[i][0]);
+        CU_ASSERT_EQUAL(clusters[i]->centroide.coords[1], initial_coords[i][1]);
     }
 
     // Nettoyage
@@ -154,6 +157,8 @@ void test_update_centroids() {
     }
     free(clusters);
 }
+
+
 
 
 int main() {
