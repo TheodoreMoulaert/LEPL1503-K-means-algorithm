@@ -39,9 +39,6 @@ test_distance: tests_file/test_distance.c src/distance.o
 test_distance_fichier : tests_file/test_distance_fichier.c src/distance.o src/binary_file_reader.o
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
-test_binary_beaucoup_de_points : tests_file/test_binary_beaucoup_de_points.c src/binary_file_reader.o
-	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
-
 test_up_centroids: tests_file/test_update_centroids.c src/update_centroids.o 
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
@@ -68,9 +65,8 @@ test_k_means : tests_file/test2_k_means.c src/k_means.o src/update_centroids.o s
 	#@echo Excécution des tests avec Valgrind
 	#valgrind --leak-check=full ./kmeans
 
-tests_fonctions : test_binary_file test_binary_beaucoup_de_points test_distance test_up_centroids test_distance_fichier test_up_centro_fichier test_distortion test_write_csv 
+tests_fonctions : test_binary_file  test_distance test_up_centroids test_distance_fichier test_up_centro_fichier test_distortion test_write_csv 
 	@echo "Exécution des tests"
-	./test_binary_beaucoup_de_points
 	./test_binary_file
 	./test_distance
 	./test_up_centroids
@@ -81,9 +77,8 @@ tests_fonctions : test_binary_file test_binary_beaucoup_de_points test_distance 
 	make clean 
 
 # Règle pour exécuter les tests
-tests:  test_binary_file test_binary_beaucoup_de_points test_distance test_up_centroids test_distance_fichier test_up_centro_fichier test_distortion test_write_csv 
+tests:  test_binary_file  test_distance test_up_centroids test_distance_fichier test_up_centro_fichier test_distortion test_write_csv 
 	@echo "Exécution des tests"
-	./test_binary_beaucoup_de_points
 	./test_binary_file
 	./test_distance
 	./test_up_centroids
@@ -92,7 +87,6 @@ tests:  test_binary_file test_binary_beaucoup_de_points test_distance test_up_ce
 	./test_distortion 
 	./test_write_csv
 	@echo "Exécution des tests avec Valgrind"
-	valgrind --leak-check=full ./test_binary_beaucoup_de_points
 	valgrind --leak-check=full ./test_binary_file
 	valgrind --leak-check=full ./test_distance
 	valgrind --leak-check=full ./test_up_centroids
