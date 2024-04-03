@@ -119,6 +119,44 @@ int main(int argc, char *argv[]) {
 
     FILE *input_file = program_arguments.input_stream;
     FILE *output_file = program_arguments.output_stream;
+    uint32_t p_points_on_all = program_arguments.n_first_initialization_points;
+    uint64_t npoints = 0;
+    uint32_t dimension = 0;
+    uint32_t k = program_arguments.k;
+    squared_distance_func_t DISTANCE_SQUARED;
+    point_t** donnes;
+    point_t initial_centroids[program_arguments.k];
+    point_t final_centroids[program_arguments.k];
+    if (program_arguments.squared_distance_func == squared_manhattan_distance) {
+        DISTANCE_SQUARED = squared_manhattan_distance;
+    } else {
+        DISTANCE_SQUARED = squared_euclidean_distance;
+    }
+
+    get_dimension_from_binary_file( *input_file, &dimension, &npoints); 
+
+    donnes =  point_input(* input_file);
+
+    int64_t nombre_comb = factorial(p_points_on_all) / (factorial(k) * factorial(p_points_on_all - k));
+
+    cluster_t **clustersArray = calloc(k, sizeof(cluster_t *));
+    for (int64_t cl_i = 0; cl_i < k; cl_i++)
+    {
+        clustersArray[cl_i] = malloc(sizeof(cluster_t *));
+    }
+
+    uint64_t solDistortion = UINT64_MAX;
+    cluster_t **solClusters = calloc(k, sizeof(cluster_t *));
+    for (int64_t cl_i = 0; cl_i < k; cl_i++)
+    {
+        solClusters[cl_i] = malloc(sizeof(cluster_t *));
+    }
+    int64_t *solStartCombination = calloc(k, sizeof(int64_t));
+
+
+
+
+
 
 
 
