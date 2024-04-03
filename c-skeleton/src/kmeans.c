@@ -10,7 +10,7 @@
 #include "../headers/cluster.h"
 #include "../headers/distance.h"
 
-void k_means(cluster_t**clusters_input, int num_points, int k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
+cluster_t** k_means(cluster_t**clusters_input, int num_points, int k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
     // Initialise les centroids finaux avec les centroids initiaux
     for (int i = 0; i < k; i++) {
         final_centroids[i] = initial_centroids[i];
@@ -20,7 +20,7 @@ void k_means(cluster_t**clusters_input, int num_points, int k, point_t *initial_
     point_t *old_centroids = (point_t *)malloc(k * sizeof(point_t));
     if (old_centroids == NULL) {
         fprintf(stderr, "L'allocation de mémoire a échoué (/src/kmeans.c) 3.\n");
-        return; 
+        return NULL; 
     }
 
     // Exécute des itérations jusqu'à convergence
@@ -36,7 +36,7 @@ void k_means(cluster_t**clusters_input, int num_points, int k, point_t *initial_
         if (clusters == NULL) {
             fprintf(stderr, "L'allocation de mémoire a échoué (/src/kmeans.c) 4.\n");
             free(old_centroids);
-            return;
+            return NULL;
         }
         update_centroids(clusters, k);
 
@@ -46,7 +46,7 @@ void k_means(cluster_t**clusters_input, int num_points, int k, point_t *initial_
             for (int j = 0; j < final_centroids[i].dim; j++) {
                 if (final_centroids[i].coords[j] != old_centroids[i].coords[j]) {
                     convergence = 0;
-                    break;
+                    break ;
                 } // Ajout du point-virgule manquant ici
             }
 
@@ -64,4 +64,5 @@ void k_means(cluster_t**clusters_input, int num_points, int k, point_t *initial_
 
     // Libère les mémoire pour les old_centroids
     free(old_centroids);
+    return clusters;
 }

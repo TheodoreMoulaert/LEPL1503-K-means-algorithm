@@ -8,44 +8,31 @@
 #include <netinet/in.h> // Pour be32toh
 
 
-uint32_t get_dimension_from_binary_file(FILE *file) {
+uint32_t get_dimension_from_binary_file(FILE *file, uint32_t* dim, uint64_t* nbr_vector) {
     if (!file) {
         perror("Le pointeur de fichier est nul");
         return 0;
     }
 
-    uint32_t temp_dim;
-    if (fread(&temp_dim, sizeof(uint32_t), 1, file) != 1) {
-        perror("Erreur lors de la lecture de la dimension");
-        
-        return 0;
-    }
-    uint32_t dim = be32toh(temp_dim);
-    return dim;
-}
-
-uint64_t get_nbr_vectors_from_binary_file(FILE *file) {
-    if (!file) {
-        perror("Le pointeur de fichier est nul");
-        return 0;
-    }
     uint32_t dim_endian; // en format Big Endian
-	uint64_t nb_endian; // en format Big Endian
-	if(fread(&dim_endian, sizeof(uint32_t), 1, file) == 0)
-	{
-		fprintf(stderr, "Pas de dimension de point spécifiée.");
-		return 0;
-	}; 
-	if(fread(&nb_endian, sizeof(uint64_t), 1, file) == 0)
-	{
-		fprintf(stderr, "pas de nombre de points spécifié."); 
-		return 0;
-	}
-	uint64_t nbr_vectors = be64toh(nb_endian);
+    uint64_t nb_endian; // en format Big Endian
     
-    return nbr_vectors;
-}
+    // Lecture de la dimension
+    if (fread(&dim_endian, sizeof(uint32_t), 1, file) != 1) {
+        perror("Erreur lors de la lecture de la dimension");
+        return 0;
+    }
+    *dim = be32toh(dim_endian);
+    
+    // Lecture du nombre de vecteurs
+    if (fread(&nb_endian, sizeof(uint64_t), 1, file) != 1) {
+        perror("Erreur lors de la lecture du nombre de points spécifié");
+        return 0;
+    }
+    *nbr_vector = be64toh(nb_endian);
 
+    return 1;
+}
 
 point_t **point_input(FILE *file) {
     if (!file) {
