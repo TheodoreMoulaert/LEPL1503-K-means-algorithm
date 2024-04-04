@@ -1,6 +1,7 @@
 #include "../headers/binary_file_reader.h" 
 #include "../headers/point.h"
 #include "../headers/cluster.h"
+#include "../headers/portable_endian.h"
 
 #include <stdlib.h>
 #include <endian.h>

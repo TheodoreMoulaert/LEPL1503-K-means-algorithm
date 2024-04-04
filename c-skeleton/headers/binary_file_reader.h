@@ -1,6 +1,7 @@
 #ifndef BINARY_FILE_READER_H
 #define BINARY_FILE_READER_H
 #include "../headers/point.h" // Inclure si nécessaire
+#include "../headers/portable_endian.h"
 
 
 #include <stdint.h>
