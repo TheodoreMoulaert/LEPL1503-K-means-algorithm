@@ -126,8 +126,9 @@ int main(int argc, char *argv[]) {
     uint32_t k = program_arguments.k;
     squared_distance_func_t DISTANCE_SQUARED;
     point_t** donnes;
-    point_t initial_centroids[program_arguments.k];
-    point_t final_centroids[program_arguments.k];
+    
+
+
     if (program_arguments.squared_distance_func == squared_manhattan_distance) {
         DISTANCE_SQUARED = squared_manhattan_distance;
     } else {
@@ -145,45 +146,45 @@ int main(int argc, char *argv[]) {
     donnes =  point_input(* input_file);
 
     int64_t nombre_comb = comb(p,k);
+    point_t **initial_combinations = generate_combinations(donnes, p, npoints, dimension);
 
-    cluster_t **clustersArray = calloc(k, sizeof(cluster_t *));
-    for (int64_t cl_i = 0; cl_i < k; cl_i++)
-    {
-        clustersArray[cl_i] = malloc(sizeof(cluster_t *));
-    }
-
+    
+    point_t* initial_centroids[nombre_comb];
+    point_t* final_centroids[nombre_comb];
+    uint64_t distortion_list[nombre_comb]; 
     uint64_t solDistortion = UINT64_MAX;
-    cluster_t **solClusters = calloc(k, sizeof(cluster_t *));
-    for (int64_t cl_i = 0; cl_i < k; cl_i++)
-    {
-        solClusters[cl_i] = malloc(sizeof(cluster_t *));
+    uint64_t temp_distorsion; 
+    cluster_t** clusters_list[nombre_comb]; 
+    cluster_t* temps_cluster[k];  
+    point_t* solCentroide; 
+    point_t* temp_centroide; 
+    cluster_t** temps_result_cluster; 
+    cluster_t** solCluster; 
+
+    // Copie de initial_combinations dans initial_centroids
+    for (int i = 0; i < program_arguments.k; i++) {
+        initial_centroids[i] = initial_combinations[i];
     }
-    uint64_t *solStartCombination = calloc(k, sizeof(int64_t));
-    uint64_t *indexes_start = calloc(k, sizeof(int64_t));
-    uint8_t start_val; 
-    for (uint64_t i = 0; i<nombre_comb; i++){
-        indexes_start = next_comb(indexes_start,p,k); 
-        if(indexes_start = NULL){
-            break; 
-        }
-        start_val = 1;
-        if (indexes_start == NULL) {
-            break;
-        }
+    
 
-        if (has_duplicates(indexes_start, k)) {
-            start_val = 0;
-            i--;
-        }
 
+    for (uint64_t i = 0; i < nombre_comb; i++) {
+    
+        uint64_t temp_distorsion = 0; 
+        temps_cluster[0] = initial_combinations[i]; 
+        temps_result_cluster = kmeans( temps_cluster,npoints, k , initial_combinations[i], temp_centroide,DISTANCE_SQUARED);
+        temp_distorsion = distortion(clusters_list[i],k,DISTANCE_SQUARED);
+        if (solDistortion > temp_distorsion){
+            solDistortion = temp_distorsion; 
+            solCentroide = temp_centroide; 
+            solCluster = temps_result_cluster;
+
+        }
+        final_centroids[i] = solCentroide; 
+        clusters_list[i] = solCluster; 
+        distortion_list[i] = solDistortion; 
+    
     }
-
-
-
-
-
-
-
 
     // close the files opened by parse_args
     if (program_arguments.input_stream != stdin) {
