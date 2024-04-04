@@ -119,9 +119,10 @@ int main(int argc, char *argv[]) {
 
     FILE *input_file = program_arguments.input_stream;
     FILE *output_file = program_arguments.output_stream;
-    uint32_t p_points_on_all = program_arguments.n_first_initialization_points;
+    uint32_t p = program_arguments.n_first_initialization_points;
     uint64_t npoints = 0;
     uint32_t dimension = 0;
+    uint8_t quiet = program_arguments.quiet;
     uint32_t k = program_arguments.k;
     squared_distance_func_t DISTANCE_SQUARED;
     point_t** donnes;
@@ -134,10 +135,16 @@ int main(int argc, char *argv[]) {
     }
 
     get_dimension_from_binary_file( *input_file, &dimension, &npoints); 
+    if(p>npoints)
+    {
+        fprintf(stderr, "Not enough points to generate the combinations\n");
+        return -1;
+
+    }
 
     donnes =  point_input(* input_file);
 
-    int64_t nombre_comb = factorial(p_points_on_all) / (factorial(k) * factorial(p_points_on_all - k));
+    int64_t nombre_comb = comb(p,k);
 
     cluster_t **clustersArray = calloc(k, sizeof(cluster_t *));
     for (int64_t cl_i = 0; cl_i < k; cl_i++)
@@ -151,8 +158,25 @@ int main(int argc, char *argv[]) {
     {
         solClusters[cl_i] = malloc(sizeof(cluster_t *));
     }
-    int64_t *solStartCombination = calloc(k, sizeof(int64_t));
+    uint64_t *solStartCombination = calloc(k, sizeof(int64_t));
+    uint64_t *indexes_start = calloc(k, sizeof(int64_t));
+    for (uint64_t i = 0; i<nombre_comb; i++){
+        indexes_start = next_comb(indexes_start,p,k); 
+        if(indexes_start = NULL){
+            break; 
+        }
+        valide_start = 1;
+        if (indexes_start == NULL) {
+            break;
+        }
 
+        if (has_duplicates(indexes_start, k)) {
+            valid_start = 0;
+            i--;
+        }
+
+
+    }
 
 
 
