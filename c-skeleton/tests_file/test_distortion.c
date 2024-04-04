@@ -23,20 +23,21 @@ void test_distortion() {
     uint32_t k = 2;
 
     // Construction des clusters
-    cluster_t *clusters = malloc(k * sizeof(cluster_t));
+    cluster_t **clusters = malloc(k * sizeof(cluster_t *));
     for (uint32_t i = 0; i < k; ++i) {
-        clusters[i].size = 3; // Exemple de taille
-        clusters[i].centroide.dim = 2;
-        clusters[i].centroide.coords = malloc(2 * sizeof(int64_t));
-        clusters[i].centroide.coords[0] = i * 10;
-        clusters[i].centroide.coords[1] = i * 10 + 1;
-        clusters[i].data = malloc(clusters[i].size * sizeof(point_t *));
-        for (uint64_t j = 0; j < clusters[i].size; ++j) {
-            clusters[i].data[j] = malloc(sizeof(point_t));
-            clusters[i].data[j]->dim = 2;
-            clusters[i].data[j]->coords = malloc(2 * sizeof(int64_t));
-            clusters[i].data[j]->coords[0] = i * 10 + j;
-            clusters[i].data[j]->coords[1] = i * 10 + j + 1;
+        clusters[i] = malloc(sizeof(cluster_t));
+        clusters[i]->size = 3; // Exemple de taille
+        clusters[i]->centroide.dim = 2;
+        clusters[i]->centroide.coords = malloc(2 * sizeof(int64_t));
+        clusters[i]->centroide.coords[0] = i * 10;
+        clusters[i]->centroide.coords[1] = i * 10 + 1;
+        clusters[i]->data = malloc(clusters[i]->size * sizeof(point_t *));
+        for (uint64_t j = 0; j < clusters[i]->size; ++j) {
+            clusters[i]->data[j] = malloc(sizeof(point_t));
+            clusters[i]->data[j]->dim = 2;
+            clusters[i]->data[j]->coords = malloc(2 * sizeof(int64_t));
+            clusters[i]->data[j]->coords[0] = i * 10 + j;
+            clusters[i]->data[j]->coords[1] = i * 10 + j + 1;
         }
     }
 
@@ -44,7 +45,7 @@ void test_distortion() {
     squared_distance_func_t dummy_func = squared_euclidean_distance;
 
     // Application de la fonction distortion
-    uint64_t result = distortion(clusters, k, dummy_func);
+    uint64_t result = distortion((const cluster_t **) clusters, k, dummy_func);
 
     // La valeur attendue
     uint64_t expected_result = 20;
@@ -54,12 +55,13 @@ void test_distortion() {
 
     // Nettoyage
     for (uint32_t i = 0; i < k; ++i) {
-        free(clusters[i].centroide.coords);
-        for (uint64_t j = 0; j < clusters[i].size; ++j) {
-            free(clusters[i].data[j]->coords);
-            free(clusters[i].data[j]);
+        free(clusters[i]->centroide.coords);
+        for (uint64_t j = 0; j < clusters[i]->size; ++j) {
+            free(clusters[i]->data[j]->coords);
+            free(clusters[i]->data[j]);
         }
-        free(clusters[i].data);
+        free(clusters[i]->data);
+        free(clusters[i]);
     }
     free(clusters);
 }
