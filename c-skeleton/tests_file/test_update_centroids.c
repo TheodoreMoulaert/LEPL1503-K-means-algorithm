@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <inttypes.h> // Pour PRI64
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
 #include "../headers/point.h"
@@ -122,6 +123,12 @@ void test_update_centroids() {
         initial_coords[i][1] = clusters[i]->centroide.coords[1];
     }
 
+    // Affichage des coordonnées initiales des centroïdes
+    printf("Coordonnées initiales des centroïdes :\n");
+    for (uint32_t i = 0; i < k; ++i) {
+        printf("Centroïde %u: (%" PRId64 ", %" PRId64 ")\n", i, initial_coords[i][0], initial_coords[i][1]);
+    }
+
     // Application de la fonction update_centroids
     update_centroids(clusters, k);
 
@@ -140,9 +147,6 @@ void test_update_centroids() {
         CU_ASSERT_EQUAL(clusters[i]->centroide.coords[0], avg_x);
         CU_ASSERT_EQUAL(clusters[i]->centroide.coords[1], avg_y);
 
-        // Vérification que les coordonnées initiales ne sont pas modifiées
-        CU_ASSERT_EQUAL(clusters[i]->centroide.coords[0], initial_coords[i][0]);
-        CU_ASSERT_EQUAL(clusters[i]->centroide.coords[1], initial_coords[i][1]);
     }
 
     // Nettoyage
@@ -157,9 +161,6 @@ void test_update_centroids() {
     }
     free(clusters);
 }
-
-
-
 
 int main() {
     // Initialisation du registre CUnit
