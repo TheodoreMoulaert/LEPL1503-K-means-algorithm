@@ -160,21 +160,21 @@ int main(int argc, char *argv[]) {
     }
     uint64_t *solStartCombination = calloc(k, sizeof(int64_t));
     uint64_t *indexes_start = calloc(k, sizeof(int64_t));
+    uint8_t start_val; 
     for (uint64_t i = 0; i<nombre_comb; i++){
         indexes_start = next_comb(indexes_start,p,k); 
         if(indexes_start = NULL){
             break; 
         }
-        valide_start = 1;
+        start_val = 1;
         if (indexes_start == NULL) {
             break;
         }
 
         if (has_duplicates(indexes_start, k)) {
-            valid_start = 0;
+            start_val = 0;
             i--;
         }
-
 
     }
 
