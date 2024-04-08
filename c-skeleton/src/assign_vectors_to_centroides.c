@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-cluster_t** assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, uint64_t nbr_vectors, uint32_t K, squared_distance_func_t distance_func) {
+cluster_t** assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, uint32_t K, squared_distance_func_t distance_func) {
     if (centroids == NULL || clusters == NULL) {
         // Gérer l'erreur de pointeur nul
         return NULL;

@@ -182,34 +182,42 @@ int main(int argc, char *argv[]) {
 
     }
     printf("%d\n", 6);
+    for (int i = 0; i < k; i++) {
+        temps_cluster[i] = malloc(sizeof(cluster_t));
+        if (temps_cluster[i] == NULL) {
+            perror("Erreur d'allocation mémoire pour temps_cluster");
+            // Gérer l'erreur et sortir de la fonction si nécessaire
+            exit(EXIT_FAILURE);
+        }
+        
+        // Assurez-vous d'initialiser correctement les membres de chaque cluster_t si nécessaire
+        // Exemple : temps_cluster[i]->data = NULL; // Initialisation de data à NULL
+    }
     
 
 
     for (uint64_t i = 0; i < nombre_comb; i++) {
-    
         uint64_t temp_distorsion = 0; 
         printf("%d\n", 7);
         temps_cluster[0]->data = malloc(npoints * sizeof(point_t*));
+        printf("%d\n", 8);
         if (temps_cluster[0]->data == NULL) {
             perror("Erreur d'allocation mémoire pour temps_cluster[0]->data");
             break; 
         }
-        printf("%d\n", 7);
-        temps_cluster[0]->data = initial_combinations[i];
-        temps_result_cluster = k_means( temps_cluster,npoints, k , initial_combinations[i][0], temp_centroide,DISTANCE_SQUARED);
-        temp_distorsion = distortion((cluster_t const **)clusters_list[i],k,DISTANCE_SQUARED);
-        printf("%d\n", 7);
+        printf("%d\n", 9);
+        //memcpy(temps_cluster[0]->data, initial_combinations[i], npoints * sizeof(point_t*));
+        temps_result_cluster = k_means(temps_cluster, npoints, k, initial_combinations[i][0], temp_centroide, DISTANCE_SQUARED);
+        printf("%d\n", 10);
+        temp_distorsion = distortion((cluster_t const **)clusters_list[i], k, DISTANCE_SQUARED);
         if (solDistortion > temp_distorsion){
             solDistortion = temp_distorsion; 
             solCentroide = temp_centroide; 
             solCluster = temps_result_cluster;
-
         }
         final_centroids[i] = solCentroide; 
         clusters_list[i] = solCluster; 
         distortion_list[i] = solDistortion; 
-        printf("%d\n", 7);
-    
     }
     printf("%d\n", 9);
     write_csv(output_file, distortion_list,initial_centroids, final_centroids, clusters_list, k, dimension, nombre_comb); 

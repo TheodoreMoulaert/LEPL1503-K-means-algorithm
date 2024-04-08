@@ -31,7 +31,7 @@ cluster_t** k_means(cluster_t**clusters_input, int num_points, int k, point_t *i
         }
 
         // Assigne les points au clusters
-        clusters = assign_vectors_to_centroides(final_centroids, clusters_input, num_points, k, distance_func);
+        clusters = assign_vectors_to_centroides(final_centroids, clusters_input, k, distance_func);
 
         if (clusters == NULL) {
             fprintf(stderr, "L'allocation de mémoire a échoué (/src/kmeans.c) 4.\n");
