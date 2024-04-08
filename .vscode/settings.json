@@ -6,6 +6,10 @@
         "stdlib.h": "c",
         "update_centroids.h": "c",
         "point.h": "c",
-        "inttypes.h": "c"
+        "inttypes.h": "c",
+        "k_means.h": "c",
+        "write_csv.h": "c",
+        "combinaison.h": "c",
+        "binary_file_reader.h": "c"
     }
 }
