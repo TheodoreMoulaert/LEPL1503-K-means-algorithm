@@ -1,4 +1,4 @@
-#include <stdbool.h> // Ajout de la bibliothèque stdbool.h
+#include <stdbool.h>
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
@@ -10,11 +10,13 @@
 #include "../headers/cluster.h"
 #include "../headers/distance.h"
 
-cluster_t** k_means(cluster_t**clusters_input, int num_points, int k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
+cluster_t** k_means(cluster_t** clusters_input, int num_points, int k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
     // Initialise les centroids finaux avec les centroids initiaux
     for (int i = 0; i < k; i++) {
-        final_centroids[i] = initial_centroids[i];
+        final_centroids[i].coords = initial_centroids[i].coords;
+        final_centroids[i].dim = initial_centroids[i].dim;
     }
+    printf("%d\n", 1);
 
     cluster_t **clusters = NULL;
     point_t *old_centroids = (point_t *)malloc(k * sizeof(point_t));
@@ -22,47 +24,53 @@ cluster_t** k_means(cluster_t**clusters_input, int num_points, int k, point_t *i
         fprintf(stderr, "L'allocation de mémoire a échoué (/src/kmeans.c) 3.\n");
         return NULL; 
     }
+    printf("%d\n", 2);
 
     // Exécute des itérations jusqu'à convergence
-    while (1) {
-        // Save old centroids
+    bool convergence = false;
+    while (!convergence) {
+        // Sauvegarde les anciens centroids
         for (int i = 0; i < k; i++) {
-            old_centroids[i] = final_centroids[i];
+            old_centroids[i].coords = final_centroids[i].coords;
+            old_centroids[i].dim = final_centroids[i].dim;
         }
-
-        // Assigne les points au clusters
+        printf("%d\n", 3);
+        // Assigne les points aux clusters
         clusters = assign_vectors_to_centroides(final_centroids, clusters_input, k, distance_func);
+        printf("%d\n", 5);
 
         if (clusters == NULL) {
             fprintf(stderr, "L'allocation de mémoire a échoué (/src/kmeans.c) 4.\n");
             free(old_centroids);
             return NULL;
         }
-        update_centroids(clusters, k);
+        printf("%d\n", 4);
 
-        // Check la convergence
-        int convergence = 1;
+        update_centroids(clusters, k);
+        printf("%d\n", 5);
+
+        // Vérifie la convergence
+        convergence = true;
         for (int i = 0; i < k; i++) {
             for (int j = 0; j < final_centroids[i].dim; j++) {
                 if (final_centroids[i].coords[j] != old_centroids[i].coords[j]) {
-                    convergence = 0;
-                    break ;
-                } // Ajout du point-virgule manquant ici
+                    convergence = false;
+                    break;
+                }
             }
-
-            // Libère la mémoire pour les clusters
-            for (int i = 0; i < k; i++) {
-                free(clusters[i]);
-            }
-            free(clusters);
-
-            if (convergence) {
+            if (!convergence) {
                 break;
             }
         }
+
+        // Libère la mémoire pour les clusters
+        for (int i = 0; i < k; i++) {
+            free(clusters[i]);
+        }
+        free(clusters);
     }
 
-    // Libère les mémoire pour les old_centroids
+    // Libère la mémoire pour les old_centroids
     free(old_centroids);
     return clusters;
 }

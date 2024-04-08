@@ -72,7 +72,7 @@ void test_assign_vectors_to_centroids() {
     print_clusters("Clusters", clusters, 3, 2);
 
     // Perform the assignment
-    clusters =  assign_vectors_to_centroides(centroids, clusters, 3, 2, squared_euclidean_distance);
+    clusters =  assign_vectors_to_centroides(centroids, clusters,2, squared_euclidean_distance);
     
     // Print centroids and clusters after assignment
     print_centroids("Centroids", centroids, 2);
@@ -89,6 +89,7 @@ void test_assign_vectors_to_centroids() {
     }
     for (int i = 0; i < 2; ++i) {
         free(centroids[i].coords);
+        
     }
     free(clusters);
 }
