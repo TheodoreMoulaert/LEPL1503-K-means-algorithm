@@ -16,7 +16,7 @@ cluster_t** k_means(cluster_t**clusters_input, int num_points, int k, point_t *i
         final_centroids[i] = initial_centroids[i];
     }
 
-    point_t **clusters = NULL;
+    cluster_t **clusters = NULL;
     point_t *old_centroids = (point_t *)malloc(k * sizeof(point_t));
     if (old_centroids == NULL) {
         fprintf(stderr, "L'allocation de mémoire a échoué (/src/kmeans.c) 3.\n");

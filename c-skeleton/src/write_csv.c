@@ -17,11 +17,13 @@ void write_centroid(FILE *file, point_t* centroid) {
     fprintf(file, ")");
     for (int64_t i = 2; i < centroid->dim; i++) {
         fprintf(file, ",(");
-        fprintf(file, "%" PRId64 ",%" PRId64 "", centroid->coords[i], centroid->coords[++i]);
+        fprintf(file, "%" PRId64 ",%" PRId64 "", centroid->coords[i], centroid->coords[i + 1]); // Modification ici
         fprintf(file, ")");
+        i++; // Modification ici
     }
     fprintf(file, "]");
 }
+
 
 void write_cluster(FILE *file, cluster_t **cluster) {
     if (file == NULL || cluster == NULL) {
@@ -52,7 +54,7 @@ void write_cluster(FILE *file, cluster_t **cluster) {
     fprintf(file, "]");
 }
 
-void write_csv(FILE *output_file, int64_t* distortion, point_t **centroid_init_Array, point_t **centroid_final_Array, cluster_t ***clustersArray, int64_t k, int64_t dimension, int64_t nombre_comb) {
+void write_csv(FILE *output_file, uint64_t* distortion, point_t **centroid_init_Array, point_t **centroid_final_Array, cluster_t ***clustersArray, int64_t k, int64_t dimension, int64_t nombre_comb) {
     if (output_file == NULL) {
         printf("Erreur : pointeur de fichier de sortie invalide.\n");
         return;

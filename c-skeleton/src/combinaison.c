@@ -17,7 +17,7 @@ uint64_t factorial(uint64_t n) {
 }
 
 // Fonction qui calcule le nombre de combinaisons de p éléments pris k par k
-uint64_t combination(uint64_t p, uint32_t k) {
+uint64_t combinaison(uint64_t p, uint32_t k) {
     if (k > p) {
         return 0;
     }
@@ -51,53 +51,65 @@ uint64_t *next_comb(uint64_t comb[], uint64_t n, uint64_t k) {
     return comb;
 }
 
-// Fonction qui génère toutes les combinaisons possibles de k éléments parmi les n premiers éléments d'un tableau de pointeurs
-uint64_t **generate_combinations(point_t **vectors, uint64_t n, uint64_t k) {
+point_t ***generate_combinations(point_t **vectors, uint64_t n, uint64_t k) {
     // Vérification des paramètres
     if (n < k || k <= 0) {
         return NULL;
     }
 
     // Calcul du nombre total de combinaisons
-    uint64_t total_combinations = combination(n, k);
+    uint64_t total_combinations = combinaison(n, k);
     
     // Allocation de la mémoire pour stocker les combinaisons
-    uint64_t **combinations = malloc(total_combinations * sizeof(uint64_t *));
+    point_t ***combinations = malloc(total_combinations * sizeof(point_t **));
     if (combinations == NULL) {
         // Gestion de l'erreur d'allocation mémoire
         return NULL;
     }
     
-    // Initialisation du premier ensemble de combinaisons
-    uint64_t *current_combination = malloc(k * sizeof(uint64_t));
-    if (current_combination == NULL) {
+    // Allocation de la mémoire pour stocker les indices de la combinaison actuelle
+    uint64_t *current_combination_indices = malloc(k * sizeof(uint64_t));
+    if (current_combination_indices == NULL) {
         // Gestion de l'erreur d'allocation mémoire
         free(combinations);
         return NULL;
     }
+
+    // Initialisation de la première combinaison d'indices
     for (uint64_t i = 0; i < k; i++) {
-        current_combination[i] = i;
+        current_combination_indices[i] = i;
     }
 
     // Génération de toutes les combinaisons
     uint64_t combination_index = 0;
-    combinations[combination_index] = current_combination;
-    combination_index++;
-    uint64_t *next;
-    while ((next = next_comb(current_combination, n, k)) != NULL) {
-        uint64_t *new_combination = malloc(k * sizeof(uint64_t));
+    while (current_combination_indices != NULL) {
+        // Allocation de la mémoire pour stocker la nouvelle combinaison de points
+        point_t **new_combination = malloc(k * sizeof(point_t *));
         if (new_combination == NULL) {
             // Gestion de l'erreur d'allocation mémoire
             for (uint64_t i = 0; i < combination_index; i++) {
                 free(combinations[i]);
             }
             free(combinations);
+            free(current_combination_indices);
             return NULL;
         }
-        memcpy(new_combination, next, k * sizeof(uint64_t));
+
+        // Copie des points correspondant aux indices dans la nouvelle combinaison
+        for (uint64_t i = 0; i < k; i++) {
+            new_combination[i] = vectors[current_combination_indices[i]];
+        }
+
+        // Stockage de la nouvelle combinaison dans le tableau de combinaisons
         combinations[combination_index] = new_combination;
         combination_index++;
+
+        // Génération de la prochaine combinaison d'indices
+        current_combination_indices = next_comb(current_combination_indices, n, k);
     }
+
+    // Libération de la mémoire utilisée pour stocker les indices de la combinaison actuelle
+    free(current_combination_indices);
 
     return combinations;
 }

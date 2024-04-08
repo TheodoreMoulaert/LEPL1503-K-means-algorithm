@@ -6,7 +6,17 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <inttypes.h>
-#include "headers/distance.h"
+#include "../headers/distance.h"
+#include "../headers/binary_file_reader.h" 
+#include "../headers/k_means.h"
+#include "../headers/write_csv.h"
+#include "../headers/point.h"
+#include "../headers/cluster.h"
+#include "../headers/combinaison.h"
+#include "../headers/assign_vector_to_centro.h"
+#include "../headers/update_centroids.h"
+
+
 
 
 typedef struct {
@@ -122,7 +132,7 @@ int main(int argc, char *argv[]) {
     uint32_t p = program_arguments.n_first_initialization_points;
     uint64_t npoints = 0;
     uint32_t dimension = 0;
-    uint8_t quiet = program_arguments.quiet;
+    //uint8_t quiet = program_arguments.quiet;
     uint32_t k = program_arguments.k;
     squared_distance_func_t DISTANCE_SQUARED;
     point_t** donnes;
@@ -135,45 +145,60 @@ int main(int argc, char *argv[]) {
         DISTANCE_SQUARED = squared_euclidean_distance;
     }
 
-    get_dimension_from_binary_file( *input_file, &dimension, &npoints); 
+    donnes =  point_input(input_file,&dimension, &npoints);
+    printf("%d\n", 1);
     if(p>npoints)
     {
         fprintf(stderr, "Not enough points to generate the combinations\n");
         return -1;
 
     }
+    printf("%d\n", 2);
 
-    donnes =  point_input(* input_file);
 
-    int64_t nombre_comb = comb(p,k);
-    point_t **initial_combinations = generate_combinations(donnes, p, npoints, dimension);
+    int64_t nombre_comb = combinaison(p,k);
+    printf("%ld\n", nombre_comb);
+    point_t ***initial_combinations = generate_combinations(donnes,npoints,k);
+    printf("%d\n", 4);
 
     
     point_t* initial_centroids[nombre_comb];
     point_t* final_centroids[nombre_comb];
     uint64_t distortion_list[nombre_comb]; 
     uint64_t solDistortion = UINT64_MAX;
-    uint64_t temp_distorsion; 
+    //uint64_t temp_distorsion; 
     cluster_t** clusters_list[nombre_comb]; 
     cluster_t* temps_cluster[k];  
     point_t* solCentroide; 
     point_t* temp_centroide; 
     cluster_t** temps_result_cluster; 
     cluster_t** solCluster; 
+    printf("%d\n", 5);
 
     // Copie de initial_combinations dans initial_centroids
     for (int i = 0; i < program_arguments.k; i++) {
-        initial_centroids[i] = initial_combinations[i];
+        initial_centroids[i] = initial_combinations[i][0];
+        temp_centroide = initial_combinations[i][0]; // ou quelque chose de similaire selon votre structure de données
+
     }
+    printf("%d\n", 6);
     
 
 
     for (uint64_t i = 0; i < nombre_comb; i++) {
     
         uint64_t temp_distorsion = 0; 
-        temps_cluster[0] = initial_combinations[i]; 
-        temps_result_cluster = kmeans( temps_cluster,npoints, k , initial_combinations[i], temp_centroide,DISTANCE_SQUARED);
-        temp_distorsion = distortion(clusters_list[i],k,DISTANCE_SQUARED);
+        printf("%d\n", 7);
+        temps_cluster[0]->data = malloc(npoints * sizeof(point_t*));
+        if (temps_cluster[0]->data == NULL) {
+            perror("Erreur d'allocation mémoire pour temps_cluster[0]->data");
+            break; 
+        }
+        printf("%d\n", 7);
+        temps_cluster[0]->data = initial_combinations[i];
+        temps_result_cluster = k_means( temps_cluster,npoints, k , initial_combinations[i][0], temp_centroide,DISTANCE_SQUARED);
+        temp_distorsion = distortion((cluster_t const **)clusters_list[i],k,DISTANCE_SQUARED);
+        printf("%d\n", 7);
         if (solDistortion > temp_distorsion){
             solDistortion = temp_distorsion; 
             solCentroide = temp_centroide; 
@@ -183,9 +208,12 @@ int main(int argc, char *argv[]) {
         final_centroids[i] = solCentroide; 
         clusters_list[i] = solCluster; 
         distortion_list[i] = solDistortion; 
+        printf("%d\n", 7);
     
     }
-    write_csv(*output_file, solDistortion,initial_centroids, solCentroide, solCluster, k, dimension, nombre_comb); 
+    printf("%d\n", 9);
+    write_csv(output_file, distortion_list,initial_centroids, final_centroids, clusters_list, k, dimension, nombre_comb); 
+    printf("%d\n", 8);
 
     // close the files opened by parse_args
     if (program_arguments.input_stream != stdin) {
