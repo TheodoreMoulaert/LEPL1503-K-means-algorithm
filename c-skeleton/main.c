@@ -185,6 +185,7 @@ int main(int argc, char *argv[]) {
         distortion_list[i] = solDistortion; 
     
     }
+    write_csv(*output_file, solDistortion,initial_centroids, solCentroide, solCluster, k, dimension, nombre_comb); 
 
     // close the files opened by parse_args
     if (program_arguments.input_stream != stdin) {
