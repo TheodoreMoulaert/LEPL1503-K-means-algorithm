@@ -3,6 +3,9 @@
         "cluster.h": "c",
         "distortion.h": "c",
         "distance.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "update_centroids.h": "c",
+        "point.h": "c",
+        "inttypes.h": "c"
     }
 }
