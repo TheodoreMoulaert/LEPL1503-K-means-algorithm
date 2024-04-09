@@ -1,21 +1,26 @@
-#include "../headers/assign_vector_to_centro.h"
-#include <stddef.h>
-#include "../headers/distance.h"
-#include <stdlib.h>
+#include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include "../headers/assign_vector_to_centro.h"
+#include "../headers/distance.h"
+#include "../headers/cluster.h"
 
-cluster_t** assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, uint32_t K, squared_distance_func_t distance_func) {
+
+result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, uint32_t K, squared_distance_func_t distance_func) {
+    result_t result;
+    result.changes = true;
+    result.result_cluster = NULL;
 
     if (centroids == NULL || clusters == NULL) {
         // Gérer l'erreur de pointeur nul
-        return NULL;
+        return result;
     }
 
     // Allouer un nouveau tableau de clusters pour contenir les nouveaux clusters
     cluster_t **new_clusters = (cluster_t**) malloc(K * sizeof(cluster_t*));
     if (new_clusters == NULL) {
         // Gérer l'erreur d'allocation de mémoire
-        return NULL;
+        return result;
     }
 
     // Initialiser chaque nouveau cluster
@@ -29,7 +34,7 @@ cluster_t** assign_vectors_to_centroides(point_t *centroids, cluster_t **cluster
                 free(new_clusters[j]);
             }
             free(new_clusters);
-            return NULL;
+            return result;
         }
 
         // Assurez-vous que clusters[i]->size est correctement défini
@@ -41,7 +46,7 @@ cluster_t** assign_vectors_to_centroides(point_t *centroids, cluster_t **cluster
                 free(new_clusters[j]);
             }
             free(new_clusters);
-            return NULL;
+            return result;
         }
 
         // Allouer une taille initiale pour le tableau de données
@@ -54,7 +59,7 @@ cluster_t** assign_vectors_to_centroides(point_t *centroids, cluster_t **cluster
                 free(new_clusters[j]);
             }
             free(new_clusters);
-            return NULL;
+            return result;
         }
 
         new_clusters[i]->size = 0; // Initialiser la taille à zéro
@@ -87,18 +92,19 @@ cluster_t** assign_vectors_to_centroides(point_t *centroids, cluster_t **cluster
                     free(new_clusters[j]);
                 }
                 free(new_clusters);
-                return NULL;
+                return result;
             }
             new_clusters[closest_centroid_idx]->data = temp;
             new_clusters[closest_centroid_idx]->data[idx] = vector;
             new_clusters[closest_centroid_idx]->size++;
             new_clusters[closest_centroid_idx]->centroide = centroids[closest_centroid_idx];
             new_clusters[closest_centroid_idx]->centroide.dim = centroids[closest_centroid_idx].dim;
-
-
+            if(current_centroid_idx == closest_centroid_idx){
+                result.changes = false; 
+            }
         }
     }
-    
 
-    return new_clusters;
+    result.result_cluster = new_clusters;
+    return result;
 }

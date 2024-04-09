@@ -3,7 +3,6 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <inttypes.h>
-#include <string.h> // Pour memcpy
 #include "../headers/k_means.h"
 #include "../headers/point.h"
 #include "../headers/update_centroids.h"
@@ -27,33 +26,41 @@ cluster_t** k_means(cluster_t** clusters, int num_points, int k, point_t *initia
     printf("%d\n", 2);
 
     // Exécute des itérations jusqu'à convergence
-    uint64_t convergence = 1;
-    while (convergence == 1) {
+    bool convergence = false;
+    while (!convergence) {
         // Sauvegarde les anciens centroids
         for (int i = 0; i < k; i++) {
             old_centroids[i].coords = final_centroids[i].coords;
             old_centroids[i].dim = final_centroids[i].dim;
         }
         printf("%d\n", 3);
-
-
-        cluster_t **new_clusters;
-        convergence = assign_vectors_to_centroides(final_centroids, clusters, k, distance_func, &new_clusters);
+        // Assigne les points aux clusters
+        clusters = assign_vectors_to_centroides(final_centroids, clusters, k, distance_func);
         printf("%d\n", 5);
 
-        if (new_clusters == NULL) {
+        if (clusters == NULL) {
             fprintf(stderr, "L'allocation de mémoire a échoué (/src/kmeans.c) 4.\n");
             free(old_centroids);
             return NULL;
         }
         printf("%d\n", 4);
 
-        update_centroids(new_clusters, k);
-        for (int i = 0; i < k; i++) {
-            memcpy(clusters[i], new_clusters[i], sizeof(cluster_t));
-        }
-        free(new_clusters);
+        update_centroids(clusters, k);
         printf("%d\n", 5);
+
+        // Vérifie la convergence
+        convergence = true;
+        for (int i = 0; i < k; i++) {
+            for (int j = 0; j < final_centroids[i].dim; j++) {
+                if (final_centroids[i].coords[j] != old_centroids[i].coords[j]) {
+                    convergence = false;
+                    break;
+                }
+            }
+            if (!convergence) {
+                break;
+            }
+        }
 
         // Libère la mémoire pour les clusters
         for (int i = 0; i < k; i++) {

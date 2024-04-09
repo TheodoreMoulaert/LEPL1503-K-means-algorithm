@@ -4,6 +4,7 @@
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
 #include "../headers/assign_vector_to_centro.h"
+#include "../headers/cluster.h"
 
 // Function to print centroids
 void print_centroids(const char* title, point_t centroids[], int num_centroids) {
@@ -24,7 +25,6 @@ void print_clusters(const char* title, cluster_t **clusters, uint64_t nbr_vector
     }
 }
 
-// Test case for assign_vectors_to_centroids
 void test_assign_vectors_to_centroids() {
     // Define centroids
     point_t centroids[2];
@@ -73,11 +73,17 @@ void test_assign_vectors_to_centroids() {
     print_clusters("Clusters", clusters, 3, 2);
 
     // Perform the assignment
-    cluster_t **new_clusters = assign_vectors_to_centroides(centroids, clusters, 2, squared_euclidean_distance);
+    result_t result = assign_vectors_to_centroides(centroids, clusters, 2, squared_euclidean_distance);
+    
+    // Check the result
+    CU_ASSERT_FALSE(result.changes);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(result.result_cluster);
+    
     // Print centroids and clusters after assignment
     print_centroids("Centroids", centroids, 2);
-    print_clusters("Clusters", new_clusters, 3, 2); // Printing new_clusters
+    print_clusters("Clusters", result.result_cluster, 3, 2); // Printing new_clusters
 
+    // Free memory
     for (uint32_t i = 0; i < 2; ++i) {
         free(clusters[i]->data);
         free(clusters[i]);
@@ -88,15 +94,14 @@ void test_assign_vectors_to_centroids() {
         free(centroids[i].coords);
     }
     for (int i = 0; i < 3; ++i) {
-        free(new_clusters[0]->data[i]->coords); 
-        free(new_clusters[0]->data[i]) ;
-        free(new_clusters[1]->data[i]->coords); 
-        free(new_clusters[1]->data[i]) ;
- 
+        free(result.result_cluster[0]->data[i]->coords); 
+        free(result.result_cluster[0]->data[i]) ;
+        free(result.result_cluster[1]->data[i]->coords); 
+        free(result.result_cluster[1]->data[i]) ;
     }
-    free(new_clusters[0]);
-    free(new_clusters[1]);
-    free(new_clusters);
+    free(result.result_cluster[0]);
+    free(result.result_cluster[1]);
+    free(result.result_cluster);
 }
 int main() {
     // Initialize CUnit test registry
@@ -124,4 +129,3 @@ int main() {
 
     return CU_get_error();
 }
-
