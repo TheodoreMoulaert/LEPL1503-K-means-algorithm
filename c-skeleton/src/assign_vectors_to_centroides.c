@@ -5,7 +5,6 @@
 #include "../headers/distance.h"
 #include "../headers/cluster.h"
 
-
 result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, uint32_t K, squared_distance_func_t distance_func) {
     result_t result;
     result.changes = false;
@@ -37,32 +36,11 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             return result;
         }
 
-        // Assurez-vous que clusters[i]->size est correctement défini
-        if (clusters[i] == NULL || clusters[i]->size <= 0) {
-            // Gérer l'erreur de taille incorrecte pour clusters[i]->size
-            // Libérer la mémoire allouée pour les nouveaux clusters déjà initialisés
-            for (uint32_t j = 0; j < i; ++j) {
-                free(new_clusters[j]->data);
-                free(new_clusters[j]);
-            }
-            free(new_clusters);
-            return result;
-        }
-
-        // Allouer une taille initiale pour le tableau de données
-        new_clusters[i]->data = (point_t**) malloc(clusters[i]->size * sizeof(point_t*));
-        if (new_clusters[i]->data == NULL) {
-            // Gérer l'erreur d'allocation de mémoire
-            // Libérer la mémoire allouée pour les nouveaux clusters déjà initialisés
-            for (uint32_t j = 0; j < i; ++j) {
-                free(new_clusters[j]->data);
-                free(new_clusters[j]);
-            }
-            free(new_clusters);
-            return result;
-        }
-
-        new_clusters[i]->size = 0; // Initialiser la taille à zéro
+        // Initialise le cluster avec des valeurs par défaut
+        new_clusters[i]->size = 0;
+        new_clusters[i]->data = NULL; // Initialise à NULL, car il n'y a pas encore de données
+        new_clusters[i]->centroide.dim = 0; // Initialise la dimension à zéro
+        new_clusters[i]->centroide.coords = NULL; // Initialise à NULL, car il n'y a pas encore de coordonnées
     }
 
     // Parcourir tous les centroides
