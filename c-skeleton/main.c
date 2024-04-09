@@ -205,8 +205,8 @@ int main(int argc, char *argv[]) {
             perror("Erreur d'allocation mémoire pour temps_cluster[0]->data");
             break; 
         }
+        temps_cluster[0]->data = donnes; 
         printf("%d\n", 9);
-        //memcpy(temps_cluster[0]->data, initial_combinations[i], npoints * sizeof(point_t*));
         temps_result_cluster = k_means(temps_cluster, npoints, k, initial_combinations[i][0], temp_centroide, DISTANCE_SQUARED);
         printf("%d\n", 10);
         temp_distorsion = distortion((cluster_t const **)clusters_list[i], k, DISTANCE_SQUARED);
