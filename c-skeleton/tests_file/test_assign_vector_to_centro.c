@@ -31,19 +31,21 @@ void test_assign_vectors_to_centroids() {
     centroids[0].coords = malloc(2 * sizeof(int64_t));
     centroids[0].coords[0] = 4;
     centroids[0].coords[1] = 2;
+    centroids[0].dim = 2; 
 
     centroids[1].coords = malloc(2 * sizeof(int64_t));
     centroids[1].coords[0] = 2;
     centroids[1].coords[1] = 0;
+    centroids[1].dim = 2; 
 
     // Define clusters
     cluster_t *cluster1 = (cluster_t*) malloc(sizeof(cluster_t));
     cluster1->size = 3;
     cluster1->data = (point_t**) malloc(cluster1->size * sizeof(point_t *));
-    for (int i = 0; i < cluster1->size; ++i) {
+    for (int i = 0; i < 3; ++i) {
         cluster1->data[i] = (point_t*) malloc(sizeof(point_t));
         cluster1->data[i]->dim = 2;
-        cluster1->data[i]->coords = malloc(2 * sizeof(int64_t));
+        cluster1->data[i]->coords = (int64_t*) malloc(2 * sizeof(int64_t));
         cluster1->data[i]->coords[0] = i;
         cluster1->data[i]->coords[1] = i + 1;
     }
@@ -51,15 +53,14 @@ void test_assign_vectors_to_centroids() {
     cluster_t *cluster2 = (cluster_t*) malloc(sizeof(cluster_t));
     cluster2->size = 3;
     cluster2->data = (point_t**) malloc(cluster2->size * sizeof(point_t *));
-    for (int i = 0; i < cluster2->size; ++i) {
+    for (int i = 0; i < 3; ++i) {
         cluster2->data[i] = (point_t*) malloc(sizeof(point_t));
         cluster2->data[i]->dim = 2;
-        cluster2->data[i]->coords = malloc(2 * sizeof(int64_t));
+        cluster2->data[i]->coords = (int64_t*) malloc(2 * sizeof(int64_t));
         cluster2->data[i]->coords[0] = i + 1;
         cluster2->data[i]->coords[1] = i + 2;
     }
 
-    // Allocation dynamique pour le tableau de pointeurs clusters
     cluster_t **clusters = (cluster_t**) malloc(2 * sizeof(cluster_t *));
     for (int i = 0; i < 2; ++i) {
         clusters[i] = (cluster_t*) malloc(sizeof(cluster_t));
@@ -72,29 +73,25 @@ void test_assign_vectors_to_centroids() {
     print_clusters("Clusters", clusters, 3, 2);
 
     // Perform the assignment
-    clusters =  assign_vectors_to_centroides(centroids, clusters,2, squared_euclidean_distance);
-    
+    cluster_t **new_clusters = assign_vectors_to_centroides(centroids, clusters, 2, squared_euclidean_distance);
     // Print centroids and clusters after assignment
     print_centroids("Centroids", centroids, 2);
-    print_clusters("Clusters", clusters, 3, 2);
+    print_clusters("Clusters", new_clusters, 3, 2); // Printing new_clusters
 
-    // Cleanup
-    for (int i = 0; i < 2; ++i) {
-        for (int j = 0; j < clusters[i]->size; ++j) {
-            free(clusters[i]->data[j]->coords);
-            free(clusters[i]->data[j]);
-        }
-        free(clusters[i]->data);
-        free(clusters[i]);
-    }
     for (int i = 0; i < 2; ++i) {
         free(centroids[i].coords);
-        
     }
-    free(clusters);
+    for (int i = 0; i < 3; ++i) {
+        free(new_clusters[0]->data[i]->coords); 
+        free(new_clusters[0]->data[i]) ;
+        free(new_clusters[1]->data[i]->coords); 
+        free(new_clusters[1]->data[i]) ;
+ 
+    }
+    free(new_clusters[0]);
+    free(new_clusters[1]);
+    free(new_clusters);
 }
-
-// Main function
 int main() {
     // Initialize CUnit test registry
     if (CUE_SUCCESS != CU_initialize_registry()) {
@@ -121,3 +118,4 @@ int main() {
 
     return CU_get_error();
 }
+
