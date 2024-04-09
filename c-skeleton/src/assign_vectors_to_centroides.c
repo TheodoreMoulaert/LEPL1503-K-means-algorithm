@@ -3,18 +3,19 @@
 #include "../headers/distance.h"
 #include <stdlib.h>
 #include <stdio.h>
+uint64_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, uint32_t K, squared_distance_func_t distance_func, cluster_t **new_clusters) {
+    uint64_t unchanged = 1; // Flag to indicate if the assignment remains unchanged
 
-cluster_t** assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, uint32_t K, squared_distance_func_t distance_func) {
     if (centroids == NULL || clusters == NULL) {
         // Gérer l'erreur de pointeur nul
-        return NULL;
+        return unchanged;
     }
 
     // Allouer un nouveau tableau de clusters pour contenir les nouveaux clusters
-    cluster_t **new_clusters = (cluster_t**) malloc(K * sizeof(cluster_t*));
+    new_clusters = (cluster_t**) malloc(K * sizeof(cluster_t*));
     if (new_clusters == NULL) {
         // Gérer l'erreur d'allocation de mémoire
-        return NULL;
+        return unchanged;
     }
 
     // Initialiser chaque nouveau cluster
@@ -28,7 +29,7 @@ cluster_t** assign_vectors_to_centroides(point_t *centroids, cluster_t **cluster
                 free(new_clusters[j]);
             }
             free(new_clusters);
-            return NULL;
+            return unchanged;
         }
 
         // Assurez-vous que clusters[i]->size est correctement défini
@@ -40,7 +41,7 @@ cluster_t** assign_vectors_to_centroides(point_t *centroids, cluster_t **cluster
                 free(new_clusters[j]);
             }
             free(new_clusters);
-            return NULL;
+            return unchanged;
         }
 
         // Allouer une taille initiale pour le tableau de données
@@ -53,18 +54,18 @@ cluster_t** assign_vectors_to_centroides(point_t *centroids, cluster_t **cluster
                 free(new_clusters[j]);
             }
             free(new_clusters);
-            return NULL;
+            return unchanged;
         }
 
         new_clusters[i]->size = 0; // Initialiser la taille à zéro
     }
 
-    // Parcourir tous les centroides
+
     for (uint32_t current_centroid_idx = 0; current_centroid_idx < K; ++current_centroid_idx) {
         // Parcourir tous les vecteurs du cluster actuel
         for (uint64_t i = 0; i < clusters[current_centroid_idx]->size; ++i) {
             point_t *vector = clusters[current_centroid_idx]->data[i];
-            // Trouver le centroïde le plus proche pour le vecteur
+
             uint32_t closest_centroid_idx = 0;
             uint64_t closest_centroid_distance = UINT64_MAX;
             for (uint32_t centroid_idx = 0; centroid_idx < K; ++centroid_idx) {
@@ -86,23 +87,20 @@ cluster_t** assign_vectors_to_centroides(point_t *centroids, cluster_t **cluster
                     free(new_clusters[j]);
                 }
                 free(new_clusters);
-                return NULL;
+                return unchanged;
+            }
+            if(current_centroid_idx == closest_centroid_idx){
+                unchanged = 0;
             }
             new_clusters[closest_centroid_idx]->data = temp;
             new_clusters[closest_centroid_idx]->data[idx] = vector;
             new_clusters[closest_centroid_idx]->size++;
             new_clusters[closest_centroid_idx]->centroide = centroids[closest_centroid_idx];
             new_clusters[closest_centroid_idx]->centroide.dim = centroids[closest_centroid_idx].dim;
-
         }
     }
+    
 
-    // Libérer la mémoire allouée pour les anciens clusters
-    for (uint32_t i = 0; i < K; ++i) {
-        free(clusters[i]->data);
-        free(clusters[i]);
-    }
-    free(clusters);
 
-    return new_clusters;
+    return unchanged;
 }

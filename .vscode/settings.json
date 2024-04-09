@@ -10,6 +10,7 @@
         "k_means.h": "c",
         "write_csv.h": "c",
         "combinaison.h": "c",
-        "binary_file_reader.h": "c"
+        "binary_file_reader.h": "c",
+        "assign_vector_to_centro.h": "c"
     }
 }
