@@ -15,6 +15,7 @@ cluster_t** k_means(cluster_t** clusters, int num_points, int k, point_t *initia
     for (int i = 0; i < k; i++) {
         final_centroids[i].coords = initial_centroids[i].coords;
         final_centroids[i].dim = initial_centroids[i].dim;
+        clusters[i]->centroide = initial_centroids[i];
     }
     printf("%d\n", 1);
 
@@ -24,18 +25,33 @@ cluster_t** k_means(cluster_t** clusters, int num_points, int k, point_t *initia
         return NULL; 
     }
     printf("%d\n", 2);
+    result_t result; 
 
     // Exécute des itérations jusqu'à convergence
     bool convergence = false;
+    uint64_t i = 0; 
     while (!convergence) {
         // Sauvegarde les anciens centroids
+
         for (int i = 0; i < k; i++) {
             old_centroids[i].coords = final_centroids[i].coords;
             old_centroids[i].dim = final_centroids[i].dim;
         }
         printf("%d\n", 3);
         // Assigne les points aux clusters
-        clusters = assign_vectors_to_centroides(final_centroids, clusters, k, distance_func);
+        if (i == 0) {
+            result = assign_vectors_to_centroides(final_centroids, clusters, k, distance_func);
+        } else {
+            result = assign_vectors_to_centroides(final_centroids, result.result_cluster, k, distance_func);
+        }
+
+        if (result.result_cluster == NULL) {
+            fprintf(stderr, "L'allocation de mémoire a échoué pour result.result_cluster.\n");
+            free(old_centroids);
+            return NULL;
+        }
+
+        convergence = result.changes; 
         printf("%d\n", 5);
 
         if (clusters == NULL) {
@@ -44,32 +60,14 @@ cluster_t** k_means(cluster_t** clusters, int num_points, int k, point_t *initia
             return NULL;
         }
         printf("%d\n", 4);
-
-        update_centroids(clusters, k);
+    
+        update_centroids(result.result_cluster, k);
         printf("%d\n", 5);
-
-        // Vérifie la convergence
-        convergence = true;
-        for (int i = 0; i < k; i++) {
-            for (int j = 0; j < final_centroids[i].dim; j++) {
-                if (final_centroids[i].coords[j] != old_centroids[i].coords[j]) {
-                    convergence = false;
-                    break;
-                }
-            }
-            if (!convergence) {
-                break;
-            }
-        }
-
-        // Libère la mémoire pour les clusters
-        for (int i = 0; i < k; i++) {
-            free(clusters[i]);
-        }
-        free(clusters);
+        i++; 
     }
 
-    // Libère la mémoire pour les old_centroids
+    // Libérer la mémoire pour les old_centroids
     free(old_centroids);
-    return clusters;
+    return result.result_cluster;
+
 }
