@@ -73,25 +73,22 @@ void test_assign_vectors_to_centroids() {
     print_clusters("Clusters", clusters, 3, 2);
 
     // Perform the assignment
-    cluster_t **new_clusters = assign_vectors_to_centroides(centroids, clusters, 2, squared_euclidean_distance);
-    // Print centroids and clusters after assignment
-    print_centroids("Centroids", centroids, 2);
-    print_clusters("Clusters", new_clusters, 3, 2); // Printing new_clusters
+    cluster_t **new_clusters;
+    uint64_t unchanged = assign_vectors_to_centroides(centroids, clusters, 2, squared_euclidean_distance, new_clusters);
+
+    // Free memory
+    for (uint32_t i = 0; i < 2; ++i) {
+        free(clusters[i]->data);
+        free(clusters[i]);
+    }
+    free(clusters);
 
     for (int i = 0; i < 2; ++i) {
         free(centroids[i].coords);
     }
-    for (int i = 0; i < 3; ++i) {
-        free(new_clusters[0]->data[i]->coords); 
-        free(new_clusters[0]->data[i]) ;
-        free(new_clusters[1]->data[i]->coords); 
-        free(new_clusters[1]->data[i]) ;
- 
-    }
-    free(new_clusters[0]);
-    free(new_clusters[1]);
-    free(new_clusters);
+    
 }
+
 int main() {
     // Initialize CUnit test registry
     if (CUE_SUCCESS != CU_initialize_registry()) {
@@ -118,4 +115,3 @@ int main() {
 
     return CU_get_error();
 }
-
