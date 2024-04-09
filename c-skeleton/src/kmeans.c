@@ -10,7 +10,7 @@
 #include "../headers/cluster.h"
 #include "../headers/distance.h"
 
-cluster_t** k_means(cluster_t** clusters_input, int num_points, int k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
+cluster_t** k_means(cluster_t** clusters, int num_points, int k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
     // Initialise les centroids finaux avec les centroids initiaux
     for (int i = 0; i < k; i++) {
         final_centroids[i].coords = initial_centroids[i].coords;
@@ -18,17 +18,17 @@ cluster_t** k_means(cluster_t** clusters_input, int num_points, int k, point_t *
     }
     printf("%d\n", 1);
 
-    cluster_t **clusters = NULL;
     point_t *old_centroids = (point_t *)malloc(k * sizeof(point_t));
     if (old_centroids == NULL) {
         fprintf(stderr, "L'allocation de mémoire a échoué (/src/kmeans.c) 3.\n");
         return NULL; 
     }
     printf("%d\n", 2);
+    cluster_t **new_clusters;
 
     // Exécute des itérations jusqu'à convergence
-    bool convergence = false;
-    while (!convergence) {
+    uint64_t convergence = 1;
+    while (convergence == 1) {
         // Sauvegarde les anciens centroids
         for (int i = 0; i < k; i++) {
             old_centroids[i].coords = final_centroids[i].coords;
@@ -36,7 +36,7 @@ cluster_t** k_means(cluster_t** clusters_input, int num_points, int k, point_t *
         }
         printf("%d\n", 3);
         // Assigne les points aux clusters
-        clusters = assign_vectors_to_centroides(final_centroids, clusters_input, k, distance_func);
+        convergence = assign_vectors_to_centroides(final_centroids, clusters, k, distance_func, new_clusters);
         printf("%d\n", 5);
 
         if (clusters == NULL) {
@@ -46,7 +46,8 @@ cluster_t** k_means(cluster_t** clusters_input, int num_points, int k, point_t *
         }
         printf("%d\n", 4);
 
-        update_centroids(clusters, k);
+        update_centroids(new_clusters, k);
+        clusters = new_clusters;
         printf("%d\n", 5);
 
         // Vérifie la convergence
