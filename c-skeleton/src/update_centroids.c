@@ -10,7 +10,7 @@
 cluster_t** update_centroids(cluster_t *clusters[], uint32_t K) {
     for (uint32_t i = 0; i < K; i++) {
      
-        uint32_t dim = clusters[i]->centroide.dim;
+        uint32_t dim = clusters[0]->data[0]->dim;
         uint32_t *moyenne = calloc(dim, sizeof(uint32_t));
 
         if (moyenne == NULL) {
@@ -33,6 +33,7 @@ cluster_t** update_centroids(cluster_t *clusters[], uint32_t K) {
         for (uint32_t xi = 0; xi < dim; xi++) {
             moyenne[xi] /= clusters[i]->size; // Calcul de la moyenne
             clusters[i]->centroide.coords[xi] = moyenne[xi]; // Mise à jour du centroïde
+            clusters[i]->centroide.dim = dim; 
         }
 
         free(moyenne); // Libérer la mémoire allouée pour moyenne
