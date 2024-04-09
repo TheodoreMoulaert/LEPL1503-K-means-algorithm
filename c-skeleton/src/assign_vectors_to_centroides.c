@@ -8,7 +8,7 @@
 
 result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, uint32_t K, squared_distance_func_t distance_func) {
     result_t result;
-    result.changes = true;
+    result.changes = false;
     result.result_cluster = NULL;
 
     if (centroids == NULL || clusters == NULL) {
@@ -100,7 +100,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             new_clusters[closest_centroid_idx]->centroide = centroids[closest_centroid_idx];
             new_clusters[closest_centroid_idx]->centroide.dim = centroids[closest_centroid_idx].dim;
             if(current_centroid_idx == closest_centroid_idx){
-                result.changes = false; 
+                result.changes = true; 
             }
         }
     }

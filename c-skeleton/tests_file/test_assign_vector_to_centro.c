@@ -76,7 +76,7 @@ void test_assign_vectors_to_centroids() {
     result_t result = assign_vectors_to_centroides(centroids, clusters, 2, squared_euclidean_distance);
     
     // Check the result
-    CU_ASSERT_FALSE(result.changes);
+    CU_ASSERT_TRUE(result.changes);
     CU_ASSERT_PTR_NOT_NULL_FATAL(result.result_cluster);
     
     // Print centroids and clusters after assignment
