@@ -74,7 +74,7 @@ void test_assign_vectors_to_centroids() {
 
     // Perform the assignment
     cluster_t **new_clusters;
-    uint64_t unchanged = assign_vectors_to_centroides(centroids, clusters, 2, squared_euclidean_distance, new_clusters);
+    uint64_t unchanged = assign_vectors_to_centroides(centroids, clusters, 2, squared_euclidean_distance, &new_clusters);
 
     // Free memory
     for (uint32_t i = 0; i < 2; ++i) {
