@@ -38,10 +38,10 @@ void test_k_means() {
         }
 
         // Les valeurs sont arbitrairement choisies pour le test
-        initial_centroids[i].coords[0] = i * 10;
-        initial_centroids[i].coords[1] = i * 10 + 1;
-        final_centroids[i].coords[0] = i * 10 + 2;
-        final_centroids[i].coords[1] = i * 10 + 3;
+        initial_centroids[i].coords[0] = i * 1;
+        initial_centroids[i].coords[1] = i * 1 + 1;
+        final_centroids[i].coords[0] = i * 1 + 2;
+        final_centroids[i].coords[1] = i * 1 + 3;
     }
 
     // Création d'un tableau de clusters pour les points de test
