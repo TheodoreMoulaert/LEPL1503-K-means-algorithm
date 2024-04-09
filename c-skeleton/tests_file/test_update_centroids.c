@@ -122,6 +122,13 @@ void test_update_centroids() {
         initial_coords[i][0] = clusters[i]->centroide.coords[0];
         initial_coords[i][1] = clusters[i]->centroide.coords[1];
     }
+    for (uint32_t i = 0; i < k; ++i) {
+        printf("Cluster %u:\n", i);
+        for (uint64_t j = 0; j < clusters[i]->size; ++j) {
+            printf("Point %lu: (%" PRId64 ", %" PRId64 ")\n", j, clusters[i]->data[j]->coords[0], clusters[i]->data[j]->coords[1]);
+        }
+        printf("\n");
+    }
 
     // Affichage des coordonnées initiales des centroïdes
     printf("Coordonnées initiales des centroïdes :\n");
@@ -147,6 +154,15 @@ void test_update_centroids() {
         CU_ASSERT_EQUAL(clusters[i]->centroide.coords[0], avg_x);
         CU_ASSERT_EQUAL(clusters[i]->centroide.coords[1], avg_y);
 
+    }
+    int64_t final_coords[k][2];
+    for (uint32_t i = 0; i < k; ++i) {
+        final_coords[i][0] = clusters[i]->centroide.coords[0];
+        final_coords[i][1] = clusters[i]->centroide.coords[1];
+    }
+    printf("Coordonnées finales des centroïdes :\n");
+    for (uint32_t i = 0; i < k; ++i) {
+        printf("Centroïde %u: (%" PRId64 ", %" PRId64 ")\n", i, final_coords[i][0], final_coords[i][1]);
     }
 
     // Nettoyage
