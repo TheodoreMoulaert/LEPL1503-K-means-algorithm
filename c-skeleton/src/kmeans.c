@@ -13,8 +13,6 @@
 cluster_t** k_means(cluster_t** clusters, int num_points, int k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
     // Initialise les centroids finaux avec les centroids initiaux
     for (int i = 0; i < k; i++) {
-        final_centroids[i].coords = initial_centroids[i].coords;
-        final_centroids[i].dim = initial_centroids[i].dim;
         clusters[i]->centroide = initial_centroids[i];
     }
     printf("%d\n", 1);

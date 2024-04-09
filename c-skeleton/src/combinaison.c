@@ -51,14 +51,14 @@ uint64_t *next_comb(uint64_t comb[], uint64_t n, uint64_t k) {
     return comb;
 }
 
-point_t ***generate_combinations(point_t **vectors, uint64_t n, uint64_t k) {
+point_t ***generate_combinations(point_t **vectors, uint64_t n, uint64_t k, uint32_t p) {
     // Vérification des paramètres
-    if (n < k || k <= 0) {
+    if (n < k || k <= 0 || p < k) {
         return NULL;
     }
 
     // Calcul du nombre total de combinaisons
-    uint64_t total_combinations = combinaison(n, k);
+    uint64_t total_combinations = combinaison(p, k);
     
     // Allocation de la mémoire pour stocker les combinaisons
     point_t ***combinations = malloc(total_combinations * sizeof(point_t **));
@@ -105,7 +105,7 @@ point_t ***generate_combinations(point_t **vectors, uint64_t n, uint64_t k) {
         combination_index++;
 
         // Génération de la prochaine combinaison d'indices
-        current_combination_indices = next_comb(current_combination_indices, n, k);
+        current_combination_indices = next_comb(current_combination_indices, p, k);
     }
 
     // Libération de la mémoire utilisée pour stocker les indices de la combinaison actuelle
