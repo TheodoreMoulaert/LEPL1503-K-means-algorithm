@@ -23,6 +23,8 @@ typedef struct {
     squared_distance_func_t squared_distance_func;
 } args_t;
 
+
+
 uint32_t k; // nombre de clusters
 uint32_t dim; //dimension de chaque point
 FILE*fp;    
