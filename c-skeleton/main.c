@@ -135,8 +135,8 @@ int main(int argc, char *argv[]) {
     uint32_t p = program_arguments.n_first_initialization_points;
     uint64_t npoints;
     uint32_t dimension; 
-    //npoints =5;
-    //dimension= 2;
+    npoints =5;
+    dimension= 2;
     //uint8_t quiet = program_arguments.quiet;
     uint32_t k = program_arguments.k;
     squared_distance_func_t DISTANCE_SQUARED;
@@ -155,7 +155,7 @@ int main(int argc, char *argv[]) {
         perror("Erreur lors de l'ouverture du fichier binaire");
         exit(EXIT_FAILURE);
     }
-    donnes =  point_input(f, &dimension, &npoints);
+    donnes =  point_input(f, &dimension, &npoints); //input_file
     
     printf("%d\n", 1);
     if(p>npoints)
