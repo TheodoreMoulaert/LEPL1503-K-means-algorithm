@@ -12,6 +12,10 @@
         "combinaison.h": "c",
         "binary_file_reader.h": "c",
         "assign_vector_to_centro.h": "c",
-        "stddef.h": "c"
+        "stddef.h": "c",
+        "errno.h": "c",
+        "stdbool.h": "c",
+        "getopt.h": "c",
+        "main.h": "c"
     }
 }
