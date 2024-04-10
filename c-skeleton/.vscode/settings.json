@@ -2,6 +2,8 @@
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
         "binary_file_avec_cluster.h": "c",
-        "update_centroids.h": "c"
+        "update_centroids.h": "c",
+        "binary_file_reader.h": "c",
+        "distance.h": "c"
     }
 }

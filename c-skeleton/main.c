@@ -128,12 +128,15 @@ int main(int argc, char *argv[]) {
     fprintf(stderr, "\twe consider all the combinations of the %" PRIu32 " first points of the input as initializations of the Lloyd's algorithm\n", program_arguments.n_first_initialization_points);
     fprintf(stderr, "\tquiet mode: %s\n", program_arguments.quiet ? "enabled" : "disabled");
     fprintf(stderr, "\tsquared distance function: %s\n", program_arguments.squared_distance_func == squared_manhattan_distance ? "manhattan" : "euclidean");
+    
 
     FILE *input_file = program_arguments.input_stream;
     FILE *output_file = program_arguments.output_stream;
     uint32_t p = program_arguments.n_first_initialization_points;
-    uint64_t npoints = 0;
-    uint32_t dimension = 0;
+    uint64_t npoints;
+    uint32_t dimension; 
+    //npoints =5;
+    //dimension= 2;
     //uint8_t quiet = program_arguments.quiet;
     uint32_t k = program_arguments.k;
     squared_distance_func_t DISTANCE_SQUARED;
@@ -146,8 +149,14 @@ int main(int argc, char *argv[]) {
     } else {
         DISTANCE_SQUARED = squared_euclidean_distance;
     }
-
-    donnes =  point_input(input_file,&dimension, &npoints);
+    fprintf(stderr, "%d\n",0);
+    FILE *f = fopen("../python/exemple.bin", "rb");
+    if (!f) {
+        perror("Erreur lors de l'ouverture du fichier binaire");
+        exit(EXIT_FAILURE);
+    }
+    donnes =  point_input(f, &dimension, &npoints);
+    
     printf("%d\n", 1);
     if(p>npoints)
     {
