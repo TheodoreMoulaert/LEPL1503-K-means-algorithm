@@ -155,6 +155,7 @@ int main(int argc, char *argv[]) {
         return -1;
 
     }
+
     printf("%d\n", 2);
     int64_t nombre_comb = combinaison(p,k);
     printf("%ld\n", nombre_comb);
@@ -217,6 +218,7 @@ int main(int argc, char *argv[]) {
             exit(EXIT_FAILURE);
         }
     }
+    //a comparer avec la fichier fin du main 
 
     for (uint64_t i = 0; i < nombre_comb; i++) {
         for(uint32_t j = 0; j<k; j++){
