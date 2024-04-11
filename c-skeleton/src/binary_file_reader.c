@@ -35,7 +35,7 @@ uint32_t get_dimension_from_binary_file(FILE *file, uint32_t* dim, uint64_t* nbr
     return 1;
 }
 
-point_t **point_input(FILE *file, uint32_t *dim, uint64_t *nbr_vectors) {
+point_t **point_input(FILE *file, uint32_t *dim, uint64_t *nbr_vectors) { //* remplacé par&
     if (!file) {
         perror("Fonctions : Le pointeur de fichier est nul");
         return NULL;
@@ -60,7 +60,7 @@ point_t **point_input(FILE *file, uint32_t *dim, uint64_t *nbr_vectors) {
     //fprintf(stderr, "%d %d %d\n",0,0,2);
 
     // Allocation de la mémoire pour les vecteurs
-    point_t **vectors = malloc(*nbr_vectors * sizeof(point_t *));
+    point_t **vectors = malloc(*nbr_vectors * sizeof(point_t *)); //*nbr_vectors
     if (vectors == NULL) {
         perror("Fonctions :Erreur d'allocation mémoire pour les vecteurs");
         return NULL;
