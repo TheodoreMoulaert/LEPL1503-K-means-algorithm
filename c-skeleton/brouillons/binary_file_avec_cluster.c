@@ -1,14 +1,14 @@
-#include "../headers/binary_file_reader.h" 
+//#include "../headers/binary_file_reader.h" 
 #include "../headers/point.h"
 #include "../headers/cluster.h"
-#include "../headers/binary_file_avec_cluster.h"
+#include "../brouillons/binary_file_avec_cluster.h"
 
 #include <stdlib.h>
 #include <endian.h>
 #include <stdio.h>
 #include <netinet/in.h> // Pour be32toh
 
-
+/*
 uint32_t get_dimension_from_binary_file(FILE *file) {
     if (!file) {
         perror("Le pointeur de fichier est nul");
@@ -45,7 +45,7 @@ uint64_t get_nbr_vectors_from_binary_file(FILE *file) {
 	uint64_t nbr_vectors = be64toh(nb_endian);
     
     return nbr_vectors;
-}
+}*/
 
 
 point_t **point_input(FILE *file) {
@@ -53,7 +53,7 @@ point_t **point_input(FILE *file) {
         perror("Le pointeur de fichier est nul");
         return NULL;
     }
-    uint32_t dim_endian; // en format Big Endian
+    uint32_t dim_endian;// = (uint32_t) 2; // en format Big Endian
 	uint64_t nb_endian; // en format Big Endian
 	if(fread(&dim_endian, sizeof(uint32_t), 1, file) == 0)
 	{
@@ -65,9 +65,11 @@ point_t **point_input(FILE *file) {
 		fprintf(stderr, "pas de nombre de points spécifié."); 
 		return NULL;
 	}
-	uint32_t dim = be32toh(dim_endian);
-	uint64_t nbr_vectors = be64toh(nb_endian);
+	uint32_t dim;
+    //dim =  be32toh((uint32_t) 2);
+	uint64_t nbr_vectors;// = be64toh(nb_endian);
     printf("Nombre de vecteurs dans le fichier binaire in : %lu\n", nbr_vectors);
+    printf("Dimension du le fichier binaire in : %u\n", dim);
 
 	
     if (nbr_vectors <= 0) {
