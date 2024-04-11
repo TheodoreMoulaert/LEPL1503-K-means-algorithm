@@ -133,8 +133,8 @@ int main(int argc, char *argv[]) {
     FILE *input_file = program_arguments.input_stream;
     FILE *output_file = program_arguments.output_stream;
     uint32_t p = program_arguments.n_first_initialization_points;
-    uint64_t npoints;
-    uint32_t dimension; 
+    uint64_t npoints=0;
+    uint32_t dimension=0; 
     //npoints =5;
     //dimension= 2;
     //uint8_t quiet = program_arguments.quiet;
@@ -150,12 +150,12 @@ int main(int argc, char *argv[]) {
         DISTANCE_SQUARED = squared_euclidean_distance;
     }
     fprintf(stderr, "%d\n",0);
-    FILE *f = fopen("../python/exemple3.bin", "rb");
+    /*FILE *f = fopen("../python/exemple3.bin", "rb");
     if (!f) {
         perror("Erreur lors de l'ouverture du fichier binaire");
         exit(EXIT_FAILURE);
-    }
-    donnes =  point_input(f, &dimension, &npoints); //input_file
+    }*/
+    donnes =  point_input(input_file, &dimension, &npoints); //input_file
     
     printf("%d\n", 1);
     if(p>npoints)
@@ -168,6 +168,7 @@ int main(int argc, char *argv[]) {
     printf("%d\n", 2);
     int64_t nombre_comb = combinaison(p,k);
     printf("%ld\n", nombre_comb);
+    printf("%d\n", 3);
     point_t ***initial_combinations = generate_combinations(donnes,npoints,k,p);
     printf("%d\n", 4);
 
