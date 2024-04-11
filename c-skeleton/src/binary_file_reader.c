@@ -50,6 +50,7 @@ point_t **point_input(FILE *file, uint32_t *dim, uint64_t *nbr_vectors) { //* re
         return NULL;
     }
     *dim = be32toh(dim_endian);
+    
     //fprintf(stderr, "%d %d %d\n",0,0,1);
     // Lecture du nombre de vecteurs
     if (fread(&nb_endian, sizeof(uint64_t), 1, file) != 1) {
