@@ -150,12 +150,12 @@ int main(int argc, char *argv[]) {
         DISTANCE_SQUARED = squared_euclidean_distance;
     }
     fprintf(stderr, "%d\n",0);
-    /*FILE *f = fopen("../python/exemple.bin", "rb");
+    FILE *f = fopen("../python/exemple3.bin", "rb");
     if (!f) {
         perror("Erreur lors de l'ouverture du fichier binaire");
         exit(EXIT_FAILURE);
-    }*/
-    donnes =  point_input(input_file, &dimension, &npoints); //input_file
+    }
+    donnes =  point_input(f, &dimension, &npoints); //input_file
     
     printf("%d\n", 1);
     if(p>npoints)
