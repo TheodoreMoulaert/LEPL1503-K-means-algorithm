@@ -133,8 +133,8 @@ int main(int argc, char *argv[]) {
     FILE *input_file = program_arguments.input_stream;
     FILE *output_file = program_arguments.output_stream;
     uint32_t p = program_arguments.n_first_initialization_points;
-    uint64_t npoints=2;
-    uint32_t dimension=0; 
+    uint64_t npoints;
+    uint32_t dimension; 
     //npoints =5;
     //dimension= 2;
     //uint8_t quiet = program_arguments.quiet;
