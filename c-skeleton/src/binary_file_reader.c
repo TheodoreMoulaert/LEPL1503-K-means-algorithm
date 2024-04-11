@@ -40,7 +40,7 @@ point_t **point_input(FILE *file, uint32_t *dim, uint64_t *nbr_vectors) {
         perror("Fonctions : Le pointeur de fichier est nul");
         return NULL;
     }
-
+    fprintf(stderr, "%d %d %d\n",0,0,0);
     uint32_t dim_endian; // en format Big Endian
     uint64_t nb_endian;  // en format Big Endian
 
@@ -50,13 +50,14 @@ point_t **point_input(FILE *file, uint32_t *dim, uint64_t *nbr_vectors) {
         return NULL;
     }
     *dim = be32toh(dim_endian);
-
+    fprintf(stderr, "%d %d %d\n",0,0,1);
     // Lecture du nombre de vecteurs
     if (fread(&nb_endian, sizeof(uint64_t), 1, file) != 1) {
         perror("Erreur lors de la lecture du nombre de points spécifié");
         return NULL;
     }
     *nbr_vectors = be64toh(nb_endian);
+    fprintf(stderr, "%d %d %d\n",0,0,2);
 
     // Allocation de la mémoire pour les vecteurs
     point_t **vectors = malloc(*nbr_vectors * sizeof(point_t *));
@@ -64,7 +65,7 @@ point_t **point_input(FILE *file, uint32_t *dim, uint64_t *nbr_vectors) {
         perror("Fonctions :Erreur d'allocation mémoire pour les vecteurs");
         return NULL;
     }
-
+    fprintf(stderr, "%d %d %d\n",0,0,3);
     // Lecture des coordonnées des vecteurs
     for (uint64_t i = 0; i < *nbr_vectors; i++) {
         point_t *point = malloc(sizeof(point_t));
