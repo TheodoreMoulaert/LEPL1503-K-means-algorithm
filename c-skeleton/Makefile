@@ -48,7 +48,7 @@ test_distortion : tests_file/test_distortion.c src/distance.o
 test_write_csv : tests_file/test_write_csv.c src/write_csv.o
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
-test_assign_vector : tests_file/test_assign_vector_to_centro.c src/assign_vector_to_centro.o  src/distance.o
+test_assign_vector : tests_file/test_assign_vector_to_centro.c src/assign_vectors_to_centroides.o  src/distance.o
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
 test_k_means : tests_file/test2_k_means.c src/k_means.o src/update_centroids.o src/distance.o src/assign_vector_to_centro.o
@@ -62,23 +62,25 @@ test_k_means : tests_file/test2_k_means.c src/k_means.o src/update_centroids.o s
 	#@echo Excécution des tests avec Valgrind
 	#valgrind --leak-check=full ./kmeans
 
-tests_fonctions : test_binary_file  test_distance test_up_centroids test_distance_fichier  test_distortion 
+tests_fonctions : test_binary_file  test_distance test_up_centroids test_distance_fichier  test_distortion test_assign_vector
 	@echo "Exécution des tests"
 	./test_binary_file
 	./test_distance
 	./test_up_centroids
 	./test_distance_fichier
 	./test_distortion 
+	./test_assign_vector
 	make clean 
 
 # Règle pour exécuter les tests
-tests:  test_binary_file  test_distance test_up_centroids test_distance_fichier  test_distortion 
+tests:  test_binary_file  test_distance test_up_centroids test_distance_fichier  test_distortion test_assign_vector
 	@echo "Exécution des tests"
 	./test_binary_file
 	./test_distance
 	./test_up_centroids
 	./test_distance_fichier
-	./test_distortion 
+	./test_distortion
+	./test_assign_vector 
 	
 	@echo "Exécution des tests avec Valgrind"
 	valgrind --leak-check=full ./test_binary_file
@@ -86,6 +88,7 @@ tests:  test_binary_file  test_distance test_up_centroids test_distance_fichier 
 	valgrind --leak-check=full ./test_up_centroids
 	valgrind --leak-check=full ./test_distance_fichier
 	valgrind --leak-check=full ./test_distortion
+	valgrind --leak-check=full ./test_assign_vector
 	make clean 
 
 #pas certaine de la dernière ligne
