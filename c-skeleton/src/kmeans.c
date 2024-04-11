@@ -15,14 +15,14 @@ cluster_t** k_means(cluster_t** clusters, int num_points, int k, point_t *initia
     for (int i = 0; i < k; i++) {
         clusters[i]->centroide = initial_centroids[i];
     }
-    printf("%d\n", 1);
+    //printf("%d\n", 1);
 
     point_t *old_centroids = (point_t *)malloc(k * sizeof(point_t));
     if (old_centroids == NULL) {
         fprintf(stderr, "L'allocation de mémoire a échoué (/src/kmeans.c) 3.\n");
         return NULL; 
     }
-    printf("%d\n", 2);
+    //printf("%d\n", 2);
     result_t result; 
 
     // Exécute des itérations jusqu'à convergence
@@ -35,7 +35,7 @@ cluster_t** k_means(cluster_t** clusters, int num_points, int k, point_t *initia
             old_centroids[i].coords = final_centroids[i].coords;
             old_centroids[i].dim = final_centroids[i].dim;
         }
-        printf("%d\n", 3);
+        //printf("%d\n", 3);
         // Assigne les points aux clusters
         if (i == 0) {
             result = assign_vectors_to_centroides(final_centroids, clusters, k, distance_func);
@@ -50,17 +50,17 @@ cluster_t** k_means(cluster_t** clusters, int num_points, int k, point_t *initia
         }
 
         convergence = result.changes; 
-        printf("%d\n", 5);
+        //printf("%d\n", 5);
 
         if (clusters == NULL) {
             fprintf(stderr, "L'allocation de mémoire a échoué (/src/kmeans.c) 4.\n");
             free(old_centroids);
             return NULL;
         }
-        printf("%d\n", 4);
+        //printf("%d\n", 4);
     
         update_centroids(result.result_cluster, k);
-        printf("%d\n", 5);
+        //printf("%d\n", 5);
         i++; 
     }
 

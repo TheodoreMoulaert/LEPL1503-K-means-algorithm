@@ -51,7 +51,7 @@ test_write_csv : tests_file/test_write_csv.c src/write_csv.o
 test_assign_vector : tests_file/test_assign_vector_to_centro.c src/assign_vectors_to_centroides.o  src/distance.o
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
-test_k_means : tests_file/test2_k_means.c src/k_means.o src/update_centroids.o src/distance.o src/assign_vector_to_centro.o
+test_k_means : tests_file/test_kmeans2.c src/kmeans.o src/update_centroids.o src/distance.o src/assign_vectors_to_centroides.o
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
 
