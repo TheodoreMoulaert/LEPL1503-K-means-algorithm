@@ -13,7 +13,7 @@ void test_point_input();
 
 // Fonction de test pour point_input
 void test_point_input() {
-    FILE *file = fopen("../python/exemple3.bin", "rb");
+    FILE *file = fopen("../python/exemple.bin", "rb");
     if (!file) {
         perror("Erreur lors de l'ouverture du fichier binaire");
         exit(EXIT_FAILURE);
