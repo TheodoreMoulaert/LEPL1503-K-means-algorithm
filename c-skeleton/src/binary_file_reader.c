@@ -100,7 +100,7 @@ point_t **point_input(FILE *file, uint32_t *dim, uint64_t *nbr_vectors) {
 
         vectors[i] = point;
     }
-    fprintf(stderr, "%d\n",000);
+    
     return vectors;
 }
 
