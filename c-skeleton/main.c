@@ -180,8 +180,22 @@ int main(int argc, char *argv[]) {
         //initial_centroids[i]->coords =  malloc(sizeof(int64_t*));
         initial_centroids[i]->coords =  malloc(dimension * sizeof(int64_t));
         for (int j = 0; j < k; j++) {
-            initial_centroids[i][j].coords = malloc(dimension * sizeof(int64_t));
+            initial_centroids[i][j].coords = malloc(dimension*sizeof(int64_t*));
+            /*for(int m=0;m<dimension;m++){
+                initial_centroids[i][j].coords = malloc(sizeof(int64_t));
+            }*/
+
         }
+        
+        memcpy(initial_centroids[i], initial_combinations[0][i], k*sizeof(point_t*));  //sizeof(point_t*)
+        /*for (int j = 0; i < k; i++) {
+            printf("%d\n", 0);
+            memcpy(initial_centroids[i][j].coords, initial_combinations[0][i][j].coords, sizeof(int64_t));
+            // Copier d'autres membres de initial_combinations[0][i][j] si nécessaire
+            //initial_centroids[i][j].dim = initial_combinations[0][i][j].dim;
+            //memcpy(&initial_centroids[i][j], &initial_combinations[0][i][j], sizeof(const point_t));  //sizeof(point_t*)
+        }*/
+    
     
     }
     point_t** final_centroids = calloc(nombre_comb, sizeof(point_t*));;
@@ -237,16 +251,16 @@ int main(int argc, char *argv[]) {
     printf("%d\n", 5);
 
     // Copie de initial_combinations dans initial_centroids
-    for (int i = 0; i < nombre_comb; i++) {
+    /*for (int i = 0; i < nombre_comb; i++) {
         memcpy(initial_centroids[i], initial_combinations[0][i], sizeof(point_t));  //sizeof(point_t*)
-        /*for (int j = 0; i < k; i++) {
+        for (int j = 0; i < k; i++) {
             printf("%d\n", 0);
             memcpy(initial_centroids[i][j].coords, initial_combinations[0][i][j].coords, sizeof(int64_t));
             // Copier d'autres membres de initial_combinations[0][i][j] si nécessaire
             //initial_centroids[i][j].dim = initial_combinations[0][i][j].dim;
             //memcpy(&initial_centroids[i][j], &initial_combinations[0][i][j], sizeof(const point_t));  //sizeof(point_t*)
-        }*/
-    }
+        }
+    }*/
     /*for (int i = 0; i < nombre_comb; i++) {
         for (int j=0;j <k;j++){
             initial_centroids[i][j] = initial_combinations[0][i][j];
@@ -315,7 +329,7 @@ int main(int argc, char *argv[]) {
     
     }
 
-        // Libération de la mémoire allouée pour initial_centroids
+     // Libération de la mémoire allouée pour initial_centroids
     for(int64_t i = 0; i < nombre_comb; i++) {
         free(initial_centroids[i]->coords);
         free(initial_centroids[i]);
@@ -339,12 +353,13 @@ int main(int argc, char *argv[]) {
 
     // Libération de la mémoire allouée pour temps_cluster
     for(int64_t i = 0; i < k; i++) {
+        free(temps_cluster[i]->data);
         free(temps_cluster[i]);
     }
     free(temps_cluster);
 
     // Libération de la mémoire allouée pour temps_result_cluster
-    for(int64_t i = 0; i < k; i++) {
+    for(int64_t i = 0; i < nombre_comb; i++) {
         free(temps_result_cluster[i]);
     }
     free(temps_result_cluster);
@@ -365,7 +380,7 @@ int main(int argc, char *argv[]) {
 
     //print csv
     printf("%d\n", 10);
-    write_csv(output_file, distortion_list,initial_centroids, final_centroids, clusters_list, k, dimension, nombre_comb); 
+    //write_csv(output_file, distortion_list,initial_centroids, final_centroids, clusters_list, k, dimension, nombre_comb); 
     printf("%d\n", 11);
 
 
