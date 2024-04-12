@@ -11,6 +11,10 @@
 #include "../headers/distance.h"
 
 cluster_t** k_means(cluster_t** clusters, int num_points, int k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
+    if (clusters == NULL || initial_centroids == NULL || final_centroids == NULL) {
+        fprintf(stderr, "Paramètres invalides pour la fonction k_means.\n");
+        return NULL;
+    }
     // Initialise les centroids finaux avec les centroids initiaux
     for (int i = 0; i < k; i++) {
         clusters[i]->centroide = initial_centroids[i];
@@ -61,7 +65,7 @@ cluster_t** k_means(cluster_t** clusters, int num_points, int k, point_t *initia
     
         update_centroids(result.result_cluster, k);
         //printf("%d\n", 5);
-        i++; 
+        i++;  
     }
 
     // Libérer la mémoire pour les old_centroids
