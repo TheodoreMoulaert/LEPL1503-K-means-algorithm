@@ -173,6 +173,7 @@ int main(int argc, char *argv[]) {
         initial_centroids[i] = malloc(k*sizeof(point_t)); 
         //initial_centroids[i]->coords =  malloc(sizeof(int64_t*));
         initial_centroids[i]->coords =  malloc(dimension * sizeof(int64_t));
+        initial_centroids[i]->dim = dimension;
     
     }
     point_t** final_centroids = calloc(nombre_comb, sizeof(point_t*));;
@@ -259,7 +260,7 @@ int main(int argc, char *argv[]) {
             printf("temps_cluster[j]->centroide.coords[0]= %ld\n", temps_cluster[j]->centroide.coords[0]);
 
             temps_cluster[i]->size = donnes[i]->nbr_vector;//initial_centroids[0]->nbr_vector;
-            temps_cluster[0]->data = malloc(donnes[i][j].nbr_vector * sizeof(point_t*));//;npoints
+            temps_cluster[i]->data = malloc(donnes[i][j].nbr_vector * sizeof(point_t*));//;npoints
             printf("%d\n", 8);
 
 
@@ -267,7 +268,7 @@ int main(int argc, char *argv[]) {
                 perror("Erreur d'allocation mémoire pour temps_cluster[0]->data");
                 break; 
             }
-            temps_cluster[i][j].data = donnes; 
+            temps_cluster[i]->data = donnes; 
         
             printf("%d\n", 9);
             temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], initial_centroids[i], DISTANCE_SQUARED);
