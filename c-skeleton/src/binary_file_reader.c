@@ -82,7 +82,7 @@ point_t **point_input(FILE *file, uint32_t *dim, uint64_t *nbr_vectors) { //* re
     //fprintf(stderr, "%d %d %d\n",0,0,3);
     // Lecture des coordonnées des vecteurs
     for (uint64_t i = 0; i < *nbr_vectors; i++) {
-        point_t *point = malloc(sizeof(point_t));
+        point_t *point = malloc(*nbr_vectors*sizeof(point_t));
         if (point == NULL) {
             perror("Erreur d'allocation mémoire pour le vecteur");
             free_vectors(vectors, i); // Libérer les vecteurs déjà alloués

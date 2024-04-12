@@ -183,7 +183,8 @@ int main(int argc, char *argv[]) {
                 exit(EXIT_FAILURE);
             }
             // Initialiser d'autres membres de point_t si nécessaire
-            initial_centroids[i][j].dim = dimension;
+            
+            //initial_centroids[i][j].dim = dimension;
         }
     
     }
@@ -237,13 +238,22 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < nombre_comb; i++) {
         memcpy(initial_centroids[i], initial_combinations[0][i], sizeof(point_t));  //sizeof(point_t*)
         /*for (int j = 0; i < k; i++) {
-            memcpy(&initial_centroids[i][j], &initial_combinations[0][i][j], sizeof(const point_t));  //sizeof(point_t*)
+            printf("%d\n", 0);
+            memcpy(initial_centroids[i][j].coords, initial_combinations[0][i][j].coords, sizeof(int64_t));
+            // Copier d'autres membres de initial_combinations[0][i][j] si nécessaire
+            //initial_centroids[i][j].dim = initial_combinations[0][i][j].dim;
+            //memcpy(&initial_centroids[i][j], &initial_combinations[0][i][j], sizeof(const point_t));  //sizeof(point_t*)
         }*/
+    }
+    for (int i = 0; i < nombre_comb; i++) {
+        for (int j=0;j <k;j++){
+            initial_centroids[i][j] = initial_combinations[0][i][j];
+        }
     }
      
     printf("%d\n", 6);
     printf("initial_centroids[0]->coords[0]= %ld\n", initial_centroids[0]->coords[0]);
-    printf(" initial_centroids[0].dim = %d\n",initial_centroids[0][0].dim);
+    //printf(" &initial_centroids[0][0].dim = %ls\n",&initial_centroids[0][0].dim);
     if (&initial_centroids[0][0] == NULL) {
         printf(" &initial_centroids[0] == NULL %d\n", 0);
     }
