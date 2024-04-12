@@ -250,7 +250,7 @@ int main(int argc, char *argv[]) {
             printf("%d\n", 8);
             printf("temps_cluster[j]->centroide.coords[0]= %ld\n", temps_cluster[j]->centroide.coords[0]);
 
-            temps_cluster[0]->size = initial_centroids[0]->nbr_vector;
+            temps_cluster[0]->size = donnes[0]->nbr_vector;//initial_centroids[0]->nbr_vector;
             temps_cluster[0]->data = malloc(npoints * sizeof(point_t*));
             printf("%d\n", 8);
 
