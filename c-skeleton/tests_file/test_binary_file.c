@@ -13,7 +13,7 @@ void test_point_input();
 
 // Fonction de test pour point_input
 void test_point_input() {
-    FILE *file = fopen("../python/exemple.bin", "rb");
+    FILE *file = fopen("../python/exemple_neg.bin", "rb");
     if (!file) {
         perror("Erreur lors de l'ouverture du fichier binaire");
         exit(EXIT_FAILURE);
@@ -21,10 +21,19 @@ void test_point_input() {
 
     uint32_t dim;
     uint64_t nbr_vectors;
+    /*uint32_t &dim = (uint32_t )malloc(sizeof(uint32_t));
+    if (dim == NULL) {
+        // Gestion de l'échec d'allocation mémoire
+        exit(EXIT_FAILURE);
+    }
+    uint64_t &nbr_vectors = (uint64_t)malloc(sizeof(uint64_t));
+    if (nbr_vectors  == NULL) {
+        // Gestion de l'échec d'allocation mémoire
+        exit(EXIT_FAILURE);
+    }*/
+
     
-
-    point_t **vectors = point_input(file, &dim, &nbr_vectors);
-
+    point_t **vectors = point_input(file, &dim, &nbr_vectors); //remplacement de * par &
     fclose(file);
     printf("Dimension: %" PRIu32 "\n", dim);
     printf("Nombre de vecteurs: %" PRIu64 "\n", nbr_vectors);
@@ -42,7 +51,7 @@ void test_point_input() {
         printf("Vecteur %" PRIu64 ":\n", i + 1);
         printf("Dimensions: %" PRIu32 "\n", vectors[i]->dim);
         printf("Coordonnées: ");
-        for (uint32_t j = 0; j < vectors[i]->dim; j++) {
+        for (uint32_t j = 0; j < 2; j++) { //vectors[i]->dim
             printf("%" PRId64 " ", vectors[i]->coords[j]);
         }
         printf("\n");
@@ -51,7 +60,8 @@ void test_point_input() {
         free(vectors[i]->coords);
         free(vectors[i]);
     }
-
+    //free(&nbr_vectors);
+    //free(&dim);
     // Libération de la mémoire allouée pour le tableau de vecteurs
     free(vectors);
 }

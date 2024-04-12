@@ -49,25 +49,27 @@ point_t **point_input(FILE *file, uint32_t *dim, uint64_t *nbr_vectors) { //* re
         perror("Erreur lors de la lecture de la dimension");
         return NULL;
     }
-    uint32_t *dim = malloc(sizeof(uint32_t));
+    uint32_t *d = malloc(sizeof(uint32_t));
     if (dim == NULL) {
         // Gestion de l'échec d'allocation mémoire
         exit(EXIT_FAILURE);
     }
-    *dim = be32toh(dim_endian);
-
+    *d = be32toh(dim_endian);
+    *dim = *d;
     //fprintf(stderr, "%d %d %d\n",0,0,1);
     // Lecture du nombre de vecteurs
     if (fread(&nb_endian, sizeof(uint64_t), 1, file) != 1) {
         perror("Erreur lors de la lecture du nombre de points spécifié");
         return NULL;
     }
-    uint64_t *nbr_vectors = malloc(sizeof(uint64_t));
-    *nbr_vectors = be64toh(nb_endian);
-    if (nbr_vectors  == NULL) {
+    uint64_t *nbr_vect = malloc(sizeof(uint64_t));
+    
+    if (nbr_vect  == NULL) {
         // Gestion de l'échec d'allocation mémoire
         exit(EXIT_FAILURE);
     }
+    *nbr_vect = be64toh(nb_endian);
+    *nbr_vectors = *nbr_vect;
     //fprintf(stderr, "%d %d %d\n",0,0,2);
     printf("Nombre de vecteurs dans le fichier binaire in : %lu\n", *nbr_vectors);
     printf("Dimension du le fichier binaire in : %u\n", *dim);
