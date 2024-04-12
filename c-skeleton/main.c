@@ -170,11 +170,17 @@ int main(int argc, char *argv[]) {
     // initiation des tableaux pour contenir les valeurs 
     point_t** initial_centroids = calloc(nombre_comb, sizeof(point_t*));
     for(int64_t i = 0; i<nombre_comb; i++){ //nombre_comb
-        initial_centroids[i] = malloc(k*sizeof(point_t)); 
+        initial_centroids[i] = malloc(npoints*sizeof(point_t)); 
+        if (initial_centroids[i] == NULL) {
+                // Gérer l'erreur d'allocation de mémoire
+                perror("Erreur d'allocation mémoire pour initial_centroids");
+                // Gérer l'erreur et sortir de la fonction si nécessaire
+                exit(EXIT_FAILURE);
+            }
         //initial_centroids[i]->coords =  malloc(sizeof(int64_t*));
         initial_centroids[i]->coords =  malloc(dimension * sizeof(int64_t));
         //initial_centroids[i]->dim = dimension;
-        for (int j = 0; j < k; j++) {
+        /*for (int j = 0; j < k; j++) {
             initial_centroids[i][j].coords = malloc(dimension * sizeof(int64_t));
             if (initial_centroids[i][j].coords == NULL) {
                 // Gérer l'erreur d'allocation de mémoire
@@ -185,7 +191,7 @@ int main(int argc, char *argv[]) {
             // Initialiser d'autres membres de point_t si nécessaire
             
             //initial_centroids[i][j].dim = dimension;
-        }
+        }*/
     
     }
     point_t** final_centroids = calloc(nombre_comb, sizeof(point_t*));;
@@ -213,6 +219,7 @@ int main(int argc, char *argv[]) {
             // Gérer l'erreur et sortir de la fonction si nécessaire
             exit(EXIT_FAILURE);
         }
+        //temps_cluster[i]->data = malloc(temps_cluster[i]->size*sizeof(point_t*));
     } 
     /*for(int64_t i = 0; i < k; i++){
         temps_cluster[i] = malloc(sizeof(cluster_t)); 
@@ -245,15 +252,15 @@ int main(int argc, char *argv[]) {
             //memcpy(&initial_centroids[i][j], &initial_combinations[0][i][j], sizeof(const point_t));  //sizeof(point_t*)
         }*/
     }
-    for (int i = 0; i < nombre_comb; i++) {
+    /*for (int i = 0; i < nombre_comb; i++) {
         for (int j=0;j <k;j++){
             initial_centroids[i][j] = initial_combinations[0][i][j];
         }
-    }
+    }*/
      
     printf("%d\n", 6);
     printf("initial_centroids[0]->coords[0]= %ld\n", initial_centroids[0]->coords[0]);
-    //printf(" &initial_centroids[0][0].dim = %ls\n",&initial_centroids[0][0].dim);
+    printf(" initial_centroids[0][0].coords[0] = %ld\n",initial_centroids[0][0].coords[0]);
     if (&initial_centroids[0][0] == NULL) {
         printf(" &initial_centroids[0] == NULL %d\n", 0);
     }
@@ -276,20 +283,21 @@ int main(int argc, char *argv[]) {
             printf("i : %ld , j : %d\n", i,j);
 
 
-            temps_cluster[j]->centroide = initial_centroids[0][j]; //0
+            temps_cluster[j]->centroide = initial_centroids[i][j]; //0
             printf("%d\n", 8);
             printf("temps_cluster[j]->centroide.coords[0]= %ld\n", temps_cluster[j]->centroide.coords[0]);
 
-            temps_cluster[i]->size = donnes[i]->nbr_vector;//initial_centroids[0]->nbr_vector;
-            temps_cluster[i]->data = malloc(donnes[i][j].nbr_vector * sizeof(point_t*));//;npoints
+            temps_cluster[j]->size = npoints;//donnes[i]->nbr_vector;//initial_centroids[0]->nbr_vector;
+            temps_cluster[j]->data = malloc(npoints * sizeof(point_t*));//;npoints
             printf("%d\n", 8);
 
 
-            if (temps_cluster[i]->data == NULL) {
+            if (temps_cluster[j]->data == NULL) {
                 perror("Erreur d'allocation mémoire pour temps_cluster[0]->data");
                 break; 
             }
-            temps_cluster[i]->data = donnes; 
+            temps_cluster[j]->data = donnes; 
+            printf("temps_cluster[i][0].data[0][0].coords[0] = %ld\n", temps_cluster[i][0].data[0][0].coords[0]);
         
             printf("%d\n", 9);
             temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], initial_centroids[i], DISTANCE_SQUARED);
