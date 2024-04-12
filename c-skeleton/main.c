@@ -273,7 +273,7 @@ int main(int argc, char *argv[]) {
 
     //print csv
     printf("%d\n", 9);
-    write_csv(output_file, distortion_list,initial_centroids, final_centroids, clusters_list, k, dimension, nombre_comb); 
+   // write_csv(output_file, distortion_list,initial_centroids, final_centroids, clusters_list, k, dimension, nombre_comb); 
     printf("%d\n", 8);
 
 
