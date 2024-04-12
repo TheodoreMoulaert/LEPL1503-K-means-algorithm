@@ -258,24 +258,25 @@ int main(int argc, char *argv[]) {
                 break; 
             }
             temps_cluster[0]->data = donnes; 
-            printf("%d\n", 9);
-            temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], final_centroids[i], DISTANCE_SQUARED);
-            printf("%d\n", 10);
-            for (uint32_t m ; m<k; m++){
-                initial_centroids[i][m] = temps_cluster[m]->centroide; 
-            }
-            temp_distorsion = distortion((cluster_t const **)clusters_list[i], k, DISTANCE_SQUARED);
-            if (solDistortion > temp_distorsion){
-                solDistortion = temp_distorsion; 
-                solCentroide = temp_centroide; 
-                solCluster = temps_result_cluster;
-            }
-            final_centroids[i] = solCentroide; 
-            clusters_list[i] = solCluster; 
-            distortion_list[i] = solDistortion; 
-            
         }
+        printf("%d\n", 9);
+        temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], initial_centroids[i], DISTANCE_SQUARED);
+        printf("%d\n", 10);
+        for (uint32_t m ; m<k; m++){
+            initial_centroids[i][m] = temps_cluster[m]->centroide; 
+        }
+        temp_distorsion = distortion((cluster_t const **)clusters_list[i], k, DISTANCE_SQUARED);
+        if (solDistortion > temp_distorsion){
+            solDistortion = temp_distorsion; 
+            solCentroide = temp_centroide; 
+            solCluster = temps_result_cluster;
+        }
+        final_centroids[i] = solCentroide; 
+        clusters_list[i] = solCluster; 
+        distortion_list[i] = solDistortion; 
         
+    //}
+    
     }
 
         // Libération de la mémoire allouée pour initial_centroids
