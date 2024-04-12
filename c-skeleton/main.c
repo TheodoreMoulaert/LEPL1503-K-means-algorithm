@@ -223,10 +223,10 @@ int main(int argc, char *argv[]) {
 
     // Copie de initial_combinations dans initial_centroids
     for (int i = 0; i < nombre_comb; i++) {
-        memcpy(initial_centroids, initial_combinations[0][i], sizeof(point_t*));  
+        memcpy(initial_centroids[i], initial_combinations[0][i], sizeof(point_t));  //sizeof(point_t*)
     }
     printf("%d\n", 6);
-    printf("initial_centroids[0]->dim = %ln\n", initial_centroids[0]->coords);
+    printf("initial_centroids[0]->dim = %d\n", initial_centroids[0]->dim);
     /*for (int i = 0; i < k; i++) {
         temps_cluster[i] = malloc(sizeof(cluster_t));
         if (temps_cluster[i] == NULL) {
