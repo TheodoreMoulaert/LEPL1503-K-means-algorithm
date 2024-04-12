@@ -223,6 +223,7 @@ int main(int argc, char *argv[]) {
             // Gérer l'erreur et sortir de la fonction si nécessaire
             exit(EXIT_FAILURE);
         }
+        //temps_cluster[i]->centroide.coords = malloc(sizeof(int64_t*));
         temps_cluster[i]->data = malloc(npoints*sizeof(point_t*));
         temps_cluster[i]->size = npoints;
         for (int j = 0; j < npoints; j++) {
@@ -306,7 +307,7 @@ int main(int argc, char *argv[]) {
                 break; 
             }
             temps_cluster[j]->data = donnes; */
-            printf("temps_cluster[i][0].data[0][0].coords[0] = %ld\n", temps_cluster[i][0].data[0][0].coords[0]);
+            //printf("temps_cluster[i][0].data[0][0].coords[0] = %ld\n", temps_cluster[i][0].data[0][0].coords[0]);
         
             printf("%d\n", 9);
             temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], initial_centroids[i], DISTANCE_SQUARED);
