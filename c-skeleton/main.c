@@ -169,7 +169,7 @@ int main(int argc, char *argv[]) {
 
     // initiation des tableaux pour contenir les valeurs 
     point_t** initial_centroids = calloc(nombre_comb, sizeof(point_t*));
-    for(int64_t i = 0; i<nombre_comb; i++){
+    for(int64_t i = 0; i<k; i++){ //nombre_comb
         initial_centroids[i] = malloc(k*sizeof(point_t)); 
         //initial_centroids[i]->coords =  malloc(sizeof(int64_t*));
         initial_centroids[i]->coords =  malloc(dimension * sizeof(int64_t));
