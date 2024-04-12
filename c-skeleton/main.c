@@ -250,8 +250,8 @@ int main(int argc, char *argv[]) {
             printf("%d\n", 8);
             printf("temps_cluster[j]->centroide.coords[0]= %ld\n", temps_cluster[j]->centroide.coords[0]);
 
-
-            /*temps_cluster[0]->data = malloc(npoints * sizeof(point_t*));
+            temps_cluster[0]->size = initial_centroids[0]->nbr_vector;
+            temps_cluster[0]->data = malloc(npoints * sizeof(point_t*));
             printf("%d\n", 8);
 
 
@@ -259,7 +259,7 @@ int main(int argc, char *argv[]) {
                 perror("Erreur d'allocation mémoire pour temps_cluster[0]->data");
                 break; 
             }
-            temps_cluster[0]->data = donnes; */
+            temps_cluster[0]->data = donnes; 
         
             printf("%d\n", 9);
             temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], initial_centroids[i], DISTANCE_SQUARED);

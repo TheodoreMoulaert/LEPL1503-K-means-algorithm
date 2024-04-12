@@ -12,7 +12,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
 
     if (centroids == NULL || clusters == NULL) {
         // Gérer l'erreur de pointeur nul
-        return result;
+        return result; 
     }
 
     // Allouer un nouveau tableau de clusters pour contenir les nouveaux clusters
@@ -46,7 +46,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
     // Parcourir tous les centroides
     for (uint32_t current_centroid_idx = 0; current_centroid_idx < K; ++current_centroid_idx) {
         // Parcourir tous les vecteurs du cluster actuel
-        for (uint64_t i = 0; i < clusters[current_centroid_idx]->size; ++i) {
+        for (uint64_t i = 0; i < clusters[current_centroid_idx]->size; ++i) { //current_centroid_idx
             point_t *vector = clusters[current_centroid_idx]->data[i];
             // Trouver le centroïde le plus proche pour le vecteur
             uint32_t closest_centroid_idx = 0;
