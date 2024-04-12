@@ -50,7 +50,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             point_t *vector = clusters[current_centroid_idx]->data[i];
             // Trouver le centroïde le plus proche pour le vecteur
             uint32_t closest_centroid_idx = 0;
-            uint64_t closest_centroid_distance = 18446744073709551615UL;//UINT64_MAX;
+            uint64_t closest_centroid_distance = UINT64_MAX;
             for (uint32_t centroid_idx = 0; centroid_idx < K; ++centroid_idx) {
                 uint64_t distance = distance_func(vector, &centroids[centroid_idx]);//&
                 //printf("distance: %ld\n",distance);
