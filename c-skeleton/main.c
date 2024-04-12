@@ -173,6 +173,7 @@ int main(int argc, char *argv[]) {
         initial_centroids[i] = malloc(sizeof(point_t)); 
         //initial_centroids[i]->coords =  malloc(sizeof(int64_t*));
         initial_centroids[i]->coords =  malloc(dimension * sizeof(int64_t));
+    
     }
     point_t** final_centroids = calloc(nombre_comb, sizeof(point_t*));;
     for(int64_t i = 0; i<nombre_comb; i++){
@@ -187,7 +188,7 @@ int main(int argc, char *argv[]) {
         clusters_list[i] = malloc(k * sizeof(cluster_t*));
         for (int64_t j = 0; j < k; j++) {
             clusters_list[i][j] = malloc(sizeof(cluster_t)); 
-            //clusters_list[i][j] = NULL; // Initialisation à NULL
+            clusters_list[i][j] = NULL; // Initialisation à NULL
         }
     }
 
@@ -225,6 +226,7 @@ int main(int argc, char *argv[]) {
         memcpy(initial_centroids, initial_combinations[0][i], sizeof(point_t*));  
     }
     printf("%d\n", 6);
+    printf("initial_centroids[0]->dim = %ln\n", initial_centroids[0]->coords);
     /*for (int i = 0; i < k; i++) {
         temps_cluster[i] = malloc(sizeof(cluster_t));
         if (temps_cluster[i] == NULL) {
@@ -240,6 +242,8 @@ int main(int argc, char *argv[]) {
 
             uint64_t temp_distorsion = 0; 
             printf("%d\n", 7);
+            printf("i : %ld , j : %d\n", i,j);
+
 
             temps_cluster[j]->centroide = initial_centroids[0][j]; 
             printf("%d\n", 8);
