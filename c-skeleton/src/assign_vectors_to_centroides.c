@@ -53,6 +53,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             uint64_t closest_centroid_distance = UINT64_MAX;
             for (uint32_t centroid_idx = 0; centroid_idx < K; ++centroid_idx) {
                 uint64_t distance = distance_func(vector, &centroids[centroid_idx]);//&
+                printf("distance: %ld\n",distance);
                 if (distance < closest_centroid_distance) {
                     closest_centroid_idx = centroid_idx;
                     closest_centroid_distance = distance;

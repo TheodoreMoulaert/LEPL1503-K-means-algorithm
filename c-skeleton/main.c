@@ -168,7 +168,7 @@ int main(int argc, char *argv[]) {
     printf("%d\n", 4);
 
     // initiation des tableaux pour contenir les valeurs 
-    point_t** initial_centroids = calloc(nombre_comb, sizeof(point_t*));
+    point_t** initial_centroids = calloc(nombre_comb, sizeof(point_t*));//nombre_comb
     for(int64_t i = 0; i<nombre_comb; i++){ //nombre_comb
         initial_centroids[i] = malloc(k*sizeof(point_t)); 
         if (initial_centroids[i] == NULL) {
@@ -178,7 +178,7 @@ int main(int argc, char *argv[]) {
                 exit(EXIT_FAILURE);
             }
         //initial_centroids[i]->coords =  malloc(sizeof(int64_t*));
-        //initial_centroids[i]->coords =  malloc(dimension * sizeof(int64_t));
+        initial_centroids[i]->coords =  malloc(dimension * sizeof(int64_t));
         for (int j = 0; j < k; j++) {
             initial_centroids[i][j].coords = malloc(dimension * sizeof(int64_t));
         }
@@ -210,8 +210,10 @@ int main(int argc, char *argv[]) {
             exit(EXIT_FAILURE);
         }
         temps_cluster[i]->data = malloc(npoints*sizeof(point_t*));
+        temps_cluster[i]->size = npoints;
         for (int j = 0; j < npoints; j++) {
-            temps_cluster[i]->data[j] = &donnes[j]; // Copiez les pointeurs de données appropriés ici
+
+            temps_cluster[i]->data[j] = donnes[j]; // Copiez les pointeurs de données appropriés ici
         }
     } 
     /*for(int64_t i = 0; i < k; i++){
