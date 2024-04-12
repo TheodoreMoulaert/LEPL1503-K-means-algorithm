@@ -150,12 +150,7 @@ int main(int argc, char *argv[]) {
         DISTANCE_SQUARED = squared_euclidean_distance;
     }
     fprintf(stderr, "%d\n",0);
-    /*FILE *f = fopen("../python/exemple3.bin", "rb");
-    if (!f) {
-        perror("Erreur lors de l'ouverture du fichier binaire");
-        exit(EXIT_FAILURE);
-    }*/
-    donnes =  point_input(input_file, &dimension, &npoints); //input_file
+    donnes =  point_input(input_file, &dimension, &npoints); 
     
     printf("%d\n", 1);
     if(p>npoints)
@@ -167,7 +162,7 @@ int main(int argc, char *argv[]) {
 
     printf("%d\n", 2);
     int64_t nombre_comb = combinaison(p,k);
-    printf("%ld\n", nombre_comb);
+    printf(" nombre_comb =  %ld\n", nombre_comb);
     printf("%d\n", 3);
     point_t ***initial_combinations = generate_combinations(donnes,npoints,k,p);
     printf("%d\n", 4);
@@ -176,11 +171,13 @@ int main(int argc, char *argv[]) {
     point_t** initial_centroids = calloc(nombre_comb, sizeof(point_t*));
     for(int64_t i = 0; i<nombre_comb; i++){
         initial_centroids[i] = malloc(sizeof(point_t)); 
-        initial_centroids[i]->coords =  malloc(sizeof(int64_t*)); 
+        //initial_centroids[i]->coords =  malloc(sizeof(int64_t*));
+        initial_centroids[i]->coords =  malloc(dimension * sizeof(int64_t));
     }
-    point_t**final_centroids = calloc(nombre_comb, sizeof(point_t*));;
+    point_t** final_centroids = calloc(nombre_comb, sizeof(point_t*));;
     for(int64_t i = 0; i<nombre_comb; i++){
-        final_centroids[i] = malloc(sizeof(point_t)); 
+        final_centroids[i] = malloc(sizeof(point_t));
+        final_centroids[i]->coords =  malloc(dimension * sizeof(int64_t)); 
     }
     uint64_t distortion_list[nombre_comb]; 
     uint64_t solDistortion = UINT64_MAX;
@@ -190,14 +187,22 @@ int main(int argc, char *argv[]) {
         clusters_list[i] = malloc(k * sizeof(cluster_t*));
         for (int64_t j = 0; j < k; j++) {
             clusters_list[i][j] = malloc(sizeof(cluster_t)); 
-            clusters_list[i][j] = NULL; // Initialisation à NULL
+            //clusters_list[i][j] = NULL; // Initialisation à NULL
         }
     }
 
-    cluster_t** temps_cluster= calloc(k, sizeof(cluster_t*));  
-    for(int64_t i = 0; i < k; i++){
+    cluster_t** temps_cluster= calloc(k, sizeof(cluster_t*)); 
+    for (int i = 0; i < k; i++) {
+        temps_cluster[i] = malloc(sizeof(cluster_t));
+        if (temps_cluster[i] == NULL) {
+            perror("Erreur d'allocation mémoire pour temps_cluster");
+            // Gérer l'erreur et sortir de la fonction si nécessaire
+            exit(EXIT_FAILURE);
+        }
+    } 
+    /*for(int64_t i = 0; i < k; i++){
         temps_cluster[i] = malloc(sizeof(cluster_t)); 
-    }
+    }*/
 
     point_t* solCentroide = calloc(k, sizeof(point_t)); 
     point_t* temp_centroide = calloc(k, sizeof(point_t)); 
@@ -220,24 +225,24 @@ int main(int argc, char *argv[]) {
         memcpy(initial_centroids, initial_combinations[0][i], sizeof(point_t*));  
     }
     printf("%d\n", 6);
-    for (int i = 0; i < k; i++) {
+    /*for (int i = 0; i < k; i++) {
         temps_cluster[i] = malloc(sizeof(cluster_t));
         if (temps_cluster[i] == NULL) {
             perror("Erreur d'allocation mémoire pour temps_cluster");
             // Gérer l'erreur et sortir de la fonction si nécessaire
             exit(EXIT_FAILURE);
         }
-    }
+    }*/
     //a comparer avec la fichier fin du main 
 
     for (uint64_t i = 0; i < nombre_comb; i++) {
         for(uint32_t j = 0; j<k; j++){
 
             uint64_t temp_distorsion = 0; 
-            printf("%d\n", 6);
+            printf("%d\n", 7);
 
             temps_cluster[j]->centroide = initial_centroids[0][j]; 
-            printf("%d\n", 7);
+            printf("%d\n", 8);
 
 
             temps_cluster[0]->data = malloc(npoints * sizeof(point_t*));
@@ -269,11 +274,57 @@ int main(int argc, char *argv[]) {
         
     }
 
+        // Libération de la mémoire allouée pour initial_centroids
+    for(int64_t i = 0; i < nombre_comb; i++) {
+        free(initial_centroids[i]->coords);
+        free(initial_centroids[i]);
+    }
+    free(initial_centroids);
+
+    // Libération de la mémoire allouée pour final_centroids
+    for(int64_t i = 0; i < nombre_comb; i++) {
+        free(final_centroids[i]);
+    }
+    free(final_centroids);
+
+    // Libération de la mémoire allouée pour clusters_list
+    for(int64_t i = 0; i < nombre_comb; i++) {
+        for(int64_t j = 0; j < k; j++) {
+            free(clusters_list[i][j]);
+        }
+        free(clusters_list[i]);
+    }
+    free(clusters_list);
+
+    // Libération de la mémoire allouée pour temps_cluster
+    for(int64_t i = 0; i < k; i++) {
+        free(temps_cluster[i]);
+    }
+    free(temps_cluster);
+
+    // Libération de la mémoire allouée pour temps_result_cluster
+    for(int64_t i = 0; i < k; i++) {
+        free(temps_result_cluster[i]);
+    }
+    free(temps_result_cluster);
+
+    // Libération de la mémoire allouée pour solCluster
+    for(int64_t i = 0; i < k; i++) {
+        free(solCluster[i]);
+    }
+    free(solCluster);
+
+    // Libération de la mémoire allouée pour solCentroide
+    free(solCentroide);
+
+    // Libération de la mémoire allouée pour temp_centroide
+    free(temp_centroide);
+
 
 
     //print csv
     printf("%d\n", 9);
-   // write_csv(output_file, distortion_list,initial_centroids, final_centroids, clusters_list, k, dimension, nombre_comb); 
+    write_csv(output_file, distortion_list,initial_centroids, final_centroids, clusters_list, k, dimension, nombre_comb); 
     printf("%d\n", 8);
 
 
