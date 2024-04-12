@@ -177,7 +177,7 @@ int main(int argc, char *argv[]) {
     }
     point_t** final_centroids = calloc(nombre_comb, sizeof(point_t*));;
     for(int64_t i = 0; i<nombre_comb; i++){
-        final_centroids[i] = malloc(sizeof(point_t));
+        final_centroids[i] = malloc(k*sizeof(point_t));
         final_centroids[i]->coords =  malloc(dimension * sizeof(int64_t)); 
     }
     uint64_t distortion_list[nombre_comb]; 
@@ -224,9 +224,17 @@ int main(int argc, char *argv[]) {
     // Copie de initial_combinations dans initial_centroids
     for (int i = 0; i < nombre_comb; i++) {
         memcpy(initial_centroids[i], initial_combinations[0][i], sizeof(point_t));  //sizeof(point_t*)
+        /*for (int j = 0; i < k; i++) {
+            memcpy(&initial_centroids[i][j], &initial_combinations[0][i][j], sizeof(const point_t));  //sizeof(point_t*)
+        }*/
     }
+     
     printf("%d\n", 6);
     printf("initial_centroids[0]->coords[0]= %ld\n", initial_centroids[0]->coords[0]);
+    printf(" initial_centroids[0].dim = %d\n",initial_centroids[0][0].dim);
+    if (&initial_centroids[0][0] == NULL) {
+        printf(" &initial_centroids[0] == NULL %d\n", 0);
+    }
     /*for (int i = 0; i < k; i++) {
         temps_cluster[i] = malloc(sizeof(cluster_t));
         if (temps_cluster[i] == NULL) {
@@ -250,16 +258,16 @@ int main(int argc, char *argv[]) {
             printf("%d\n", 8);
             printf("temps_cluster[j]->centroide.coords[0]= %ld\n", temps_cluster[j]->centroide.coords[0]);
 
-            temps_cluster[0]->size = donnes[0]->nbr_vector;//initial_centroids[0]->nbr_vector;
-            temps_cluster[0]->data = malloc(npoints * sizeof(point_t*));
+            temps_cluster[i]->size = donnes[i]->nbr_vector;//initial_centroids[0]->nbr_vector;
+            temps_cluster[0]->data = malloc(donnes[i][j].nbr_vector * sizeof(point_t*));//;npoints
             printf("%d\n", 8);
 
 
-            if (temps_cluster[0]->data == NULL) {
+            if (temps_cluster[i]->data == NULL) {
                 perror("Erreur d'allocation mémoire pour temps_cluster[0]->data");
                 break; 
             }
-            temps_cluster[0]->data = donnes; 
+            temps_cluster[i][j].data = donnes; 
         
             printf("%d\n", 9);
             temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], initial_centroids[i], DISTANCE_SQUARED);
