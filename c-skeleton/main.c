@@ -180,7 +180,7 @@ int main(int argc, char *argv[]) {
         //initial_centroids[i]->coords =  malloc(sizeof(int64_t*));
         initial_centroids[i]->coords =  malloc(k * sizeof(int64_t*));
         for (int j = 0; j < k; j++) {
-            initial_centroids[i][j].coords = malloc(dimension*sizeof(int64_t));
+            initial_centroids[i][j].coords = malloc(sizeof(int64_t*));
             //for(int m=0;m<dimension;m++){
               //  initial_centroids[i][j].coords = malloc(sizeof(int64_t));
             //}
