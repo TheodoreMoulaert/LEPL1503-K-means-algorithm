@@ -169,11 +169,22 @@ int main(int argc, char *argv[]) {
 
     // initiation des tableaux pour contenir les valeurs 
     point_t** initial_centroids = calloc(nombre_comb, sizeof(point_t*));
-    for(int64_t i = 0; i<k; i++){ //nombre_comb
+    for(int64_t i = 0; i<nombre_comb; i++){ //nombre_comb
         initial_centroids[i] = malloc(k*sizeof(point_t)); 
         //initial_centroids[i]->coords =  malloc(sizeof(int64_t*));
         initial_centroids[i]->coords =  malloc(dimension * sizeof(int64_t));
-        initial_centroids[i]->dim = dimension;
+        //initial_centroids[i]->dim = dimension;
+        for (int j = 0; j < k; j++) {
+            initial_centroids[i][j].coords = malloc(dimension * sizeof(int64_t));
+            if (initial_centroids[i][j].coords == NULL) {
+                // Gérer l'erreur d'allocation de mémoire
+                perror("Erreur d'allocation mémoire pour initial_centroids[i][j]");
+                // Gérer l'erreur et sortir de la fonction si nécessaire
+                exit(EXIT_FAILURE);
+            }
+            // Initialiser d'autres membres de point_t si nécessaire
+            initial_centroids[i][j].dim = dimension;
+        }
     
     }
     point_t** final_centroids = calloc(nombre_comb, sizeof(point_t*));;
