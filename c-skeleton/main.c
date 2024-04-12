@@ -259,7 +259,7 @@ int main(int argc, char *argv[]) {
             }
             temps_cluster[0]->data = donnes; 
             printf("%d\n", 9);
-            temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], initial_centroids[i], DISTANCE_SQUARED);
+            temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], final_centroids[i], DISTANCE_SQUARED);
             printf("%d\n", 10);
             for (uint32_t m ; m<k; m++){
                 initial_centroids[i][m] = temps_cluster[m]->centroide; 
