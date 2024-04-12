@@ -265,7 +265,7 @@ int main(int argc, char *argv[]) {
         for (uint32_t m ; m<k; m++){
             initial_centroids[i][m] = temps_cluster[m]->centroide; 
         }
-        temp_distorsion = distortion((cluster_t const **)clusters_list[i], k, DISTANCE_SQUARED);
+        uint64_t temp_distorsion = distortion((cluster_t const **)clusters_list[i], k, DISTANCE_SQUARED);
         if (solDistortion > temp_distorsion){
             solDistortion = temp_distorsion; 
             solCentroide = temp_centroide; 
