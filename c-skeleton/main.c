@@ -337,11 +337,11 @@ int main(int argc, char *argv[]) {
     printf("%d\n", 5);
      
     printf("%d\n", 6);
-    printf("initial_centroids[0]->coords[0]= %ld\n", initial_centroids[0]->coords[0]);
-    //printf(" initial_centroids[0][1].coords[0] = %ld\n",initial_centroids[0][1].coords[0]);
-    if (&initial_centroids[0][0] == NULL) {
-        printf(" &initial_centroids[0] == NULL %d\n", 0);
-    }
+    printf("initial_centroids[0][0].coords[0]= %ld\n", initial_centroids[0][0].coords[0]);
+    printf("initial_centroids[0][0].coords[1]= %ld\n", initial_centroids[0][0].coords[1]);
+    printf("initial_centroids[0][1].coords[0] = %ld\n",initial_centroids[0][1].coords[0]);
+    printf("initial_centroids[0][1].coords[1]= %ld\n", initial_centroids[0][1].coords[1]);
+    
 
     for (uint64_t i = 0; i < nombre_comb; i++) {
         //uint64_t temp_distorsion=0;
@@ -366,13 +366,8 @@ int main(int argc, char *argv[]) {
             printf("temps_result_cluster[1][0].centroide.coords[1]= %ld\n", temps_result_cluster[1][0].centroide.coords[1]);
             printf("%d\n", 10);
             for (uint32_t m=0 ; m<k; m++){
-                //initial_centroids[i][m] = temps_cluster[m]->centroide;
-                
-                //clusters_list[i][m] =  temps_cluster[m];
-
                 temp_centroide[m].coords = temps_result_cluster[m][0].centroide.coords;
                 temp_centroide[m].nbr_vector = temps_result_cluster[m][0].centroide.nbr_vector;
-                
             }
             printf("%d\n", 11);
             temp_distorsion = distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);//distortion((cluster_t const **)clusters_list[i], k, DISTANCE_SQUARED);//distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);

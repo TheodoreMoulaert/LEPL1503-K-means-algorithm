@@ -5,7 +5,7 @@
 //#include <assert.h>
 #include <inttypes.h>
 #include <stdlib.h>
-#include "../headers/k_means.h"
+#include "../headers/kmeans.h"
 #include "../headers/point.h"
 #include "../headers/update_centroids.h"
 #include "../headers/assign_vector_to_centro.h"
