@@ -449,6 +449,25 @@ int main(int argc, char *argv[]) {
         //}
     
     }
+    //print csv
+    printf("%d\n", 14);
+    write_csv(output_file, distortion_list,initial_centroids, final_centroids, clusters_list, k, dimension, nombre_comb); 
+    printf("%d\n", 15);
+
+    for (uint64_t i = 0; i < npoints; i++) {
+        free(donnes[i]->coords);
+        free(donnes[i]);
+    }
+    free(donnes);
+
+    for (uint64_t i = 0; i < p; i++) {
+        for (uint32_t j = 0; j < k; j++) {
+            free(initial_combinations[0][i][j].coords);
+        }
+        free(initial_combinations[0][i]);
+    }
+    free(initial_combinations[0]);
+    free(initial_combinations);
 
      // Libération de la mémoire allouée pour initial_centroids
     for(int64_t i = 0; i < nombre_comb; i++) {
@@ -457,8 +476,12 @@ int main(int argc, char *argv[]) {
     }
     free(initial_centroids);
 
+    
     // Libération de la mémoire allouée pour final_centroids
-    for(int64_t i = 0; i < nombre_comb; i++) {
+    for (int64_t i = 0; i < nombre_comb; i++) {
+        for (int64_t j = 0; j < k; j++) {
+            free(final_centroids[i][j].coords);
+        }
         free(final_centroids[i]);
     }
     free(final_centroids);
@@ -499,10 +522,7 @@ int main(int argc, char *argv[]) {
 
 
 
-    //print csv
-    printf("%d\n", 14);
-    write_csv(output_file, distortion_list,initial_centroids, final_centroids, clusters_list, k, dimension, nombre_comb); 
-    printf("%d\n", 15);
+    printf("%d\n", 16);
 
 
 
