@@ -24,6 +24,7 @@ uint64_t combinaison(uint64_t p, uint32_t k) {
     uint64_t numerator = factorial(p);
     uint64_t denominator = factorial(k) * factorial(p - k);
     return numerator / denominator;
+    
 }
 
 // Fonction qui génère la combinaison suivante de k éléments pris parmi n

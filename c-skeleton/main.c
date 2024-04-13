@@ -151,7 +151,8 @@ int main(int argc, char *argv[]) {
     }
     fprintf(stderr, "%d\n",0);
     donnes =  point_input(input_file, &dimension, &npoints); 
-    
+    printf(" donnes[0][0].coords[0] = %ld\n", donnes[0][0].coords[0]);
+    printf(" donnes[6][0].coords[0] = %ld\n", donnes[6][0].coords[0]);
     printf("%d\n", 1);
     if(p>npoints)
     {
@@ -198,12 +199,7 @@ int main(int argc, char *argv[]) {
             initial_centroids[i][j].dim = initial_combinations[i][j][0].dim;
             printf("%d\n", 0);
             // Copier les coordonnées
-            initial_centroids[i][j].coords = (int64_t *)malloc(dimension * sizeof(int64_t));
-
-            if (initial_centroids[i][j].coords == NULL) {
-                // Gestion d'erreur si l'allocation échoue
-                exit(EXIT_FAILURE);
-            }
+            
             printf("initial_combinations[i][j][0].coords[0]=%ld\n",initial_combinations[i][j][0].coords[0]);
             printf("%d\n", 0);
             memcpy(initial_centroids[i][j].coords, initial_combinations[i][j][0].coords, dimension * sizeof(int64_t));
@@ -305,7 +301,7 @@ int main(int argc, char *argv[]) {
         //temps_cluster[i]->centroide.dim = initial_centroids[0][0].dim;
         //temps_cluster[i]->centroide.nbr_vector=initial_centroids[0][0].nbr_vector;
     }
-    /*for (int i =0;i< nombre_comb;i++){
+    for (int i =0;i< nombre_comb;i++){
         for (int j=0;j<k;j++){
             temps_cluster[j]->centroide.dim = initial_centroids[i][j].dim;
             memcpy(temps_cluster[j]->centroide.coords, initial_centroids[i][j].coords, dimension * sizeof(int64_t));
@@ -313,7 +309,7 @@ int main(int argc, char *argv[]) {
             temps_cluster[j]->data = donnes;//initial_centroids[i][j];
             temps_cluster[j]->size = initial_centroids[i][j].nbr_vector;
         }
-    }*/
+    }
       // Copie des données
             
 
@@ -341,9 +337,18 @@ int main(int argc, char *argv[]) {
         temps_cluster[i] = malloc(sizeof(cluster_t)); 
     }*/
 
-    point_t* solCentroide = calloc(k, sizeof(point_t)); 
-    point_t* temp_centroide = calloc(k, sizeof(point_t)); 
+    point_t* solCentroide = (point_t*)malloc(k*sizeof(point_t)); 
+    for (int i=0;i<k;i++){
+        solCentroide[k].coords = (int64_t *)calloc(dimension , sizeof(int64_t));
+        solCentroide[k].dim = dimension; 
+    }
 
+    point_t* temp_centroide = (point_t*) malloc(k*sizeof(point_t));
+    for (int i=0;i<k;i++){
+        temp_centroide[k].coords = (int64_t *)calloc(dimension , sizeof(int64_t));
+        temp_centroide[k].dim = dimension;
+    }
+    
     cluster_t** temps_result_cluster= calloc(k, sizeof(cluster_t*)); 
     for(int64_t i = 0; i < k; i++){
         temps_result_cluster[i] = malloc(sizeof(cluster_t)); 
@@ -391,66 +396,62 @@ int main(int argc, char *argv[]) {
     //a comparer avec la fichier fin du main 
 
     for (uint64_t i = 0; i < nombre_comb; i++) {
-        uint64_t temp_distorsion=0;
+        //uint64_t temp_distorsion=0;
         for(uint32_t j = 0; j<k; j++){
 
-            //uint64_t temp_distorsion = 0; 
+            uint64_t temp_distorsion = 0; 
             printf("%d\n", 7);
             printf("i : %ld , j : %d\n", i,j);
 
         
-            temps_cluster[j]->centroide.dim = initial_centroids[i][j].dim;
+            /*temps_cluster[j]->centroide.dim = initial_centroids[i][j].dim;
             memcpy(temps_cluster[j]->centroide.coords, initial_centroids[i][j].coords, dimension * sizeof(int64_t));
             temps_cluster[j]->centroide.nbr_vector = initial_centroids[i][j].nbr_vector;
             temps_cluster[j]->data = donnes;//initial_centroids[i][j];
-            temps_cluster[j]->size = initial_centroids[i][j].nbr_vector;
-        
+            temps_cluster[j]->size = initial_centroids[i][j].nbr_vector;*/
     
-
-
-            //temps_cluster[j]->centroide = initial_centroids[i][j]; //0
             printf("%d\n", 8);
             printf("temps_cluster[j]->centroide.coords[0]= %ld\n", temps_cluster[j]->centroide.coords[0]);
             printf("initial_centroids[i][j].coords[0]= %ld\n", initial_centroids[i][j].coords[0]);
-            //temps_cluster[j]->data = donnes;
-            //temps_cluster[j]->size = npoints;//donnes[i]->nbr_vector;//initial_centroids[0]->nbr_vector;
-            //temps_cluster[j]->data = malloc(npoints * sizeof(point_t*));//;npoints
-            //printf("%d\n", 8);
-
-
-            /*if (temps_cluster[j]->data == NULL) {
-                perror("Erreur d'allocation mémoire pour temps_cluster[0]->data");
-                break; 
-            }
-            temps_cluster[j]->data = donnes; */
-            printf("donnes[j][j].coords[0] = %ld\n", donnes[j][0].coords[0]);
-            printf("temps_cluster[i][j].data[0][0].coords[0] = %ld\n", temps_cluster[j][0].data[0][0].coords[0]);
-        }
-        printf("%d\n", 9);
-        temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], initial_centroids[i], DISTANCE_SQUARED);
-        printf("temps_result_cluster[i][0].data[0][0].coords[0] = %ld\n", temps_result_cluster[1][0].data[0][0].coords[0]);
-        printf("%d\n", 10);
-        /*for (uint32_t m=0 ; m<k; m++){
-            //initial_centroids[i][m] = temps_cluster[m]->centroide;
-            clusters_list[i][m] =  temps_cluster[m];
-            //temp_centroide[m] = temps_result_cluster[i][m].centroide;
-
-        }*/
-        printf("%d\n", 11);
-        temp_distorsion = distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);//distortion((cluster_t const **)clusters_list[i], k, DISTANCE_SQUARED);//distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);
-        printf(" temp_distorsion %ld\n", temp_distorsion);
-        if (solDistortion > temp_distorsion){
-            printf("%d\n", 12);
-            solDistortion = temp_distorsion; 
-            solCentroide = temp_centroide; 
-            solCluster = temps_result_cluster;
-        }
-        final_centroids[i] = solCentroide; 
-        clusters_list[i] = solCluster; 
-        distortion_list[i] = solDistortion; 
-        printf("%d\n", 13);
+            printf("donnes[j][0].coords[0] = %ld\n", donnes[6][0].coords[0]);
+            printf("temps_cluster[i][j].data[0][0].coords[0] = %ld\n", temps_cluster[j][0].data[6][0].coords[0]);
         
-        //}
+            printf("%d\n", 9);
+            temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], final_centroids[i], DISTANCE_SQUARED);
+            printf("temps_result_cluster[0][0].data[0][0].coords[0] = %ld\n", temps_result_cluster[0][0].data[1][0].coords[0]);
+            printf("temps_result_cluster[0][0].data[0][0].coords[1] = %ld\n", temps_result_cluster[0][0].data[1][0].coords[1]);
+            printf("temps_result_cluster[1][0].data[0][0].coords[0] = %ld\n", temps_result_cluster[1][0].data[1][0].coords[0]);
+            printf("temps_result_cluster[1][0].data[0][0].coords[1] = %ld\n", temps_result_cluster[1][0].data[1][0].coords[1]);
+            printf("temps_result_cluster[1][0].centroide.coords[1]= %ld\n", temps_result_cluster[1][0].centroide.coords[1]);
+            printf("%d\n", 10);
+            for (uint32_t m=0 ; m<k; m++){
+                //initial_centroids[i][m] = temps_cluster[m]->centroide;
+                printf("%d\n", 000);
+                clusters_list[i][m] =  temps_cluster[m];
+                printf("%d\n", 111);
+                printf("%d\n", 222);
+                //memcpy(temp_centroide[m].coords , temps_result_cluster[m][0].centroide.coords, dimension * sizeof(int64_t));
+                temp_centroide[m].coords = temps_result_cluster[m][0].centroide.coords;
+                printf("%d\n", 333);
+                temp_centroide[m].nbr_vector = temps_result_cluster[i][m].centroide.nbr_vector;
+                printf("%d\n", 444);
+            }
+            printf("%d\n", 11);
+            temp_distorsion = distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);//distortion((cluster_t const **)clusters_list[i], k, DISTANCE_SQUARED);//distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);
+            printf(" temp_distorsion %ld\n", temp_distorsion);
+            if (solDistortion > temp_distorsion){
+                printf("%d\n", 12);
+                solDistortion = temp_distorsion; 
+                solCentroide = temp_centroide; 
+                solCluster = temps_result_cluster;
+            }
+            
+            final_centroids[i] = solCentroide; 
+            clusters_list[i] = solCluster; 
+            distortion_list[i] = solDistortion; 
+            printf("%d\n", 13);
+            
+        }
     
     }
     //print csv
