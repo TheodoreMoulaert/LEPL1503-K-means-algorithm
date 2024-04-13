@@ -338,16 +338,16 @@ int main(int argc, char *argv[]) {
     }*/
 
     point_t* solCentroide = (point_t*)malloc(k*sizeof(point_t)); 
-    for (int i=0;i<k;i++){
-        solCentroide[k].coords = (int64_t *)calloc(dimension , sizeof(int64_t));
-        solCentroide[k].dim = dimension; 
-    }
+    //for (int i=0;i<k;i++){
+    solCentroide->coords = (int64_t *)calloc(dimension , sizeof(int64_t));
+    solCentroide->dim = dimension; 
+    //}
 
     point_t* temp_centroide = (point_t*) malloc(k*sizeof(point_t));
-    for (int i=0;i<k;i++){
-        temp_centroide[k].coords = (int64_t *)calloc(dimension , sizeof(int64_t));
-        temp_centroide[k].dim = dimension;
-    }
+    //for (int i=0;i<k;i++){
+    temp_centroide->coords = (int64_t *)calloc(dimension , sizeof(int64_t));
+    temp_centroide->dim = dimension;
+    //}
     
     cluster_t** temps_result_cluster= calloc(k, sizeof(cluster_t*)); 
     for(int64_t i = 0; i < k; i++){
@@ -426,15 +426,12 @@ int main(int argc, char *argv[]) {
             printf("%d\n", 10);
             for (uint32_t m=0 ; m<k; m++){
                 //initial_centroids[i][m] = temps_cluster[m]->centroide;
-                printf("%d\n", 000);
+                
                 clusters_list[i][m] =  temps_cluster[m];
-                printf("%d\n", 111);
-                printf("%d\n", 222);
-                //memcpy(temp_centroide[m].coords , temps_result_cluster[m][0].centroide.coords, dimension * sizeof(int64_t));
+
                 temp_centroide[m].coords = temps_result_cluster[m][0].centroide.coords;
-                printf("%d\n", 333);
-                temp_centroide[m].nbr_vector = temps_result_cluster[i][m].centroide.nbr_vector;
-                printf("%d\n", 444);
+                temp_centroide[m].nbr_vector = temps_result_cluster[m][0].centroide.nbr_vector;
+                
             }
             printf("%d\n", 11);
             temp_distorsion = distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);//distortion((cluster_t const **)clusters_list[i], k, DISTANCE_SQUARED);//distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);
