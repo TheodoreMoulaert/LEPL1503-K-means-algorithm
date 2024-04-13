@@ -367,6 +367,7 @@ int main(int argc, char *argv[]) {
             //temps_cluster[j]->centroide = initial_centroids[i][j]; //0
             printf("%d\n", 8);
             printf("temps_cluster[j]->centroide.coords[0]= %ld\n", temps_cluster[j]->centroide.coords[0]);
+            printf("initial_centroids[i][j].coords[0]= %ld\n", initial_centroids[i][j].coords[0]);
             //temps_cluster[j]->data = donnes;
             //temps_cluster[j]->size = npoints;//donnes[i]->nbr_vector;//initial_centroids[0]->nbr_vector;
             //temps_cluster[j]->data = malloc(npoints * sizeof(point_t*));//;npoints
@@ -386,8 +387,8 @@ int main(int argc, char *argv[]) {
             /*for (uint32_t m ; m<k; m++){
                 initial_centroids[i][m] = temps_cluster[m]->centroide;
                 //clusters_list[i][m] =  temps_cluster[m];
-            }
-            printf("%d\n", 11);*/
+            }*/
+            printf("%d\n", 11);
             temp_distorsion = distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED); //distortion((cluster_t const **)clusters_list[i], k, DISTANCE_SQUARED);
             printf(" temp_distorsion %ld\n", temp_distorsion);
             if (solDistortion > temp_distorsion){
