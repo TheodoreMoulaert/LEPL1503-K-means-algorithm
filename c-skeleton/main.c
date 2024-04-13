@@ -232,10 +232,13 @@ int main(int argc, char *argv[]) {
                 printf("%d\n", 0);
                 // Copier les coordonnées
                 initial_centroids[i][j].coords = (int64_t *)malloc(dimension * sizeof(int64_t));
+
                 if (initial_centroids[i][j].coords == NULL) {
                     // Gestion d'erreur si l'allocation échoue
                     exit(EXIT_FAILURE);
                 }
+                printf("initial_combinations[0][i][j].coords[0]=%ld\n",initial_combinations[0][i][j].coords[0]);
+                printf("%d\n", 0);
                 memcpy(initial_centroids[i][j].coords, initial_combinations[0][i][j].coords, dimension * sizeof(int64_t));
                 printf("%d\n", 1);
                 // Copier le nombre de vecteurs
