@@ -218,12 +218,12 @@ int main(int argc, char *argv[]) {
     printf("initial_combinations[0][1].coords[0]=%ld\n",initial_combinations[0][1]->coords[0]);
     
     //}
-    /*point_t** final_centroids = calloc(nombre_comb, sizeof(point_t*));
+    point_t** final_centroids = calloc(nombre_comb, sizeof(point_t*));
     for(int64_t i = 0; i<nombre_comb; i++){
         final_centroids[i] = malloc(k*sizeof(point_t));
         final_centroids[i]->coords =  malloc(dimension * sizeof(int64_t)); 
-    }*/
-    point_t **final_centroids = (point_t **)malloc(nombre_comb* sizeof(point_t *));
+    }
+    /*point_t **final_centroids = (point_t **)malloc(nombre_comb* sizeof(point_t *));
     for (int i = 0; i < nombre_comb; i++) {
     // Utilisation de calloc pour initialiser chaque élément à NULL
         final_centroids[i] = (point_t *)calloc(k, sizeof(point_t));
@@ -266,7 +266,7 @@ int main(int argc, char *argv[]) {
             final_centroids[i][j].nbr_vector = initial_combinations[i][j][0].nbr_vector;
             printf("%d\n", 2);
         }
-    }
+    }*/
     uint64_t distortion_list[nombre_comb]; 
     uint64_t solDistortion = UINT64_MAX;
 
@@ -427,7 +427,7 @@ int main(int argc, char *argv[]) {
             printf("temps_cluster[i][j].data[0][0].coords[0] = %ld\n", temps_cluster[j][0].data[0][0].coords[0]);
         }
         printf("%d\n", 9);
-        temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], final_centroids[i], DISTANCE_SQUARED);
+        temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], initial_centroids[i], DISTANCE_SQUARED);
         printf("%d\n", 10);
         for (uint32_t m=0 ; m<k; m++){
             //initial_centroids[i][m] = temps_cluster[m]->centroide;
