@@ -11,7 +11,7 @@ int main() {
         return EXIT_FAILURE;
     }
 
-    int64_t distortion[] = {10, 20, 30}; // Exemple de tableau de distorsion
+    uint64_t distortion[] = {10, 20, 30}; // Exemple de tableau de distorsion
     int64_t k = 3; // Exemple de nombre de clusters
     int64_t dimension = 2; // Exemple de dimension des points
     int64_t nombre_comb = 3; // Exemple de nombre de combinaisons
@@ -102,7 +102,7 @@ int main() {
 
         for (int64_t j = 0; j < clustersArray[i][0]->size; j++) {
             free(clustersArray[i][0]->data[j]->coords);
-            free(clustersArray[i][0]->data[j]);
+            free(clustersArray[i][0]->data[j]); 
         }
         free(clustersArray[i][0]->data);
         free(clustersArray[i][0]);

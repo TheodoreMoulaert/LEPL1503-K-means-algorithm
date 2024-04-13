@@ -6,21 +6,25 @@
 #include "../headers/write_csv.h"
 #include "../headers/update_centroids.h" 
 
-void write_centroid(FILE *file, point_t* centroid) {
+void write_centroid(FILE *file, point_t* centroid, int64_t k) {
     if (file == NULL || centroid == NULL) {
         fprintf(file, "Erreur : pointeur de fichier ou de centroïde invalide.\n");
         return;
     }
 
     fprintf(file, "[(");
-    fprintf(file, "%" PRId64 ",%" PRId64 "", centroid->coords[0], centroid->coords[1]);
-    fprintf(file, ")");
-    for (int64_t i = 2; i < centroid->dim; i++) {
-        fprintf(file, ",(");
-        fprintf(file, "%" PRId64 ",%" PRId64 "", centroid->coords[i], centroid->coords[i + 1]); // Modification ici
+    for (int i=0;i<k;i++){
+        fprintf(file, "%" PRId64 ",%" PRId64 "", centroid[i].coords[0], centroid[i].coords[1]);
         fprintf(file, ")");
-        i++; // Modification ici
+        for (int64_t i = 2; i < centroid->dim; i++) {
+            fprintf(file, ",(");
+            fprintf(file, "%" PRId64 ",%" PRId64 "", centroid->coords[i], centroid->coords[i + 1]); // Modification ici
+            fprintf(file, ")");
+            i++; // Modification ici
+        }
+
     }
+    
     fprintf(file, "]");
 }
 
@@ -65,9 +69,9 @@ void write_csv(FILE *output_file, uint64_t* distortion, point_t **centroid_init_
 
     for (int64_t i = 0; i < nombre_comb; i++) {
         fprintf(output_file, "\"[");
-        write_centroid(output_file, centroid_init_Array[i]);
+        write_centroid(output_file, centroid_init_Array[i],k);
         fprintf(output_file, ",%" PRId64 ",", distortion[i]);
-        write_centroid(output_file, centroid_final_Array[i]);
+        write_centroid(output_file, centroid_final_Array[i],k);
         fprintf(output_file, ",");
         write_cluster(output_file, clustersArray[i],k);
         fprintf(output_file, "]\"\n");
