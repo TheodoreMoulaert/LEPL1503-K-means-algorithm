@@ -197,13 +197,13 @@ int main(int argc, char *argv[]) {
             }
 
             for (int j = 0; j < k; j++) {
-                initial_centroids[i][j].dim = dimension; // Exemple de dimension
+                //initial_centroids[i][j].dim = dimension; // Exemple de dimension
                 initial_centroids[i][j].coords = (int64_t *)calloc(dimension , sizeof(int64_t)); // Exemple d'allocation pour coords
                 if (initial_centroids[i][j].coords == NULL) {
                     // Gestion d'erreur si l'allocation échoue
                     exit(EXIT_FAILURE);
                 }
-                initial_centroids[i][j].nbr_vector = npoints; // Exemple de valeur pour nbr_vector
+                //initial_centroids[i][j].nbr_vector = npoints; // Exemple de valeur pour nbr_vector
                  
             }
             printf("k = %d\n", k);
@@ -219,11 +219,29 @@ int main(int argc, char *argv[]) {
             }*/
         }
         //modif copy
-        for (int i = 0; i < nombre_comb; i++) {
+        /*for (int i = 0; i < nombre_comb; i++) {
                 // Copie des données de src[i][j] vers dest[i * cols + j]
                 //memcpy(&initial_centroids[i], initial_combinations[i][j], sizeof(point_t)); //i * k + j
             memcpy(initial_centroids[i], initial_combinations[0][i], k*sizeof(point_t));
             
+        }*/
+        for (int i = 0; i < nombre_comb; i++) {
+            for (int j = 0; j < k; j++) {
+                // Copier la dimension
+                initial_centroids[i][j].dim = initial_combinations[0][i][j].dim;
+                printf("%d\n", 0);
+                // Copier les coordonnées
+                initial_centroids[i][j].coords = (int64_t *)malloc(dimension * sizeof(int64_t));
+                if (initial_centroids[i][j].coords == NULL) {
+                    // Gestion d'erreur si l'allocation échoue
+                    exit(EXIT_FAILURE);
+                }
+                memcpy(initial_centroids[i][j].coords, initial_combinations[0][i][j].coords, dimension * sizeof(int64_t));
+                printf("%d\n", 1);
+                // Copier le nombre de vecteurs
+                initial_centroids[i][j].nbr_vector = initial_combinations[0][i][j].nbr_vector;
+                printf("%d\n", 2);
+            }
         }
         printf("%d\n", 0);
         printf("initial_centroids[0][1].coords[0]=%ld\n",initial_centroids[0][1].coords[0]);
