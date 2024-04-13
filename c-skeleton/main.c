@@ -423,7 +423,8 @@ int main(int argc, char *argv[]) {
                 break; 
             }
             temps_cluster[j]->data = donnes; */
-            //printf("temps_cluster[i][j].data[0][0].coords[0] = %ld\n", temps_cluster[i][j].data[0][0].coords[0]);
+            printf("donnes[j][j].coords[0] = %ld\n", donnes[j][0].coords[0]);
+            printf("temps_cluster[i][j].data[0][0].coords[0] = %ld\n", temps_cluster[j][0].data[0][0].coords[0]);
         }
         printf("%d\n", 9);
         temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], final_centroids[i], DISTANCE_SQUARED);
