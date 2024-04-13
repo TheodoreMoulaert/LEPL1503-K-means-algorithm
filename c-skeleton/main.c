@@ -249,6 +249,14 @@ int main(int argc, char *argv[]) {
             // Gestion d'erreur si l'allocation échoue
             exit(EXIT_FAILURE);
         }
+        temps_cluster[i]->data = (point_t**)malloc(npoints * sizeof(point_t *));
+        for (int t=0;t<npoints;t++){
+            uint64_t s =donnes[t]->nbr_vector;
+            temps_cluster[i]->data[t] = malloc(s*sizeof(point_t));
+            temps_cluster[i]->data[t]->dim =  donnes[t]->dim;
+            temps_cluster[i]->data[t]->coords = malloc(dimension * sizeof(int64_t));
+            temps_cluster[i]->data[t]->nbr_vector = s;
+        }
         temps_cluster[i]->centroide.coords = (int64_t *)malloc(dimension * sizeof(int64_t));
         temps_cluster[i]->centroide.dim = initial_centroids[0][0].dim;
         temps_cluster[i]->centroide.nbr_vector=initial_centroids[0][0].nbr_vector;
@@ -336,10 +344,10 @@ int main(int argc, char *argv[]) {
             printf("i : %ld , j : %d\n", i,j);
 
 
-            temps_cluster[i][j].centroide = initial_centroids[i][j]; //0
+            temps_cluster[j]->centroide = initial_centroids[i][j]; //0
             printf("%d\n", 8);
-            printf("temps_cluster[j]->centroide.coords[0]= %ld\n", temps_cluster[j]->centroide.coords[0]);
-            temps_cluster[i][j].data = donnes;
+            printf("temps_cluster[0]->centroide.coords[0]= %ld\n", temps_cluster[0]->centroide.coords[0]);
+            temps_cluster[j]->data = donnes;
             //temps_cluster[j]->size = npoints;//donnes[i]->nbr_vector;//initial_centroids[0]->nbr_vector;
             //temps_cluster[j]->data = malloc(npoints * sizeof(point_t*));//;npoints
             printf("%d\n", 8);
