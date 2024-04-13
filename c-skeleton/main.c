@@ -228,7 +228,7 @@ int main(int argc, char *argv[]) {
         for (int i = 0; i < nombre_comb; i++) {
             for (int j = 0; j < k; j++) {
                 // Copier la dimension
-                initial_centroids[i][j].dim = initial_combinations[0][i][j].dim;
+                initial_centroids[i][j].dim = initial_combinations[i][j][0].dim;
                 printf("%d\n", 0);
                 // Copier les coordonnées
                 initial_centroids[i][j].coords = (int64_t *)malloc(dimension * sizeof(int64_t));
@@ -237,12 +237,12 @@ int main(int argc, char *argv[]) {
                     // Gestion d'erreur si l'allocation échoue
                     exit(EXIT_FAILURE);
                 }
-                printf("initial_combinations[0][i][j].coords[0]=%ld\n",initial_combinations[0][i][j].coords[0]);
+                printf("initial_combinations[i][j][0].coords[0]=%ld\n",initial_combinations[i][j][0].coords[0]);
                 printf("%d\n", 0);
-                memcpy(initial_centroids[i][j].coords, initial_combinations[0][i][j].coords, dimension * sizeof(int64_t));
+                memcpy(initial_centroids[i][j].coords, initial_combinations[i][j][0].coords, dimension * sizeof(int64_t));
                 printf("%d\n", 1);
                 // Copier le nombre de vecteurs
-                initial_centroids[i][j].nbr_vector = initial_combinations[0][i][j].nbr_vector;
+                initial_centroids[i][j].nbr_vector = initial_combinations[i][j][0].nbr_vector;
                 printf("%d\n", 2);
             }
         }
