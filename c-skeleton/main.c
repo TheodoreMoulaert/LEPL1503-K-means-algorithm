@@ -310,33 +310,7 @@ int main(int argc, char *argv[]) {
             temps_cluster[j]->size = initial_centroids[i][j].nbr_vector;
         }
     }
-      // Copie des données
-            
-
-    /*cluster_t** temps_cluster= calloc(nombre_comb, sizeof(cluster_t*));
-     
-    for (int i = 0; i < nombre_comb; i++) {
-        uint64_t s = donnes[i]->nbr_vector;
-        temps_cluster[i] = malloc(k*sizeof(cluster_t));
-        if (temps_cluster[i] == NULL) {
-            perror("Erreur d'allocation mémoire pour temps_cluster");
-            // Gérer l'erreur et sortir de la fonction si nécessaire
-            exit(EXIT_FAILURE);
-        }
-        //temps_cluster[i]->centroide.coords = malloc(sizeof(int64_t*));
-        for (int j = 0; j < k; j++) {
-            temps_cluster[i][j].centroide.coords = (int64_t *)malloc(dimension * sizeof(int64_t));
-            temps_cluster[i][j].data = malloc(s*sizeof(point_t*));
-            temps_cluster[i][j].size = s;//temps_cluster[i]->data[0]->nbr_vector;
-            //for (int j = 0; j < s; j++) {
-
-             // Copiez les pointeurs de données appropriés ici
-        }
-    } 
-    for(int64_t i = 0; i < k; i++){
-        temps_cluster[i] = malloc(sizeof(cluster_t)); 
-    }*/
-
+      
     point_t* solCentroide = (point_t*)malloc(k*sizeof(point_t)); 
     //for (int i=0;i<k;i++){
     solCentroide->coords = (int64_t *)calloc(dimension , sizeof(int64_t));
@@ -361,23 +335,6 @@ int main(int argc, char *argv[]) {
 
 
     printf("%d\n", 5);
-
-    // Copie de initial_combinations dans initial_centroids
-    /*for (int i = 0; i < nombre_comb; i++) {
-        memcpy(initial_centroids[i], initial_combinations[0][i], sizeof(point_t));  //sizeof(point_t*)
-        for (int j = 0; i < k; i++) {
-            printf("%d\n", 0);
-            memcpy(initial_centroids[i][j].coords, initial_combinations[0][i][j].coords, sizeof(int64_t));
-            // Copier d'autres membres de initial_combinations[0][i][j] si nécessaire
-            //initial_centroids[i][j].dim = initial_combinations[0][i][j].dim;
-            //memcpy(&initial_centroids[i][j], &initial_combinations[0][i][j], sizeof(const point_t));  //sizeof(point_t*)
-        }
-    }*/
-    /*for (int i = 0; i < nombre_comb; i++) {
-        for (int j=0;j <k;j++){
-            initial_centroids[i][j] = initial_combinations[0][i][j];
-        }
-    }*/
      
     printf("%d\n", 6);
     printf("initial_centroids[0]->coords[0]= %ld\n", initial_centroids[0]->coords[0]);
@@ -385,15 +342,6 @@ int main(int argc, char *argv[]) {
     if (&initial_centroids[0][0] == NULL) {
         printf(" &initial_centroids[0] == NULL %d\n", 0);
     }
-    /*for (int i = 0; i < k; i++) {
-        temps_cluster[i] = malloc(sizeof(cluster_t));
-        if (temps_cluster[i] == NULL) {
-            perror("Erreur d'allocation mémoire pour temps_cluster");
-            // Gérer l'erreur et sortir de la fonction si nécessaire
-            exit(EXIT_FAILURE);
-        }
-    }*/
-    //a comparer avec la fichier fin du main 
 
     for (uint64_t i = 0; i < nombre_comb; i++) {
         //uint64_t temp_distorsion=0;
@@ -403,13 +351,6 @@ int main(int argc, char *argv[]) {
             printf("%d\n", 7);
             printf("i : %ld , j : %d\n", i,j);
 
-        
-            /*temps_cluster[j]->centroide.dim = initial_centroids[i][j].dim;
-            memcpy(temps_cluster[j]->centroide.coords, initial_centroids[i][j].coords, dimension * sizeof(int64_t));
-            temps_cluster[j]->centroide.nbr_vector = initial_centroids[i][j].nbr_vector;
-            temps_cluster[j]->data = donnes;//initial_centroids[i][j];
-            temps_cluster[j]->size = initial_centroids[i][j].nbr_vector;*/
-    
             printf("%d\n", 8);
             printf("temps_cluster[j]->centroide.coords[0]= %ld\n", temps_cluster[j]->centroide.coords[0]);
             printf("initial_centroids[i][j].coords[0]= %ld\n", initial_centroids[i][j].coords[0]);
@@ -458,13 +399,15 @@ int main(int argc, char *argv[]) {
 
     for (uint64_t i = 0; i < npoints; i++) {
         free(donnes[i]->coords);
+        //free(donnes[i]->nbr_vector);
+        
         free(donnes[i]);
     }
     free(donnes);
 
-    for (uint64_t i = 0; i < p; i++) {
+    for (uint64_t i = 0; i < nombre_comb; i++) {
         for (uint32_t j = 0; j < k; j++) {
-            free(initial_combinations[i][j][0].coords);
+            free(initial_combinations[i][j]->coords);
         }
         for (uint32_t j = 0; j < k; j++) {
             free(initial_combinations[i][j]);
@@ -484,16 +427,16 @@ int main(int argc, char *argv[]) {
     
     // Libération de la mémoire allouée pour final_centroids
     for (int64_t i = 0; i < nombre_comb; i++) {
-        for (int64_t j = 0; j < k; j++) {
-            free(final_centroids[i][j].coords);
-        }
-        free(final_centroids[i]);
+        
+        free(final_centroids[i]->coords);
     }
     free(final_centroids);
 
     // Libération de la mémoire allouée pour clusters_list
     for(int64_t i = 0; i < nombre_comb; i++) {
         for(int64_t j = 0; j < k; j++) {
+            free(clusters_list[i][j]->centroide.coords);
+            free(clusters_list[i][j]->data);
             free(clusters_list[i][j]);
         }
         free(clusters_list[i]);
@@ -503,21 +446,31 @@ int main(int argc, char *argv[]) {
     // Libération de la mémoire allouée pour temps_cluster
     for(int64_t i = 0; i < k; i++) {
         free(temps_cluster[i]->data);
+        free(temps_cluster[i]->centroide.coords);
         free(temps_cluster[i]);
     }
     free(temps_cluster);
 
     // Libération de la mémoire allouée pour temps_result_cluster
     for(int64_t i = 0; i < nombre_comb; i++) {
+        free(temps_result_cluster[i]->centroide.coords);
+        free(temps_result_cluster[i]->data);
         free(temps_result_cluster[i]);
     }
     free(temps_result_cluster);
 
+    free(temp_centroide->coords);
+    free(temp_centroide);
+
     // Libération de la mémoire allouée pour solCluster
     for(int64_t i = 0; i < k; i++) {
+        free(solCluster[i]->centroide.coords);
+        free(solCluster[i]->data);
         free(solCluster[i]);
     }
     free(solCluster);
+
+    
 
     // Libération de la mémoire allouée pour solCentroide
     //free(solCentroide);
