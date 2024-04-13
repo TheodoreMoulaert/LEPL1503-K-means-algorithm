@@ -444,7 +444,7 @@ int main(int argc, char *argv[]) {
             }
             
             final_centroids[i] = solCentroide; 
-            clusters_list[i] = solCluster; 
+            clusters_list[i] = solCluster;
             distortion_list[i] = solDistortion; 
             printf("%d\n", 13);
             
@@ -464,11 +464,14 @@ int main(int argc, char *argv[]) {
 
     for (uint64_t i = 0; i < p; i++) {
         for (uint32_t j = 0; j < k; j++) {
-            free(initial_combinations[0][i][j].coords);
+            free(initial_combinations[i][j][0].coords);
         }
-        free(initial_combinations[0][i]);
+        for (uint32_t j = 0; j < k; j++) {
+            free(initial_combinations[i][j]);
+        }
+        free(initial_combinations[i]);
     }
-    free(initial_combinations[0]);
+    
     free(initial_combinations);
 
      // Libération de la mémoire allouée pour initial_centroids

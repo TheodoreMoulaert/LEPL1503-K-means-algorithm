@@ -49,27 +49,16 @@ point_t **point_input(FILE *file, uint32_t *dim, uint64_t *nbr_vectors) { //* re
         perror("Erreur lors de la lecture de la dimension");
         return NULL;
     }
-    uint32_t *d = malloc(sizeof(uint32_t));
-    if (dim == NULL) {
-        // Gestion de l'échec d'allocation mémoire
-        exit(EXIT_FAILURE);
-    }
-    *d = be32toh(dim_endian);
-    *dim = *d;
+    *dim = be32toh(dim_endian);
+    
     //fprintf(stderr, "%d %d %d\n",0,0,1);
     // Lecture du nombre de vecteurs
     if (fread(&nb_endian, sizeof(uint64_t), 1, file) != 1) {
         perror("Erreur lors de la lecture du nombre de points spécifié");
         return NULL;
     }
-    uint64_t *nbr_vect = malloc(sizeof(uint64_t));
+    *nbr_vectors= be64toh(nb_endian);
     
-    if (nbr_vect  == NULL) {
-        // Gestion de l'échec d'allocation mémoire
-        exit(EXIT_FAILURE);
-    }
-    *nbr_vect = be64toh(nb_endian);
-    *nbr_vectors = *nbr_vect;
     //fprintf(stderr, "%d %d %d\n",0,0,2);
     printf("Nombre de vecteurs dans le fichier binaire in : %lu\n", *nbr_vectors);
     printf("Dimension du le fichier binaire in : %u\n", *dim);
@@ -82,7 +71,7 @@ point_t **point_input(FILE *file, uint32_t *dim, uint64_t *nbr_vectors) { //* re
     //fprintf(stderr, "%d %d %d\n",0,0,3);
     // Lecture des coordonnées des vecteurs
     for (uint64_t i = 0; i < *nbr_vectors; i++) {
-        point_t *point = malloc(*nbr_vectors*sizeof(point_t));
+        point_t *point = malloc(sizeof(point_t)); //*nbr_vectors*
         if (point == NULL) {
             perror("Erreur d'allocation mémoire pour le vecteur");
             free_vectors(vectors, i); // Libérer les vecteurs déjà alloués
@@ -91,7 +80,7 @@ point_t **point_input(FILE *file, uint32_t *dim, uint64_t *nbr_vectors) { //* re
 
         point->dim = *dim;
         point->nbr_vector = *nbr_vectors;
-        point->coords = malloc(*dim * sizeof(int64_t));
+        point->coords = malloc(*dim * sizeof(int64_t));//*dim
         if (point->coords == NULL) {
             perror("Erreur d'allocation mémoire pour les coordonnées du vecteur");
             free(point);
