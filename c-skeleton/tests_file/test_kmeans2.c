@@ -8,7 +8,7 @@
 #include "../headers/cluster.h"
 #include "../headers/distance.h"
 
-// Déclaration de la fonction de test
+// Déclaration de la fonction de test 
 void test_k_means();
 
 // Fonction pour imprimer les clusters

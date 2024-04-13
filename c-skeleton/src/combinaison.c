@@ -59,7 +59,7 @@ point_t ***generate_combinations(point_t **vectors, uint64_t n, uint64_t k, uint
 
     // Calcul du nombre total de combinaisons
     uint64_t total_combinations = combinaison(p, k);
-    
+     
     // Allocation de la mémoire pour stocker les combinaisons
     point_t ***combinations = malloc(total_combinations * sizeof(point_t **));
     if (combinations == NULL) {

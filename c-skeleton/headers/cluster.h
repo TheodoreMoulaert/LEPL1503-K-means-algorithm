@@ -15,7 +15,7 @@ typedef struct {
     uint64_t size; // nbr de vecteur 
 } cluster_t;
 
-typedef struct {
+typedef struct { 
     bool changes; 
     cluster_t** result_cluster; 
 } result_t;

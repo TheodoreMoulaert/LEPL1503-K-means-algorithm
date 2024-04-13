@@ -371,6 +371,7 @@ int main(int argc, char *argv[]) {
             }
             printf("%d\n", 11);*/
             temp_distorsion = distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED); //distortion((cluster_t const **)clusters_list[i], k, DISTANCE_SQUARED);
+            printf(" temp_distorsion %ld\n", temp_distorsion);
             if (solDistortion > temp_distorsion){
                 solDistortion = temp_distorsion; 
                 solCentroide = temp_centroide; 
@@ -435,7 +436,7 @@ int main(int argc, char *argv[]) {
 
     //print csv
     printf("%d\n", 10);
-    //write_csv(output_file, distortion_list,initial_centroids, final_centroids, clusters_list, k, dimension, nombre_comb); 
+    write_csv(output_file, distortion_list,initial_centroids, final_centroids, clusters_list, k, dimension, nombre_comb); 
     printf("%d\n", 11);
 
 
