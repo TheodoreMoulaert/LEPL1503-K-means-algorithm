@@ -341,8 +341,8 @@ int main(int argc, char *argv[]) {
         temps_cluster[i] = malloc(sizeof(cluster_t)); 
     }*/
 
-    point_t* solCentroide = calloc(k, sizeof(point_t)); 
-    point_t* temp_centroide = calloc(k, sizeof(point_t)); 
+    //point_t* solCentroide = calloc(k, sizeof(point_t)); 
+    //point_t* temp_centroide = calloc(k, sizeof(point_t)); 
 
     cluster_t** temps_result_cluster= calloc(k, sizeof(cluster_t*)); 
     for(int64_t i = 0; i < k; i++){
@@ -439,10 +439,10 @@ int main(int argc, char *argv[]) {
         if (solDistortion > temp_distorsion){
             printf("%d\n", 12);
             solDistortion = temp_distorsion; 
-            solCentroide = temp_centroide; 
+            //solCentroide = temp_centroide; 
             solCluster = temps_result_cluster;
         }
-        final_centroids[i] = solCentroide; 
+        //final_centroids[i] = solCentroide; 
         clusters_list[i] = solCluster; 
         distortion_list[i] = solDistortion; 
         printf("%d\n", 13);
@@ -516,10 +516,10 @@ int main(int argc, char *argv[]) {
     free(solCluster);
 
     // Libération de la mémoire allouée pour solCentroide
-    free(solCentroide);
+    //free(solCentroide);
 
     // Libération de la mémoire allouée pour temp_centroide
-    free(temp_centroide);
+    //free(temp_centroide);
 
 
 
