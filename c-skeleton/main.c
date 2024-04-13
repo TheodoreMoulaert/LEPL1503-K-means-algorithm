@@ -362,7 +362,7 @@ int main(int argc, char *argv[]) {
             printf("temps_result_cluster[0][0].data[0][0].coords[0] = %ld\n", temps_result_cluster[0][0].data[1][0].coords[0]);
             printf("temps_result_cluster[0][0].data[0][0].coords[1] = %ld\n", temps_result_cluster[0][0].data[1][0].coords[1]);
             printf("temps_result_cluster[1][0].data[0][0].coords[0] = %ld\n", temps_result_cluster[1][0].data[1][0].coords[0]);
-            printf("temps_result_cluster[1][0].data[0][0].coords[1] = %ld\n", temps_result_cluster[1][0].data[1][0].coords[1]);
+            printf("temps_result_cluster[1][0].data[6][0].coords[1] = %ld\n", temps_result_cluster[1][0].data[6][0].coords[1]);
             printf("temps_result_cluster[1][0].centroide.coords[1]= %ld\n", temps_result_cluster[1][0].centroide.coords[1]);
             printf("%d\n", 10);
             for (uint32_t m=0 ; m<k; m++){
@@ -392,6 +392,14 @@ int main(int argc, char *argv[]) {
         }
     
     }
+    printf("clusters_list[0][0][0].data[0][0].coords[0]= %ld\n", clusters_list[0][0][0].data[0][0].coords[0]);
+    printf("clusters_list[0][0][0].data[0][0].coords[1]= %ld\n", clusters_list[0][0][0].data[0][0].coords[1]);
+    printf("clusters_list[0][0][0].data[1][0].coords[0]= %ld\n", clusters_list[0][0][0].data[1][0].coords[0]);
+    printf(" clusters_list[0][0][0].data[1][0].coords[1]= %ld\n", clusters_list[0][0][0].data[6][0].coords[1]);
+    printf("clusters_list[0][1][0].data[0][0].coords[0]= %ld\n", clusters_list[0][1][0].data[0][0].coords[0]);
+    printf("clusters_list[0][1][0].data[0][0].coords[1]= %ld\n", clusters_list[0][1][0].data[0][0].coords[1]);
+    printf("clusters_list[0][1][0].data[1][0].coords[0]= %ld\n", clusters_list[0][1][0].data[1][0].coords[0]);
+    printf("clusters_list[0][1][0].data[1][0].coords[1]= %ld\n", clusters_list[0][1][0].data[6][0].coords[1]);
     //print csv
     printf("%d\n", 14);
     write_csv(output_file, distortion_list,initial_centroids, final_centroids, clusters_list, k, dimension, nombre_comb); 

@@ -47,8 +47,8 @@ void test_k_means() {
     initial_centroids[0].coords[1] = 1;
     final_centroids[0].coords[0] = 1;
     final_centroids[0].coords[1] = 1;
-    initial_centroids[1].coords[0] = 4;
-    initial_centroids[1].coords[1] = 5;
+    initial_centroids[1].coords[0] = 2;
+    initial_centroids[1].coords[1] = 2;
     final_centroids[1].coords[0] = 4;
     final_centroids[1].coords[1] = 5;
 

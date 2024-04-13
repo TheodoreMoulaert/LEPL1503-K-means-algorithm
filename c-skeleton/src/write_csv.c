@@ -16,10 +16,10 @@ void write_centroid(FILE *file, point_t* centroid, int64_t k) {
     for (int i=0;i<k;i++){
         fprintf(file, "(");
         fprintf(file, "%" PRId64 ",%" PRId64 "", centroid[i].coords[0], centroid[i].coords[1]);
+        fprintf(file, ")");
         if (i<k-1){
             fprintf(file, ",");
         }
-        fprintf(file, ")");
         for (int64_t i = 2; i < centroid->dim; i++) {
             fprintf(file, ",(");
             fprintf(file, "%" PRId64 ",%" PRId64 "", centroid->coords[i], centroid->coords[i + 1]); // Modification ici
