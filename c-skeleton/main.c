@@ -365,11 +365,12 @@ int main(int argc, char *argv[]) {
             printf("%d\n", 9);
             temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], initial_centroids[i], DISTANCE_SQUARED);
             printf("%d\n", 10);
-            for (uint32_t m ; m<k; m++){
-                //initial_centroids[i][m] = temps_cluster[m]->centroide;
-                clusters_list[i][m] =  temps_cluster[m];
+            /*for (uint32_t m ; m<k; m++){
+                initial_centroids[i][m] = temps_cluster[m]->centroide;
+                //clusters_list[i][m] =  temps_cluster[m];
             }
-            temp_distorsion = distortion((cluster_t const **)clusters_list[i], k, DISTANCE_SQUARED);
+            printf("%d\n", 11);*/
+            temp_distorsion = distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED); //distortion((cluster_t const **)clusters_list[i], k, DISTANCE_SQUARED);
             if (solDistortion > temp_distorsion){
                 solDistortion = temp_distorsion; 
                 solCentroide = temp_centroide; 
