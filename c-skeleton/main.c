@@ -368,7 +368,7 @@ int main(int argc, char *argv[]) {
             for (uint32_t m=0 ; m<k; m++){
                 //initial_centroids[i][m] = temps_cluster[m]->centroide;
                 
-                clusters_list[i][m] =  temps_cluster[m];
+                //clusters_list[i][m] =  temps_cluster[m];
 
                 temp_centroide[m].coords = temps_result_cluster[m][0].centroide.coords;
                 temp_centroide[m].nbr_vector = temps_result_cluster[m][0].centroide.nbr_vector;
