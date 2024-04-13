@@ -25,17 +25,15 @@ void write_centroid(FILE *file, point_t* centroid) {
 }
 
 
-void write_cluster(FILE *file, cluster_t **cluster) {
+void write_cluster(FILE *file, cluster_t **cluster, int64_t k) {
     if (file == NULL || cluster == NULL) {
         fprintf(file, "Erreur : pointeur de fichier ou de cluster invalide.\n");
         return;
     }
-    int64_t s =0;
-    while (cluster[s] != NULL){
-        s++;
-    }
+    
+    
     fprintf(file, "[");
-    for (int64_t i = 0;i<s;i++){ //cluster[i] != NULL; i++) {
+    for (int64_t i = 0;i<k;i++){ //cluster[i] != NULL; i++) {
         if (i > 0) {
             fprintf(file, ",");
         }
@@ -71,7 +69,7 @@ void write_csv(FILE *output_file, uint64_t* distortion, point_t **centroid_init_
         fprintf(output_file, ",%" PRId64 ",", distortion[i]);
         write_centroid(output_file, centroid_final_Array[i]);
         fprintf(output_file, ",");
-        write_cluster(output_file, clustersArray[i]);
+        write_cluster(output_file, clustersArray[i],k);
         fprintf(output_file, "]\"\n");
     }
 
