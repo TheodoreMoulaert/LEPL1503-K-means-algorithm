@@ -166,7 +166,7 @@ int main(int argc, char *argv[]) {
     printf("%d\n", 3);
     point_t ***initial_combinations = generate_combinations(donnes,npoints,k,p);
     printf("%d\n", 4);
-
+/*
     // initiation des tableaux pour contenir les valeurs 
     point_t** initial_centroids = calloc(nombre_comb, sizeof(point_t*));//nombre_comb
     for(int64_t i = 0; i<nombre_comb; i++){ //nombre_comb
@@ -186,19 +186,39 @@ int main(int argc, char *argv[]) {
               //  initial_centroids[i][j].coords = malloc(sizeof(int64_t));
             //}
 
+        }*/
+        point_t **initial_centroids = (point_t **)malloc(nombre_comb*k * sizeof(point_t *));
+        for (int i = 0; i < k; i++) {
+        // Utilisation de calloc pour initialiser chaque élément à NULL
+            initial_centroids[i] = (point_t *)calloc(k, sizeof(point_t));
+            if (initial_centroids[i] == NULL) {
+                // Gestion d'erreur si l'allocation échoue
+                exit(EXIT_FAILURE);
+            }
+            printf("%d\n", 12);
+            /*memcpy(initial_centroids[i], initial_combinations[0][i], k*sizeof(point_t));  //sizeof(point_t*)
+            for (int j = 0; j < k; j++) {
+                printf("%d\n", 0);
+                printf("initial_centroids[i][j].coords[0]=%ld\n",initial_centroids[i][j].coords[0]);
+                printf("initial_combinations[i][j].coords[0]=%ld\n",initial_combinations[0][i]->coords[0]);
+                memcpy(initial_centroids[i][j].coords, initial_combinations[0][i]->coords, dimension*sizeof(int64_t));
+                // Copier d'autres membres de initial_combinations[0][i][j] si nécessaire
+                //initial_centroids[i][j].dim = initial_combinations[0][i][j].dim;
+                //memcpy(&initial_centroids[i][j], &initial_combinations[0][i][j], sizeof(const point_t));  //sizeof(point_t*)
+            }*/
         }
-      
-        memcpy(initial_centroids[i], initial_combinations[0][i], k*sizeof(point_t));  //sizeof(point_t*)
-        for (int j = 0; j < k; j++) {
-            printf("%d\n", 0);
-            printf("initial_centroids[i][j].coords[0]=%ld\n",initial_centroids[i][j].coords[0]);
-            printf("initial_combinations[i][j].coords[0]=%ld\n",initial_combinations[0][i]->coords[0]);
-            memcpy(initial_centroids[i][j].coords, initial_combinations[0][i]->coords, dimension*sizeof(int64_t));
-            // Copier d'autres membres de initial_combinations[0][i][j] si nécessaire
-            //initial_centroids[i][j].dim = initial_combinations[0][i][j].dim;
-            //memcpy(&initial_centroids[i][j], &initial_combinations[0][i][j], sizeof(const point_t));  //sizeof(point_t*)
+        //modif copy
+        for (int i = 0; i < nombre_comb; i++) {
+            for (int j = 0; j < k; j++) {
+                // Copie des données de src[i][j] vers dest[i * cols + j]
+                memcpy(&initial_centroids[i * k + j], initial_combinations[i][j], sizeof(point_t));
+            }
         }
-    }
+        printf("%d\n", 0);
+        printf("initial_centroids[0][0].coords[0]=%ld\n",initial_centroids[0][0].coords[0]);
+        printf("initial_combinations[0][0].coords[0]=%ld\n",initial_combinations[0][0]->coords[0]);
+        
+    //}
     point_t** final_centroids = calloc(nombre_comb, sizeof(point_t*));
     for(int64_t i = 0; i<nombre_comb; i++){
         final_centroids[i] = malloc(k*sizeof(point_t));
