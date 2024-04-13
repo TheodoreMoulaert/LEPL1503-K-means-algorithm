@@ -341,8 +341,8 @@ int main(int argc, char *argv[]) {
         temps_cluster[i] = malloc(sizeof(cluster_t)); 
     }*/
 
-    //point_t* solCentroide = calloc(k, sizeof(point_t)); 
-    //point_t* temp_centroide = calloc(k, sizeof(point_t)); 
+    point_t* solCentroide = calloc(k, sizeof(point_t)); 
+    point_t* temp_centroide = calloc(k, sizeof(point_t)); 
 
     cluster_t** temps_result_cluster= calloc(k, sizeof(cluster_t*)); 
     for(int64_t i = 0; i < k; i++){
@@ -427,22 +427,25 @@ int main(int argc, char *argv[]) {
             printf("temps_cluster[i][j].data[0][0].coords[0] = %ld\n", temps_cluster[j][0].data[0][0].coords[0]);
         }
         printf("%d\n", 9);
-        temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], final_centroids[i], DISTANCE_SQUARED);
+        temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], initial_centroids[i], DISTANCE_SQUARED);
+        printf("temps_result_cluster[i][0].data[0][0].coords[0] = %ld\n", temps_result_cluster[1][0].data[0][0].coords[0]);
         printf("%d\n", 10);
-        for (uint32_t m=0 ; m<k; m++){
+        /*for (uint32_t m=0 ; m<k; m++){
             //initial_centroids[i][m] = temps_cluster[m]->centroide;
             clusters_list[i][m] =  temps_cluster[m];
-        }
+            //temp_centroide[m] = temps_result_cluster[i][m].centroide;
+
+        }*/
         printf("%d\n", 11);
-        temp_distorsion = distortion((cluster_t const **)clusters_list[i], k, DISTANCE_SQUARED);//distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);
+        temp_distorsion = distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);//distortion((cluster_t const **)clusters_list[i], k, DISTANCE_SQUARED);//distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);
         printf(" temp_distorsion %ld\n", temp_distorsion);
         if (solDistortion > temp_distorsion){
             printf("%d\n", 12);
             solDistortion = temp_distorsion; 
-            //solCentroide = temp_centroide; 
+            solCentroide = temp_centroide; 
             solCluster = temps_result_cluster;
         }
-        //final_centroids[i] = solCentroide; 
+        final_centroids[i] = solCentroide; 
         clusters_list[i] = solCluster; 
         distortion_list[i] = solDistortion; 
         printf("%d\n", 13);

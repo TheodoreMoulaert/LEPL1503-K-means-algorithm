@@ -30,9 +30,12 @@ void write_cluster(FILE *file, cluster_t **cluster) {
         fprintf(file, "Erreur : pointeur de fichier ou de cluster invalide.\n");
         return;
     }
-
+    int64_t s =0;
+    while (cluster[s] != NULL){
+        s++;
+    }
     fprintf(file, "[");
-    for (int64_t i = 0; cluster[i] != NULL; i++) {
+    for (int64_t i = 0;i<s;i++){ //cluster[i] != NULL; i++) {
         if (i > 0) {
             fprintf(file, ",");
         }
