@@ -163,6 +163,8 @@ int main(int argc, char *argv[]) {
     printf("%d\n", 2);
     int64_t nombre_comb = combinaison(p,k);
     printf(" nombre_comb =  %ld\n", nombre_comb);
+    printf("k = %d\n", k);
+    printf("npoints = %ld\n", npoints);
     printf("%d\n", 3);
     point_t ***initial_combinations = generate_combinations(donnes,npoints,k,p);
     printf("%d\n", 4);
@@ -233,7 +235,26 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    cluster_t** temps_cluster= calloc(nombre_comb, sizeof(cluster_t*));
+    cluster_t **temps_cluster = (cluster_t **)malloc(k * sizeof(cluster_t *));
+    if (temps_cluster == NULL) {
+        // Gestion d'erreur si l'allocation échoue
+        exit(EXIT_FAILURE);
+    }
+
+    // Allocation et initialisation de chaque élément de la matrice
+    for (int i = 0; i < k; i++) {
+        // Utilisation de calloc pour initialiser chaque élément à NULL
+        temps_cluster[i] = (cluster_t *)calloc(nombre_comb, sizeof(cluster_t));
+        if (temps_cluster[i] == NULL) {
+            // Gestion d'erreur si l'allocation échoue
+            exit(EXIT_FAILURE);
+        }
+        temps_cluster[i]->centroide.coords = (int64_t *)malloc(dimension * sizeof(int64_t));
+        temps_cluster[i]->centroide.dim = initial_centroids[0][0].dim;
+        temps_cluster[i]->centroide.nbr_vector=initial_centroids[0][0].nbr_vector;
+    }
+
+    /*cluster_t** temps_cluster= calloc(nombre_comb, sizeof(cluster_t*));
      
     for (int i = 0; i < nombre_comb; i++) {
         uint64_t s = donnes[i]->nbr_vector;
@@ -253,7 +274,7 @@ int main(int argc, char *argv[]) {
              // Copiez les pointeurs de données appropriés ici
         }
     } 
-    /*for(int64_t i = 0; i < k; i++){
+    for(int64_t i = 0; i < k; i++){
         temps_cluster[i] = malloc(sizeof(cluster_t)); 
     }*/
 
