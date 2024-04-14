@@ -424,14 +424,14 @@ int main(int argc, char *argv[]) {
     for (uint64_t i = 0; i < npoints; i++) {
         free(donnes[i]->coords);
         //free(donnes[i]->nbr_vector);
-        free(donnes[i]);
+        //free(donnes[i]);
     }
     free(donnes);
 
     for (uint64_t i = 0; i < nombre_comb; i++) {
-        for (uint32_t j = 0; j < k; j++) {
+        /*for (uint32_t j = 0; j < k; j++) {
             free(initial_combinations[i][j]->coords);
-        }
+        }*/
         for (uint32_t j = 0; j < k; j++) {
             free(initial_combinations[i][j]);
         }
@@ -440,7 +440,7 @@ int main(int argc, char *argv[]) {
     free(initial_combinations);
      // Libération de la mémoire allouée pour initial_centroids
     for(int64_t i = 0; i < nombre_comb; i++) {
-        free(initial_centroids[i]->coords);
+        //free(initial_centroids[i]->coords);
         free(initial_centroids[i]);
     }
     free(initial_centroids);
@@ -449,7 +449,8 @@ int main(int argc, char *argv[]) {
     // Libération de la mémoire allouée pour final_centroids
     for (int64_t i = 0; i < nombre_comb; i++) {
         
-        free(final_centroids[i]->coords);
+        //free(final_centroids[i]->coords);
+        free(final_centroids[i]);
     }
     free(final_centroids);
 
@@ -457,19 +458,19 @@ int main(int argc, char *argv[]) {
      // Libération de la mémoire allouée pour temps_cluster
     for(int64_t i = 0; i < k; i++) {
         free(temps_cluster[i]->data);
-        free(temps_cluster[i]->centroide.coords);
+        //free(temps_cluster[i]->centroide.coords);
         free(temps_cluster[i]);
     }
     free(temps_cluster);
 
     // Libération de la mémoire allouée pour solCluster
     for(int64_t i = 0; i < k; i++) {
-        free(solCluster[i]->centroide.coords);
-        free(solCluster[i]->data);
+        //free(solCluster[i]->centroide.coords);
+        //free(solCluster[i]->data);
         free(solCluster[i]);
     }
     free(solCluster);
-
+    
     free(temp_centroide->coords);
     free(temp_centroide);
 
@@ -490,7 +491,7 @@ int main(int argc, char *argv[]) {
     for(int64_t i = 0; i < nombre_comb; i++) {
         for(int64_t j = 0; j < k; j++) {
             free(clusters_list[i][j]->centroide.coords);
-            free(clusters_list[i][j]->data);
+            //free(clusters_list[i][j]->data);
             free(clusters_list[i][j]);
         }
         free(clusters_list[i]);
