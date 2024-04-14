@@ -43,9 +43,9 @@ void write_cluster(FILE *file, cluster_t **cluster, int64_t k) {
     fprintf(file, "[");
     for (int64_t i = 0;i<k;i++){ //cluster[i] != NULL; i++) {
         fprintf(file, "[");
-        if (i > 0) {
+        /*if (i > 0) {
             fprintf(file, ",");
-        }
+        }*/
 
         for (int64_t j = 0; j < k; j++) { //cluster[i]->size
             if (j > 0) {
@@ -60,7 +60,7 @@ void write_cluster(FILE *file, cluster_t **cluster, int64_t k) {
             fprintf(file, ")");
         }
         if (i<k-1){
-            fprintf(file, "]");
+            fprintf(file, "],");
         }
     
     }
