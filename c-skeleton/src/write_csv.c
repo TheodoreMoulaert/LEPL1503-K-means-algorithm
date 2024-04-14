@@ -46,7 +46,7 @@ void write_cluster(FILE *file, cluster_t **cluster, int64_t k) {
             fprintf(file, ",");
         }
 
-        for (int64_t j = 0; j < cluster[i]->size; j++) {
+        for (int64_t j = 0; j < k; j++) { //cluster[i]->size
             if (j > 0) {
                 fprintf(file, ",");
             }
@@ -55,7 +55,7 @@ void write_cluster(FILE *file, cluster_t **cluster, int64_t k) {
                 fprintf(file, "Erreur : point invalide dans le cluster.\n");
                 continue;
             }
-            fprintf(file, "%" PRId64 ",%" PRId64 "", cluster[i]->data[j]->coords[0], cluster[i]->data[j]->coords[1]);
+            fprintf(file, "%" PRId64 ",%" PRId64 "", cluster[i][0].data[j]->coords[0], cluster[i][0].data[j]->coords[1]);
             fprintf(file, ")");
         }
     
