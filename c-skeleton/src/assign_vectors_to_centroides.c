@@ -81,7 +81,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             if(current_centroid_idx == closest_centroid_idx){
                 result.changes = true; 
             }
-            free(temp);
+            //free(temp);
         }
         
     }

@@ -33,11 +33,25 @@ cluster_t** k_means(cluster_t** clusters, int num_points, int k, point_t *initia
     uint64_t i = 0; 
     while (!convergence) {
         // Sauvegarde les anciens centroids
-
-        for (int i = 0; i < k; i++) {
+        for (int j = 0; j < k; j++) {
+            old_centroids[j].dim = final_centroids[j].dim;
+            old_centroids[j].coords = (int64_t *)malloc(final_centroids[j].dim * sizeof(int64_t));
+            if (old_centroids[j].coords == NULL) {
+                fprintf(stderr, "L'allocation de mémoire a échoué pour old_centroids.\n");
+                for (int l = 0; l < j; l++) {
+                    free(old_centroids[l].coords);
+                }
+                free(old_centroids);
+                return NULL;
+            }
+            for (int m = 0; m < final_centroids[j].dim; m++) {
+                old_centroids[j].coords[m] = final_centroids[j].coords[m];
+            }
+        }
+        /*for (int i = 0; i < k; i++) {
             old_centroids[i].coords = final_centroids[i].coords;
             old_centroids[i].dim = final_centroids[i].dim;
-        }
+        }*/
         //printf("%d\n", 3);
         // Assigne les points aux clusters
         if (i == 0) {
@@ -52,7 +66,7 @@ cluster_t** k_means(cluster_t** clusters, int num_points, int k, point_t *initia
             return NULL;
         }
 
-        convergence = result.changes; 
+        
         //printf("%d\n", 5);
 
         if (clusters == NULL) {
@@ -61,9 +75,14 @@ cluster_t** k_means(cluster_t** clusters, int num_points, int k, point_t *initia
             return NULL;
         }
         //printf("%d\n", 4);
+        convergence = result.changes; 
     
         update_centroids(result.result_cluster, k);
         //printf("%d\n", 5);
+        // Libérer la mémoire pour les old_centroids
+        for (int j = 0; j < k; j++) {
+            free(old_centroids[j].coords);
+        }
         i++;  
     }
 
