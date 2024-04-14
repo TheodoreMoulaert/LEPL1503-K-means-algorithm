@@ -305,8 +305,10 @@ int main(int argc, char *argv[]) {
         //temps_cluster[i]->centroide.dim = initial_centroids[0][0].dim;
         //temps_cluster[i]->centroide.nbr_vector=initial_centroids[0][0].nbr_vector;
     }
+    int s = 0;
     for (int i =0;i< nombre_comb;i++){
         for (int j=0;j<k;j++){
+            
             temps_cluster[j]->centroide.dim = initial_centroids[i][j].dim;
             printf("%d\n", 222);
             memcpy(temps_cluster[j]->centroide.coords, initial_centroids[i][j].coords, dimension * sizeof(int64_t));
@@ -314,19 +316,19 @@ int main(int argc, char *argv[]) {
             temps_cluster[j]->centroide.nbr_vector = initial_centroids[i][j].nbr_vector;
             printf("%d\n", 22222);
             for (int t=0; t<k;t++){
-                temps_cluster[j]->data[t] = donnes[j+t];//initial_centroids[i][j];
+                temps_cluster[j]->data[t] = donnes[j+t+s];//initial_centroids[i][j];
                 temps_cluster[j]->data[t]->dim= dimension;
                 temps_cluster[j]->data[t]->nbr_vector= 1;
             }
             //temps_cluster[j]->data[j] = donnes[j+t];//initial_centroids[i][j];
             printf("%d\n", 222222);
             temps_cluster[j]->size = k;
-
-            
+            s++; 
         }
+        s++;
     }
-    printf("temps_cluster[0][0].data[0][0].coords[0] = %ld\n", temps_cluster[0][0].data[0][0].coords[0]);
-    printf("temps_cluster[0][0].data[1][0].coords[0] = %ld\n", temps_cluster[0][0].data[1][0].coords[0]);
+    printf("temps_cluster[0][0].data[0][0].coords[0] %ld\n, temps_cluster[0][0].data[0][0].coords[1]  = %ld\n", temps_cluster[0][0].data[0][0].coords[0],temps_cluster[0][0].data[0][0].coords[1]); 
+    printf("temps_cluster[0][0].data[1][0].coords[0] = %ld\n temps_cluster[0][0].data[1][0].coords[0] = %ld\n", temps_cluster[0][0].data[1][0].coords[0], temps_cluster[0][0].data[1][0].coords[1]);
     printf("temps_cluster[1][0].data[0][0].coords[0] = %ld\n", temps_cluster[1][0].data[0][0].coords[0]);
     printf("temps_cluster[1][0].data[1][0].coords[0] = %ld\n", temps_cluster[1][0].data[1][0].coords[0]);
       
