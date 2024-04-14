@@ -103,6 +103,7 @@ point_t **point_input(FILE *file, uint32_t *dim, uint64_t *nbr_vectors) { //* re
         }
 
         vectors[i] = point;
+        
     }
     
     return vectors;

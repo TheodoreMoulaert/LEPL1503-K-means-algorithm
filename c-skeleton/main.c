@@ -245,15 +245,8 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < nombre_comb; i++) {
         for (int j = 0; j < k; j++) {
             // Copier la dimension
-            final_centroids[i][j].dim = initial_combinations[i][j][0].dim;
+            final_centroids[i][j].dim = dimension;
             printf("%d\n", 0);
-            // Copier les coordonnées
-            final_centroids[i][j].coords = (int64_t *)malloc(dimension * sizeof(int64_t));
-
-            if (final_centroids[i][j].coords == NULL) {
-                // Gestion d'erreur si l'allocation échoue
-                exit(EXIT_FAILURE);
-            }
             printf("initial_combinations[i][j][0].coords[0]=%ld\n",initial_combinations[i][j][0].coords[0]);
             printf("%d\n", 0);
             memcpy(final_centroids[i][j].coords, initial_combinations[i][j][0].coords, dimension * sizeof(int64_t));
@@ -387,6 +380,7 @@ int main(int argc, char *argv[]) {
             for (uint32_t m=0 ; m<k; m++){
                 temp_centroide[m].coords = temps_result_cluster[m][0].centroide.coords;
                 temp_centroide[m].nbr_vector = temps_result_cluster[m][0].centroide.nbr_vector;
+                temp_centroide[m].dim = dimension;
             }
             printf("%d\n", 11);
             temp_distorsion = distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);//distortion((cluster_t const **)clusters_list[i], k, DISTANCE_SQUARED);//distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);
@@ -471,7 +465,6 @@ int main(int argc, char *argv[]) {
         donnes[i] = NULL;
     }
     free(donnes);
-    donnes = NULL;
 
     // Libérer la mémoire pour les clusters temporaires
     for (int i = 0; i < k; i++) {
