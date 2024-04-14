@@ -471,11 +471,11 @@ int main(int argc, char *argv[]) {
     }
     free(solCluster);
     
-    free(temp_centroide->coords);
+    //free(temp_centroide->coords);
     free(temp_centroide);
 
     // Libération de la mémoire allouée pour solCentroide
-    free(solCentroide->coords);
+    //free(solCentroide->coords);
     free(solCentroide);
 
      // Libération de la mémoire allouée pour temps_result_cluster
