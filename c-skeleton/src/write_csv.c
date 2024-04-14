@@ -60,7 +60,7 @@ void write_cluster(FILE *file, cluster_t **cluster, int64_t k) {
             fprintf(file, ")");
         }
         if (i<k-1){
-            fprintf(file, "],");
+            fprintf(file, "]");
         }
     
     }
