@@ -16,7 +16,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
     }
 
     // Allouer un nouveau tableau de clusters pour contenir les nouveaux clusters
-    cluster_t **new_clusters = (cluster_t**) malloc(K * sizeof(cluster_t*));
+    cluster_t **new_clusters = (cluster_t**) malloc(K *sizeof(cluster_t*));//K * 
     if (new_clusters == NULL) {
         // Gérer l'erreur d'allocation de mémoire
         return result;
