@@ -6,11 +6,11 @@
 #include "../headers/k_means.h"
 #include "../headers/point.h"
 #include "../headers/update_centroids.h"
-#include "../headers/assign_vector_to_centro.h"
+#include "../headers/assign_vector_to_centroides.h"
 #include "../headers/cluster.h"
 #include "../headers/distance.h"
 
-/*cluster_t* k_means(cluster_t initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions,squared_distance_func_t distance_func) {
+cluster_t* k_means(cluster_t initial_centroids, uint32_t K, point_t **vectors, uint64_t num_vectors, uint32_t dimensions,squared_distance_func_t distance_func) {
     // Implémentation de la fonction k_means
     cluster_t* centroids = malloc(K * sizeof(cluster_t));
     cluster_t* clusters = malloc(K * sizeof(cluster_t));
@@ -82,4 +82,4 @@
     free(clusters);
 
     return centroids;
-}*/
+}

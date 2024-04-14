@@ -30,8 +30,8 @@ int main() {
 
     // Initialisation des tableaux avec des valeurs factices pour le test
     for (int64_t i = 0; i < nombre_comb; i++) {
-        centroid_init_Array[i] = (point_t *)malloc(sizeof(point_t));
-        centroid_final_Array[i] = (point_t *)malloc(sizeof(point_t));
+        centroid_init_Array[i] = (point_t *)malloc(k*sizeof(point_t));
+        centroid_final_Array[i] = (point_t *)malloc(k*sizeof(point_t));
         clustersArray[i] = (cluster_t **)malloc((k + 1) * sizeof(cluster_t *));
 
         // Vérification si l'allocation dynamique a réussi
