@@ -327,17 +327,19 @@ int main(int argc, char *argv[]) {
     printf("temps_cluster[0][0].data[1][0].coords[0] = %ld\n temps_cluster[0][0].data[1][0].coords[0] = %ld\n", temps_cluster[0][0].data[1][0].coords[0], temps_cluster[0][0].data[1][0].coords[1]);
     printf("temps_cluster[1][0].data[0][0].coords[0] = %ld\n", temps_cluster[1][0].data[0][0].coords[0]);
     printf("temps_cluster[1][0].data[1][0].coords[0] = %ld\n", temps_cluster[1][0].data[1][0].coords[0]);
-      
+
+    point_t* temp_centroide = (point_t*) malloc(k*sizeof(point_t));
+    //for (int i=0;i<k;i++){
+    temp_centroide->coords = (int64_t *)calloc(dimension , sizeof(int64_t));
+    temp_centroide->dim = dimension;
+
     point_t* solCentroide = (point_t*)malloc(k*sizeof(point_t)); 
     //for (int i=0;i<k;i++){
     solCentroide->coords = (int64_t *)calloc(dimension , sizeof(int64_t));
     solCentroide->dim = dimension; 
     //}
 
-    point_t* temp_centroide = (point_t*) malloc(k*sizeof(point_t));
-    //for (int i=0;i<k;i++){
-    temp_centroide->coords = (int64_t *)calloc(dimension , sizeof(int64_t));
-    temp_centroide->dim = dimension;
+    
     //}
     
     cluster_t** temps_result_cluster= calloc(k, sizeof(cluster_t*)); 
@@ -445,14 +447,6 @@ int main(int argc, char *argv[]) {
     }
     free(initial_centroids);
 
-    
-    // Libération de la mémoire allouée pour final_centroids
-    for (int64_t i = 0; i < nombre_comb; i++) {
-        
-        //free(final_centroids[i]->coords);
-        free(final_centroids[i]);
-    }
-    free(final_centroids);
 
 
      // Libération de la mémoire allouée pour temps_cluster
@@ -471,12 +465,22 @@ int main(int argc, char *argv[]) {
     }
     free(solCluster);
     
-    //free(temp_centroide->coords);
+    free(temp_centroide->coords);
+    free(solCentroide->coords);
+    for (int64_t i = 0; i < nombre_comb; i++) {
+        //free(final_centroids[i]->coords);
+        free(final_centroids[i]);
+    }
+    
     free(temp_centroide);
 
     // Libération de la mémoire allouée pour solCentroide
-    //free(solCentroide->coords);
+    
     free(solCentroide);
+
+    // Libération de la mémoire allouée pour final_centroids
+    
+    free(final_centroids);
 
      // Libération de la mémoire allouée pour temps_result_cluster
     for(int64_t i = 0; i < nombre_comb; i++) {
