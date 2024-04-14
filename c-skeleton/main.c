@@ -395,6 +395,7 @@ int main(int argc, char *argv[]) {
     printf("clusters_list[0][1][0].data[0][0].coords[1]= %ld\n", clusters_list[0][1][0].data[0][0].coords[1]);
     printf("clusters_list[0][1][0].data[1][0].coords[0]= %ld\n", clusters_list[0][1][0].data[1][0].coords[0]);
     printf("clusters_list[0][1][0].data[1][0].coords[1]= %ld\n", clusters_list[0][1][0].data[6][0].coords[1]);
+    printf("clusters_list[0][1][0].data[6][0].nbr_vector= %ld\n", clusters_list[0][1][0].data[0]->nbr_vector);
     printf("clusters_list[0][1]->size= %ld\n", clusters_list[0][1]->size);
     printf("clusters_list[0][1][0].size= %ld\n", clusters_list[0][0][0].size);
     //print csv
