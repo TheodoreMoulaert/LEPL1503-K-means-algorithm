@@ -460,9 +460,9 @@ int main(int argc, char *argv[]) {
     for (uint64_t*  i = 0; i < &npoints; i++) {
     
         // Libérer le tableau coords
-        free(donnes[i*]->coords);
+        free(donnes[*i]->coords);
         // Libérer la structure point_t
-        free(donnes[i*]);
+        free(donnes[*i]);
         
     }
 
