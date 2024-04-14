@@ -89,9 +89,9 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
 
     result.result_cluster = new_clusters;
     /*for (uint32_t j = 0; j < K; ++j) {
-        free(new_clusters[j]->data);
+        //free(new_clusters[j]->data);
         free(new_clusters[j]);
-    }*/
-    //free(new_clusters);
+    }
+    free(new_clusters);*/
     return result;
 }
