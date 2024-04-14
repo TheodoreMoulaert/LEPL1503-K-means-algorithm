@@ -59,7 +59,9 @@ void write_cluster(FILE *file, cluster_t **cluster, int64_t k) {
             fprintf(file, "%" PRId64 ",%" PRId64 "", cluster[i][0].data[j]->coords[0], cluster[i][0].data[j]->coords[1]);
             fprintf(file, ")");
         }
-        fprintf(file, "]");
+        if (i<k-1){
+            fprintf(file, "],");
+        }
     
     }
     fprintf(file, "]");
