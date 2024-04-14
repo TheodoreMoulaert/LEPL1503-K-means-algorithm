@@ -83,9 +83,10 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             }
             free(temp);
         }
+        
     }
+    
 
     result.result_cluster = new_clusters;
-    
     return result;
 }

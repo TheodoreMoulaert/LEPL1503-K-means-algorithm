@@ -19,7 +19,6 @@ cluster_t** k_means(cluster_t** clusters, int num_points, int k, point_t *initia
     for (int i = 0; i < k; i++) {
         clusters[i]->centroide = initial_centroids[i];
     }
-    //printf("%d\n", 1);
 
     point_t *old_centroids = (point_t *)malloc(k * sizeof(point_t));
     if (old_centroids == NULL) {
