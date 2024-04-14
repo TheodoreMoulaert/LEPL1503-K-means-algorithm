@@ -151,9 +151,9 @@ int main(int argc, char *argv[]) {
     }
     fprintf(stderr, "%d\n",0);
     donnes =  point_input(input_file, &dimension, &npoints);
-    printf(" &npoints %ld\n", npoints) ;
+    printf(" npoints %ld\n", npoints) ;
     printf(" donnes[0][0].coords[0] = %ld\n", donnes[0][0].coords[0]);
-    printf(" donnes[6][0].coords[0] = %ld\n", donnes[6][0].coords[0]);
+    printf(" donnes[9][0].coords[0] = %ld\n", donnes[6][0].coords[0]);
     printf("%d\n", 1);
     if(p>npoints)
     {
@@ -457,16 +457,12 @@ int main(int argc, char *argv[]) {
     free(clusters_list);
 
     // Libérer la mémoire pour les points de données
-    for (uint64_t*  i = 0; i < &npoints; i++) {
-    
-        // Libérer le tableau coords
-        free(donnes[*i]->coords);
-        // Libérer la structure point_t
-        free(donnes[*i]);
+    for (uint64_t i = 0; i < npoints; i++) {
         
+            // Libérer le tableau coords
+        free(donnes[i]->coords);
+        free(donnes[i]);
     }
-
-    // Libérer le tableau de pointeurs vectors
     free(donnes);
     /*for (uint64_t i = 0; i < npoints; i++) {
         for (uint32_t j = 0; j < dimension; j++) {
