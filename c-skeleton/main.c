@@ -427,6 +427,17 @@ int main(int argc, char *argv[]) {
         free(donnes[i]);
     }
     free(donnes);
+
+    for (uint64_t i = 0; i < nombre_comb; i++) {
+        for (uint32_t j = 0; j < k; j++) {
+            free(initial_combinations[i][j]->coords);
+        }
+        for (uint32_t j = 0; j < k; j++) {
+            free(initial_combinations[i][j]);
+        }
+        free(initial_combinations[i]);
+    }
+    free(initial_combinations);
      // Libération de la mémoire allouée pour initial_centroids
     for(int64_t i = 0; i < nombre_comb; i++) {
         free(initial_centroids[i]->coords);
@@ -442,18 +453,6 @@ int main(int argc, char *argv[]) {
     }
     free(final_centroids);
 
-    
-    for (uint64_t i = 0; i < nombre_comb; i++) {
-        for (uint32_t j = 0; j < k; j++) {
-            free(initial_combinations[i][j]->coords);
-        }
-        for (uint32_t j = 0; j < k; j++) {
-            free(initial_combinations[i][j]);
-        }
-        free(initial_combinations[i]);
-    }
-    free(initial_combinations);
-
 
      // Libération de la mémoire allouée pour temps_cluster
     for(int64_t i = 0; i < k; i++) {
@@ -463,8 +462,20 @@ int main(int argc, char *argv[]) {
     }
     free(temps_cluster);
 
+    // Libération de la mémoire allouée pour solCluster
+    for(int64_t i = 0; i < k; i++) {
+        free(solCluster[i]->centroide.coords);
+        free(solCluster[i]->data);
+        free(solCluster[i]);
+    }
+    free(solCluster);
+
     free(temp_centroide->coords);
     free(temp_centroide);
+
+    // Libération de la mémoire allouée pour solCentroide
+    free(solCentroide->coords);
+    free(solCentroide);
 
      // Libération de la mémoire allouée pour temps_result_cluster
     for(int64_t i = 0; i < nombre_comb; i++) {
@@ -485,25 +496,6 @@ int main(int argc, char *argv[]) {
         free(clusters_list[i]);
     }
     free(clusters_list);
-
-
-    // Libération de la mémoire allouée pour solCluster
-    for(int64_t i = 0; i < k; i++) {
-        free(solCluster[i]->centroide.coords);
-        free(solCluster[i]->data);
-        free(solCluster[i]);
-    }
-    free(solCluster);
-
-    
-
-    // Libération de la mémoire allouée pour solCentroide
-    //free(solCentroide);
-
-    // Libération de la mémoire allouée pour temp_centroide
-    //free(temp_centroide);
-
-
 
     printf("%d\n", 16);
 

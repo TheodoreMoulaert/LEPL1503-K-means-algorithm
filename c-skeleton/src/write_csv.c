@@ -85,5 +85,5 @@ void write_csv(FILE *output_file, uint64_t* distortion, point_t **centroid_init_
         fprintf(output_file, "]\"\n");
     }
 
-    fclose(output_file);
+    
 }
