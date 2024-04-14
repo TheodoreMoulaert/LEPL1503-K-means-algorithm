@@ -417,22 +417,12 @@ int main(int argc, char *argv[]) {
     write_csv(output_file, distortion_list,initial_centroids, final_centroids, clusters_list, k, dimension, nombre_comb); 
     printf("%d\n", 15);
 
-    // Libérer la mémoire pour les combinaisons initiales
-    for (int i = 0; i < nombre_comb; i++) {
-        for (int j = 0; j < k; j++) {
-            free(initial_combinations[i][j]);
-            initial_combinations[i][j] = NULL;
-        }
-        free(initial_combinations[i]);
-        initial_combinations[i] = NULL;
-    }
-    free(initial_combinations);
-    initial_combinations = NULL;
 
     // Libérer la mémoire pour les centroids initiaux
     for (int i = 0; i < nombre_comb; i++) {
         for (int j = 0; j < k; j++) {
             free(initial_centroids[i][j].coords);
+            //free(initial_centroids[i][j]);
         }
         free(initial_centroids[i]);
     }
@@ -442,14 +432,22 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < nombre_comb; i++) {
         for (int j = 0; j < k; j++) {
             free(final_centroids[i][j].coords);
+            //free(final_centroids[i][j]);
         }
         free(final_centroids[i]);
     }
     free(final_centroids);
 
+    // Libérer la mémoire pour la solution du cluster
+    for (int64_t i = 0; i < k; i++) {
+        free(solCluster[i]);
+    }
+    free(solCluster);
+
     // Libérer la mémoire pour les clusters
     for (int64_t i = 0; i < nombre_comb; i++) {
         for (int64_t j = 0; j < k; j++) {
+            //free(clusters_list[i][j]->centroide.coords);
             free(clusters_list[i][j]);
         }
         free(clusters_list[i]);
@@ -458,25 +456,31 @@ int main(int argc, char *argv[]) {
 
     // Libérer la mémoire pour les points de données
     for (uint64_t i = 0; i < npoints; i++) {
-        
             // Libérer le tableau coords
+        //free(donnes[i][0].coords);
         free(donnes[i]->coords);
         free(donnes[i]);
     }
     free(donnes);
-    /*for (uint64_t i = 0; i < npoints; i++) {
-        for (uint32_t j = 0; j < dimension; j++) {
-            free(donnes[i][j].coords);
-            donnes[i][j].coords = NULL;
+
+    // Libérer la mémoire pour les combinaisons initiales
+    for (int i = 0; i < nombre_comb; i++) {
+        for (int j = 0; j < k; j++) {
+            free(initial_combinations[i][j]->coords);
+            free(initial_combinations[i][j]);
+            initial_combinations[i][j] = NULL;
         }
-        free(donnes[i]);
-        donnes[i] = NULL;
+        free(initial_combinations[i]);
+        initial_combinations[i] = NULL;
     }
-    free(donnes);*/
+    free(initial_combinations);
+    initial_combinations = NULL;
+    
 
     // Libérer la mémoire pour les clusters temporaires
     for (int i = 0; i < k; i++) {
         free(temps_cluster[i]->centroide.coords);
+        free(temps_cluster[i]->data);
         free(temps_cluster[i]);
     }
     free(temps_cluster);
@@ -491,11 +495,10 @@ int main(int argc, char *argv[]) {
     free(solCentroide->coords);
     free(solCentroide);
 
-    // Libérer la mémoire pour la solution du cluster
-    for (int64_t i = 0; i < k; i++) {
-        free(solCluster[i]);
-    }
-    free(solCluster);
+    free(temp_centroide->coords);
+    free(temp_centroide);
+
+    
     
 
 
