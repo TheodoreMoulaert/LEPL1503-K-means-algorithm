@@ -457,6 +457,17 @@ int main(int argc, char *argv[]) {
 
     // Libérer la mémoire pour les points de données
     for (uint64_t i = 0; i < npoints; i++) {
+        if (donnes[i] != NULL) {
+            // Libérer le tableau coords
+            free(donnes[i]->coords);
+            // Libérer la structure point_t
+            free(donnes[i]);
+        }
+    }
+
+    // Libérer le tableau de pointeurs vectors
+    free(donnes);
+    /*for (uint64_t i = 0; i < npoints; i++) {
         for (uint32_t j = 0; j < dimension; j++) {
             free(donnes[i][j].coords);
             donnes[i][j].coords = NULL;
@@ -464,7 +475,7 @@ int main(int argc, char *argv[]) {
         free(donnes[i]);
         donnes[i] = NULL;
     }
-    free(donnes);
+    free(donnes);*/
 
     // Libérer la mémoire pour les clusters temporaires
     for (int i = 0; i < k; i++) {
