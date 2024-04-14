@@ -150,7 +150,8 @@ int main(int argc, char *argv[]) {
         DISTANCE_SQUARED = squared_euclidean_distance;
     }
     fprintf(stderr, "%d\n",0);
-    donnes =  point_input(input_file, &dimension, &npoints); 
+    donnes =  point_input(input_file, &dimension, &npoints);
+    printf(" &npoints %ld\n", npoints) ;
     printf(" donnes[0][0].coords[0] = %ld\n", donnes[0][0].coords[0]);
     printf(" donnes[6][0].coords[0] = %ld\n", donnes[6][0].coords[0]);
     printf("%d\n", 1);
@@ -456,13 +457,13 @@ int main(int argc, char *argv[]) {
     free(clusters_list);
 
     // Libérer la mémoire pour les points de données
-    for (uint64_t i = 0; i < npoints; i++) {
-        if (donnes[i] != NULL) {
-            // Libérer le tableau coords
-            free(donnes[i]->coords);
-            // Libérer la structure point_t
-            free(donnes[i]);
-        }
+    for (uint64_t*  i = 0; i < &npoints; i++) {
+    
+        // Libérer le tableau coords
+        free(donnes[i*]->coords);
+        // Libérer la structure point_t
+        free(donnes[i*]);
+        
     }
 
     // Libérer le tableau de pointeurs vectors
