@@ -289,14 +289,18 @@ int main(int argc, char *argv[]) {
             // Gestion d'erreur si l'allocation échoue
             exit(EXIT_FAILURE);
         }
-        temps_cluster[i]->data = (point_t**)malloc(npoints * sizeof(point_t *));
-        /*for (int t=0;t<npoints;t++){
-            uint64_t s =donnes[t]->nbr_vector;
-            temps_cluster[i]->data[t] = malloc(s*sizeof(point_t));
-            temps_cluster[i]->data[t]->dim =  donnes[t]->dim;
-            temps_cluster[i]->data[t]->coords = malloc(dimension * sizeof(int64_t));
-            temps_cluster[i]->data[t]->nbr_vector = s;
+        temps_cluster[i]->data = (point_t**)malloc(k * sizeof(point_t *));
+        /*for (int t=0;t<k;t++){
+            //uint64_t s =donnes[t]->nbr_vector;
+            //temps_cluster[i]->data[t] = malloc(s*sizeof(point_t));
+            printf("%d\n", 2);
+            temps_cluster[i]->data[t]->dim =  dimension;
+            printf("%d\n", 2);
+            temps_cluster[i][0].data[t]->coords = (int64_t *)malloc(dimension * sizeof(int64_t));
+            printf("%d\n", 2);
+            temps_cluster[i]->data[t]->nbr_vector = k;
         }*/
+        printf("%d\n", 22);
         temps_cluster[i]->centroide.coords = (int64_t *)malloc(dimension * sizeof(int64_t));
         //temps_cluster[i]->centroide.dim = initial_centroids[0][0].dim;
         //temps_cluster[i]->centroide.nbr_vector=initial_centroids[0][0].nbr_vector;
@@ -304,12 +308,27 @@ int main(int argc, char *argv[]) {
     for (int i =0;i< nombre_comb;i++){
         for (int j=0;j<k;j++){
             temps_cluster[j]->centroide.dim = initial_centroids[i][j].dim;
+            printf("%d\n", 222);
             memcpy(temps_cluster[j]->centroide.coords, initial_centroids[i][j].coords, dimension * sizeof(int64_t));
+            printf("%d\n", 2222);
             temps_cluster[j]->centroide.nbr_vector = initial_centroids[i][j].nbr_vector;
-            temps_cluster[j]->data = donnes;//initial_centroids[i][j];
-            temps_cluster[j]->size = initial_centroids[i][j].nbr_vector;
+            printf("%d\n", 22222);
+            for (int t=0; t<k;t++){
+                temps_cluster[j]->data[t] = donnes[j+t];//initial_centroids[i][j];
+                temps_cluster[j]->data[t]->dim= dimension;
+                temps_cluster[j]->data[t]->nbr_vector= 1;
+            }
+            //temps_cluster[j]->data[j] = donnes[j+t];//initial_centroids[i][j];
+            printf("%d\n", 222222);
+            temps_cluster[j]->size = k;
+
+            
         }
     }
+    printf("temps_cluster[0][0].data[0][0].coords[0] = %ld\n", temps_cluster[0][0].data[0][0].coords[0]);
+    printf("temps_cluster[0][0].data[1][0].coords[0] = %ld\n", temps_cluster[0][0].data[1][0].coords[0]);
+    printf("temps_cluster[1][0].data[0][0].coords[0] = %ld\n", temps_cluster[1][0].data[0][0].coords[0]);
+    printf("temps_cluster[1][0].data[1][0].coords[0] = %ld\n", temps_cluster[1][0].data[1][0].coords[0]);
       
     point_t* solCentroide = (point_t*)malloc(k*sizeof(point_t)); 
     //for (int i=0;i<k;i++){
@@ -355,14 +374,14 @@ int main(int argc, char *argv[]) {
             printf("temps_cluster[j]->centroide.coords[0]= %ld\n", temps_cluster[j]->centroide.coords[0]);
             printf("initial_centroids[i][j].coords[0]= %ld\n", initial_centroids[i][j].coords[0]);
             printf("donnes[j][0].coords[0] = %ld\n", donnes[6][0].coords[0]);
-            printf("temps_cluster[i][j].data[0][0].coords[0] = %ld\n", temps_cluster[j][0].data[6][0].coords[0]);
+            printf("temps_cluster[i][j].data[0][0].coords[0] = %ld\n", temps_cluster[0][0].data[1][0].coords[0]);
         
             printf("%d\n", 9);
             temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], final_centroids[i], DISTANCE_SQUARED);
-            printf("temps_result_cluster[0][0].data[0][0].coords[0] = %ld\n", temps_result_cluster[0][0].data[1][0].coords[0]);
-            printf("temps_result_cluster[0][0].data[0][0].coords[1] = %ld\n", temps_result_cluster[0][0].data[1][0].coords[1]);
+            printf("temps_result_cluster[0][0].data[0][0].coords[0] = %ld\n", temps_result_cluster[0][0].data[0][0].coords[0]);
+            printf("temps_result_cluster[0][0].data[0][0].coords[1] = %ld\n", temps_result_cluster[0][0].data[0][0].coords[1]);
             printf("temps_result_cluster[1][0].data[0][0].coords[0] = %ld\n", temps_result_cluster[1][0].data[1][0].coords[0]);
-            printf("temps_result_cluster[1][0].data[6][0].coords[1] = %ld\n", temps_result_cluster[1][0].data[6][0].coords[1]);
+            printf("temps_result_cluster[1][0].data[6][0].coords[1] = %ld\n", temps_result_cluster[1][0].data[1][0].coords[1]);
             printf("temps_result_cluster[1][0].centroide.coords[1]= %ld\n", temps_result_cluster[1][0].centroide.coords[1]);
             printf("%d\n", 10);
             for (uint32_t m=0 ; m<k; m++){
@@ -390,11 +409,11 @@ int main(int argc, char *argv[]) {
     printf("clusters_list[0][0][0].data[0][0].coords[0]= %ld\n", clusters_list[0][0][0].data[0][0].coords[0]);
     printf("clusters_list[0][0][0].data[0][0].coords[1]= %ld\n", clusters_list[0][0][0].data[0][0].coords[1]);
     printf("clusters_list[0][0][0].data[1][0].coords[0]= %ld\n", clusters_list[0][0][0].data[1][0].coords[0]);
-    printf(" clusters_list[0][0][0].data[1][0].coords[1]= %ld\n", clusters_list[0][0][0].data[6][0].coords[1]);
+    printf(" clusters_list[0][0][0].data[1][0].coords[1]= %ld\n", clusters_list[0][0][0].data[1][0].coords[1]);
     printf("clusters_list[0][1][0].data[0][0].coords[0]= %ld\n", clusters_list[0][1][0].data[0][0].coords[0]);
     printf("clusters_list[0][1][0].data[0][0].coords[1]= %ld\n", clusters_list[0][1][0].data[0][0].coords[1]);
     printf("clusters_list[0][1][0].data[1][0].coords[0]= %ld\n", clusters_list[0][1][0].data[1][0].coords[0]);
-    printf("clusters_list[0][1][0].data[1][0].coords[1]= %ld\n", clusters_list[0][1][0].data[6][0].coords[1]);
+    printf("clusters_list[0][1][0].data[1][0].coords[1]= %ld\n", clusters_list[0][1][0].data[1][0].coords[1]);
     printf("clusters_list[0][1][0].data[6][0].nbr_vector= %ld\n", clusters_list[0][1][0].data[0]->nbr_vector);
     printf("clusters_list[0][1]->size= %ld\n", clusters_list[0][1]->size);
     printf("clusters_list[0][1][0].size= %ld\n", clusters_list[0][0][0].size);
