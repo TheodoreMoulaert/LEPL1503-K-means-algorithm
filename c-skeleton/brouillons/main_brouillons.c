@@ -152,7 +152,7 @@ int main(int argc, char *argv[]) {
     fprintf(stderr, "%d\n",0);
     donnes =  point_input(input_file, &dimension, &npoints);
     printf(" npoints %ld\n", npoints) ;
-    printf(" donnes[0]->nbr_vector %ld\n", donnes[0]->nbr_vector) ;
+    printf(" donnes[0]->nbr_vector %ld\n", donnes[0][0].nbr_vector) ;
     printf(" donnes[1]->nbr_vector %ld\n", donnes[6]->nbr_vector) ;
     printf(" donnes[0][0].coords[0] = %ld\n", donnes[0][0].coords[0]);
     printf(" donnes[9][0].coords[0] = %ld\n", donnes[6][0].coords[0]);

@@ -427,7 +427,7 @@ int main(int argc, char *argv[]) {
     write_csv(output_file, distortion_list,initial_centroids, final_centroids, clusters_list, k, dimension, nombre_comb); 
     printf("%d\n", 15);
 
-
+    //printf(" donnes[1]->nbr_vector %ld\n", donnes[7]->nbr_vector) ;
     // Libérer la mémoire pour les centroids initiaux
     for (int i = 0; i < nombre_comb; i++) {
         for (int j = 0; j < k; j++) {

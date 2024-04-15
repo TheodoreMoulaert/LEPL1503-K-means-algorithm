@@ -5,6 +5,7 @@
         "update_centroids.h": "c",
         "binary_file_reader.h": "c",
         "distance.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "assign_vector_to_centro.h": "c"
     }
 }
