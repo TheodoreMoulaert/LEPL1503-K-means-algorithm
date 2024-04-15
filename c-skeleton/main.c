@@ -152,6 +152,8 @@ int main(int argc, char *argv[]) {
     fprintf(stderr, "%d\n",0);
     donnes =  point_input(input_file, &dimension, &npoints);
     printf(" npoints %ld\n", npoints) ;
+    printf(" donnes[0]->nbr_vector %ld\n", donnes[0]->nbr_vector) ;
+    printf(" donnes[1]->nbr_vector %ld\n", donnes[6]->nbr_vector) ;
     printf(" donnes[0][0].coords[0] = %ld\n", donnes[0][0].coords[0]);
     printf(" donnes[9][0].coords[0] = %ld\n", donnes[6][0].coords[0]);
     printf("%d\n", 1);
@@ -270,14 +272,14 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    cluster_t **temps_cluster = (cluster_t **)malloc(k * sizeof(cluster_t *));
+    cluster_t **temps_cluster = (cluster_t **)malloc(k *sizeof(cluster_t *));//k * 
     if (temps_cluster == NULL) {
         // Gestion d'erreur si l'allocation échoue
         exit(EXIT_FAILURE);
     }
 
     // Allocation et initialisation de chaque élément de la matrice
-    for (int i = 0; i < k; i++) {
+    for (int i = 0; i < k; i++) { //k
         // Utilisation de calloc pour initialiser chaque élément à NULL
         temps_cluster[i] = (cluster_t *)calloc(nombre_comb, sizeof(cluster_t));
         if (temps_cluster[i] == NULL) {
