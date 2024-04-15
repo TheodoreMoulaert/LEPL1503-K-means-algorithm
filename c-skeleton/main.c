@@ -284,7 +284,7 @@ int main(int argc, char *argv[]) {
             // Gestion d'erreur si l'allocation échoue
             exit(EXIT_FAILURE);
         }
-        temps_cluster[i]->data = (point_t**)malloc(k * sizeof(point_t *));
+        temps_cluster[i]->data = (point_t**)malloc(k * sizeof(point_t *));//k
         /*for (int t=0;t<k;t++){
             //uint64_t s =donnes[t]->nbr_vector;
             //temps_cluster[i]->data[t] = malloc(s*sizeof(point_t));
