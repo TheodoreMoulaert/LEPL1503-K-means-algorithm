@@ -35,7 +35,7 @@ cluster_t** k_means(cluster_t** clusters, int num_points, int k, point_t *initia
         // Sauvegarde les anciens centroids
         for (int j = 0; j < k; j++) {
             old_centroids[j].dim = final_centroids[j].dim;
-            old_centroids[j].coords = (int64_t *)malloc(final_centroids[j].dim * sizeof(int64_t));
+            old_centroids[j].coords = (int64_t *)calloc(final_centroids[j].dim ,sizeof(int64_t));
             if (old_centroids[j].coords == NULL) {
                 fprintf(stderr, "L'allocation de mémoire a échoué pour old_centroids.\n");
                 for (int l = 0; l < j; l++) {
