@@ -155,7 +155,7 @@ int main(int argc, char *argv[]) {
     printf(" donnes[0]->nbr_vector %ld\n", donnes[0]->nbr_vector) ;
     printf(" donnes[1]->nbr_vector %ld\n", donnes[6]->nbr_vector) ;
     printf(" donnes[0][0].coords[0] = %ld\n", donnes[0][0].coords[0]);
-    printf(" donnes[9][0].coords[0] = %ld\n", donnes[6][0].coords[0]);
+    printf(" donnes[6][0].coords[0] = %ld\n", donnes[6][0].coords[0]);
     printf("%d\n", 1);
     if(p>npoints)
     {
@@ -319,19 +319,20 @@ int main(int argc, char *argv[]) {
         }
         s++;
     }*/
-    for (int64_t i =0;i< k;i++){
-        //for (uint32_t j=0;j<k;j++){
-        temps_cluster[i]->centroide.dim = dimension;
-        printf("%d\n", 23);
-        memcpy(temps_cluster[i]->centroide.coords, initial_centroids[0][i].coords, dimension * sizeof(int64_t));
-        printf("%d\n", 24);
-        temps_cluster[i]->centroide.nbr_vector = initial_centroids[0][i].nbr_vector;
-        temps_cluster[i]->data = donnes;//initial_centroids[i][j];
-            //temps_cluster[j]->data->dim= dimension;
-            //temps_cluster[j]->data[t]->nbr_vector= 1;
-        
-        temps_cluster[i]->size = npoints;//k;
-    //}
+    for (int64_t i=0;i<nombre_comb;i++){
+        for (uint32_t j =0;j< k;j++){
+            //for (uint32_t j=0;j<k;j++){
+            temps_cluster[i]->centroide.dim = dimension;
+            printf("%d\n", 23);
+            memcpy(temps_cluster[i]->centroide.coords, initial_centroids[i]->coords, dimension * sizeof(int64_t));
+            printf("%d\n", 24);
+            temps_cluster[i]->centroide.nbr_vector = initial_centroids[i]->nbr_vector;
+            temps_cluster[i]->data = donnes;//initial_centroids[i][j];
+                //temps_cluster[j]->data->dim= dimension;
+                //temps_cluster[j]->data[t]->nbr_vector= 1;
+            
+            temps_cluster[i]->size = npoints;//k;
+        }
     }
 
     
