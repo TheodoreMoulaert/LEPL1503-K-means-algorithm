@@ -468,7 +468,6 @@ int main(int argc, char *argv[]) {
     // Libérer la mémoire pour les clusters
     for (int64_t i = 0; i < nombre_comb; i++) {
         for (int64_t j = 0; j < k; j++) {
-            //free(clusters_list[i][j]->centroide.coords);
             free(clusters_list[i][j]);
         }
         free(clusters_list[i]);
@@ -477,8 +476,6 @@ int main(int argc, char *argv[]) {
 
     // Libérer la mémoire pour les points de données
     for (uint64_t i = 0; i < npoints; i++) {
-            // Libérer le tableau coords
-        //free(donnes[i][0].coords);
         free(donnes[i]->coords);
         free(donnes[i]);
     }
