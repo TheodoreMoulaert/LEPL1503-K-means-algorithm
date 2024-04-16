@@ -1,117 +1,76 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include "../headers/point.h"
 #include "../headers/cluster.h"
 #include "../headers/write_csv.h"
 
+// Définir une fonction main de test
 int main() {
+    // Créer un fichier de sortie
     FILE *output_file = fopen("output.csv", "w");
     if (output_file == NULL) {
-        printf("Erreur lors de l'ouverture du fichier de sortie.\n");
+        perror("Erreur lors de l'ouverture du fichier de sortie");
         return EXIT_FAILURE;
     }
 
-    uint64_t distortion[] = {10, 20, 30}; // Exemple de tableau de distorsion
-    int64_t k = 3; // Exemple de nombre de clusters
-    int64_t dimension = 2; // Exemple de dimension des points
-    int64_t nombre_comb = 3; // Exemple de nombre de combinaisons
+    // Définir les données de test
+    uint64_t distortion[] = {10, 15, 20};
+    int64_t k = 3;
+    int64_t dimension = 2;
+    int64_t nombre_comb = 3;
 
-    // Exemple de tableaux de points initiaux et finaux
-    point_t **centroid_init_Array = (point_t **)malloc(nombre_comb * sizeof(point_t *));
-    point_t **centroid_final_Array = (point_t **)malloc(nombre_comb * sizeof(point_t *));
-    // Exemple de tableau de tableaux de clusters
-    cluster_t ***clustersArray = (cluster_t ***)malloc(nombre_comb * sizeof(cluster_t **));
+    // Allouer et initialiser des tableaux de points et de clusters pour le test
+    point_t **centroid_init_Array = malloc(nombre_comb * sizeof(point_t *));
+    point_t **centroid_final_Array = malloc(nombre_comb * sizeof(point_t *));
+    cluster_t ***clustersArray = malloc(nombre_comb * sizeof(cluster_t **));
 
-    // Vérification si l'allocation dynamique a réussi
-    if (centroid_init_Array == NULL || centroid_final_Array == NULL || clustersArray == NULL) {
-        printf("Erreur lors de l'allocation de mémoire.\n");
-        return EXIT_FAILURE;
-    }
+    for (int i = 0; i < nombre_comb; i++) {
+        centroid_init_Array[i] = malloc(k * sizeof(point_t));
+        centroid_final_Array[i] = malloc(k * sizeof(point_t));
+        clustersArray[i] = malloc(k * sizeof(cluster_t *));
 
-    // Initialisation des tableaux avec des valeurs factices pour le test
-    for (int64_t i = 0; i < nombre_comb; i++) {
-        centroid_init_Array[i] = (point_t *)malloc(k*sizeof(point_t));
-        centroid_final_Array[i] = (point_t *)malloc(k*sizeof(point_t));
-        clustersArray[i] = (cluster_t **)malloc((k + 1) * sizeof(cluster_t *));
+        for (int j = 0; j < k; j++) {
+            centroid_init_Array[i][j].dim = dimension;
+            centroid_init_Array[i][j].coords = malloc(dimension * sizeof(int64_t));
+            centroid_final_Array[i][j].dim = dimension;
+            centroid_final_Array[i][j].coords = malloc(dimension * sizeof(int64_t));
 
-        // Vérification si l'allocation dynamique a réussi
-        if (centroid_init_Array[i] == NULL || centroid_final_Array[i] == NULL || clustersArray[i] == NULL) {
-            printf("Erreur lors de l'allocation de mémoire.\n");
-            return EXIT_FAILURE;
-        }
-
-        centroid_init_Array[i]->dim = dimension;
-        centroid_init_Array[i]->coords = (int64_t *)malloc(dimension * sizeof(int64_t));
-        centroid_final_Array[i]->dim = dimension;
-        centroid_final_Array[i]->coords = (int64_t *)malloc(dimension * sizeof(int64_t));
-
-        // Vérification si l'allocation dynamique a réussi
-        if (centroid_init_Array[i]->coords == NULL || centroid_final_Array[i]->coords == NULL) {
-            printf("Erreur lors de l'allocation de mémoire.\n");
-            return EXIT_FAILURE;
-        }
-
-        for (int64_t j = 0; j < dimension; j++) {
-            centroid_init_Array[i]->coords[j] = i * j; // Valeurs factices
-            centroid_final_Array[i]->coords[j] = i * j + 5; // Valeurs factices
-        }
-
-        clustersArray[i][0] = (cluster_t *)malloc(sizeof(cluster_t));
-        clustersArray[i][0]->size = 3;
-        clustersArray[i][0]->data = (point_t **)malloc(clustersArray[i][0]->size * sizeof(point_t *));
-
-        // Vérification si l'allocation dynamique a réussi
-        if (clustersArray[i][0] == NULL || clustersArray[i][0]->data == NULL) {
-            printf("Erreur lors de l'allocation de mémoire.\n");
-            return EXIT_FAILURE;
-        }
-
-        for (int64_t j = 0; j < clustersArray[i][0]->size; j++) {
-            clustersArray[i][0]->data[j] = (point_t *)malloc(sizeof(point_t));
-
-            // Vérification si l'allocation dynamique a réussi
-            if (clustersArray[i][0]->data[j] == NULL) {
-                printf("Erreur lors de l'allocation de mémoire.\n");
-                return EXIT_FAILURE;
+            for (int d = 0; d < dimension; d++) {
+                centroid_init_Array[i][j].coords[d] = i + j + d; // Valeurs arbitraires pour le test
+                centroid_final_Array[i][j].coords[d] = i * j * d; // Valeurs arbitraires pour le test
             }
 
-            clustersArray[i][0]->data[j]->dim = dimension;
-            clustersArray[i][0]->data[j]->coords = (int64_t *)malloc(dimension * sizeof(int64_t));
-
-            // Vérification si l'allocation dynamique a réussi
-            if (clustersArray[i][0]->data[j]->coords == NULL) {
-                printf("Erreur lors de l'allocation de mémoire.\n");
-                return EXIT_FAILURE;
-            }
-
-            for (int64_t d = 0; d < dimension; d++) {
-                clustersArray[i][0]->data[j]->coords[d] = i * j * d; // Valeurs factices
+            clustersArray[i][j] = malloc(sizeof(cluster_t));
+            clustersArray[i][j]->size = j + 1; // Taille arbitraire pour le test
+            clustersArray[i][j]->data = malloc((j + 1) * sizeof(point_t *));
+            for (int l = 0; l <= j; l++) {
+                clustersArray[i][j]->data[l] = &centroid_init_Array[i][j]; // Utilisation des mêmes points pour le test
             }
         }
     }
 
-    // Appel de la fonction write_csv
+    // Appeler la fonction à tester
     write_csv(output_file, distortion, centroid_init_Array, centroid_final_Array, clustersArray, k, dimension, nombre_comb);
 
-    // Libération de la mémoire allouée
-    for (int64_t i = 0; i < nombre_comb; i++) {
-        free(centroid_init_Array[i]->coords);
-        free(centroid_init_Array[i]);
-        free(centroid_final_Array[i]->coords);
-        free(centroid_final_Array[i]);
-
-        for (int64_t j = 0; j < clustersArray[i][0]->size; j++) {
-            free(clustersArray[i][0]->data[j]->coords);
-            free(clustersArray[i][0]->data[j]); 
+    // Libérer la mémoire allouée
+    for (int i = 0; i < nombre_comb; i++) {
+        for (int j = 0; j < k; j++) {
+            free(centroid_init_Array[i][j].coords);
+            free(centroid_final_Array[i][j].coords);
+            free(clustersArray[i][j]->data);
+            free(clustersArray[i][j]);
         }
-        free(clustersArray[i][0]->data);
-        free(clustersArray[i][0]);
+        free(centroid_init_Array[i]);
+        free(centroid_final_Array[i]);
         free(clustersArray[i]);
     }
     free(centroid_init_Array);
     free(centroid_final_Array);
     free(clustersArray);
 
+    // Fermer le fichier de sortie
     fclose(output_file);
+
     return EXIT_SUCCESS;
 }

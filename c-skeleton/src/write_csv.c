@@ -76,14 +76,13 @@ void write_csv(FILE *output_file, uint64_t* distortion, point_t **centroid_init_
     fprintf(output_file, "initialization centroids, distortion, centroids, clusters\n");
 
     for (int64_t i = 0; i < nombre_comb; i++) {
-        fprintf(output_file, "\"[");
-        write_centroid(output_file, centroid_init_Array[i],k);
-        fprintf(output_file, ",%" PRId64 ",", distortion[i]);
-        write_centroid(output_file, centroid_final_Array[i],k);
-        fprintf(output_file, ",");
-        write_cluster(output_file, clustersArray[i],k);
-        fprintf(output_file, "]\"\n");
+        fprintf(output_file, "\"");
+        write_centroid(output_file, centroid_init_Array[i], k);
+        fprintf(output_file, "\",%" PRId64 ",\"", distortion[i]);
+        write_centroid(output_file, centroid_final_Array[i], k);
+        fprintf(output_file, "\",\"");
+        write_cluster(output_file, clustersArray[i], k);
+        fprintf(output_file, "\"\n");
     }
-
-    
 }
+
