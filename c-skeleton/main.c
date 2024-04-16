@@ -17,6 +17,12 @@
 #include "../c-skeleton/headers/assign_vector_to_centro.h"
 #include "../c-skeleton/headers/update_centroids.h"
 
+/*
+NOTES:
+- le nombre d'erreurs augmentent avec k et p donc c'est que le nombre de free n'est pas ajusté avec k et p
+- est ce que int au lieu de uint.... ça peut créer des erreurs ?
+- regarder si il faut pas faire des free dans le code au lieu de tout à la fin
+*/
 
 
 
