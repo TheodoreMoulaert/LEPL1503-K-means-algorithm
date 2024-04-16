@@ -5,6 +5,17 @@
 #include "../headers/distance.h"
 #include "../headers/cluster.h"
 
+// Définition de la fonction assign_vectors_to_centroides
+/**
+ * @brief Assignation des vecteurs aux centroids les plus proches
+ * 
+ * @param centroids Tableau des centroids
+ * @param clusters Tableau de pointeurs vers les clusters
+ * @param K Nombre de clusters
+ * @param distance_func Fonction de calcul de distance
+ * @return Résultat de l'assignation
+ */
+
 result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, uint32_t K, squared_distance_func_t distance_func) {
     result_t result;
     result.changes = false;
