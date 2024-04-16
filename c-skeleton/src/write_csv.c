@@ -52,11 +52,11 @@ void write_cluster(FILE *file, cluster_t **cluster, int64_t k) {
                 fprintf(file, ",");
             }
             fprintf(file, "(");
-            if (cluster[i]->data[j] == NULL || cluster[i]->data[j]->coords == NULL || cluster[i]->data[j]->dim <= 0) {
+            if (cluster[i]->data[j].coords == NULL || cluster[i]->data[j].coords == NULL || cluster[i]->data[j].dim <= 0) {
                 fprintf(file, "Erreur : point invalide dans le cluster.\n");
                 continue;
             }
-            fprintf(file, "%" PRId64 ",%" PRId64 "", cluster[i][0].data[j]->coords[0], cluster[i][0].data[j]->coords[1]);
+            fprintf(file, "%" PRId64 ",%" PRId64 "", cluster[i][0].data[j].coords[0], cluster[i][0].data[j].coords[1]);
             fprintf(file, ")");
         }
         if (i<k-1){
