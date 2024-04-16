@@ -31,8 +31,8 @@ void test_k_means() {
     point_t initial_centroids[k];
     initial_centroids[0].dim = 2;
     initial_centroids[0].coords = malloc(2 * sizeof(int64_t));
-    initial_centroids[0].coords[0] = 1;
-    initial_centroids[0].coords[1] = 1;
+    initial_centroids[0].coords[0] = 2;
+    initial_centroids[0].coords[1] = 2;
 
     initial_centroids[1].dim = 2;
     initial_centroids[1].coords = malloc(2 * sizeof(int64_t));
