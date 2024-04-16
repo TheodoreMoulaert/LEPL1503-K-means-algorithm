@@ -287,7 +287,7 @@ int main(int argc, char *argv[]) {
     // Allocation et initialisation de chaque élément de la matrice
     for (int i = 0; i < k; i++) { //k
         // Utilisation de calloc pour initialiser chaque élément à NULL
-        temps_cluster[i] = (cluster_t *)calloc(nombre_comb, sizeof(cluster_t));
+        temps_cluster[i] = (cluster_t *)calloc(npoints, sizeof(cluster_t)); //nombre_comb
         if (temps_cluster[i] == NULL) {
             // Gestion d'erreur si l'allocation échoue
             exit(EXIT_FAILURE);
@@ -325,6 +325,8 @@ int main(int argc, char *argv[]) {
         }
         s++;
     }*/
+
+
     for (int64_t i =0;i< nombre_comb;i++){
         for (uint32_t j=0;j<k;j++){
             temps_cluster[j]->centroide.dim = initial_centroids[i][j].dim;
@@ -349,8 +351,8 @@ int main(int argc, char *argv[]) {
     }
 
     
-    printf("temps_cluster[0][0].data[0][0].coords[0] %ld\n, temps_cluster[0][0].data[0][0].coords[1]  = %ld\n", temps_cluster[0][0].data[0][0].coords[0],temps_cluster[0][0].data[0][0].coords[1]); 
-    printf("temps_cluster[0][0].data[1][0].coords[0] = %ld\n temps_cluster[0][0].data[1][0].coords[0] = %ld\n", temps_cluster[0][0].data[1][0].coords[0], temps_cluster[0][0].data[1][0].coords[1]);
+    //printf("temps_cluster[0][0].data[0][0].coords[0] %ld\n, temps_cluster[0][0].data[0][0].coords[1]  = %ld\n", temps_cluster[0][0].data[0][0].coords[0],temps_cluster[0][0].data[0][0].coords[1]); 
+    //printf("temps_cluster[0][0].data[1][0].coords[0] = %ld\n temps_cluster[0][0].data[1][0].coords[0] = %ld\n", temps_cluster[0][0].data[1][0].coords[0], temps_cluster[0][0].data[1][0].coords[1]);
     //printf("temps_cluster[1][0].data[0][0].coords[0] = %ld\n", temps_cluster[1][0].data[0][0].coords[0]);
     //printf("temps_cluster[1][0].data[1][0].coords[0] = %ld\n", temps_cluster[1][0].data[1][0].coords[0]);
 
@@ -365,7 +367,7 @@ int main(int argc, char *argv[]) {
     
     cluster_t** temps_result_cluster= calloc(k, sizeof(cluster_t*)); 
     for(int64_t i = 0; i < k; i++){
-        temps_result_cluster[i] = malloc(sizeof(cluster_t)); 
+        temps_result_cluster[i] = malloc(sizeof(cluster_t)); //nombre_comb*
     }
 
     cluster_t** solCluster = calloc(k, sizeof(cluster_t*)); 
@@ -390,6 +392,7 @@ int main(int argc, char *argv[]) {
             printf("%d\n", 7);
             printf("i : %ld , j : %d\n", i,j);
 
+
             printf("%d\n", 8);
             printf("temps_cluster[j]->centroide.coords[0]= %ld\n", temps_cluster[j]->centroide.coords[0]);
             printf("initial_centroids[i][j].coords[0]= %ld\n", initial_centroids[i][j].coords[0]);
@@ -404,11 +407,14 @@ int main(int argc, char *argv[]) {
             //printf("temps_result_cluster[1][0].data[6][0].coords[1] = %ld\n", temps_result_cluster[1][0].data[1][0].coords[1]);
             //printf("temps_result_cluster[1][0].centroide.coords[1]= %ld\n", temps_result_cluster[1][0].centroide.coords[1]);
             printf("%d\n", 10);
+            //for (int n=0;n<nombre_comb;n++){
             for (uint32_t m=0 ; m<k; m++){
-                temp_centroide[m].coords = temps_result_cluster[m][0].centroide.coords;
-                temp_centroide[m].nbr_vector = temps_result_cluster[m][0].centroide.nbr_vector;
+                temp_centroide[m].coords = temps_result_cluster[m]->centroide.coords;
+                temp_centroide[m].nbr_vector = temps_result_cluster[m]->centroide.nbr_vector;
                 temp_centroide[m].dim = dimension;
             }
+            //}
+            
             printf("%d\n", 11);
             temp_distorsion = distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);//distortion((cluster_t const **)clusters_list[i], k, DISTANCE_SQUARED);//distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);
             printf(" temp_distorsion %ld\n", temp_distorsion);
@@ -419,10 +425,12 @@ int main(int argc, char *argv[]) {
                 solCluster = temps_result_cluster;
             }
             
-            final_centroids[i] = solCentroide; 
+            *final_centroids[i] = *solCentroide; 
             clusters_list[i] = solCluster;
             distortion_list[i] = solDistortion; 
             printf("%d\n", 13);
+
+            
             
         }
     
