@@ -31,7 +31,7 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
     // Exécute des itérations jusqu'à convergence
     bool convergence = false;
     uint64_t i = 0; 
-    while (!convergence) {
+    while (convergence == false) {
         // Sauvegarde les anciens centroids
         for (int j = 0; j < k; j++) {
             old_centroids[j].dim = final_centroids[j].dim;
@@ -78,6 +78,17 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
         convergence = result.changes; 
     
         update_centroids(result.result_cluster, k);
+        clusters = result.result_cluster; 
+        // Mise à jour des centroids finaux avec les nouveaux centroids des clusters
+        for (int j = 0; j < k; j++) {
+            final_centroids[j] = clusters[j]->centroide;
+        }
+        // Affichage des centroids finaux
+        printf("Centroids finaux à l'itération %ld:\n", i + 1);
+        for (int j = 0; j < k; j++) {
+            printf("Centroid %d: (%" PRId64 ", %" PRId64 ")\n", j, final_centroids[j].coords[0], final_centroids[j].coords[1]);
+        }
+
         //printf("%d\n", 5);
         // Libérer la mémoire pour les old_centroids
         for (int j = 0; j < k; j++) {
@@ -89,5 +100,4 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
     // Libérer la mémoire pour les old_centroids
     free(old_centroids);
     return result.result_cluster;
-
 }
