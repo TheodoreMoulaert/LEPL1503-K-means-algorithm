@@ -7,6 +7,6 @@
 #include "../headers/update_centroids.h"
 #include "../headers/assign_vector_to_centro.h"
 
-cluster_t** k_means(cluster_t**clusters_input, int num_points, int k, int64_t nbr_comb, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) ; 
+cluster_t** k_means(cluster_t**clusters_input, uint64_t num_points, uint32_t k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) ; 
 
 #endif  // K_MEANS_H

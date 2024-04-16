@@ -5,7 +5,7 @@
 #include "../headers/distance.h"
 #include "../headers/cluster.h"
 
-result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, uint32_t K, int64_t nbr_comb, squared_distance_func_t distance_func) {
+result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, uint32_t K, squared_distance_func_t distance_func) {
     result_t result;
     result.changes = false;
     result.result_cluster = NULL;
@@ -42,7 +42,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
         new_clusters[i]->centroide.dim = 0; // Initialise la dimension à zéro
         new_clusters[i]->centroide.coords = NULL; // Initialise à NULL, car il n'y a pas encore de coordonnées
     }
-    uint32_t final_cl=0;
+    //uint32_t final_cl=0;
     // Parcourir tous les centroides
     for (uint32_t current_centroid_idx = 0; current_centroid_idx < K; ++current_centroid_idx) {//K nbr_comb
         // Parcourir tous les vecteurs du cluster actuel
@@ -81,7 +81,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             if(current_centroid_idx == closest_centroid_idx){
                 result.changes = true; 
             }
-            final_cl = closest_centroid_idx;
+            //final_cl = closest_centroid_idx;
             
         }
         

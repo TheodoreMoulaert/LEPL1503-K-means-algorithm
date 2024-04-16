@@ -432,6 +432,7 @@ int main(int argc, char *argv[]) {
     printf("clusters_list[0][1][0].data[6][0].nbr_vector= %ld\n", clusters_list[0][1][0].data[0]->nbr_vector);
     printf("clusters_list[0][1]->size= %ld\n", clusters_list[0][1]->size);
     printf("clusters_list[0][1][0].size= %ld\n", clusters_list[0][0][0].size);*/
+
     //print csv
     printf("%d\n", 14);
     write_csv(output_file, distortion_list,initial_centroids, final_centroids, clusters_list, k, dimension, nombre_comb); 
