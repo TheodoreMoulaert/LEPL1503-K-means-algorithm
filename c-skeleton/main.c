@@ -384,11 +384,13 @@ int main(int argc, char *argv[]) {
     printf("initial_centroids[0][1].coords[0] = %ld\n",initial_centroids[0][1].coords[0]);
     printf("initial_centroids[0][1].coords[1]= %ld\n", initial_centroids[0][1].coords[1]);
     
-
+     
     for (uint64_t i = 0; i < nombre_comb; i++) {
+        
         for(uint32_t j = 0; j<k; j++){
+            uint64_t temp_distorsion = 0;
 
-            uint64_t temp_distorsion = 0; 
+            
             printf("%d\n", 7);
             printf("i : %ld , j : %d\n", i,j);
 
@@ -418,7 +420,7 @@ int main(int argc, char *argv[]) {
             printf("%d\n", 11);
             temp_distorsion = distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);//distortion((cluster_t const **)clusters_list[i], k, DISTANCE_SQUARED);//distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);
             printf(" temp_distorsion %ld\n", temp_distorsion);
-            if (solDistortion > temp_distorsion){
+            if (solDistortion > temp_distorsion){ //bizarre le lien avec la convergence et le fait que la distortion augmente dans le fichier python
                 printf("%d\n", 12);
                 solDistortion = temp_distorsion; 
                 solCentroide = temp_centroide; 
@@ -428,7 +430,9 @@ int main(int argc, char *argv[]) {
             *final_centroids[i] = *solCentroide; 
             clusters_list[i] = solCluster;
             distortion_list[i] = solDistortion; 
+            printf(" solDistortion %ld\n", solDistortion);
             printf("%d\n", 13);
+            //temp_distorsion = 0;
 
             
             
