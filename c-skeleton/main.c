@@ -324,20 +324,21 @@ int main(int argc, char *argv[]) {
             temps_cluster[j]->centroide.dim = initial_centroids[i][j].dim;
             memcpy(temps_cluster[j]->centroide.coords, initial_centroids[i][j].coords, dimension * sizeof(int64_t));
             temps_cluster[j]->centroide.nbr_vector = initial_centroids[i][j].nbr_vector;
-            //if (j==0){
-            temps_cluster[j]->data = donnes;//initial_centroids[i][j];
+            if (j==0){
+                temps_cluster[j]->data = donnes;//initial_centroids[i][j];
                 //temps_cluster[j]->data->dim= dimension;
                 //temps_cluster[j]->data[t]->nbr_vector= 1;
             
-                //temps_cluster[j]->size = npoints;//k;
-            //}
-            //else{
-                //temps_cluster[j]->data = NULL;//initial_centroids[i][j];
+                temps_cluster[j]->size = npoints;//k;
+            }
+            else{
+                temps_cluster[j]->data = NULL;//initial_centroids[i][j];
                 //temps_cluster[j]->data->dim= dimension;
                 //temps_cluster[j]->data[t]->nbr_vector= 1;
+                temps_cluster[j]->size = 0;
 
-            //}
-            temps_cluster[j]->size = npoints;//k;
+            }
+            //temps_cluster[j]->size = npoints;//k;
         }
     }
 
