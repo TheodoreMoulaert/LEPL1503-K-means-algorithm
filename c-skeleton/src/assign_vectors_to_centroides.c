@@ -44,7 +44,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
     }
     uint32_t final_cl=0;
     // Parcourir tous les centroides
-    for (uint32_t current_centroid_idx = 0; current_centroid_idx < nbr_comb; ++current_centroid_idx) {//K
+    for (uint32_t current_centroid_idx = 0; current_centroid_idx < K; ++current_centroid_idx) {//K nbr_comb
         // Parcourir tous les vecteurs du cluster actuel
         for (uint64_t i = 0; i < clusters[current_centroid_idx]->size; ++i) { //current_centroid_idx
             point_t *vector = clusters[current_centroid_idx]->data[i];

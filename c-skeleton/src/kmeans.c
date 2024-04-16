@@ -16,7 +16,7 @@ cluster_t** k_means(cluster_t** clusters, int num_points, int k, int64_t nbr_com
         return NULL;
     }
     // Initialise les centroids finaux avec les centroids initiaux
-    for (int i = 0; i < nbr_comb; i++) { //k
+    for (int i = 0; i < k; i++) { //k nbr_comb
         clusters[i]->centroide = initial_centroids[i];
     }
 
