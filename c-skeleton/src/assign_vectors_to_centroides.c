@@ -5,7 +5,7 @@
 #include "../headers/distance.h"
 #include "../headers/cluster.h"
 
-result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, uint32_t K, squared_distance_func_t distance_func) {
+result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, uint32_t K, int64_t nbr_comb, squared_distance_func_t distance_func) {
     result_t result;
     result.changes = false;
     result.result_cluster = NULL;
@@ -42,9 +42,9 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
         new_clusters[i]->centroide.dim = 0; // Initialise la dimension à zéro
         new_clusters[i]->centroide.coords = NULL; // Initialise à NULL, car il n'y a pas encore de coordonnées
     }
-
+    uint32_t final_cl=0;
     // Parcourir tous les centroides
-    for (uint32_t current_centroid_idx = 0; current_centroid_idx < K; ++current_centroid_idx) {
+    for (uint32_t current_centroid_idx = 0; current_centroid_idx < nbr_comb; ++current_centroid_idx) {//K
         // Parcourir tous les vecteurs du cluster actuel
         for (uint64_t i = 0; i < clusters[current_centroid_idx]->size; ++i) { //current_centroid_idx
             point_t *vector = clusters[current_centroid_idx]->data[i];
@@ -81,6 +81,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             if(current_centroid_idx == closest_centroid_idx){
                 result.changes = true; 
             }
+            final_cl = closest_centroid_idx;
             
         }
         
@@ -88,10 +89,9 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
     
 
     result.result_cluster = new_clusters;
-    /*for (uint32_t j = 0; j < K; ++j) {
+    //for (uint32_t j = 0; j < K; ++j) {
         //free(new_clusters[j]->data);
-        free(new_clusters[j]);
-    }
-    free(new_clusters);*/
+    //free(new_clusters[final_cl-1]->data);
+    //free(new_clusters);
     return result;
 }

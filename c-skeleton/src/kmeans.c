@@ -10,13 +10,13 @@
 #include "../headers/cluster.h"
 #include "../headers/distance.h"
 
-cluster_t** k_means(cluster_t** clusters, int num_points, int k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
+cluster_t** k_means(cluster_t** clusters, int num_points, int k, int64_t nbr_comb, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
     if (clusters == NULL || initial_centroids == NULL || final_centroids == NULL) {
         fprintf(stderr, "Paramètres invalides pour la fonction k_means.\n");
         return NULL;
     }
     // Initialise les centroids finaux avec les centroids initiaux
-    for (int i = 0; i < 1; i++) { //k
+    for (int i = 0; i < nbr_comb; i++) { //k
         clusters[i]->centroide = initial_centroids[i];
     }
 
@@ -55,9 +55,9 @@ cluster_t** k_means(cluster_t** clusters, int num_points, int k, point_t *initia
         //printf("%d\n", 3);
         // Assigne les points aux clusters
         if (i == 0) {
-            result = assign_vectors_to_centroides(final_centroids, clusters, k, distance_func);
+            result = assign_vectors_to_centroides(final_centroids, clusters, k,nbr_comb, distance_func);
         } else {
-            result = assign_vectors_to_centroides(final_centroids, result.result_cluster, k, distance_func);
+            result = assign_vectors_to_centroides(final_centroids, result.result_cluster, k,nbr_comb, distance_func);
         }
 
         if (result.result_cluster == NULL) {
