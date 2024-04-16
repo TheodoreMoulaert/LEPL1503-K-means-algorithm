@@ -44,6 +44,11 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
     }
     //uint32_t final_cl=0;
     // Parcourir tous les centroides
+    uint64_t npoint = 0; 
+    for(uint64_t i = 0; i < K; ++i) {
+        npoint += clusters[i]->size; 
+    }
+    uint64_t nconv = 0; 
     for (uint32_t current_centroid_idx = 0; current_centroid_idx < K; ++current_centroid_idx) {//K nbr_comb
         // Parcourir tous les vecteurs du cluster actuel
         for (uint64_t i = 0; i < clusters[current_centroid_idx]->size; ++i) { //current_centroid_idx
@@ -79,7 +84,11 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             new_clusters[closest_centroid_idx]->centroide = centroids[closest_centroid_idx];
             new_clusters[closest_centroid_idx]->centroide.dim = centroids[closest_centroid_idx].dim;
             if(current_centroid_idx == closest_centroid_idx){
-                result.changes = true; 
+                nconv += 1; 
+               
+            }
+            if(nconv == npoint){
+                 result.changes = true; 
             }
             //final_cl = closest_centroid_idx;
             
