@@ -327,7 +327,7 @@ int main(int argc, char *argv[]) {
     }*/
 
 
-    /*for (int64_t i =0;i< nombre_comb;i++){
+    for (int64_t i =0;i< nombre_comb;i++){
         for (uint32_t j=0;j<k;j++){
             temps_cluster[j]->centroide.dim = initial_centroids[i][j].dim;
             memcpy(temps_cluster[j]->centroide.coords, initial_centroids[i][j].coords, dimension * sizeof(int64_t));
@@ -348,7 +348,7 @@ int main(int argc, char *argv[]) {
             }
             //temps_cluster[j]->size = npoints;//k;
         }
-    }*/
+    }
 
     
     //printf("temps_cluster[0][0].data[0][0].coords[0] %ld\n, temps_cluster[0][0].data[0][0].coords[1]  = %ld\n", temps_cluster[0][0].data[0][0].coords[0],temps_cluster[0][0].data[0][0].coords[1]); 
@@ -391,28 +391,7 @@ int main(int argc, char *argv[]) {
             uint64_t temp_distorsion = 0; 
             printf("%d\n", 7);
             printf("i : %ld , j : %d\n", i,j);
-            for (int64_t i =0;i< nombre_comb;i++){
-                for (uint32_t j=0;j<k;j++){
-                    temps_cluster[j]->centroide.dim = final_centroids[i][j].dim;
-                    memcpy(temps_cluster[j]->centroide.coords, final_centroids[i][j].coords, dimension * sizeof(int64_t));
-                    temps_cluster[j]->centroide.nbr_vector = final_centroids[i][j].nbr_vector;
-                    if (j==0){
-                        temps_cluster[j]->data = donnes;//initial_centroids[i][j];
-                        //temps_cluster[j]->data->dim= dimension;
-                        //temps_cluster[j]->data[t]->nbr_vector= 1;
-                    
-                        temps_cluster[j]->size = npoints;//k;
-                    }
-                    else{
-                        temps_cluster[j]->data = NULL;//initial_centroids[i][j];
-                        //temps_cluster[j]->data->dim= dimension;
-                        //temps_cluster[j]->data[t]->nbr_vector= 1;
-                        temps_cluster[j]->size = 0;
 
-                    }
-                    //temps_cluster[j]->size = npoints;//k;
-                }
-            }
 
             printf("%d\n", 8);
             printf("temps_cluster[j]->centroide.coords[0]= %ld\n", temps_cluster[j]->centroide.coords[0]);
@@ -447,6 +426,8 @@ int main(int argc, char *argv[]) {
             clusters_list[i] = solCluster;
             distortion_list[i] = solDistortion; 
             printf("%d\n", 13);
+
+            
             
         }
     
