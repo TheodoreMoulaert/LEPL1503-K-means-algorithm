@@ -13,7 +13,7 @@ void test_point_input();
 
 // Fonction de test pour point_input
 void test_point_input() {
-    FILE *file = fopen("../python/exemple_neg.bin", "rb");
+    FILE *file = fopen("../python/exemple4.bin", "rb");
     if (!file) {
         perror("Erreur lors de l'ouverture du fichier binaire");
         exit(EXIT_FAILURE);
@@ -51,7 +51,7 @@ void test_point_input() {
         printf("Vecteur %" PRIu64 ":\n", i + 1);
         printf("Dimensions: %" PRIu32 "\n", vectors[i]->dim);
         printf("Coordonnées: ");
-        for (uint32_t j = 0; j < 2; j++) { //vectors[i]->dim
+        for (uint32_t j = 0; j < vectors[i]->dim; j++) { //vectors[i]->dim
             printf("%" PRId64 " ", vectors[i]->coords[j]);
         }
         printf("\n");
