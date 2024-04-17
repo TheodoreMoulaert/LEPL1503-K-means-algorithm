@@ -422,20 +422,17 @@ int main(int argc, char *argv[]) {
             printf(" temp_distorsion %ld\n", temp_distorsion);
             if (solDistortion > temp_distorsion){ //bizarre le lien avec la convergence et le fait que la distortion augmente dans le fichier python
                 printf("%d\n", 12);
-                solDistortion = temp_distorsion; 
+                //solDistortion = temp_distorsion; 
                 solCentroide = temp_centroide; 
-                solCluster = temps_result_cluster;
+                //solCluster = temps_result_cluster;
             }
             
             *final_centroids[i] = *solCentroide; 
-            clusters_list[i] = solCluster;
-            distortion_list[i] = solDistortion; 
+            clusters_list[i] = temps_result_cluster;//solCluster;
+            distortion_list[i] = temp_distorsion;//solDistortion; 
             printf(" solDistortion %ld\n", solDistortion);
             printf("%d\n", 13);
             //temp_distorsion = 0;
-
-            
-            
         }
     
     }
