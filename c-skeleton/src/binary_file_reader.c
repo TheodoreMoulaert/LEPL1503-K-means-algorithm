@@ -4,7 +4,7 @@
 #include "../headers/portable_endian.h"
 
 #include <stdlib.h>
-#include <endian.h>
+#include <portable_endian.h>
 #include <stdio.h>
 #include <netinet/in.h> // Pour be32toh
 
