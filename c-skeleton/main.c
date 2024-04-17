@@ -267,7 +267,7 @@ int main(int argc, char *argv[]) {
     }
 
     uint64_t distortion_list[nombre_comb]; 
-    uint64_t solDistortion = UINT64_MAX;
+    //uint64_t solDistortion = UINT64_MAX;
 
     cluster_t*** clusters_list = calloc(nombre_comb, sizeof(cluster_t**)); 
     for (int64_t i = 0; i < nombre_comb; i++){
@@ -360,9 +360,9 @@ int main(int argc, char *argv[]) {
     temp_centroide->coords = (int64_t *)calloc(dimension , sizeof(int64_t));
     temp_centroide->dim = dimension;
 
-    point_t* solCentroide = (point_t*)malloc(k*sizeof(point_t)); 
+    /*point_t* solCentroide = (point_t*)malloc(k*sizeof(point_t)); 
     solCentroide->coords = (int64_t *)calloc(dimension , sizeof(int64_t));
-    solCentroide->dim = dimension; 
+    solCentroide->dim = dimension; */
  
     
     cluster_t** temps_result_cluster= calloc(k, sizeof(cluster_t*)); 
@@ -370,10 +370,10 @@ int main(int argc, char *argv[]) {
         temps_result_cluster[i] = malloc(sizeof(cluster_t)); //nombre_comb*
     }
 
-    cluster_t** solCluster = calloc(k, sizeof(cluster_t*)); 
+    /*cluster_t** solCluster = calloc(k, sizeof(cluster_t*)); 
     for(int64_t i = 0; i < k; i++){
         solCluster[i] = malloc(sizeof(cluster_t)); 
-    }
+    }*/
 
 
     printf("%d\n", 5);
@@ -420,17 +420,17 @@ int main(int argc, char *argv[]) {
             printf("%d\n", 11);
             temp_distorsion = distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);//distortion((cluster_t const **)clusters_list[i], k, DISTANCE_SQUARED);//distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);
             printf(" temp_distorsion %ld\n", temp_distorsion);
-            if (solDistortion > temp_distorsion){ //bizarre le lien avec la convergence et le fait que la distortion augmente dans le fichier python
+            /*if (solDistortion > temp_distorsion){ //bizarre le lien avec la convergence et le fait que la distortion augmente dans le fichier python
                 printf("%d\n", 12);
                 //solDistortion = temp_distorsion; 
                 solCentroide = temp_centroide; 
                 //solCluster = temps_result_cluster;
-            }
+            }*/
             
-            *final_centroids[i] = *solCentroide; 
+            *final_centroids[i] = *temp_centroide;//*solCentroide; 
             clusters_list[i] = temps_result_cluster;//solCluster;
             distortion_list[i] = temp_distorsion;//solDistortion; 
-            printf(" solDistortion %ld\n", solDistortion);
+            //printf(" solDistortion %ld\n", solDistortion);
             printf("%d\n", 13);
             //temp_distorsion = 0;
         }
@@ -475,10 +475,10 @@ int main(int argc, char *argv[]) {
     free(final_centroids);
 
     // Libérer la mémoire pour la solution du cluster
-    for (int64_t i = 0; i < k; i++) {
+    /*for (int64_t i = 0; i < k; i++) {
         free(solCluster[i]);
     }
-    free(solCluster);
+    free(solCluster);*/
 
     // Libérer la mémoire pour les clusters
     for (int64_t i = 0; i < nombre_comb; i++) {
@@ -525,8 +525,8 @@ int main(int argc, char *argv[]) {
     free(temps_result_cluster);
 
     // Libérer la mémoire pour la solution du centroïde
-    free(solCentroide->coords);
-    free(solCentroide);
+    /*free(solCentroide->coords);
+    free(solCentroide);*/
 
     free(temp_centroide->coords);
     free(temp_centroide);
