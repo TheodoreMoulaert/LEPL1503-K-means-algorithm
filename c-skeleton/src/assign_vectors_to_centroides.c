@@ -60,10 +60,12 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
         npoint += clusters[i]->size; 
     }
     uint64_t nconv = 0; 
-    for (uint32_t current_centroid_idx = 0; current_centroid_idx < K; ++current_centroid_idx) {//K nbr_comb
+    for (uint32_t current_centroid_idx = 0; current_centroid_idx < K; ++current_centroid_idx){ //K nbr_comb
         // Parcourir tous les vecteurs du cluster actuel
-        for (uint64_t i = 0; i < clusters[current_centroid_idx]->size; ++i) { //current_centroid_idx
+        for (uint64_t i = 0; i < clusters[current_centroid_idx]->size; ++i){
             point_t *vector = clusters[current_centroid_idx]->data[i];
+
+            //free(new_clusters[current_centroid_idx]->data[i]);
             // Trouver le centroïde le plus proche pour le vecteur
             uint32_t closest_centroid_idx = 0;
             uint64_t closest_centroid_distance = UINT64_MAX;
@@ -74,11 +76,15 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
                     closest_centroid_idx = centroid_idx;
                     closest_centroid_distance = distance;
                 }
+
             }
             
             // Ajouter le vecteur au cluster le plus proche dans le nouveau tableau de clusters
             uint32_t idx = new_clusters[closest_centroid_idx]->size;
-            point_t** temp = (point_t**) realloc(new_clusters[closest_centroid_idx]->data, (idx + 1) * sizeof(point_t*));
+            //free(new_clusters[closest_centroid_idx]->data);
+            //point_t** temp = (point_t**) malloc((idx + 1)*sizeof(point_t*));
+
+            point_t** temp =(point_t**) realloc(new_clusters[closest_centroid_idx]->data, (idx + 1) * sizeof(point_t*));
             if (temp == NULL) {
                 // Gérer l'erreur d'allocation de mémoire
                 // Libérer la mémoire allouée pour les nouveaux clusters déjà initialisés
@@ -89,6 +95,10 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
                 free(new_clusters);
                 return result;
             }
+
+            //free(new_clusters[current_centroid_idx]->data[idx]);
+            //free(new_clusters[current_centroid_idx]->data);
+            //free(new_clusters[closest_centroid_idx]->centroide);
             new_clusters[closest_centroid_idx]->data = temp;
             new_clusters[closest_centroid_idx]->data[idx] = vector;
             new_clusters[closest_centroid_idx]->size++;
@@ -102,6 +112,9 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
                  result.changes = true; 
             }
             //final_cl = closest_centroid_idx;
+            //free(new_clusters[current_centroid_idx]->data[i]);
+            //free(new_clusters[current_centroid_idx]->data);
+
             
         }
         
@@ -109,9 +122,16 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
     
 
     result.result_cluster = new_clusters;
-    //for (uint32_t j = 0; j < K; ++j) {
-        //free(new_clusters[j]->data);
-    //free(new_clusters[final_cl-1]->data);
+    /*for (int r=0;r<K;r++){
+        for (int n=0;n<new_clusters[r]->size;r++){
+            free(new_clusters[r]->data[n]);
+        }
+        free(new_clusters[r]->data);
+    }*/
+    /*for (uint32_t j = 0; j < K; ++j) {
+        free(new_clusters[j]->data);
+    }
+    free(new_clusters[final_cl-1]->data);*/
     //free(new_clusters);
     return result;
 }
