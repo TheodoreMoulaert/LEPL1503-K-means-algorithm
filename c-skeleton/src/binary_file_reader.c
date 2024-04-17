@@ -2,7 +2,6 @@
 #include "../headers/point.h"
 #include "../headers/cluster.h"
 #include "../headers/portable_endian.h"
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <netinet/in.h> // Pour be32toh
