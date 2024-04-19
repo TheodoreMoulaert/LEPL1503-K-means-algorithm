@@ -1,13 +1,15 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
+#include "../headers/point.h"
 
-// Structure pour représenter un point dans l'espace
+/*// Structure pour représenter un point dans l'espace
 typedef struct {
     int64_t *coordinates;  // Coordonnées du point
     uint32_t dimension;    // Nombre de dimensions
 } point_t;
-
+*/
 // Fonction qui calcule la factorielle d'un entier
 uint64_t factorial(uint64_t n) {
     if (n <= 1)
@@ -83,7 +85,11 @@ point_t ***generate_combinations(point_t **vectors, uint64_t n, uint64_t k, uint
 
     // Génération de toutes les combinaisons
     uint64_t combination_index = 0;
-    while (current_combination_indices != NULL) {
+    //uint64_t nombre =0;
+    //point_t **new_combination;
+    //while (current_combination_indices != NULL) {
+    for (uint64_t r=0;r<total_combinations;r++){
+        //nombre++;
         // Allocation de la mémoire pour stocker la nouvelle combinaison de points
         point_t **new_combination = malloc(k * sizeof(point_t *));
         if (new_combination == NULL) {
@@ -105,12 +111,35 @@ point_t ***generate_combinations(point_t **vectors, uint64_t n, uint64_t k, uint
         combinations[combination_index] = new_combination;
         combination_index++;
 
+        // Libération de la mémoire utilisée pour la nouvelle combinaison
+        //free(new_combination);
+        
+
         // Génération de la prochaine combinaison d'indices
-        current_combination_indices = next_comb(current_combination_indices, p, k);
+        /*uint64_t* next_c = next_comb(current_combination_indices, p, k);
+        free(current_combination_indices);
+        if (next_c != NULL){
+            current_combination_indices = next_c;
+        }*/
+        if (r == total_combinations-1){
+            free(current_combination_indices);
+            //free(new_combination);
+        }
+        else{
+            current_combination_indices = next_comb(current_combination_indices, p, k);
+        }
+        if (current_combination_indices== NULL){
+            printf("NULL = %d\n",0);
+        }
+        
+        
+    
     }
 
     // Libération de la mémoire utilisée pour stocker les indices de la combinaison actuelle
-    free(current_combination_indices);
+    //free(current_combination_indices);
+    //printf("nombre = %ld\n",nombre);
+    printf("total_combinations = %ld\n",total_combinations);
 
     return combinations;
 }
