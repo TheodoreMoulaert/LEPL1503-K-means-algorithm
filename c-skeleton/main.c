@@ -263,13 +263,13 @@ int main(int argc, char *argv[]) {
     uint64_t distortion_list[nombre_comb];
     
     cluster_t*** clusters_list = malloc(nombre_comb*sizeof(cluster_t**)); 
-    for (int64_t i = 0; i < nombre_comb; i++){
-        clusters_list[i] = malloc(k * sizeof(cluster_t*));
+    //for (int64_t i = 0; i < nombre_comb; i++){
+        //clusters_list[i] = malloc(k * sizeof(cluster_t*));
         /*for (int64_t j = 0; j < k; j++) {
             clusters_list[i][j] = malloc(sizeof(cluster_t)); 
             clusters_list[i][j] = NULL; // Initialisation à NULL
         }*/
-    }
+   // }
 
     cluster_t **temps_cluster = (cluster_t **)malloc(k *sizeof(cluster_t *));//k * 
     if (temps_cluster == NULL) {
@@ -365,6 +365,13 @@ int main(int argc, char *argv[]) {
     write_csv(output_file, distortion_list,initial_centroids, final_centroids, clusters_list, k, dimension, nombre_comb); 
     printf("%d\n", 15);
 
+        // Libérer la mémoire pour les points de données
+    for (uint64_t i = 0; i < npoints; i++) {
+        free(donnes[i]->coords);
+        free(donnes[i]);
+    }
+    free(donnes);
+
     // Libérer la mémoire pour les combinaisons initiales
     for (int64_t i = 0; i < nombre_comb; i++) {
         /*for (uint32_t j = 0; j < k; j++) {
@@ -376,12 +383,6 @@ int main(int argc, char *argv[]) {
     }
     free(initial_combinations);
 
-    // Libérer la mémoire pour les points de données
-    for (uint64_t i = 0; i < npoints; i++) {
-        free(donnes[i]->coords);
-        free(donnes[i]);
-    }
-    free(donnes);
 
 
 
@@ -421,13 +422,13 @@ int main(int argc, char *argv[]) {
     free(final_centroids);*/
 
     // Libérer la mémoire pour les clusters
-    for (int64_t i = 0; i < nombre_comb; i++) {
+    //for (int64_t i = 0; i < nombre_comb; i++) {
         /*for (uint32_t j = 0; j < k; j++) {
             free(clusters_list[i][j]);
         }*/
         //free(clusters_list[i]);
 
-    }
+    //}
     free(clusters_list);
 
 
