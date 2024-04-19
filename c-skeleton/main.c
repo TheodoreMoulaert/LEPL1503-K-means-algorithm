@@ -261,7 +261,7 @@ int main(int argc, char *argv[]) {
     }*/
 
     uint64_t distortion_list[nombre_comb];
-
+    
     cluster_t*** clusters_list = malloc(nombre_comb*sizeof(cluster_t**)); 
     for (int64_t i = 0; i < nombre_comb; i++){
         clusters_list[i] = malloc(k * sizeof(cluster_t*));
@@ -365,15 +365,52 @@ int main(int argc, char *argv[]) {
     write_csv(output_file, distortion_list,initial_centroids, final_centroids, clusters_list, k, dimension, nombre_comb); 
     printf("%d\n", 15);
 
+    // Libérer la mémoire pour les points de données
+    for (uint64_t i = 0; i < npoints; i++) {
+        free(donnes[i]->coords);
+        free(donnes[i]);
+    }
+    free(donnes);
+
+    // Libérer la mémoire pour les combinaisons initiales
+    for (int64_t i = 0; i < nombre_comb; i++) {
+        /*for (uint32_t j = 0; j < k; j++) {
+            free(initial_combinations[i][j]->coords);
+            free(initial_combinations[i][j]);
+            initial_combinations[i][j] = NULL;
+        }*/
+        free(initial_combinations[i]);
+        initial_combinations[i] = NULL;
+    }
+    free(initial_combinations);
+    initial_combinations = NULL;
+
 
     // Libérer la mémoire pour les centroids initiaux
     for (int64_t i = 0; i < nombre_comb; i++) {
-        for (uint32_t j = 0; j < k; j++) {
+        /*for (uint32_t j = 0; j < k; j++) {
             free(initial_centroids[i][j].coords);
-        }
+        }*/
         free(initial_centroids[i]);
     }
     free(initial_centroids);
+
+        // Libérer la mémoire pour les clusters temporaires
+    for (uint32_t i = 0; i < k; i++) {
+        //free(temps_cluster[i]->centroide.coords);
+        //free(temps_cluster[i]->data);
+        free(temps_cluster[i]);
+    }
+    free(temps_cluster);
+
+    // Libérer la mémoire pour les clusters de résultats temporaires
+    for (uint32_t i = 0; i < k; i++) {
+        free(temps_result_cluster[i]);
+    }
+    free(temps_result_cluster);
+
+    //free(temp_centroide->coords);
+    free(temp_centroide);
 
     // Libérer la mémoire pour les centroids finaux
     /*for (int64_t i = 0; i < nombre_comb; i++) {
@@ -386,50 +423,13 @@ int main(int argc, char *argv[]) {
 
     // Libérer la mémoire pour les clusters
     for (int64_t i = 0; i < nombre_comb; i++) {
-        for (uint32_t j = 0; j < k; j++) {
+        /*for (uint32_t j = 0; j < k; j++) {
             free(clusters_list[i][j]);
-        }
-        free(clusters_list[i]);
+        }*/
+        //free(clusters_list[i]);
     }
     free(clusters_list);
 
-    // Libérer la mémoire pour les points de données
-    for (uint64_t i = 0; i < npoints; i++) {
-        free(donnes[i]->coords);
-        free(donnes[i]);
-    }
-    free(donnes);
-
-    // Libérer la mémoire pour les combinaisons initiales
-    for (int64_t i = 0; i < nombre_comb; i++) {
-        for (uint32_t j = 0; j < k; j++) {
-            free(initial_combinations[i][j]->coords);
-            free(initial_combinations[i][j]);
-            initial_combinations[i][j] = NULL;
-        }
-        free(initial_combinations[i]);
-        initial_combinations[i] = NULL;
-    }
-    free(initial_combinations);
-    initial_combinations = NULL;
-    
-
-    // Libérer la mémoire pour les clusters temporaires
-    for (uint32_t i = 0; i < k; i++) {
-        free(temps_cluster[i]->centroide.coords);
-        free(temps_cluster[i]->data);
-        free(temps_cluster[i]);
-    }
-    free(temps_cluster);
-
-    // Libérer la mémoire pour les clusters de résultats temporaires
-    for (uint32_t i = 0; i < k; i++) {
-        free(temps_result_cluster[i]);
-    }
-    free(temps_result_cluster);
-
-    free(temp_centroide->coords);
-    free(temp_centroide);
 
     printf("%d\n", 16);
 
