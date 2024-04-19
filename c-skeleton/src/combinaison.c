@@ -103,6 +103,7 @@ point_t ***generate_combinations(point_t **vectors, uint64_t n, uint64_t k, uint
 
         // Stockage de la nouvelle combinaison dans le tableau de combinaisons
         combinations[combination_index] = new_combination;
+        free(new_combination);
         combination_index++;
 
         // Génération de la prochaine combinaison d'indices
@@ -111,6 +112,7 @@ point_t ***generate_combinations(point_t **vectors, uint64_t n, uint64_t k, uint
 
     // Libération de la mémoire utilisée pour stocker les indices de la combinaison actuelle
     free(current_combination_indices);
+    //free(new_combination);
 
     return combinations;
 }
