@@ -61,6 +61,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
     }
     uint64_t nconv = 0; 
     int nbr_free=0;
+   
     for (uint32_t current_centroid_idx = 0; current_centroid_idx < K; ++current_centroid_idx){ //K nbr_comb
         printf("%d\n",0);
         // Parcourir tous les vecteurs du cluster actuel
@@ -84,11 +85,12 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             
             // Ajouter le vecteur au cluster le plus proche dans le nouveau tableau de clusters
             uint32_t idx = new_clusters[closest_centroid_idx]->size;
-            
+        
             // Allouer une nouvelle zone mémoire pour temp avec la taille souhaitée
             point_t **temp = malloc((idx+1) * sizeof(point_t *)); //(idx + 1)
+            
             printf("%d\n",4);
-            if (temp == NULL){
+            /*if (temp == NULL){
                 // Gérer l'erreur d'allocation de mémoire
                 // Libérer la mémoire allouée pour les nouveaux clusters déjà initialisés
                 for (uint32_t j = 0; j < K; ++j) {
@@ -97,7 +99,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
                 }
                 free(new_clusters);
                 return result;
-            }
+            }*/
             printf(" idx = %d\n",idx);
             printf("current_centroid_idx=%d, K-1=%d\n",current_centroid_idx,K-1);
             printf("clusters[current_centroid_idx]->size-1=%ld, i= %ld\n",clusters[current_centroid_idx]->size-1,i);
@@ -110,8 +112,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
                 //free(new_clusters[closest_centroid_idx]->data[i]);
                 printf("%d\n",6);
             }
-            //temp[idx] = NULL;
-
+            
             // Libérer l'ancienne zone mémoire
             free(new_clusters[closest_centroid_idx]->data);
             //new_clusters[closest_centroid_idx]->data = NULL;
@@ -141,11 +142,11 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
                 free(temp);
             }*/
             
-            if ((current_centroid_idx != K-1) && (i != clusters[current_centroid_idx]->size-1) && (i!= idx)){
+            /*if ((current_centroid_idx != K-1) && (i != clusters[current_centroid_idx]->size-1) && (i!= idx-1)){
                 free(temp);
                 nbr_free++;
                 printf("nbr_free = %d\n",nbr_free);
-            }
+            }*/
             printf("%d\n",10);
             
             
