@@ -59,7 +59,7 @@ void write_csv(FILE *output_file, uint64_t* distortion, point_t **centroid_init_
         return;
     }
 
-    fprintf(output_file, "initialization centroids, distortion, centroids, clusters\n");
+    fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n");
 
     for (int64_t i = 0; i < nombre_comb; i++) {
         fprintf(output_file, "\"");
@@ -71,3 +71,5 @@ void write_csv(FILE *output_file, uint64_t* distortion, point_t **centroid_init_
         fprintf(output_file, "\"\n");
     }
 }
+
+
