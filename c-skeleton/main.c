@@ -388,8 +388,10 @@ int main(int argc, char *argv[]) {
             free(initial_centroids[i][j].coords);
         }*/
         free(initial_centroids[i]);
+        free(initial_conserve[i]);
     }
     free(initial_centroids);
+    free(initial_conserve);
 
         // Libérer la mémoire pour les clusters temporaires
     for (uint32_t i = 0; i < k; i++) {
