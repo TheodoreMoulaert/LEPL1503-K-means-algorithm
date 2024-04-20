@@ -8,7 +8,7 @@
 // Définir une fonction main de test
 int main() {
     // Créer un fichier de sortie
-    FILE *output_file = fopen("output.csv", "w");
+    FILE *output_file = fopen("output_write.csv", "w");
     if (output_file == NULL) {
         perror("Erreur lors de l'ouverture du fichier de sortie");
         return EXIT_FAILURE;
