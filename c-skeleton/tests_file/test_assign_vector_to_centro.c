@@ -85,7 +85,7 @@ void test_assign_vectors_to_centroids() {
 
     // Free memory
     for (uint32_t i = 0; i < 2; ++i) {
-        free(clusters[i]->data);
+        //free(clusters[i]->data);
         free(clusters[i]);
     }
     free(clusters);
