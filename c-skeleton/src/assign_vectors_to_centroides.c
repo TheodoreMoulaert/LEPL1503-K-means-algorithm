@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "../headers/assign_vector_to_centro.h"
 #include "../headers/distance.h"
 #include "../headers/cluster.h"
@@ -100,32 +101,47 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
                 return result;
             }
             printf(" idx = %d\n",idx);
+            printf("closest_centroid_idx=%d\n",closest_centroid_idx);
             printf("current_centroid_idx=%d, K-1=%d\n",current_centroid_idx,K-1);
             printf("clusters[current_centroid_idx]->size-1=%ld, i= %ld\n",clusters[current_centroid_idx]->size-1,i);
 
             // Copier les éléments existants de l'ancienne zone mémoire vers la nouvelle
-            for (uint32_t i = 0; i < idx; ++i) {
+            for (uint32_t p = 0; p < idx; ++p) {
                 printf("%d\n",44);
-                temp[i] = new_clusters[closest_centroid_idx]->data[i];
+                temp[p] = new_clusters[closest_centroid_idx]->data[p];
+                //memcpy(temp[i],new_clusters[closest_centroid_idx]->data[i],sizeof(point_t)) ;
                 printf("%d\n",444);
                 //free(new_clusters[closest_centroid_idx]->data[i]);
                // printf("temp[idx]->coords[0] = %ld\n",temp[idx]->coords[0]);
             }
+            //memcpy(temp,new_clusters[closest_centroid_idx]->data,idx*sizeof(point_t*)) ;//temp = new_clusters[closest_centroid_idx]->data;
             printf("%d\n",5);
-            //printf("temp[idx]->coords[0] = %ld\n",temp[idx]->coords[0]);
-            if (closest_centroid_idx!=0 && current_centroid_idx!=0){
-                free(temp[idx]);
-            }
+            //temp[idx]=NULL;
             
-            // Libérer l'ancienne zone mémoire
-            free(new_clusters[closest_centroid_idx]->data);
+            //printf("temp[idx]->coords[0] = %ld\n",temp[idx]->coords[0]);
+            /*if (closest_centroid_idx!=0 && current_centroid_idx!=0){
+                free(temp[idx]);
+            }*/
+            //if ( (i !=0) && (K-1!=   ){ //K-1 != current_centroid_idx &&
+            /*if ((current_centroid_idx != K-1) && (i != clusters[current_centroid_idx]->size-1)){
+                printf("%d\n",55);
+                for (uint32_t t = 0; t < idx; ++t) {
+            
+                // Libérer l'ancienne zone mémoire
+                    free(new_clusters[closest_centroid_idx]->data[t]);
+                    printf("%d\n",555);
+                }
+            }*/
+            //free(new_clusters[closest_centroid_idx]->data);
+            
+            printf("%d\n",6);
             //free(new_clusters[closest_centroid_idx]->centroide.coords);
             
             /*if ((current_centroid_idx != K-1) && (i != clusters[current_centroid_idx]->size-1)){//&& (i!= idx-1)
                 //free(temp);
                   
             }*/
-            new_clusters[closest_centroid_idx]->data = NULL;
+            //new_clusters[closest_centroid_idx]->data = NULL;
             printf("%d\n",7);
 
             // Affecter temp à la nouvelle zone mémoire
