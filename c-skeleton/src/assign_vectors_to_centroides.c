@@ -54,7 +54,6 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
         new_clusters[i]->centroide.dim = 0; // Initialise la dimension à zéro
         new_clusters[i]->centroide.coords = NULL; // Initialise à NULL, car il n'y a pas encore de coordonnées
     }
-    //uint32_t final_cl=0;
     // Parcourir tous les centroides
     uint64_t npoint = 0; 
     for(uint64_t i = 0; i < K; ++i) {
@@ -109,53 +108,26 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             for (uint32_t p = 0; p < idx; ++p) {
                 printf("%d\n",44);
                 temp[p] = new_clusters[closest_centroid_idx]->data[p];
-                //memcpy(temp[i],new_clusters[closest_centroid_idx]->data[i],sizeof(point_t)) ;
                 printf("%d\n",444);
-                //free(new_clusters[closest_centroid_idx]->data[i]);
-               // printf("temp[idx]->coords[0] = %ld\n",temp[idx]->coords[0]);
+       
             }
-            //memcpy(temp,new_clusters[closest_centroid_idx]->data,idx*sizeof(point_t*)) ;//temp = new_clusters[closest_centroid_idx]->data;
             printf("%d\n",5);
-            //temp[idx]=NULL;
             
-            //printf("temp[idx]->coords[0] = %ld\n",temp[idx]->coords[0]);
-            /*if (closest_centroid_idx!=0 && current_centroid_idx!=0){
-                free(temp[idx]);
-            }*/
-            //if ( (i !=0) && (K-1!=   ){ //K-1 != current_centroid_idx &&
-            /*if ((current_centroid_idx != K-1) && (i != clusters[current_centroid_idx]->size-1)){
-                printf("%d\n",55);
-                for (uint32_t t = 0; t < idx; ++t) {
-            
-                // Libérer l'ancienne zone mémoire
-                    free(new_clusters[closest_centroid_idx]->data[t]);
-                    printf("%d\n",555);
-                }
-            }*/
-            //free(new_clusters[closest_centroid_idx]->data);
+            free(new_clusters[closest_centroid_idx]->data);
             
             printf("%d\n",6);
-            //free(new_clusters[closest_centroid_idx]->centroide.coords);
             
-            /*if ((current_centroid_idx != K-1) && (i != clusters[current_centroid_idx]->size-1)){//&& (i!= idx-1)
-                //free(temp);
-                  
-            }*/
-            //new_clusters[closest_centroid_idx]->data = NULL;
             printf("%d\n",7);
 
             // Affecter temp à la nouvelle zone mémoire
             new_clusters[closest_centroid_idx]->data = temp;
             
-            //printf("new_clusters[closest_centroid_idx]->data[idx]->coords[0] = %ld\n",new_clusters[closest_centroid_idx]->data[idx]->coords[0]);
             printf("%d\n",8);
-            //free(temp);
+   
             new_clusters[closest_centroid_idx]->data[idx] = vector;
-            //free(vector);
             new_clusters[closest_centroid_idx]->size++;
             new_clusters[closest_centroid_idx]->centroide = centroids[closest_centroid_idx];
             new_clusters[closest_centroid_idx]->centroide.dim = centroids[closest_centroid_idx].dim;
-            //new_clusters[closest_centroid_idx]->centroide.nbr_vector = centroids[closest_centroid_idx].nbr_vector;
             if(current_centroid_idx == closest_centroid_idx){
                 nconv += 1; 
                
@@ -164,24 +136,8 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             if(nconv == npoint){
                  result.changes = true; 
             }
-            /*for(uint32_t i = 0; i < idx+1; ++i){
-                free(temp[i]);
-            }
-            free(temp);*/
-            //free(temp[idx]);
-            /*if (i== clusters[current_centroid_idx]->size-1){
-                //free(temp);
-                //temp = NULL;
-                //free(temp);
-            }*/
-            /*for (uint32_t f = 0; f< idx; ++f) {
-                free(temp[f]);
-            }*/
-            
             printf("%d\n",10);
-        }
-        //free(new_clusters[current_centroid_idx-1]);
-        
+        }      
 
     }
     printf("%d\n",12);
