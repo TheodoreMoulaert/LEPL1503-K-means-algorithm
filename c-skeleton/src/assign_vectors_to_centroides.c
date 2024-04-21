@@ -113,7 +113,12 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             }*/
             printf("%d\n",5);
             memcpy(temp, new_clusters[closest_centroid_idx]->data, idx * sizeof(point_t *));
-            free(new_clusters[closest_centroid_idx]->data);
+            /*for (uint32_t p = 0; p < idx; ++p) {
+                free(new_clusters[closest_centroid_idx]->data[p]);
+                new_clusters[closest_centroid_idx]->data[p]=NULL;
+            }*/
+            //free(new_clusters[closest_centroid_idx]->data);
+            //free(new_clusters[closest_centroid_idx]->centroide.coords);
             
             printf("%d\n",6);
             
