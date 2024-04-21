@@ -105,14 +105,14 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             printf("clusters[current_centroid_idx]->size-1=%ld, i= %ld\n",clusters[current_centroid_idx]->size-1,i);
 
             // Copier les éléments existants de l'ancienne zone mémoire vers la nouvelle
-            for (uint32_t p = 0; p < idx; ++p) {
+            /*for (uint32_t p = 0; p < idx; ++p) {
                 printf("%d\n",44);
                 temp[p] = new_clusters[closest_centroid_idx]->data[p];
                 printf("%d\n",444);
        
-            }
+            }*/
             printf("%d\n",5);
-            
+            memcpy(temp, new_clusters[closest_centroid_idx]->data, idx * sizeof(point_t *));
             free(new_clusters[closest_centroid_idx]->data);
             
             printf("%d\n",6);
