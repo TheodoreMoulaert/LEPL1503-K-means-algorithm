@@ -198,9 +198,9 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             result.result_cluster[closest_centroid_idx]->centroide = centroids[closest_centroid_idx];
             //result.result_cluster[closest_centroid_idx]->
                 
-            if(current_centroid_idx == closest_centroid_idx){
+            if (current_centroid_idx == closest_centroid_idx){
                 nconv += 1; 
-               
+                
             }
             printf("%d\n",9);
             if(nconv == npoint){
