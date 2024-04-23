@@ -1,27 +1,17 @@
-# Variables ( noms d'usage) exemple :  exécutable on les initialise parce qu'on les utilise beaucoup pour y faire référence on note $(CC) 
-# pour que ce soit plus dynamique
-#https://www.youtube.com/watch?v=-riHEHGP2DU&t=965s --> lien vidéo youtube pour comprendre
 
 CC=gcc
 CFLAGS=-Wall -Werror -g
 LIBS=-lcunit -lpthread
 INCLUDE_HEADERS_DIRECTORY= -Iheaders
 
-# varaible spéciales
-#$@ : nom de la cible
-#$< : nom de la première dépendance
-# $^ : liste des dépendances
-# $* : nom du fichier sans son extension
 
 
 kmeans: main.c src/binary_file_reader.o src/combinaison.o src/distance.o src/update_centroids.o src/assign_vectors_to_centroides.o src/kmeans.o src/write_csv.o  # add your other object files needed to compile your program here. !! The ordering is important !! if file_a.o depends on file_b.o, file_a.o must be placed BEFORE file_b.o in the list !
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)  
-#this will run the following command: gcc -Wall -Werror -g -o kmeans src/distance.o other_object_filespresent_above.o ... -lcunit -lpthread
 
 
 
 %.o: %.c # toutes les cibles en dépendance c sont crées comme ceci
-# if for example you want to compute example.c this will create an object file called example.o in the same directory as example.c. Don't forget to clean it in your "make clean"
 	@echo Compilation de kmeans                  
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ -c $<
 #@echo
@@ -51,7 +41,10 @@ test_write_csv : tests_file/test_write_csv.c src/write_csv.o
 test_assign_vector : tests_file/test_assign_vector_to_centro.c src/assign_vectors_to_centroides.o  src/distance.o
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
-test_k_means : tests_file/test_kmeans2.c src/kmeans.o src/update_centroids.o src/distance.o src/assign_vectors_to_centroides.o
+test_kmeans : tests_file/test_kmeans3.c src/kmeans.o src/update_centroids.o src/distance.o src/assign_vectors_to_centroides.o
+	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
+
+test_comb : tests_file/test_comb.c src/combinaison.o 
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
 
@@ -62,7 +55,7 @@ test_k_means : tests_file/test_kmeans2.c src/kmeans.o src/update_centroids.o src
 	#@echo Excécution des tests avec Valgrind
 	#valgrind --leak-check=full ./kmeans
 
-tests_fonctions : test_binary_file  test_distance test_up_centroids test_distance_fichier  test_distortion test_assign_vector
+tests_fonctions : test_binary_file  test_distance test_up_centroids test_distance_fichier  test_distortion test_assign_vector test_comb 
 	@echo "Exécution des tests"
 	./test_binary_file
 	./test_distance
@@ -70,10 +63,11 @@ tests_fonctions : test_binary_file  test_distance test_up_centroids test_distanc
 	./test_distance_fichier
 	./test_distortion 
 	./test_assign_vector
+	./test_comb 
 	make clean 
 
 # Règle pour exécuter les tests
-tests:  test_binary_file  test_distance test_up_centroids test_distance_fichier  test_distortion test_assign_vector
+tests:  test_binary_file  test_distance test_up_centroids test_distance_fichier  test_distortion test_assign_vector test_comb 
 	@echo "Exécution des tests"
 	./test_binary_file
 	./test_distance
@@ -81,20 +75,18 @@ tests:  test_binary_file  test_distance test_up_centroids test_distance_fichier 
 	./test_distance_fichier
 	./test_distortion
 	./test_assign_vector 
-	
+	./test_comb 
 	@echo "Exécution des tests avec Valgrind"
 	valgrind --leak-check=full ./test_binary_file
 	valgrind --leak-check=full ./test_distance
 	valgrind --leak-check=full ./test_up_centroids
 	valgrind --leak-check=full ./test_distance_fichier
 	valgrind --leak-check=full ./test_distortion
-	valgrind --leak-check=full ./test_assign_vector
+	valgrind --leak-check=full ./test_comb
 	make clean 
 
-#pas certaine de la dernière ligne
+
 tests_memoire: test_distance_fichier test_binary_file  test_distance test_distance_fichier test_distortion  test_up_centroids
-#@echo Tests:
-#./tests_file
 #@echo
 	@echo Tests avec Valgrind:
 	valgrind --leak-check=full ./test_binary_beaucoup_de_points
@@ -103,7 +95,10 @@ tests_memoire: test_distance_fichier test_binary_file  test_distance test_distan
 	valgrind --leak-check=full ./test_up_centroids
 	valgrind --leak-check=full ./test_distance_fichier
 	valgrind --leak-check=full ./test_distortion
+	valgrind --leak-check=full ./test_comb
 	make clean 
+
+
 clean:
 	rm -f src/*.o
 	rm -f kmeans
@@ -113,6 +108,12 @@ clean:
 	rm -f test_distance_fichier
 	rm -f test_distortion 
 	rm -f test_write_csv 
+	rm -f test_assign_vector
 	rm -f test_k_means 
+	rm -f test_comb
+	rm -f main
+
+
+
 # a .PHONY target forces make to execute the command even if the target already exists
 .PHONY: clean tests tests_memoire
