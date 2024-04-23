@@ -131,6 +131,7 @@ int main(int argc, char *argv[]) {
     FILE *input_file = program_arguments.input_stream;
     FILE *output_file = program_arguments.output_stream;
     uint32_t p = program_arguments.n_first_initialization_points;
+    uint64_t n_t = program_arguments.n_threads; 
     uint64_t npoints;
     uint32_t dimension; 
     uint32_t k = program_arguments.k;
@@ -159,7 +160,6 @@ int main(int argc, char *argv[]) {
 
     }
 
-    printf("%d\n", 2);
     int64_t nombre_comb = combinaison(p,k);
     printf(" nombre_comb =  %ld\n", nombre_comb);
     printf("k = %d\n", k);
