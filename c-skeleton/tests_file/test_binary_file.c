@@ -21,19 +21,8 @@ void test_point_input() {
 
     uint32_t dim;
     uint64_t nbr_vectors;
-    /*uint32_t &dim = (uint32_t )malloc(sizeof(uint32_t));
-    if (dim == NULL) {
-        // Gestion de l'échec d'allocation mémoire
-        exit(EXIT_FAILURE);
-    }
-    uint64_t &nbr_vectors = (uint64_t)malloc(sizeof(uint64_t));
-    if (nbr_vectors  == NULL) {
-        // Gestion de l'échec d'allocation mémoire
-        exit(EXIT_FAILURE);
-    }*/
-
     
-    point_t **vectors = point_input(file, &dim, &nbr_vectors); //remplacement de * par &
+    point_t **vectors = point_input(file, &dim, &nbr_vectors);
     fclose(file);
     printf("Dimension: %" PRIu32 "\n", dim);
     printf("Nombre de vecteurs: %" PRIu64 "\n", nbr_vectors);
@@ -51,8 +40,15 @@ void test_point_input() {
         printf("Vecteur %" PRIu64 ":\n", i + 1);
         printf("Dimensions: %" PRIu32 "\n", vectors[i]->dim);
         printf("Coordonnées: ");
-        for (uint32_t j = 0; j < vectors[i]->dim; j++) { //vectors[i]->dim
+        for (uint32_t j = 0; j < vectors[i]->dim; j++) {
             printf("%" PRId64 " ", vectors[i]->coords[j]);
+        }
+        printf("\n");
+        
+        // Affichage des points repris
+        printf("Points repris: ");
+        for (uint32_t k = 0; k < vectors[i]->dim; k++) {
+            printf("%" PRId64 " ", vectors[i]->coords[k]);
         }
         printf("\n");
 
@@ -60,8 +56,7 @@ void test_point_input() {
         free(vectors[i]->coords);
         free(vectors[i]);
     }
-    //free(&nbr_vectors);
-    //free(&dim);
+
     // Libération de la mémoire allouée pour le tableau de vecteurs
     free(vectors);
 }

@@ -6,7 +6,7 @@
 #include "../headers/write_csv.h"
 #include "../headers/update_centroids.h" 
 
-void write_centroid(FILE *file, point_t* centroid, int64_t k) {
+void write_centroid(FILE *file, point_t* centroid, int64_t k, int64_t dimension) {
     if (file == NULL || centroid == NULL) {
         fprintf(file, "Erreur : pointeur de fichier ou de centroïde invalide.\n");
         return;
@@ -15,7 +15,12 @@ void write_centroid(FILE *file, point_t* centroid, int64_t k) {
     fprintf(file, "[");
     for (int i = 0; i < k; i++){
         fprintf(file, "(");
-        fprintf(file, "%" PRId64 ", %" PRId64 "", centroid[i].coords[0], centroid[i].coords[1]);
+        for (int j = 0; j < dimension; j++) {
+            fprintf(file, "%" PRId64, centroid[i].coords[j]);
+            if (j < dimension - 1) {
+                fprintf(file, ", ");
+            }
+        }
         fprintf(file, ")");
         if (i < k - 1){
             fprintf(file, ", ");
@@ -24,7 +29,7 @@ void write_centroid(FILE *file, point_t* centroid, int64_t k) {
     fprintf(file, "]");
 }
 
-void write_cluster(FILE *file, cluster_t **cluster, int64_t k) {
+void write_cluster(FILE *file, cluster_t **cluster, int64_t k, int64_t dimension) {
     if (file == NULL || cluster == NULL) {
         fprintf(file, "Erreur : pointeur de fichier ou de cluster invalide.\n");
         return;
@@ -38,11 +43,16 @@ void write_cluster(FILE *file, cluster_t **cluster, int64_t k) {
                 fprintf(file, ", ");
             }
             fprintf(file, "(");
-            if (cluster[i]->data[j] == NULL || cluster[i]->data[j]->coords == NULL || cluster[i]->data[j]->dim <= 0) {
+            if (cluster[i]->data[j] == NULL || cluster[i]->data[j]->coords == NULL) {
                 fprintf(file, "Erreur : point invalide dans le cluster.\n");
                 continue;
             }
-            fprintf(file, "%" PRId64 ", %" PRId64 "", cluster[i]->data[j]->coords[0], cluster[i]->data[j]->coords[1]);
+            for (int64_t l = 0; l < dimension; l++) {
+                fprintf(file, "%" PRId64, cluster[i]->data[j]->coords[l]);
+                if (l < dimension - 1) {
+                    fprintf(file, ", ");
+                }
+            }
             fprintf(file, ")");
         }
         fprintf(file, "]");
@@ -63,13 +73,11 @@ void write_csv(FILE *output_file, uint64_t* distortion, point_t **centroid_init_
 
     for (int64_t i = 0; i < nombre_comb; i++) {
         fprintf(output_file, "\"");
-        write_centroid(output_file, centroid_init_Array[i], k);
+        write_centroid(output_file, centroid_init_Array[i], k, dimension);
         fprintf(output_file, "\",%" PRId64 ",\"", distortion[i]);
-        write_centroid(output_file, centroid_final_Array[i], k);
+        write_centroid(output_file, centroid_final_Array[i], k, dimension);
         fprintf(output_file, "\",\"");
-        write_cluster(output_file, clustersArray[i], k);
+        write_cluster(output_file, clustersArray[i], k, dimension);
         fprintf(output_file, "\"\n");
     }
 }
-
-

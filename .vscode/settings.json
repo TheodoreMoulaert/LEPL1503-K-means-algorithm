@@ -16,6 +16,7 @@
         "errno.h": "c",
         "stdbool.h": "c",
         "getopt.h": "c",
-        "main.h": "c"
+        "main.h": "c",
+        "stdio.h": "c"
     }
 }
