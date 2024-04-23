@@ -83,9 +83,7 @@ void test_assign_vectors_to_centroids() {
     print_centroids("Centroids", centroids, 2);
     print_clusters("Clusters", result.result_cluster, 3, 2); // Printing new_clusters
 
-    // Free memory
     for (uint32_t i = 0; i < 2; ++i) {
-        //free(clusters[i]->data);
         free(clusters[i]);
     }
     free(clusters);
@@ -102,6 +100,7 @@ void test_assign_vectors_to_centroids() {
     free(result.result_cluster[0]);
     free(result.result_cluster[1]);
     free(result.result_cluster);
+
 }
 int main() {
     // Initialize CUnit test registry

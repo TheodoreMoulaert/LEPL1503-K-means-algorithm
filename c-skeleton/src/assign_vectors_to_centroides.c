@@ -90,7 +90,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             //uint32_t idx = result.result_cluster[closest_centroid_idx]->size;
         
             // Allouer une nouvelle zone mémoire pour temp avec la taille souhaitée
-            point_t **temp = malloc((idx+1) * sizeof(point_t *)); //(idx + 1)
+            point_t **temp = (point_t**) calloc((idx+1) * sizeof(point_t *), sizeof(point_t*)); //(idx + 1)
             
             printf("%d\n",4);
             if (temp == NULL){
