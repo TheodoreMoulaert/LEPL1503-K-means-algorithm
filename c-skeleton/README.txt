@@ -169,6 +169,12 @@ Utilisation [Makefile]
   ```
 ---
 
+Comparaison [compare_solutions.py]
+═══════════════════════════════════════════════════════════════════════════════════════════════════════════════
+#### *Dans python 
+- La fonction compare_solutions permet de comparer le fichier csv retourné par le code C à celui retourné par le code python.
+- **Exécution du code compare_solutions** :
+  python3 compare_solutions.py fichier_PY.csv fichier_C.csv
 
 Exemples
 ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════
