@@ -176,6 +176,8 @@ Comparaison [compare_solutions.py]
 - **Exécution du code compare_solutions** :
   python3 compare_solutions.py fichier_PY.csv fichier_C.csv
 
+  En cas de succès, le code renvoit "Success !" 
+
 Exemples
 ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════
 
