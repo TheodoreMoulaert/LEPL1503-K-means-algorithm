@@ -337,6 +337,7 @@ int main(int argc, char *argv[]) {
         free(temps_result_cluster);
         free(temp_centroide);
         free(clusters_list);
+
         
     }else{
         /*
@@ -345,19 +346,238 @@ int main(int argc, char *argv[]) {
         *             n > 1 --> multithreading
         * **********************************************
         */
-        pthread_t threads[n_thread]; // stocke les identifiants des threads créés
-        uint64_t thread_ids[n_thread];
-        pthread_mutex_t mutex_combinations;
-        uint32_t err;  //  utilisée pour stocker le code d'erreur retourné par les fonctions de la bibliothèque pthread.
+        //pthread_t threads[n_thread]; // stocke les identifiants des threads créés
+        //uint64_t thread_ids[n_thread];
+        //pthread_mutex_t mutex_combinations;
+        //uint32_t err;  //  utilisée pour stocker le code d'erreur retourné par les fonctions de la bibliothèque pthread.
+
+        point_t **initial_centroids = (point_t **)malloc(nombre_comb* sizeof(point_t *));
+        point_t **initial_conserve = (point_t **)malloc(nombre_comb* sizeof(point_t *));
+        for (int i = 0; i < nombre_comb; i++) {
+        // Utilisation de calloc pour initialiser chaque élément à NULL
+            initial_centroids[i] = (point_t *)malloc(k* sizeof(point_t));
+            if (initial_centroids[i] == NULL) {
+                // Gestion d'erreur si l'allocation échoue
+                exit(EXIT_FAILURE);
+            }
+
+            for (uint32_t j = 0; j < k; j++) {
+                
+                initial_centroids[i][j].coords = (int64_t *)malloc(dimension* sizeof(int64_t));
+                if (initial_centroids[i][j].coords == NULL) {
+                
+                    exit(EXIT_FAILURE);
+                }
+                for  (uint32_t m=0;m<dimension;m++){
+                    initial_centroids[i][j].coords[m] = 0;
+                }      
+            }
+            printf("k = %d\n", k);
+            
+        }
+        for (int i = 0; i < nombre_comb; i++) {
+        // Utilisation de calloc pour initialiser chaque élément à NULL
+            initial_conserve[i] = (point_t *)malloc(k* sizeof(point_t));
+            if (initial_conserve[i] == NULL) {
+                // Gestion d'erreur si l'allocation échoue
+                exit(EXIT_FAILURE);
+            }
+
+            for (uint32_t j = 0; j < k; j++) {
+            
+                initial_conserve[i][j].coords = (int64_t *)malloc(dimension* sizeof(int64_t));
+                if (initial_conserve[i][j].coords == NULL) {
+                    // Gestion d'erreur si l'allocation échoue
+                    exit(EXIT_FAILURE);
+                }
+                for  (uint32_t m=0;m<dimension;m++){
+                    initial_conserve[i][j].coords[m] = 0;
+                }      
+            }
+            
+        }
+        
+        for (int64_t i = 0; i < nombre_comb; i++) {
+            for (uint32_t j = 0; j < k; j++) {
+                // Copier la dimension
+                    initial_centroids[i][j].dim =dimension; 
+                    memcpy(initial_centroids[i][j].coords, initial_combinations[i][j][0].coords, dimension * sizeof(int64_t));
+                    initial_centroids[i][j].nbr_vector = initial_combinations[i][j][0].nbr_vector;
+                
+            }
+        }
+        for (int64_t i = 0; i < nombre_comb; i++) {
+            for (uint32_t j = 0; j < k; j++) {
+                initial_conserve[i][j].dim =dimension; 
+                memcpy(initial_conserve[i][j].coords, initial_combinations[i][j][0].coords, dimension * sizeof(int64_t));
+                initial_conserve[i][j].nbr_vector = initial_combinations[i][j][0].nbr_vector;
+                
+            }
+        }
+
+        point_t **final_centroids = initial_centroids;
+        uint64_t distortion_list[nombre_comb];
+        cluster_t*** clusters_list = malloc(nombre_comb*sizeof(cluster_t**)); 
+        cluster_t **temps_cluster = (cluster_t **)malloc(k *sizeof(cluster_t *));//k * 
+        if (temps_cluster == NULL) {
+            // Gestion d'erreur si l'allocation échoue
+            exit(EXIT_FAILURE);
+        }
+
+        for (uint32_t i = 0; i < k; i++) {
+            temps_cluster[i] = (cluster_t *)malloc(npoints*sizeof(cluster_t));
+            if (temps_cluster[i] == NULL) {
+                exit(EXIT_FAILURE);
+            }
+            
+        }
+    
+        for (int64_t i =0;i< nombre_comb;i++){
+            for (uint32_t j=0;j<k;j++){
+                temps_cluster[j]->centroide.dim = dimension;
+                temps_cluster[j]->centroide.coords=initial_centroids[i][j].coords;
+                temps_cluster[j]->centroide.nbr_vector = initial_centroids[i][j].nbr_vector;
+                if (j==0){
+                    temps_cluster[j]->data = donnes;
+                    temps_cluster[j]->size = npoints;
+                }
+                else{
+                    temps_cluster[j]->data = NULL;
+                    temps_cluster[j]->size = 0;
+
+                }
+            }
+        }
+
+        point_t* temp_centroide = (point_t*) malloc(k*sizeof(point_t));
+        cluster_t** temps_result_cluster= malloc(k* sizeof(cluster_t*)); 
+        for(int64_t i = 0; i < k; i++){
+            temps_result_cluster[i] = malloc(sizeof(cluster_t));
+        }
+
+
+        for (uint64_t i = 0; i < nombre_comb; i++) {
+            
+            for(uint32_t j = 0; j<k; j++){
+                uint64_t temp_distorsion = 0;
+
+                pthread_mutex_t mutex;
+                pthread_mutex_init(&mutex, NULL);
+
+                // Création des threads
+                pthread_t threads[n_threads];
+                k_means_thread_args_t args[n_threads];
+                uint32_t position=0;
+
+                for (uint32_t i = 0; i < n_threads; i++){
+                    
+                    if ((position>=nombre_comb)){ // Si il y a plus de threads que de combinaisons => thread nul
+                        pthread_create(&threads[i], NULL, NULL, (void *)NULL); 
+                    }
+
+                    else if ((i== n_threads-1) && (position < nombre_comb -1)){ //Si il y a plus de combinaisons que de threads => les dernières combi dans le dernier thread
+                        while (position < nombre_comb){
+                            args[i].clusters = temps_cluster; 
+                            args[i].num_points =npoints ; 
+                            args[i].k = k;
+                            args[i].initial_centroids = initial_centroids[position];
+                            args[i].final_centroids = final_centroids[position];
+                            args[i].distance_func = distance_func;
+                            args[i].mutex = &mutex;
+
+                            // Création du thread
+                            pthread_create(&threads[i], NULL, k_means_thread, (void *)&args[i]);
+                            position++;
+                        }
+                    }
+                    else{
+                        // Initialisation des arguments pour chaque thread
+                        args[i].clusters = temps_cluster; 
+                        args[i].num_points =npoints ; 
+                        args[i].k = k;
+                        args[i].initial_centroids = initial_centroids[position];
+                        args[i].final_centroids = final_centroids[position];
+                        args[i].distance_func = distance_func;
+                        args[i].mutex = &mutex;
+
+                        // Création du thread
+                        pthread_create(&threads[i], NULL, k_means_thread, (void *)&args[i]);
+                        position++;
+
+                    }
+                    
+                    
+                    
+                }
+
+                // Attente de la fin de tous les threads
+                for (uint32_t i = 0; i < n_threads; i++) {
+                    pthread_join(threads[i], (void **) &temps_result_cluster);
+                }
+
+                // Libération des ressources du mutex
+                pthread_mutex_destroy(&mutex);
+
+                
+                //temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], final_centroids[i], DISTANCE_SQUARED);
+                
+                for (uint32_t m=0 ; m<k; m++){
+                    temp_centroide[m].coords = temps_result_cluster[m]->centroide.coords;
+                    temp_centroide[m].nbr_vector = temps_result_cluster[m]->centroide.nbr_vector;
+                    temp_centroide[m].dim = dimension;
+                }
+                
+                temp_distorsion = distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);
+            
+                *final_centroids[i] = *temp_centroide; 
+                clusters_list[i] = temps_result_cluster;
+                distortion_list[i] = temp_distorsion;
+                    printf("%d\n", 13);
+        
+            }
+        
+        }
+
+        write_csv(output_file, distortion_list,initial_conserve, final_centroids, clusters_list, k, dimension, nombre_comb); 
+
+        // Libérer la mémoire pour les points de données
+        for (uint64_t i = 0; i < npoints; i++) {
+            free(donnes[i]->coords);
+            free(donnes[i]);
+        }
+        free(donnes);
+
+        for (int64_t i = 0; i < nombre_comb; i++) {
+        
+            free(initial_combinations[i]);
+        }
+        free(initial_combinations);
+
+        // Libérer la mémoire pour les centroids initiaux
+        for (int64_t i = 0; i < nombre_comb; i++) {
+        
+            free(initial_centroids[i]);
+            free(initial_conserve[i]);
+        }
+        free(initial_centroids);
+        free(initial_conserve);
+
+        for (uint32_t i = 0; i < k; i++) {
+    
+            free(temps_cluster[i]);
+        }
+        free(temps_cluster);
+
+        for (uint32_t i = 0; i < k; i++) {
+            free(temps_result_cluster[i]);
+        }
+        free(temps_result_cluster);
+        free(temp_centroide);
+        free(clusters_list);
+
 
 
     }
-
-
-    
-
-
-
 
     // close the files opened by parse_args
     if (program_arguments.input_stream != stdin) {
