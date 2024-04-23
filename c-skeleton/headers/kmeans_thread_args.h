@@ -14,6 +14,7 @@ typedef struct {
     point_t *initial_centroids;
     point_t *final_centroids;
     squared_distance_func_t distance_func;
+    pthread_mutex_t *mutex;
 } k_means_thread_args_t;
 
 #endif //KMEANS_THREAD_ARGS_H

@@ -9,6 +9,7 @@
 #include "../headers/assign_vector_to_centro.h"
 #include "../headers/cluster.h"
 #include "../headers/distance.h"
+#include "../headers/kmeans_thread_args.h"
 
 cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
     if (clusters == NULL || initial_centroids == NULL || final_centroids == NULL) {
@@ -103,11 +104,29 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
 }
 
 
-// Fonction k_means_thread
+// Fonction pour le thread k_means
 void *k_means_thread(void *args) {
+    int err;
     k_means_thread_args_t *thread_args = (k_means_thread_args_t *)args;
-    cluster_t **result = k_means_t(thread_args->clusters, thread_args->num_points, thread_args->k,
+    cluster_t **result = k_means(thread_args->clusters, thread_args->num_points, thread_args->k,
                                  thread_args->initial_centroids, thread_args->final_centroids,
                                  thread_args->distance_func);
-    pthread_exit(result);
+    
+    err = pthread_mutex_lock(thread_args->mutex);
+    if(err!=0){
+        error(err,"pthread_mutex_lock");
+    }
+        
+    cluster_t **result = k_means(thread_args->clusters, thread_args->num_points, thread_args->k,
+                                 thread_args->initial_centroids, thread_args->final_centroids,
+                                 thread_args->distance_func);
+    
+    //*(thread_args->final_centroids) = result;
+    err = pthread_mutex_unlock(thread_args->mutex);
+    if(err!=0){
+        error(err,"pthread_mutex_unlock");
+    }
+        
+
+    pthread_exit(NULL);
 }
