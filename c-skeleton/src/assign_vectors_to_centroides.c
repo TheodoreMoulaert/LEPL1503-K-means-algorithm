@@ -117,6 +117,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             }*/
             printf("%d\n",5);
             memcpy(temp, new_clusters[closest_centroid_idx]->data, idx * sizeof(point_t *));
+            free(new_clusters[closest_centroid_idx]->data);
     
             
             printf("%d\n",6);
@@ -134,21 +135,9 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             new_clusters[closest_centroid_idx]->centroide.dim = centroids[closest_centroid_idx].dim;
             
 
-<<<<<<< HEAD
-            //new_clusters[closest_centroid_idx]->size++;
-            //new_clusters[closest_centroid_idx]->centroide = centroids[closest_centroid_idx];
-            //new_clusters[closest_centroid_idx]->centroide.dim = centroids[closest_centroid_idx].dim;
-            result.result_cluster[closest_centroid_idx]->data[idx] = vector;
-            result.result_cluster[closest_centroid_idx]->size++;
-            result.result_cluster[closest_centroid_idx]->centroide = centroids[closest_centroid_idx];
-            //result.result_cluster[closest_centroid_idx]->
-                
-            if (current_centroid_idx == closest_centroid_idx){
-=======
             if(current_centroid_idx == closest_centroid_idx){
->>>>>>> 1c36d1a5436d0739b6860cd87b3e13f7ecb91240
                 nconv += 1; 
-                
+               
             }
             printf("%d\n",9);
             if(nconv == npoint){
