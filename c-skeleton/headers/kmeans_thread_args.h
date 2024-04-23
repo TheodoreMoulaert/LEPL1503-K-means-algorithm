@@ -1,7 +1,8 @@
-#include "point.h"
-#include "cluster.h"
-#include "distance.h"
+#include "../headers/point.h"
+#include "../headers/cluster.h"
+#include "../headers/distance.h"
 #include <stdbool.h>
+#include <pthread.h>
 
 #ifndef KMEANS_THREAD_ARGS_H
 #define KMEANS_THREAD_ARGS_H
