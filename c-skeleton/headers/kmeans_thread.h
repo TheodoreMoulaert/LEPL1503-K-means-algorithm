@@ -2,6 +2,9 @@
 #define KMEANS_THREAD
 
 #include <stdbool.h>
+#include <pthread.h>
+#include <unistd.h>
+#include <errno.h>
 #include "../headers/point.h"
 #include "../headers/cluster.h"
 #include "../headers/update_centroids.h"
