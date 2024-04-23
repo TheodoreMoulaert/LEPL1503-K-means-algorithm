@@ -101,3 +101,13 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
     free(old_centroids);
     return result.result_cluster;
 }
+
+
+// Fonction k_means_thread
+void *k_means_thread(void *args) {
+    k_means_thread_args_t *thread_args = (k_means_thread_args_t *)args;
+    cluster_t **result = k_means_t(thread_args->clusters, thread_args->num_points, thread_args->k,
+                                 thread_args->initial_centroids, thread_args->final_centroids,
+                                 thread_args->distance_func);
+    pthread_exit(result);
+}
