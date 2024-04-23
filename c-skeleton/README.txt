@@ -120,7 +120,30 @@ Des tests indépendants pour chaque fichier peuvent être trouvés dans le répe
 
 Utilisation
 ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════
+### Lancement simple du programme
+1. Assurez-vous que vous vous trouvez dans le répertoire racine du projet `c-skeleton`.
+2. Ouvrez un terminal.
+3. Exécutez la commande suivante pour compiler le programme :
+   ```bash
+   make
+   ```
+   Cette commande va compiler le programme principal `kmeans`.
 
+### Lancement en mode débogage / tests spécifiques du programme
+Si vous souhaitez personnaliser les options du programme, voici comment procéder :
+
+- **Exécuter les tests unitaires** :
+  Utilisez la commande suivante pour exécuter tous les tests unitaires :
+  ```bash
+  make tests
+  ```
+
+### Fin d'utilisation
+  - **Nettoyer les fichiers générés** :
+  Pour supprimer les fichiers objets et exécutables générés, utilisez la commande :
+  ```bash
+  make clean
+  ```
 ---
 
 
