@@ -64,16 +64,13 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
     uint64_t nconv = 0; 
    
     for (uint32_t current_centroid_idx = 0; current_centroid_idx < K; ++current_centroid_idx){ //K nbr_comb
-        printf("%d\n",0);
         // Parcourir tous les vecteurs du cluster actuel
         for (uint64_t i = 0; i < clusters[current_centroid_idx]->size; ++i){
             point_t *vector = clusters[current_centroid_idx]->data[i];
-            printf("%d\n",1);
             // Trouver le centroïde le plus proche pour le vecteur
             uint32_t closest_centroid_idx = 0;
             uint64_t closest_centroid_distance = UINT64_MAX;
             for (uint32_t centroid_idx = 0; centroid_idx < K; ++centroid_idx) {
-                printf("%d\n",2);
                 uint64_t distance = distance_func(vector, &centroids[centroid_idx]);//&
                 //printf("distance: %ld\n",distance);
                 if (distance < closest_centroid_distance) {
@@ -82,7 +79,6 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
                 }
 
             }
-            printf("%d\n",3);
             
             // Ajouter le vecteur au cluster le plus proche dans le nouveau tableau de clusters
             uint32_t idx = new_clusters[closest_centroid_idx]->size;
@@ -91,42 +87,23 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             // Allouer une nouvelle zone mémoire pour temp avec la taille souhaitée
             point_t **temp = (point_t**) calloc((idx+1) * sizeof(point_t *), sizeof(point_t*)); //(idx + 1)
             
-            printf("%d\n",4);
             if (temp == NULL){
                 // Gérer l'erreur d'allocation de mémoire
                 // Libérer la mémoire allouée pour les nouveaux clusters déjà initialisés
                 for (uint32_t j = 0; j < K; ++j) {
                     free(new_clusters[j]);
+                    free(new_clusters[j]->data); // Freeing data if reallocation fails
+
                 }
                 free(new_clusters);
                 return result;
             }
+
             printf(" idx = %d\n",idx);
             printf("closest_centroid_idx=%d\n",closest_centroid_idx);
             printf("current_centroid_idx=%d, K-1=%d\n",current_centroid_idx,K-1);
             printf("clusters[current_centroid_idx]->size-1=%ld, i= %ld\n",clusters[current_centroid_idx]->size-1,i);
 
-            // Copier les éléments existants de l'ancienne zone mémoire vers la nouvelle
-            /*for (uint32_t p = 0; p < idx; ++p) {
-                printf("%d\n",44);
-                temp[p] = new_clusters[closest_centroid_idx]->data[p];
-                printf("%d\n",444);
-       
-            }*/
-            printf("%d\n",5);
-            memcpy(temp, new_clusters[closest_centroid_idx]->data, idx * sizeof(point_t *));
-            //free(new_clusters[closest_centroid_idx]->data);
-    
-            
-            printf("%d\n",6);
-            
-            printf("%d\n",7);
-
-            // Affecter temp à la nouvelle zone mémoire
-            new_clusters[closest_centroid_idx]->data = temp;
-            
-            printf("%d\n",8);
-   
             new_clusters[closest_centroid_idx]->data[idx] = vector;
             new_clusters[closest_centroid_idx]->size++;
             new_clusters[closest_centroid_idx]->centroide = centroids[closest_centroid_idx];
@@ -137,14 +114,11 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
                 nconv += 1; 
                
             }
-            printf("%d\n",9);
             if(nconv == npoint){
                  result.changes = true; 
             }
-            printf("%d\n",10);
         }      
     }
-    printf("%d\n",12);
     result.result_cluster = new_clusters;
     
     return result;
