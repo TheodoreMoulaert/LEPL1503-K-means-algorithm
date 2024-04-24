@@ -469,7 +469,6 @@ int main(int argc, char *argv[]) {
                 printf("thread : %d\n", 2);
 
                 for (uint32_t i = 0; i < n_thread; i++){
-                    
                     if ((position>=nombre_comb)){ // Si il y a plus de threads que de combinaisons => thread nul
                         //pthread_create(&threads[i], NULL, NULL, (void *)NULL); 
                         printf("thread : %d\n", 3);
@@ -512,7 +511,7 @@ int main(int argc, char *argv[]) {
 
                 // Attente de la fin de tous les threads
                 for (uint32_t i = 0; i < n_thread; i++) {
-                    pthread_join(threads[i], (void **) &temps_result_cluster);//NULL);//
+                    pthread_join(threads[i], (void **) &thread_args->result);//NULL);//
                 }
                 printf("thread : %d\n", 7);
 
