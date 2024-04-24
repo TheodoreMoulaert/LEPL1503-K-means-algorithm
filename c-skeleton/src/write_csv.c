@@ -6,6 +6,19 @@
 #include "../headers/write_csv.h"
 #include "../headers/update_centroids.h" 
 
+/**
+ * @brief Écrit les données de clustering dans un fichier CSV.
+ * 
+ * @param output_file Pointeur vers le fichier de sortie
+ * @param distortion Tableau des valeurs de distorsion
+ * @param centroid_init_Array Tableau des centroids initiaux pour chaque combinaison
+ * @param centroid_final_Array Tableau des centroids finaux pour chaque combinaison
+ * @param clustersArray Tableau de tableaux de pointeurs vers les clusters pour chaque combinaison
+ * @param k Nombre de clusters
+ * @param dimension Nombre de dimensions des données
+ * @param nombre_comb Nombre total de combinaisons
+ */
+
 void write_centroid(FILE *file, point_t* centroid, int64_t k, int64_t dimension) {
     if (file == NULL || centroid == NULL) {
         fprintf(file, "Erreur : pointeur de fichier ou de centroïde invalide.\n");
