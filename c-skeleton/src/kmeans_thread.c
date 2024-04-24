@@ -137,3 +137,8 @@ void *k_means_thread(void *args) {
 
     pthread_exit(NULL);
 }
+
+/*
+entre les mutex mettre une boucle pour les initiales centroids et ecrire avec write_csv donc il faut bien avoir tous les arguments nécessaires dans result_thread
+
+*/
