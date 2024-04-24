@@ -10,6 +10,7 @@ typedef struct {
     uint32_t dimension;    // Nombre de dimensions
 } point_t;
 */
+
 // Fonction qui calcule la factorielle d'un entier
 uint64_t factorial(uint64_t n) {
     if (n <= 1)
@@ -54,6 +55,16 @@ uint64_t *next_comb(uint64_t comb[], uint64_t n, uint64_t k) {
     return comb;
 }
 
+/**
+ * @brief Génère toutes les combinaisons possibles de k vecteurs parmi un ensemble de n vecteurs. 
+ * Chaque combinaison est représentée par un tableau de pointeurs vers les vecteurs choisis.
+ * 
+ * @param vectors Tableau de pointeurs vers les vecteurs d'entrée
+ * @param n Nombre total de vecteurs dans l'ensemble
+ * @param k Taille de chaque combinaison à générer
+ * @param p Nombre total de vecteurs dans l'ensemble d'entrée
+ * @return Tableau de pointeurs vers les combinaisons générées, ou NULL en cas d'erreur
+ */
 point_t ***generate_combinations(point_t **vectors, uint64_t n, uint64_t k, uint32_t p) {
     // Vérification des paramètres
     if (n < k || k <= 0 || p < k) {

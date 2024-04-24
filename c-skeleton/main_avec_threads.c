@@ -454,21 +454,25 @@ int main(int argc, char *argv[]) {
             temps_result_cluster[i] = malloc(sizeof(cluster_t));
         }
 
+
         //Les deux boucles for ne sont pas correctes car sinon crée à chaque fois n thread mais comment utiliser les temp_cluster avec distortion....
+        pthread_mutex_t mutex_combinaison;
+        pthread_t threads[n_thread-1];
+        k_means_thread_args_t args[n_thread-1];
+        uint32_t position=0;
+        uint64_t temp_distorsion = 0;
+
+        if (pthread_mutex_init(&mutex_combinaison, NULL) != 0) {
+            fprintf(stderr, "Erreur lors de l'initialisation du mutex\n");
+        return EXIT_FAILURE;
+        }
+    
+        
         for (uint64_t i = 0; i < nombre_comb; i++) {
             for(uint32_t j = 0; j<k; j++){
-                uint64_t temp_distorsion = 0;
-                pthread_mutex_t mutex;
-                pthread_mutex_init(&mutex, NULL);
-                printf("thread : %d\n", 1);
-
-                // Création des threads
-                pthread_t threads[n_thread];
-                k_means_thread_args_t args[n_thread];
-                uint32_t position=0;
-                printf("thread : %d\n", 2);
-
+        
                 for (uint32_t i = 0; i < n_thread; i++){
+                    
                     if ((position>=nombre_comb)){ // Si il y a plus de threads que de combinaisons => thread nul
                         //pthread_create(&threads[i], NULL, NULL, (void *)NULL); 
                         printf("thread : %d\n", 3);
@@ -482,7 +486,7 @@ int main(int argc, char *argv[]) {
                             args[i].initial_centroids = initial_centroids[position];
                             args[i].final_centroids = final_centroids[position];
                             args[i].distance_func = DISTANCE_SQUARED;
-                            args[i].mutex = &mutex;
+                            args[i].mutex = &mutex_combinaison;
 
                             // Création du thread
                             pthread_create(&threads[i], NULL, k_means_thread, (void *)&args[i]);
@@ -498,7 +502,7 @@ int main(int argc, char *argv[]) {
                         args[i].initial_centroids = initial_centroids[position];
                         args[i].final_centroids = final_centroids[position];
                         args[i].distance_func = DISTANCE_SQUARED;
-                        args[i].mutex = &mutex;
+                        args[i].mutex = &mutex_combinaison;
 
                         // Création du thread
                         pthread_create(&threads[i], NULL, k_means_thread, (void *)&args[i]);
@@ -511,12 +515,12 @@ int main(int argc, char *argv[]) {
 
                 // Attente de la fin de tous les threads
                 for (uint32_t i = 0; i < n_thread; i++) {
-                    pthread_join(threads[i], (void **) &thread_args->result);//NULL);//
+                    pthread_join(threads[i], (void **) &temps_result_cluster);//NULL);//
                 }
                 printf("thread : %d\n", 7);
 
                 // Libération des ressources du mutex
-                pthread_mutex_destroy(&mutex);
+                pthread_mutex_destroy(&mutex_combinaison);
 
                 printf("thread : %d\n", 8);
                 //temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], final_centroids[i], DISTANCE_SQUARED);
