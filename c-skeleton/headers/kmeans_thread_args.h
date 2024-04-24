@@ -7,7 +7,7 @@
 #ifndef KMEANS_THREAD_ARGS_H
 #define KMEANS_THREAD_ARGS_H
 
-typedef{
+typedef struct{
     //bool changes; 
     //cluster_t** result_cluster; 
     uint64_t temp_distorsion;
