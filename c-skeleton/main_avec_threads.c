@@ -13,6 +13,7 @@
 #include "../c-skeleton/headers/binary_file_reader.h" 
 #include "../c-skeleton/headers/k_means.h"
 #include "../c-skeleton/headers/write_csv.h"
+#include "../c-skeleton/headers/write_thread.h"
 #include "../c-skeleton/headers/point.h"
 #include "../c-skeleton/headers/cluster.h"
 #include "../c-skeleton/headers/combinaison.h"
@@ -459,7 +460,40 @@ int main(int argc, char *argv[]) {
         pthread_mutex_t mutex_combinaison;
         pthread_t threads[n_thread-1];
         k_means_thread_args_t args[n_thread-1];
-        uint32_t position=0;
+
+        args->clusters = temps_cluster;
+        args->num_points =npoints ; 
+        args->k = k;
+        args->dimension = dimension;
+        args->nombre_comb = nombre_comb;
+        args->initial_centroids = initial_centroids;
+        args->final_centroids = final_centroids;
+        args->initial_conserve = initial_conserve;
+        args->distance_func = DISTANCE_SQUARED;
+        args->output_file= output_file;
+        args->n_thread = n_thread;
+        args->mutex = &mutex_combinaison;
+        args->res_thread;
+        //args->result;
+
+
+        if (pthread_mutex_init(&mutex_combinaison, NULL) != 0) {
+            fprintf(stderr, "Erreur lors de l'initialisation du mutex\n");
+            return EXIT_FAILURE;
+        }
+        for (uint32_t i = 0; i < n_thread-1; i++){
+            pthread_create(&threads[i], NULL, k_means_thread, (void *)&args);
+        }
+
+        for (uint32_t i = 0; i < n_thread; i++) {
+            pthread_join(threads[i], NULL);
+        }
+
+
+        // Libération des ressources du mutex
+        pthread_mutex_destroy(&mutex_combinaison);
+
+        /*uint32_t position=0;
         uint64_t temp_distorsion = 0;
 
         if (pthread_mutex_init(&mutex_combinaison, NULL) != 0) {
@@ -543,7 +577,7 @@ int main(int argc, char *argv[]) {
         
         }
 
-        write_csv(output_file, distortion_list,initial_conserve, final_centroids, clusters_list, k, dimension, nombre_comb); 
+        write_csv(output_file, distortion_list,initial_conserve, final_centroids, clusters_list, k, dimension, nombre_comb); */
 
         // Libérer la mémoire pour les points de données
         for (uint64_t i = 0; i < npoints; i++) {
