@@ -14,7 +14,7 @@
 #include "../headers/cluster.h"
 #include "../headers/distance.h"
 #include "../headers/kmeans_thread_args.h"
-#include "../c-skeleton/headers/write_thread.h"
+#include "../headers/write_thread.h"
 
 
 result_thread* kmeans_thread(cluster_t** clusters, uint64_t num_points, uint32_t k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
