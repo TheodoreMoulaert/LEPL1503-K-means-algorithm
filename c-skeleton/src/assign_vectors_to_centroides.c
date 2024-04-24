@@ -42,7 +42,6 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             // Gérer l'erreur d'allocation de mémoire
             // Libérer la mémoire allouée pour les nouveaux clusters déjà initialisés
             for (uint32_t j = 0; j < i; ++j) {
-                free(new_clusters[j]->data);
                 free(new_clusters[j]);
             }
             free(new_clusters);
@@ -97,7 +96,6 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
                 // Gérer l'erreur d'allocation de mémoire
                 // Libérer la mémoire allouée pour les nouveaux clusters déjà initialisés
                 for (uint32_t j = 0; j < K; ++j) {
-                    free(new_clusters[j]->data);
                     free(new_clusters[j]);
                 }
                 free(new_clusters);
