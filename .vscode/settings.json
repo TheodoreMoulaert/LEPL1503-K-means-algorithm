@@ -17,6 +17,7 @@
         "stdbool.h": "c",
         "getopt.h": "c",
         "main.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "kmeans_thread_args.h": "c"
     }
 }
