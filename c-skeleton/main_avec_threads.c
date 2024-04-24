@@ -463,12 +463,18 @@ int main(int argc, char *argv[]) {
         args->clusters = temps_cluster;
         args->num_points =npoints ; 
         args->k = k;
+        args->dimension = dimension;
+        args->nombre_comb = nombre_comb;
         args->initial_centroids = initial_centroids;
         args->final_centroids = final_centroids;
+        args->initial_conserve = initial_conserve;
         args->distance_func = DISTANCE_SQUARED;
+        args->output_file= output_file;
+        args->n_thread = n_thread;
         args->mutex = &mutex_combinaison;
         args->res_thread;
         //args->result;
+
 
         if (pthread_mutex_init(&mutex_combinaison, NULL) != 0) {
             fprintf(stderr, "Erreur lors de l'initialisation du mutex\n");
