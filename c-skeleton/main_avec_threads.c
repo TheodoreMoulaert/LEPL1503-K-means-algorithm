@@ -280,25 +280,22 @@ int main(int argc, char *argv[]) {
 
         for (uint64_t i = 0; i < nombre_comb; i++) {
             
-            for(uint32_t j = 0; j<k; j++){
-                uint64_t temp_distorsion = 0;
-                temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], final_centroids[i], DISTANCE_SQUARED);
-
-                for (uint32_t m=0 ; m<k; m++){
-                    temp_centroide[m].coords = temps_result_cluster[m]->centroide.coords;
-                    temp_centroide[m].nbr_vector = temps_result_cluster[m]->centroide.nbr_vector;
-                    temp_centroide[m].dim = dimension;
-                }
-                
-                temp_distorsion = distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);
             
-                *final_centroids[i] = *temp_centroide; 
-                clusters_list[i] = temps_result_cluster;
-                distortion_list[i] = temp_distorsion;
-               
-        
+            uint64_t temp_distorsion = 0;
+            temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], final_centroids[i], DISTANCE_SQUARED);
+
+            for (uint32_t m=0 ; m<k; m++){
+                temp_centroide[m].coords = temps_result_cluster[m]->centroide.coords;
+                temp_centroide[m].nbr_vector = temps_result_cluster[m]->centroide.nbr_vector;
+                temp_centroide[m].dim = dimension;
             }
-        
+                
+            temp_distorsion = distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);
+            
+            *final_centroids[i] = *temp_centroide; 
+            clusters_list[i] = temps_result_cluster;
+            distortion_list[i] = temp_distorsion;
+               
         }
 
         write_csv(output_file, distortion_list,initial_conserve, final_centroids, clusters_list, k, dimension, nombre_comb); 
