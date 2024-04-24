@@ -4,12 +4,7 @@
 #include <stdio.h>
 #include "../headers/point.h"
 
-/*// Structure pour représenter un point dans l'espace
-typedef struct {
-    int64_t *coordinates;  // Coordonnées du point
-    uint32_t dimension;    // Nombre de dimensions
-} point_t;
-*/
+
 
 // Fonction qui calcule la factorielle d'un entier
 uint64_t factorial(uint64_t n) {
