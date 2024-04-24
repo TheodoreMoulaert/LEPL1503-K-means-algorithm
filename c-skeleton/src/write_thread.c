@@ -18,7 +18,7 @@
  * @param dimension Dimension des points dans les centroïdes.
  */
 
-void write_centroid(FILE *file, point_t *centroid, int64_t k, int64_t dimension) {
+void write_centro_thread(FILE *file, point_t *centroid, int64_t k, int64_t dimension) {
     if (file == NULL || centroid == NULL) {
         fprintf(file, "Erreur : pointeur de fichier ou de centroïde invalide.\n");
         return;
@@ -50,7 +50,7 @@ void write_centroid(FILE *file, point_t *centroid, int64_t k, int64_t dimension)
  * @param dimension Dimension des points dans les clusters.
  */
 
-void write_cluster(FILE *file, cluster_t *cluster, int64_t k, int64_t dimension) {
+void write_clu_thread(FILE *file, cluster_t *cluster, int64_t k, int64_t dimension) {
     if (file == NULL || cluster == NULL) {
         fprintf(file, "Erreur : pointeur de fichier ou de cluster invalide.\n");
         return;
@@ -97,7 +97,7 @@ void write_cluster(FILE *file, cluster_t *cluster, int64_t k, int64_t dimension)
  * @param dimension Nombre de dimensions des données
  * @param nombre_comb Nombre total de combinaisons
  */
-void write_csv(FILE *output_file, uint64_t distortion, point_t *centroid_init, point_t *centroid_final, cluster_t **clusters, int64_t k, int64_t dimension, int64_t nombre_comb) {
+void write_thread(FILE *output_file, uint64_t distortion, point_t *centroid_init, point_t *centroid_final, cluster_t **clusters, int64_t k, int64_t dimension, int64_t nombre_comb) {
     if (output_file == NULL) {
         printf("Erreur : pointeur de fichier de sortie invalide.\n");
         return;
