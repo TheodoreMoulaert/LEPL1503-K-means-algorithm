@@ -22,11 +22,17 @@ typedef struct {
     cluster_t **result;
     uint64_t num_points;
     uint32_t k;
+    uint32_t dimension;
+    int64_t nombre_comb;
     point_t *initial_centroids;
     point_t *final_centroids;
+    point_t *initial_conserve;
     squared_distance_func_t distance_func;
+    FILE *output_file;
+
     pthread_mutex_t *mutex;
     result_thread res_thread;
+
 } k_means_thread_args_t;
 
 

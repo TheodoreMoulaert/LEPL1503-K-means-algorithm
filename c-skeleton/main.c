@@ -343,9 +343,7 @@ int main(int argc, char *argv[]) {
             clusters_list[i] = temps_result_cluster;
             distortion_list[i] = temp_distorsion;
             printf("%d\n", 13);
-    
         }
-    
     }
 
     //print csv
