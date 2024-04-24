@@ -105,7 +105,7 @@ result_thread* kmeans_thread(cluster_t** clusters, uint64_t num_points, uint32_t
         i++;  
     }
     res_thread->temps_result_cluster = result.result_cluster;
-    res_thread->final_centroids = final_centroids;
+    res_thread->final_centroids= final_centroids;
     res_thread->initial_centroids = initial_centroids;
     res_thread->temp_distorsion = distortion((cluster_t const **)res_thread->temps_result_cluster, k, distance_func);
     // Libérer la mémoire pour les old_centroids
@@ -152,8 +152,8 @@ void *k_means_thread(void *args) {
                                         thread_args->distance_func);
             thread_args->res_thread = res_th[0];                            
             
-            write_csv_thread(thread_args->output_file, res_th->temp_distorsion ,res_th->initial_conserve[i] ,
-                             res_th->final_centroids[i] , res_th->temps_result_cluster, 
+            write_thread(thread_args->output_file, res_th->temp_distorsion ,res_th->initial_conserve[i] ,
+                             res_th->final_centroids , res_th->temps_result_cluster, 
                              thread_args->k, thread_args->dimension, thread_args->nombre_comb);
             err = pthread_mutex_unlock(thread_args->mutex);
             if(err!=0){

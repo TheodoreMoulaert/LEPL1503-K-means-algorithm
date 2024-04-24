@@ -15,8 +15,8 @@ typedef struct{
     //cluster_t** result_cluster; 
     uint64_t temp_distorsion;
     cluster_t** temps_result_cluster;
-    point_t **initial_centroids;
-    point_t **final_centroids;
+    point_t *initial_centroids;
+    point_t *final_centroids;
     point_t **initial_conserve;
 
 } result_thread;
