@@ -10,6 +10,7 @@
 // Structure pour passer les arguments à la fonction k_means_thread
 typedef struct {
     cluster_t **clusters;
+    cluster_t **result;
     uint64_t num_points;
     uint32_t k;
     point_t *initial_centroids;
