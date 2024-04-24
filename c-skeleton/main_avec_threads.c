@@ -13,6 +13,7 @@
 #include "../c-skeleton/headers/binary_file_reader.h" 
 #include "../c-skeleton/headers/k_means.h"
 #include "../c-skeleton/headers/write_csv.h"
+#include "../c-skeleton/headers/write_thread.h"
 #include "../c-skeleton/headers/point.h"
 #include "../c-skeleton/headers/cluster.h"
 #include "../c-skeleton/headers/combinaison.h"
