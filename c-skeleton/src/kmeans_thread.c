@@ -18,9 +18,6 @@
 void *k_means_thread(void *args) { 
     int err;
     k_means_thread_args_t *thread_args = (k_means_thread_args_t *)args;
-    //cluster_t **result = k_means(thread_args->clusters, thread_args->num_points, thread_args->k,
-                                 //thread_args->initial_centroids, thread_args->final_centroids,
-                                 //thread_args->distance_func);
     
     thread_args->result = k_means(thread_args->clusters, thread_args->num_points, thread_args->k,
                                  thread_args->initial_centroids, thread_args->final_centroids,
@@ -30,8 +27,7 @@ void *k_means_thread(void *args) {
     if(err!=0){
         perror("pthread_mutex_lock");
     }
-    
-    //(thread_args->final_centroids) = result;
+
     err = pthread_mutex_unlock(thread_args->mutex);
     if(err!=0){
         perror("pthread_mutex_unlock");
