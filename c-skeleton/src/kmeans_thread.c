@@ -36,6 +36,7 @@ result_thread* kmeans_thread(cluster_t** clusters, uint64_t num_points, uint32_t
     //printf("%d\n", 2);
     result_t result; 
     result_thread *res_thread;
+    result_thread r_th;
 
     // Exécute des itérations jusqu'à convergence
     bool convergence = false;
@@ -98,17 +99,25 @@ result_thread* kmeans_thread(cluster_t** clusters, uint64_t num_points, uint32_t
             printf("Centroid %d: (%" PRId64 ", %" PRId64 ")\n", j, final_centroids[j].coords[0], final_centroids[j].coords[1]);
         }
 
-        //printf("%d\n", 5);
+        
         // Libérer la mémoire pour les old_centroids
         for (int j = 0; j < k; j++) {
             free(old_centroids[j].coords);
         }
         i++;  
     }
-    res_thread->temps_result_cluster = result.result_cluster;
+    printf("%d\n", 7);
+    r_th.final_centroids= final_centroids;
+    printf("%d\n", 7);
     res_thread->final_centroids= final_centroids;
+    printf("%d\n",77);
+    
+    res_thread->temps_result_cluster = clusters;
+    printf("%d\n",777);
     res_thread->initial_centroids = initial_centroids;
+    printf("%d\n",7777);
     res_thread->temp_distorsion = distortion((cluster_t const **)res_thread->temps_result_cluster, k, distance_func);
+    printf("%d\n",8);
     // Libérer la mémoire pour les old_centroids
     free(old_centroids);
     return res_thread;
@@ -119,6 +128,7 @@ result_thread* kmeans_thread(cluster_t** clusters, uint64_t num_points, uint32_t
 //Fonction pour le thread k_means 
 void *k_means_thread(void *args) { 
     int err;
+    printf("thread : %d\n", 1);
 
     k_means_thread_args_t *thread_args = args;
     result_thread *res_th;
@@ -133,16 +143,39 @@ void *k_means_thread(void *args) {
     args.result;
     args.res_thread;*/
     
-
+    printf("thread : %d\n", 2);
     for (uint32_t i = 0; i < thread_args->n_thread -1; i++){
         if (i>= thread_args->nombre_comb ){
+            printf("thread : %d\n", 3);
             //ne rien faire
         }
-        else if ((i == thread_args->n_thread-2)&& (i<thread_args->nombre_comb-1)){
+        else if ((i == thread_args->n_thread-2)&& (i<thread_args->nombre_comb-1)){ //dernier thread mais pas dernier combi
             //je ne vois pas bien quoi faire
+            printf("thread : %d\n", 4);
+            uint32_t j = i;
+            while (j < thread_args->nombre_comb ){
+                err = pthread_mutex_lock(thread_args->mutex);
+                if(err!=0){
+                    perror("pthread_mutex_lock");
+                }
+
+                res_th = kmeans_thread(thread_args->clusters, thread_args->num_points, thread_args->k,
+                                            thread_args->initial_centroids[i] , thread_args->final_centroids[i],
+                                            thread_args->distance_func);
+                thread_args->res_thread = res_th[0];                            
+                
+                write_thread(thread_args->output_file, res_th->temp_distorsion ,res_th->initial_conserve[i] ,
+                                res_th->final_centroids , res_th->temps_result_cluster, 
+                                thread_args->k, thread_args->dimension, thread_args->nombre_comb);
+                err = pthread_mutex_unlock(thread_args->mutex);
+                if(err!=0){
+                    perror("pthread_mutex_unlock");
+                } 
+            }
 
         }
         else {
+            printf("thread : %d\n", 5);
             err = pthread_mutex_lock(thread_args->mutex);
             if(err!=0){
                 perror("pthread_mutex_lock");
@@ -151,15 +184,18 @@ void *k_means_thread(void *args) {
             res_th = kmeans_thread(thread_args->clusters, thread_args->num_points, thread_args->k,
                                         thread_args->initial_centroids[i] , thread_args->final_centroids[i],
                                         thread_args->distance_func);
+
             thread_args->res_thread = res_th[0];                            
-            
+            printf("thread : %d\n", 55);
             write_thread(thread_args->output_file, res_th->temp_distorsion ,res_th->initial_conserve[i] ,
                              res_th->final_centroids , res_th->temps_result_cluster, 
                              thread_args->k, thread_args->dimension, thread_args->nombre_comb);
+            printf("thread : %d\n", 555);
             err = pthread_mutex_unlock(thread_args->mutex);
             if(err!=0){
                 perror("pthread_mutex_unlock");
             } 
+            printf("thread : %d\n", 5555);
 
         } 
         
