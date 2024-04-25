@@ -103,7 +103,7 @@ void write_thread(FILE *output_file, uint64_t distortion, point_t *centroid_init
         return;
     }
     printf("write %d\n", 1);
-    fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n"); //A mettre dans le main ??? 
+    //fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n"); //A mettre dans le main ??? 
 
     
     fprintf(output_file, "\"");

@@ -467,7 +467,7 @@ int main(int argc, char *argv[]) {
         args->mutex = &mutex_combinaison;
         args->res_thread;
         //args->result;
-
+        fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n");
 
         if (pthread_mutex_init(&mutex_combinaison, NULL) != 0) {
             fprintf(stderr, "Erreur lors de l'initialisation du mutex\n");
