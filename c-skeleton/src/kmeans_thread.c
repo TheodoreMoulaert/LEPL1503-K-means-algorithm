@@ -7,7 +7,7 @@
 #include <unistd.h>
 #include <stddef.h>
 #include <errno.h>
-#include "../headers/k_means.h"
+#include "../headers/kmeans_thread.h"
 #include "../headers/point.h"
 #include "../headers/update_centroids.h"
 #include "../headers/assign_vector_to_centro.h"

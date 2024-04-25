@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include "../headers/point.h"
 #include "../headers/cluster.h"
-#include "../headers/write_csv.h"
+#include "../headers/write_thread.h"
 #include "../headers/update_centroids.h" 
 #include "../headers/kmeans_thread_args.h"
 
@@ -50,7 +50,7 @@ void write_centro_thread(FILE *file, point_t *centroid, int64_t k, int64_t dimen
  * @param dimension Dimension des points dans les clusters.
  */
 
-void write_clu_thread(FILE *file, cluster_t *cluster, int64_t k, int64_t dimension) {
+void write_clu_thread(FILE *file, cluster_t **cluster, int64_t k, int64_t dimension) {
     if (file == NULL || cluster == NULL) {
         fprintf(file, "Erreur : pointeur de fichier ou de cluster invalide.\n");
         return;
@@ -59,17 +59,17 @@ void write_clu_thread(FILE *file, cluster_t *cluster, int64_t k, int64_t dimensi
     fprintf(file, "[");
     for (int64_t i = 0; i < k; i++) {
         fprintf(file, "[");
-        for (int64_t j = 0; j < cluster->size; j++) {
+        for (int64_t j = 0; j < cluster[i]->size; j++) {
             if (j > 0) {
                 fprintf(file, ", ");
             }
             fprintf(file, "(");
-            if (cluster->data[j] == NULL || cluster->data[j]->coords == NULL) {
+            if (cluster[i]->data[j] == NULL || cluster[i]->data[j]->coords == NULL) {
                 fprintf(file, "Erreur : point invalide dans le cluster.\n");
                 continue;
             }
             for (int64_t l = 0; l < dimension; l++) {
-                fprintf(file, "%" PRId64, cluster->data[j]->coords[l]);
+                fprintf(file, "%" PRId64, cluster[i]->data[j]->coords[l]);
                 if (l < dimension - 1) {
                     fprintf(file, ", ");
                 }
@@ -107,11 +107,11 @@ void write_thread(FILE *output_file, uint64_t distortion, point_t *centroid_init
 
     
     fprintf(output_file, "\"");
-    write_centroid(output_file, centroid_init, k, dimension);
+    write_centro_thread(output_file, centroid_init, k, dimension);
     fprintf(output_file, "\",%" PRId64 ",\"", distortion);
-    write_centroid(output_file, centroid_final, k, dimension);
+    write_centro_thread(output_file, centroid_final, k, dimension);
     fprintf(output_file, "\",\"");
-    write_cluster(output_file, clusters, k, dimension);
+    write_clu_thread(output_file, clusters, k, dimension);
     fprintf(output_file, "\"\n");
     
 }
