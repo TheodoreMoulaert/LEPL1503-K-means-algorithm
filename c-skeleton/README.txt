@@ -178,6 +178,16 @@ Comparaison [compare_solutions.py]
 
   En cas de succès, le code renvoit "Success !" 
 
+- Pour générer un fichier csv à partir du code python voici la commande à utiliser : 
+  python3 k-means.py fichier_binaire.bin -k 3 -p 3 -d distance -f output.csv
+
+  où : 
+  - fichier_binaire.bin  = fichier d'entrée
+  - k = le nombre de cluster
+  - p = le nombre de combinaison
+  - distance = le noms de la fonction distance à appliquer soit manhattan soit euclidean
+  - f = fichier de sortie
+
 Exemples
 ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════
 
