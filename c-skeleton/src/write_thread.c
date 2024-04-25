@@ -30,7 +30,7 @@ void write_centro_thread(FILE *file, point_t *centroid, int64_t k, int64_t dimen
         for (int j = 0; j < dimension; j++) {
             fprintf(file, "%" PRId64, centroid[i].coords[j]);
             if (j < dimension - 1) {
-                fprintf(file, ", ");
+                fprintf(file, ",");
             }
         }
         fprintf(file, ")");
@@ -61,7 +61,7 @@ void write_clu_thread(FILE *file, cluster_t **cluster, int64_t k, int64_t dimens
         fprintf(file, "[");
         for (int64_t j = 0; j < cluster[i]->size; j++) {
             if (j > 0) {
-                fprintf(file, ", ");
+                fprintf(file, ",");
             }
             fprintf(file, "(");
             if (cluster[i]->data[j] == NULL || cluster[i]->data[j]->coords == NULL) {
@@ -71,7 +71,7 @@ void write_clu_thread(FILE *file, cluster_t **cluster, int64_t k, int64_t dimens
             for (int64_t l = 0; l < dimension; l++) {
                 fprintf(file, "%" PRId64, cluster[i]->data[j]->coords[l]);
                 if (l < dimension - 1) {
-                    fprintf(file, ", ");
+                    fprintf(file, ",");
                 }
             }
             fprintf(file, ")");
@@ -102,22 +102,13 @@ void write_thread(FILE *output_file, uint64_t distortion, point_t *centroid_init
         printf("Erreur : pointeur de fichier de sortie invalide.\n");
         return;
     }
-    printf("write %d\n", 1);
-    //fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n"); //A mettre dans le main ??? 
-
     
     fprintf(output_file, "\"");
-    printf("write %d\n", 2);
     write_centro_thread(output_file, centroid_init, k, dimension);
-    printf("write %d\n", 3);
     fprintf(output_file, "\",%" PRId64 ",\"", distortion);
-    printf("write %d\n", 4);
     write_centro_thread(output_file, centroid_final, k, dimension);
-    printf("write %d\n", 5);
     fprintf(output_file, "\",\"");
-    printf("write %d\n", 6);
     write_clu_thread(output_file, clusters, k, dimension);
-    printf("write %d\n", 7);
     fprintf(output_file, "\"\n");
     
 }

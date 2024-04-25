@@ -129,6 +129,7 @@ void *k_means_thread(void *args) {
 
     k_means_thread_args_t *thread_args = args;
     result_thread res_th;
+    printf("thread nombre_comb : %ld\n", thread_args->nombre_comb);
     //A mettre dans le main
     /*args.clusters = temps_cluster; 
     args.num_points =npoints ; 
@@ -143,7 +144,7 @@ void *k_means_thread(void *args) {
     
     for (uint32_t r = 0; r < 1; r++){
         printf("thread : %d\n", 2);
-        if (thread_args->position > thread_args->nombre_comb ){
+        if (thread_args->position >= thread_args->nombre_comb ){
             printf("thread : %d\n", 3);
             //ne rien faire
         }
@@ -170,8 +171,9 @@ void *k_means_thread(void *args) {
                     perror("pthread_mutex_unlock");
                 } 
                 j++;
+                thread_args->position=j;
             }
-            thread_args->position=j;
+            
 
         }
         else {
