@@ -102,16 +102,22 @@ void write_thread(FILE *output_file, uint64_t distortion, point_t *centroid_init
         printf("Erreur : pointeur de fichier de sortie invalide.\n");
         return;
     }
-
+    printf("write %d\n", 1);
     fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n"); //A mettre dans le main ??? 
 
     
     fprintf(output_file, "\"");
+    printf("write %d\n", 2);
     write_centro_thread(output_file, centroid_init, k, dimension);
+    printf("write %d\n", 3);
     fprintf(output_file, "\",%" PRId64 ",\"", distortion);
+    printf("write %d\n", 4);
     write_centro_thread(output_file, centroid_final, k, dimension);
+    printf("write %d\n", 5);
     fprintf(output_file, "\",\"");
+    printf("write %d\n", 6);
     write_clu_thread(output_file, clusters, k, dimension);
+    printf("write %d\n", 7);
     fprintf(output_file, "\"\n");
     
 }

@@ -477,14 +477,14 @@ int main(int argc, char *argv[]) {
             pthread_create(&threads[i], NULL, k_means_thread, (void *)&args);
         }
 
-        for (uint32_t i = 0; i < n_thread; i++) {
+        for (uint32_t i = 0; i < n_thread-1; i++) {
             pthread_join(threads[i], NULL);
         }
 
 
         // Libération des ressources du mutex
         pthread_mutex_destroy(&mutex_combinaison);
-
+        printf("%d\n", 9999);
         // Libérer la mémoire pour les points de données
         for (uint64_t i = 0; i < npoints; i++) {
             free(donnes[i]->coords);

@@ -6,7 +6,7 @@
 #include <inttypes.h> 
 #include "../headers/point.h"
 #include "../headers/cluster.h"
-#include "../headers/write_csv.h"
+//#include "../headers/write_csv.h"
 #include "../headers/update_centroids.h" 
 #include "../headers/kmeans_thread_args.h"
 
