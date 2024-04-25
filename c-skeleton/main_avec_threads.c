@@ -466,6 +466,7 @@ int main(int argc, char *argv[]) {
         args->n_thread = n_thread;
         args->mutex = &mutex_combinaison;
         args->res_thread;
+        args->position=0;
         //args->result;
         fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n");
 
@@ -475,6 +476,7 @@ int main(int argc, char *argv[]) {
         }
         for (uint32_t i = 0; i < n_thread-1; i++){
             pthread_create(&threads[i], NULL, k_means_thread, (void *)&args);
+            //args->position++;
         }
 
         for (uint32_t i = 0; i < n_thread-1; i++) {
