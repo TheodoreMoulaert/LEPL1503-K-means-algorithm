@@ -17,11 +17,11 @@
 #include "../headers/write_thread.h"
 
 
-result_thread* kmeans_thread(cluster_t** clusters, uint64_t num_points, uint32_t k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
+result_thread kmeans_thread(cluster_t** clusters, uint64_t num_points, uint32_t k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
     
     if (clusters == NULL || initial_centroids == NULL || final_centroids == NULL) {
         fprintf(stderr, "Paramètres invalides pour la fonction k_means.\n");
-        return NULL;
+        return ;
     }
     // Initialise les centroids finaux avec les centroids initiaux
     for (int i = 0; i < k; i++) { //k nbr_comb
@@ -31,12 +31,12 @@ result_thread* kmeans_thread(cluster_t** clusters, uint64_t num_points, uint32_t
     point_t *old_centroids = (point_t *)malloc(k * sizeof(point_t));
     if (old_centroids == NULL) {
         fprintf(stderr, "L'allocation de mémoire a échoué (/src/kmeans.c) 3.\n");
-        return NULL; 
+        return ; 
     }
     //printf("%d\n", 2);
     result_t result; 
-    result_thread *res_thread;
-    result_thread r_th;
+    result_thread res_thread;
+   
 
     // Exécute des itérations jusqu'à convergence
     bool convergence = false;
@@ -52,7 +52,7 @@ result_thread* kmeans_thread(cluster_t** clusters, uint64_t num_points, uint32_t
                     free(old_centroids[l].coords);
                 }
                 free(old_centroids);
-                return NULL;
+                return ; //NULL
             }
             for (int m = 0; m < final_centroids[j].dim; m++) {
                 old_centroids[j].coords[m] = final_centroids[j].coords[m];
@@ -73,7 +73,7 @@ result_thread* kmeans_thread(cluster_t** clusters, uint64_t num_points, uint32_t
         if (result.result_cluster == NULL) {
             fprintf(stderr, "L'allocation de mémoire a échoué pour result.result_cluster.\n");
             free(old_centroids);
-            return NULL;
+            return ;
         }
 
         
@@ -82,7 +82,7 @@ result_thread* kmeans_thread(cluster_t** clusters, uint64_t num_points, uint32_t
         if (clusters == NULL) {
             fprintf(stderr, "L'allocation de mémoire a échoué (/src/kmeans.c) 4.\n");
             free(old_centroids);
-            return NULL;
+            return ;
         }
         //printf("%d\n", 4);
         convergence = result.changes; 
@@ -107,16 +107,13 @@ result_thread* kmeans_thread(cluster_t** clusters, uint64_t num_points, uint32_t
         i++;  
     }
     printf("%d\n", 7);
-    r_th.final_centroids= final_centroids;
-    printf("%d\n", 7);
-    res_thread->final_centroids= final_centroids;
+    res_thread.temps_result_cluster = result.result_cluster;
     printf("%d\n",77);
-    
-    res_thread->temps_result_cluster = clusters;
+    res_thread.final_centroids= final_centroids;
     printf("%d\n",777);
-    res_thread->initial_centroids = initial_centroids;
+    res_thread.initial_centroids = initial_centroids;
     printf("%d\n",7777);
-    res_thread->temp_distorsion = distortion((cluster_t const **)res_thread->temps_result_cluster, k, distance_func);
+    res_thread.temp_distorsion = distortion((cluster_t const **)res_thread.temps_result_cluster, k, distance_func);
     printf("%d\n",8);
     // Libérer la mémoire pour les old_centroids
     free(old_centroids);
@@ -131,7 +128,7 @@ void *k_means_thread(void *args) {
     printf("thread : %d\n", 1);
 
     k_means_thread_args_t *thread_args = args;
-    result_thread *res_th;
+    result_thread res_th;
     //A mettre dans le main
     /*args.clusters = temps_cluster; 
     args.num_points =npoints ; 
@@ -162,10 +159,10 @@ void *k_means_thread(void *args) {
                 res_th = kmeans_thread(thread_args->clusters, thread_args->num_points, thread_args->k,
                                             thread_args->initial_centroids[i] , thread_args->final_centroids[i],
                                             thread_args->distance_func);
-                thread_args->res_thread = res_th[0];                            
+                thread_args->res_thread = res_th;                            
                 
-                write_thread(thread_args->output_file, res_th->temp_distorsion ,res_th->initial_conserve[i] ,
-                                res_th->final_centroids , res_th->temps_result_cluster, 
+                write_thread(thread_args->output_file, res_th.temp_distorsion ,res_th.initial_conserve[i] ,
+                                res_th.final_centroids , res_th.temps_result_cluster , 
                                 thread_args->k, thread_args->dimension, thread_args->nombre_comb);
                 err = pthread_mutex_unlock(thread_args->mutex);
                 if(err!=0){
@@ -185,10 +182,10 @@ void *k_means_thread(void *args) {
                                         thread_args->initial_centroids[i] , thread_args->final_centroids[i],
                                         thread_args->distance_func);
 
-            thread_args->res_thread = res_th[0];                            
+            thread_args->res_thread = res_th;                            
             printf("thread : %d\n", 55);
-            write_thread(thread_args->output_file, res_th->temp_distorsion ,res_th->initial_conserve[i] ,
-                             res_th->final_centroids , res_th->temps_result_cluster, 
+            write_thread(thread_args->output_file, res_th.temp_distorsion ,res_th.initial_conserve[i] ,
+                             res_th.final_centroids , res_th.temps_result_cluster, 
                              thread_args->k, thread_args->dimension, thread_args->nombre_comb);
             printf("thread : %d\n", 555);
             err = pthread_mutex_unlock(thread_args->mutex);
