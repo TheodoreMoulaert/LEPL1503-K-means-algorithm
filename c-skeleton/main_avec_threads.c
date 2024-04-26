@@ -149,8 +149,8 @@ int main(int argc, char *argv[]) {
     donnes =  point_input(input_file, &dimension, &npoints);
 
     if(p>npoints){
-        fprintf(stderr, "Not enough points to generate the combinations\n");
-        return -1;
+        p = npoints; 
+
     }
 
     int64_t nombre_comb = combinaison(p,k);
