@@ -130,35 +130,27 @@ void *k_means_thread(void *args) {
     k_means_thread_args_t *thread_args = args;
     result_thread res_th;
     printf("thread nombre_comb : %ld\n", thread_args->nombre_comb);
-    //A mettre dans le main
-    /*args.clusters = temps_cluster; 
-    args.num_points =npoints ; 
-    args.k = k;
-    args.initial_centroids = initial_centroids;
-    args.final_centroids = final_centroids;
-    args.distance_func = DISTANCE_SQUARED;
-    args.mutex = &mutex_combinaison;
-    args.result;
-    args.res_thread;*/
     
     
     for (uint32_t r = 0; r < 1; r++){
         printf("thread : %d\n", 2);
         if (thread_args->position >= thread_args->nombre_comb ){
+            //ne rien faire
             err = pthread_mutex_lock(thread_args->mutex);
             if(err!=0){
                 perror("pthread_mutex_lock");
             }
             thread_args->position++;
+            printf("thread position ++ : %d\n", 3);
+            
             err = pthread_mutex_unlock(thread_args->mutex);
                 if(err!=0){
                     perror("pthread_mutex_unlock");
                 }
             printf("thread : %d\n", 3);
-            //ne rien faire
+            
         }
-        else if ((thread_args->position == thread_args->n_thread-1) && (thread_args->position < thread_args->nombre_comb-1)){ //dernier thread mais pas dernier combi
-            //je ne vois pas bien quoi faire
+        else if ((thread_args->position == thread_args->threads_lancé-2) && (thread_args->position <= thread_args->nombre_comb-1)){ //dernier thread mais pas dernier combi
             printf("thread : %d\n", 4);
             uint32_t j = thread_args->position;
             while (j < thread_args->nombre_comb){
@@ -176,6 +168,7 @@ void *k_means_thread(void *args) {
                                 res_th.final_centroids , res_th.temps_result_cluster , 
                                 thread_args->k, thread_args->dimension, thread_args->nombre_comb);
                 thread_args->position++;
+                printf("thread positon ++: %d\n", 4);
                 err = pthread_mutex_unlock(thread_args->mutex);
                 if(err!=0){
                     perror("pthread_mutex_unlock");
@@ -188,15 +181,19 @@ void *k_means_thread(void *args) {
         }
         else {
             printf("thread : %d\n", 5);
+            printf("thread avant lock : %d\n", 5);
             err = pthread_mutex_lock(thread_args->mutex);
             if(err!=0){
                 perror("pthread_mutex_lock");
             }
+            printf("thread apres lock: %d\n", 5);
+            thread_args->position++;
+            printf("thread position++: %d\n", 5);
 
             res_th = kmeans_thread(thread_args->clusters, thread_args->num_points, thread_args->k,
                                         thread_args->initial_centroids[thread_args->position] , thread_args->final_centroids[thread_args->position],
                                         thread_args->distance_func);
-
+            printf("thread kmeans fait : %d\n", 5);
             thread_args->res_thread = res_th; 
             printf("res_th.temp_distorsion %ld\n", res_th.temp_distorsion);
 
@@ -205,7 +202,6 @@ void *k_means_thread(void *args) {
                              res_th.final_centroids , res_th.temps_result_cluster, 
                              thread_args->k, thread_args->dimension, thread_args->nombre_comb);
             printf("thread : %d\n", 555);
-            thread_args->position++;
             err = pthread_mutex_unlock(thread_args->mutex);
             if(err!=0){
                 perror("pthread_mutex_unlock");

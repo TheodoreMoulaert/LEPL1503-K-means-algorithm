@@ -39,6 +39,7 @@ typedef struct {
     pthread_mutex_t *mutex;
     result_thread res_thread;
     uint32_t position;
+    uint32_t threads_lancé;
 
 } k_means_thread_args_t;
 
