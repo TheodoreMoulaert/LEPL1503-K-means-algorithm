@@ -409,8 +409,8 @@ int main(int argc, char *argv[]) {
         }
 
         point_t **final_centroids = initial_centroids;
-        uint64_t distortion_list[nombre_comb];
-        cluster_t*** clusters_list = malloc(nombre_comb*sizeof(cluster_t**)); 
+        //uint64_t distortion_list[nombre_comb];
+        //cluster_t*** clusters_list = malloc(nombre_comb*sizeof(cluster_t**)); 
         cluster_t **temps_cluster = (cluster_t **)malloc(k *sizeof(cluster_t *));//k * 
         if (temps_cluster == NULL) {
             // Gestion d'erreur si l'allocation échoue
@@ -442,11 +442,11 @@ int main(int argc, char *argv[]) {
             }
         }
 
-        point_t* temp_centroide = (point_t*) malloc(k*sizeof(point_t));
+        /*point_t* temp_centroide = (point_t*) malloc(k*sizeof(point_t));
         cluster_t** temps_result_cluster= malloc(k* sizeof(cluster_t*)); 
         for(int64_t i = 0; i < k; i++){
             temps_result_cluster[i] = malloc(sizeof(cluster_t));
-        }
+        }*/
 
 
         pthread_mutex_t mutex_combinaison;
@@ -478,7 +478,7 @@ int main(int argc, char *argv[]) {
         for (uint32_t i = 0; i < n_thread-1; i++){
             pthread_create(&threads[i], NULL, k_means_thread, (void *)&args);
             //args->position++;
-            args->threads_lancé++;
+            //args->threads_lancé++;
         }
 
         for (uint32_t i = 0; i < n_thread-1; i++) {
@@ -517,12 +517,12 @@ int main(int argc, char *argv[]) {
         }
         free(temps_cluster);
 
-        for (uint32_t i = 0; i < k; i++) {
+        /*for (uint32_t i = 0; i < k; i++) {
             free(temps_result_cluster[i]);
         }
-        free(temps_result_cluster);
-        free(temp_centroide);
-        free(clusters_list);
+        free(temps_result_cluster);*/
+        //free(temp_centroide);
+        //free(clusters_list);
 
 
 
