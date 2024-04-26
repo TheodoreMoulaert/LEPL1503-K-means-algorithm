@@ -174,7 +174,10 @@ void *k_means_thread(void *args) {
                 printf("4 :thread position ++: %d\n", thread_args->position);
                 printf("4: thread_lance: %d\n", thread_args->threads_lancé);
                 j++;
-                thread_args->position++;
+                if (j==thread_args->nombre_comb-1){
+                    thread_args->position++;
+                }
+                //thread_args->position++;
                 err = pthread_mutex_unlock(thread_args->mutex);
                 if(err!=0){
                     perror("pthread_mutex_unlock");
