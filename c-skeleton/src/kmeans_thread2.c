@@ -127,75 +127,41 @@ void *k_means_thread(void *args) {
     int err;
     printf("thread : %d\n", 1);
 
-    k_means_thread_args_t *thread_args = args;
+    k_means_thread_args_t *thread_args = (k_means_thread_args_t *) args;
     result_thread res_th;
     printf("thread nombre_comb : %ld\n", thread_args->nombre_comb);
-   
-    for (uint32_t r = 0; r < 1; r++){
-        printf("thread : %d\n", 2);
-        if (thread_args->position >= thread_args->nombre_comb ){
-            printf("thread : %d\n", 3);
-            //ne rien faire
-        }
-        else if ((thread_args->position == thread_args->n_thread-2) && (thread_args->position < thread_args->nombre_comb-1)){ //dernier thread mais pas dernier combi
-            //je ne vois pas bien quoi faire
-            printf("thread : %d\n", 4);
-         
-            while (thread_args->position< thread_args->nombre_comb){
-                err = pthread_mutex_lock(thread_args->mutex);
-                if(err!=0){
-                    perror("pthread_mutex_lock");
-                }
 
-                res_th = kmeans_thread(thread_args->temps_clusters[thread_args->position], thread_args->num_points, thread_args->k,
-                                            thread_args->initial_centroids[thread_args->position] , thread_args->final_centroids[thread_args->position],
-                                            thread_args->distance_func);
-                thread_args->res_thread = res_th;                            
-                
-                write_thread(thread_args->output_file, res_th.temp_distorsion ,thread_args->initial_conserve[thread_args->position]  ,
+    while(thread_args->position < thread_args->nombre_comb){
+
+        uint32_t j = thread_args->position;
+        err = pthread_mutex_lock(thread_args->mutex);
+        if(err!=0){
+            perror("pthread_mutex_lock");
+        }
+        thread_args->position++;
+        err = pthread_mutex_unlock(thread_args->mutex);
+        if(err!=0){
+            perror("pthread_mutex_unlock");
+        }
+
+        res_th = kmeans_thread(thread_args->clusters, thread_args->num_points, thread_args->k, thread_args->initial_centroids[j] , thread_args->final_centroids[j],thread_args->distance_func);
+        thread_args->res_thread = res_th; 
+        err = pthread_mutex_lock(thread_args->mutex);
+        if(err!=0){
+            perror("pthread_mutex_lock");
+        }
+        write_thread(thread_args->output_file, res_th.temp_distorsion ,thread_args->initial_conserve[j]  ,
                                 res_th.final_centroids , res_th.temps_result_cluster , 
                                 thread_args->k, thread_args->dimension, thread_args->nombre_comb);
-                thread_args->position++;
-                err = pthread_mutex_unlock(thread_args->mutex);
-                if(err!=0){
-                    perror("pthread_mutex_unlock");
-                } 
-            
-                
-            }
-            
-
+        err = pthread_mutex_unlock(thread_args->mutex);
+        if(err!=0){
+            perror("pthread_mutex_unlock");
         }
-        else {
-            printf("thread : %d\n", 5);
-            err = pthread_mutex_lock(thread_args->mutex);
-            if(err!=0){
-                perror("pthread_mutex_lock");
-            }
-
-            res_th = kmeans_thread(thread_args->temps_clusters[thread_args->position], thread_args->num_points, thread_args->k,
-                                        thread_args->initial_centroids[thread_args->position] , thread_args->final_centroids[thread_args->position],
-                                        thread_args->distance_func);
+        printf("thread : %d\n", 3);
 
 
-      
-            write_thread(thread_args->output_file, res_th.temp_distorsion ,thread_args->initial_conserve[thread_args->position] ,
-                             res_th.final_centroids , res_th.temps_result_cluster, 
-                             thread_args->k, thread_args->dimension, thread_args->nombre_comb);
-            thread_args->position++;   
-   
-            err = pthread_mutex_unlock(thread_args->mutex);
-            if(err!=0){
-                perror("pthread_mutex_unlock");
-            } 
-            printf("thread : %d\n", 5555);
-
-        } 
-        
     }                     
     
     pthread_exit(NULL);
 }
-
-
 
