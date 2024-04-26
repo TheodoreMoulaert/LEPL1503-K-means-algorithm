@@ -152,10 +152,8 @@ int main(int argc, char *argv[]) {
     printf(" donnes[0][0].coords[0] = %ld\n", donnes[0][0].coords[0]);
     printf(" donnes[9][0].coords[0] = %ld\n", donnes[6][0].coords[0]);
     printf("%d\n", 1);
-    if(p>npoints)
-    {
-        fprintf(stderr, "Not enough points to generate the combinations\n");
-        return -1;
+    if(p>npoints){
+        p = npoints; 
 
     }
 
