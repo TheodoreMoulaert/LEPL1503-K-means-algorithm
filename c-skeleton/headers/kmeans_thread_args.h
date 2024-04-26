@@ -24,6 +24,7 @@ typedef struct{
 // Structure pour passer les arguments à la fonction k_means_thread
 typedef struct {
     cluster_t **clusters;
+    cluster_t*** temps_clusters; 
     uint64_t num_points;
     uint32_t k;
     uint32_t dimension;
