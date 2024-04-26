@@ -450,8 +450,8 @@ int main(int argc, char *argv[]) {
 
 
         pthread_mutex_t mutex_combinaison;
-        pthread_t threads[n_thread-1];
-        k_means_thread_args_t args[n_thread-1];
+        pthread_t threads[n_thread];
+        k_means_thread_args_t args[n_thread];
 
         args->clusters = temps_cluster;
         args->num_points =npoints ; 
@@ -474,12 +474,12 @@ int main(int argc, char *argv[]) {
             fprintf(stderr, "Erreur lors de l'initialisation du mutex\n");
             return EXIT_FAILURE;
         }
-        for (uint32_t i = 0; i < n_thread-1; i++){
+        for (uint32_t i = 0; i < n_thread; i++){
             pthread_create(&threads[i], NULL, k_means_thread, (void *)&args);
             //args->position++;
         }
 
-        for (uint32_t i = 0; i < n_thread-1; i++) {
+        for (uint32_t i = 0; i < n_thread; i++) {
             pthread_join(threads[i], NULL);
         }
 

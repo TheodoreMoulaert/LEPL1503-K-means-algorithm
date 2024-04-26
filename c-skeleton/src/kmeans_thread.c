@@ -157,7 +157,7 @@ void *k_means_thread(void *args) {
             printf("thread : %d\n", 3);
             //ne rien faire
         }
-        else if ((thread_args->position == thread_args->n_thread-2) && (thread_args->position < thread_args->nombre_comb-1)){ //dernier thread mais pas dernier combi
+        else if ((thread_args->position == thread_args->n_thread-1) && (thread_args->position < thread_args->nombre_comb-1)){ //dernier thread mais pas dernier combi
             //je ne vois pas bien quoi faire
             printf("thread : %d\n", 4);
             uint32_t j = thread_args->position;
