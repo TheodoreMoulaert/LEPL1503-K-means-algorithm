@@ -154,13 +154,13 @@ void *k_means_thread(void *args) {
         else if ((thread_args->threads_lancé == thread_args->n_thread-1) && (thread_args->position < thread_args->nombre_comb-1)){ //dernier thread mais pas dernier combi
             printf("thread : %d\n", 4);
             
-            err = pthread_mutex_lock(thread_args->mutex);
+            
+            uint32_t j = thread_args->position;// + thread_args->threads_lancé-2;//
+            while (j < thread_args->nombre_comb){
+                err = pthread_mutex_lock(thread_args->mutex);
                 if(err!=0){
                     perror("pthread_mutex_lock");
                 }
-            uint32_t j = thread_args->position;// + thread_args->threads_lancé-2;//
-            while (j < thread_args->nombre_comb){
-                
 
                 res_th = kmeans_thread(thread_args->clusters, thread_args->num_points, thread_args->k,
                                             thread_args->initial_centroids[j] , thread_args->final_centroids[j],
@@ -174,16 +174,17 @@ void *k_means_thread(void *args) {
                 printf("4 :thread position ++: %d\n", thread_args->position);
                 printf("4: thread_lance: %d\n", thread_args->threads_lancé);
                 j++;
+                thread_args->position++;
+                err = pthread_mutex_unlock(thread_args->mutex);
+                if(err!=0){
+                    perror("pthread_mutex_unlock");
+                } 
                 //thread_args->position=j;
             }
             /*if (j==thread_args->nombre_comb-1){
                 thread_args->position++;
             }*/
-            thread_args->position++;
-            err = pthread_mutex_unlock(thread_args->mutex);
-            if(err!=0){
-                perror("pthread_mutex_unlock");
-            } 
+            
             
             
             
