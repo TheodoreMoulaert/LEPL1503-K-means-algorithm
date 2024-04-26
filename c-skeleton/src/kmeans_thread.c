@@ -145,6 +145,7 @@ void *k_means_thread(void *args) {
     for (uint32_t r = 0; r < 1; r++){
         printf("thread : %d\n", 2);
         if (thread_args->position >= thread_args->nombre_comb ){
+            //thread_args->position++;
             printf("thread : %d\n", 3);
             //ne rien faire
         }
@@ -159,19 +160,20 @@ void *k_means_thread(void *args) {
                 }
 
                 res_th = kmeans_thread(thread_args->clusters, thread_args->num_points, thread_args->k,
-                                            thread_args->initial_centroids[thread_args->position] , thread_args->final_centroids[thread_args->position],
+                                            thread_args->initial_centroids[j] , thread_args->final_centroids[j],
                                             thread_args->distance_func);
                 thread_args->res_thread = res_th;                            
                 
-                write_thread(thread_args->output_file, res_th.temp_distorsion ,thread_args->initial_conserve[thread_args->position]  ,
+                write_thread(thread_args->output_file, res_th.temp_distorsion ,thread_args->initial_conserve[j]  ,
                                 res_th.final_centroids , res_th.temps_result_cluster , 
                                 thread_args->k, thread_args->dimension, thread_args->nombre_comb);
+                thread_args->position++;
                 err = pthread_mutex_unlock(thread_args->mutex);
                 if(err!=0){
                     perror("pthread_mutex_unlock");
                 } 
                 j++;
-                thread_args->position=j;
+                //thread_args->position=j;
             }
             
 
@@ -195,6 +197,7 @@ void *k_means_thread(void *args) {
                              res_th.final_centroids , res_th.temps_result_cluster, 
                              thread_args->k, thread_args->dimension, thread_args->nombre_comb);
             printf("thread : %d\n", 555);
+            thread_args->position++;
             err = pthread_mutex_unlock(thread_args->mutex);
             if(err!=0){
                 perror("pthread_mutex_unlock");
@@ -204,7 +207,7 @@ void *k_means_thread(void *args) {
         } 
         
     }  
-    thread_args->position++;                      
+    //thread_args->position++;                      
     
     pthread_exit(NULL);
 }
