@@ -161,7 +161,7 @@ void *k_means_thread(void *args) {
             //je ne vois pas bien quoi faire
             printf("thread : %d\n", 4);
             uint32_t j = thread_args->position;
-            while (j < thread_args->nombre_comb){
+            while ( thread_args->position < thread_args->nombre_comb){
                 err = pthread_mutex_lock(thread_args->mutex);
                 if(err!=0){
                     perror("pthread_mutex_lock");
@@ -180,8 +180,8 @@ void *k_means_thread(void *args) {
                 if(err!=0){
                     perror("pthread_mutex_unlock");
                 } 
-                j++;
-                //thread_args->position=j;
+            
+            
             }
             
 
