@@ -145,7 +145,15 @@ void *k_means_thread(void *args) {
     for (uint32_t r = 0; r < 1; r++){
         printf("thread : %d\n", 2);
         if (thread_args->position >= thread_args->nombre_comb ){
-            //thread_args->position++;
+            err = pthread_mutex_lock(thread_args->mutex);
+            if(err!=0){
+                perror("pthread_mutex_lock");
+            }
+            thread_args->position++;
+            err = pthread_mutex_unlock(thread_args->mutex);
+                if(err!=0){
+                    perror("pthread_mutex_unlock");
+                }
             printf("thread : %d\n", 3);
             //ne rien faire
         }
