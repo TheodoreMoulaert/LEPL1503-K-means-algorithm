@@ -183,7 +183,7 @@ void *k_means_thread(void *args) {
             }
             /*if (j==thread_args->nombre_comb-1){
                 thread_args->position++;
-            }*/
+            } */
             
             
             
