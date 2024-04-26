@@ -21,7 +21,7 @@ void write_centroid(FILE *file, point_t* centroid, int64_t k, int64_t dimension)
         return;
     }
 
-    fprintf(file, "[");
+    fprintf(file, "["); 
     for (int i = 0; i < k; i++){
         fprintf(file, "(");
         for (int j = 0; j < dimension; j++) {
