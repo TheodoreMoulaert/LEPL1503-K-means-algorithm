@@ -153,11 +153,12 @@ void *k_means_thread(void *args) {
         }
         else if ((thread_args->threads_lancé == thread_args->n_thread-1) && (thread_args->position < thread_args->nombre_comb-1)){ //dernier thread mais pas dernier combi
             printf("thread : %d\n", 4);
-            uint32_t j = thread_args->position;// + thread_args->threads_lancé-2;//
+            
             err = pthread_mutex_lock(thread_args->mutex);
                 if(err!=0){
                     perror("pthread_mutex_lock");
                 }
+            uint32_t j = thread_args->position;// + thread_args->threads_lancé-2;//
             while (j < thread_args->nombre_comb){
                 
 
