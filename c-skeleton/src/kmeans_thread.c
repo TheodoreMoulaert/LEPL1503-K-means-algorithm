@@ -127,7 +127,7 @@ void *k_means_thread(void *args) {
     int err;
     printf("thread : %d\n", 1);
 
-    k_means_thread_args_t *thread_args = args;
+    k_means_thread_args_t *thread_args = (k_means_thread_args_t*) args;
     result_thread res_th;
     printf("thread nombre_comb : %ld\n", thread_args->nombre_comb);
     //A mettre dans le main
