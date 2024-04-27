@@ -8,6 +8,7 @@
 #include <inttypes.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <time.h> // Include the time.h header for clock_gettime()
 //#include "../c-skeleton/headers/main.h"
 #include "../c-skeleton/headers/distance.h"
 #include "../c-skeleton/headers/binary_file_reader.h" 
@@ -115,6 +116,9 @@ int parse_args(args_t *args, int argc, char *argv[]) {
 
 int main(int argc, char *argv[]) {
     args_t program_arguments;   // allocate the args on the stack
+    clock_t start_time, end_time;
+    double execution_time;
+    start_time = clock(); // Start the timer
     parse_args(&program_arguments, argc, argv);
 
     if (program_arguments.n_first_initialization_points < program_arguments.k) {
@@ -457,7 +461,7 @@ int main(int argc, char *argv[]) {
         args->mutex = &mutex_combinaison;
         args->res_thread;
         args->position=0;
-        args->threads_lancé=0;
+        args->threads_lance=0;
         args->quiet = quiet_mode;
         if(quiet_mode == true){
             fprintf(output_file, "initialization centroids,distortion,centroids\n");
@@ -514,7 +518,10 @@ int main(int argc, char *argv[]) {
         free(temps_cluster);
 
     }
+    end_time = clock(); // End the timer
+    execution_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
 
+    printf("Execution time: %.9f seconds\n", execution_time); // Print the execution time
     // close the files opened by parse_args
     if (program_arguments.input_stream != stdin) {
         fclose(program_arguments.input_stream);
