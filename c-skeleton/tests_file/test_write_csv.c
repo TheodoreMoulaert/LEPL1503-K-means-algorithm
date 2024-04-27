@@ -51,7 +51,7 @@ int main() {
     }
 
     // Appeler la fonction à tester
-    write_csv(output_file, distortion, centroid_init_Array, centroid_final_Array, clustersArray, k, dimension, nombre_comb);
+    write_csv(output_file, distortion, centroid_init_Array, centroid_final_Array, clustersArray, k, dimension, nombre_comb, false);
 
     // Libérer la mémoire allouée
     for (int i = 0; i < nombre_comb; i++) {

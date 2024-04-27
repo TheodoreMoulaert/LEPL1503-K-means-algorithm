@@ -94,21 +94,34 @@ void write_cluster(FILE *file, cluster_t **cluster, int64_t k, int64_t dimension
  * @param dimension Nombre de dimensions des données
  * @param nombre_comb Nombre total de combinaisons
  */
-void write_csv(FILE *output_file, uint64_t* distortion, point_t **centroid_init_Array, point_t **centroid_final_Array, cluster_t ***clustersArray, int64_t k, int64_t dimension, int64_t nombre_comb) {
+void write_csv(FILE *output_file, uint64_t* distortion, point_t **centroid_init_Array, point_t **centroid_final_Array, cluster_t ***clustersArray, int64_t k, int64_t dimension, int64_t nombre_comb, bool quiet_mode ) {
     if (output_file == NULL) {
         printf("Erreur : pointeur de fichier de sortie invalide.\n");
         return;
     }
+    if(quiet_mode == true){
+        fprintf(output_file, "initialization centroids,distortion,clusters\n");
+        for (int64_t i = 0; i < nombre_comb; i++) {
+            fprintf(output_file, "\"");
+            write_centroid(output_file, centroid_init_Array[i], k, dimension);
+            fprintf(output_file, "\",%" PRId64 ",\"", distortion[i]);
+            write_centroid(output_file, centroid_final_Array[i], k, dimension);
+            fprintf(output_file, "\"\n");
+        }
 
-    fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n");
+    }
+    else{
+        fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n");
 
-    for (int64_t i = 0; i < nombre_comb; i++) {
-        fprintf(output_file, "\"");
-        write_centroid(output_file, centroid_init_Array[i], k, dimension);
-        fprintf(output_file, "\",%" PRId64 ",\"", distortion[i]);
-        write_centroid(output_file, centroid_final_Array[i], k, dimension);
-        fprintf(output_file, "\",\"");
-        write_cluster(output_file, clustersArray[i], k, dimension);
-        fprintf(output_file, "\"\n");
+        for (int64_t i = 0; i < nombre_comb; i++) {
+            fprintf(output_file, "\"");
+            write_centroid(output_file, centroid_init_Array[i], k, dimension);
+            fprintf(output_file, "\",%" PRId64 ",\"", distortion[i]);
+            write_centroid(output_file, centroid_final_Array[i], k, dimension);
+            fprintf(output_file, "\",\"");
+            write_cluster(output_file, clustersArray[i], k, dimension);
+            fprintf(output_file, "\"\n");
+        }
+
     }
 }
