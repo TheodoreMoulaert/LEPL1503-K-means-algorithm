@@ -327,7 +327,6 @@ int main(int argc, char *argv[]) {
         free(initial_conserve);
 
         for (uint32_t i = 0; i < k; i++) {
-    
             free(temps_cluster[i]);
         }
         free(temps_cluster);
