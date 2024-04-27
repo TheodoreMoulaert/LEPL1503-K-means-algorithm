@@ -134,6 +134,7 @@ int main(int argc, char *argv[]) {
     uint64_t npoints;
     uint32_t dimension; 
     uint32_t k = program_arguments.k;
+    bool quiet_mode = program_arguments.quiet;
     squared_distance_func_t DISTANCE_SQUARED;
     point_t** donnes;
     
@@ -329,7 +330,7 @@ int main(int argc, char *argv[]) {
 
     //print csv
     printf("%d\n", 14);
-    write_csv(output_file, distortion_list,initial_conserve, final_centroids, clusters_list, k, dimension, nombre_comb); 
+    write_csv(output_file, distortion_list, initial_conserve, final_centroids, clusters_list, k, dimension, nombre_comb, quiet_mode);
     printf("%d\n", 15);
 
         // Libérer la mémoire pour les points de données
