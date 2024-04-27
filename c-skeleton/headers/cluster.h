@@ -6,14 +6,12 @@
 #include "point.h"
 
 /*
-Structure qui  permet de définir les clusters et les centroïds tel que 
-cluster est défini par cluster_t** et centroids est défini par cluster_t* 
+Structure qui permet de définir les clusters
 */ 
-
 typedef struct {
     point_t centroide;
-    point_t **data; // [[0,0],[0,0],[1,1]] == liste de vecteurs
-    uint64_t size; // nbr de vecteur 
+    point_t **data;
+    uint64_t size; 
 } cluster_t;
 
 typedef struct { 
