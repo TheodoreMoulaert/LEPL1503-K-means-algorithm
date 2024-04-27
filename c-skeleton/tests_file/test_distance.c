@@ -9,8 +9,8 @@
 #include <inttypes.h>
 
 
-#include "../headers/distance.h" // Inclure si nécessaire
-#include "../headers/point.h" // Inclure si nécessaire
+#include "../headers/distance.h" 
+#include "../headers/point.h" 
 
 void assert_equal_int64();
 point_t* create_point(); 
