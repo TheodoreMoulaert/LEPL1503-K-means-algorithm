@@ -56,7 +56,7 @@ point_t **point_input(FILE *file, uint32_t *dim, uint64_t *nbr_vectors) { //* re
         perror("Fonctions : Le pointeur de fichier est nul");
         return NULL;
     }
-    //fprintf(stderr, "%d %d %d\n",0,0,0);
+    
     uint32_t dim_endian; // en format Big Endian
     uint64_t nb_endian;  // en format Big Endian
 
@@ -67,7 +67,6 @@ point_t **point_input(FILE *file, uint32_t *dim, uint64_t *nbr_vectors) { //* re
     }
     *dim = be32toh(dim_endian);
     
-    //fprintf(stderr, "%d %d %d\n",0,0,1);
     // Lecture du nombre de vecteurs
     if (fread(&nb_endian, sizeof(uint64_t), 1, file) != 1) {
         perror("Erreur lors de la lecture du nombre de points spécifié");
@@ -75,19 +74,19 @@ point_t **point_input(FILE *file, uint32_t *dim, uint64_t *nbr_vectors) { //* re
     }
     *nbr_vectors= be64toh(nb_endian);
     
-    //fprintf(stderr, "%d %d %d\n",0,0,2);
     printf("Nombre de vecteurs dans le fichier binaire in : %lu\n", *nbr_vectors);
     printf("Dimension du fichier binaire in : %u\n", *dim);
+
     // Allocation de la mémoire pour les vecteurs
-    point_t **vectors = malloc(*nbr_vectors * sizeof(point_t *)); //*nbr_vectors
+    point_t **vectors = malloc(*nbr_vectors * sizeof(point_t *));
     if (vectors == NULL) {
         perror("Fonctions :Erreur d'allocation mémoire pour les vecteurs");
         return NULL;
     }
-    //fprintf(stderr, "%d %d %d\n",0,0,3);
+   
     // Lecture des coordonnées des vecteurs
     for (uint64_t i = 0; i < *nbr_vectors; i++) {
-        point_t *point = malloc(*nbr_vectors*sizeof(point_t)); //*nbr_vectors*
+        point_t *point = malloc(*nbr_vectors*sizeof(point_t));
         if (point == NULL) {
             perror("Erreur d'allocation mémoire pour le vecteur");
             free_vectors(vectors, i); // Libérer les vecteurs déjà alloués
@@ -95,8 +94,8 @@ point_t **point_input(FILE *file, uint32_t *dim, uint64_t *nbr_vectors) { //* re
         }
 
         point->dim = *dim;
-        point->nbr_vector = *nbr_vectors;//1
-        point->coords = malloc(*dim * sizeof(int64_t));//*dim
+        point->nbr_vector = *nbr_vectors;
+        point->coords = malloc(*dim * sizeof(int64_t));
         if (point->coords == NULL) {
             perror("Erreur d'allocation mémoire pour les coordonnées du vecteur");
             free(point);

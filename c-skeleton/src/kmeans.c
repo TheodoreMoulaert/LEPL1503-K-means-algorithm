@@ -28,7 +28,7 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
         return NULL;
     }
     // Initialise les centroids finaux avec les centroids initiaux
-    for (int i = 0; i < k; i++) { //k nbr_comb
+    for (int i = 0; i < k; i++) {
         clusters[i]->centroide = initial_centroids[i];
     }
 
@@ -37,7 +37,7 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
         fprintf(stderr, "L'allocation de mémoire a échoué (/src/kmeans.c) 3.\n");
         return NULL; 
     }
-    //printf("%d\n", 2);
+
     result_t result; 
 
     // Exécute des itérations jusqu'à convergence
@@ -60,11 +60,7 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
                 old_centroids[j].coords[m] = final_centroids[j].coords[m];
             }
         }
-        /*for (int i = 0; i < k; i++) {
-            old_centroids[i].coords = final_centroids[i].coords;
-            old_centroids[i].dim = final_centroids[i].dim;
-        }*/
-        //printf("%d\n", 3);
+        
         // Assigne les points aux clusters
         if (i == 0) {
             result = assign_vectors_to_centroides(final_centroids, clusters, k, distance_func);
@@ -78,15 +74,11 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
             return NULL;
         }
 
-        
-        //printf("%d\n", 5);
-
         if (clusters == NULL) {
             fprintf(stderr, "L'allocation de mémoire a échoué (/src/kmeans.c) 4.\n");
             free(old_centroids);
             return NULL;
         }
-        //printf("%d\n", 4);
         convergence = result.changes; 
     
         update_centroids(result.result_cluster, k);
@@ -101,7 +93,6 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
             printf("Centroid %d: (%" PRId64 ", %" PRId64 ")\n", j, final_centroids[j].coords[0], final_centroids[j].coords[1]);
         }
 
-        //printf("%d\n", 5);
         // Libérer la mémoire pour les old_centroids
         for (int j = 0; j < k; j++) {
             free(old_centroids[j].coords);
