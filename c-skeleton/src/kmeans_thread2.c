@@ -86,13 +86,7 @@ result_thread kmeans_thread(cluster_t** clusters, uint64_t num_points, uint32_t 
         for (int j = 0; j < k; j++) {
             final_centroids[j] = clusters[j]->centroide;
         }
-        // Affichage des centroids finaux
-        printf("Centroids finaux à l'itération %ld:\n", i + 1);
-        for (int j = 0; j < k; j++) {
-            printf("Centroid %d: (%" PRId64 ", %" PRId64 ")\n", j, final_centroids[j].coords[0], final_centroids[j].coords[1]);
-        }
-
-        
+             
         // Libérer la mémoire pour les old_centroids
         for (int j = 0; j < k; j++) {
             free(old_centroids[j].coords);
