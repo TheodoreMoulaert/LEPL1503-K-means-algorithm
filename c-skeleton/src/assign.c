@@ -197,7 +197,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             //free(temp[idx]);
             free(temp);
             //free(vector->coords);
-            free(vector);
+            //free(vector);
             printf("%d\n",8);
         }      
 
