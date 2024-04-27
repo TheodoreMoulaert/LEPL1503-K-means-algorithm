@@ -100,13 +100,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
         }      
     }
 
-    // Free memory allocated for clusters before assigning new clusters
-    for (uint32_t i = 0; i < K; ++i) {
-        free(clusters[i]->data);
-        free(clusters[i]);
-    }
-    free(clusters);
-
     result.result_cluster = new_clusters;
     return result;
 }
+

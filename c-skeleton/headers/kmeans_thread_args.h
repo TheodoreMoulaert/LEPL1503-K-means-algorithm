@@ -34,7 +34,7 @@ typedef struct {
     point_t **initial_conserve;
     squared_distance_func_t distance_func;
     FILE *output_file;
-
+    bool quiet; 
     uint32_t n_thread;
     pthread_mutex_t *mutex;
     result_thread res_thread;

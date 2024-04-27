@@ -135,6 +135,7 @@ int main(int argc, char *argv[]) {
     uint32_t n_thread = program_arguments.n_threads; 
     uint64_t npoints;
     uint32_t dimension; 
+    bool quiet_mode = program_arguments.quiet;
     uint32_t k = program_arguments.k;
     squared_distance_func_t DISTANCE_SQUARED;
     point_t** donnes;
@@ -298,7 +299,7 @@ int main(int argc, char *argv[]) {
                
         }
 
-        write_csv(output_file, distortion_list,initial_conserve, final_centroids, clusters_list, k, dimension, nombre_comb); 
+        write_csv(output_file, distortion_list,initial_conserve, final_centroids, clusters_list, k, dimension, nombre_comb, quiet_mode ); 
 
         // Libérer la mémoire pour les points de données
         for (uint64_t i = 0; i < npoints; i++) {
@@ -459,8 +460,13 @@ int main(int argc, char *argv[]) {
         args->res_thread;
         args->position=0;
         args->threads_lancé=0;
+        if(quiet_mode == true){
+            fprintf(output_file, "initialization centroids,distortion,centroids\n");
+        }
+        else{
+            fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n");
+        }
         
-        fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n");
 
         if (pthread_mutex_init(&mutex_combinaison, NULL) != 0) {
             fprintf(stderr, "Erreur lors de l'initialisation du mutex\n");
