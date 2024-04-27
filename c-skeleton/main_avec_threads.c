@@ -151,7 +151,14 @@ int main(int argc, char *argv[]) {
 
     if(p>npoints){
         p = npoints; 
-
+    }
+    if (npoints <= 0) {
+        fprintf(stderr, "Wrong number of points. Needs a positive integer, received \"%lu\"\n", npoints);
+        return -1;
+    }
+    if (dimension <= 0) {
+        fprintf(stderr, "Wrong dimension. Needs a positive integer, received \"%u\"\n", dimension);
+        return -1;
     }
 
     int64_t nombre_comb = combinaison(p,k);
