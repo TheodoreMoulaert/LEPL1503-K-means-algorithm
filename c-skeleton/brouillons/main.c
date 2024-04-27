@@ -131,9 +131,19 @@ int main(int argc, char *argv[]) {
     FILE *input_file = program_arguments.input_stream;
     FILE *output_file = program_arguments.output_stream;
     uint32_t p = program_arguments.n_first_initialization_points;
+    if(p <= 0){
+        fprintf(stderr, "Wrong number of initialization points. Needs a positive integer, received \"%d\"\n", program_arguments.n_first_initialization_points);
+        return -1;
+    }
     uint64_t npoints;
     uint32_t dimension; 
     uint32_t k = program_arguments.k;
+    if (k <= 0) {
+        fprintf(stderr, "Wrong k. Needs a positive integer, received \"%d\"\n", k);
+        return -1;
+    }
+
+
     bool quiet_mode = program_arguments.quiet;
     squared_distance_func_t DISTANCE_SQUARED;
     point_t** donnes;
@@ -145,27 +155,24 @@ int main(int argc, char *argv[]) {
     } else {
         DISTANCE_SQUARED = squared_euclidean_distance;
     }
-    fprintf(stderr, "%d\n",0);
     donnes =  point_input(input_file, &dimension, &npoints);
-    printf(" npoints %ld\n", npoints) ;
-    printf(" donnes[0]->nbr_vector %ld\n", donnes[0]->nbr_vector) ;
-    printf(" donnes[1]->nbr_vector %ld\n", donnes[6]->nbr_vector) ;
-    printf(" donnes[0][0].coords[0] = %ld\n", donnes[0][0].coords[0]);
-    printf(" donnes[9][0].coords[0] = %ld\n", donnes[6][0].coords[0]);
-    printf("%d\n", 1);
     if(p>npoints){
         p = npoints; 
 
     }
+    if (npoints <= 0) {
+        fprintf(stderr, "Wrong number of points. Needs a positive integer, received \"%lu\"\n", npoints);
+        return -1;
+    }
+    if (dimension <= 0) {
+        fprintf(stderr, "Wrong dimension. Needs a positive integer, received \"%u\"\n", dimension);
+        return -1;
+    }
 
-    printf("%d\n", 2);
+
     int64_t nombre_comb = combinaison(p,k);
-    printf(" nombre_comb =  %ld\n", nombre_comb);
-    printf("k = %d\n", k);
-    printf("npoints = %ld\n", npoints);
-    printf("%d\n", 3);
     point_t ***initial_combinations = generate_combinations(donnes,npoints,k,p);
-    printf("%d\n", 4);
+
 
     point_t **initial_centroids = (point_t **)malloc(nombre_comb* sizeof(point_t *));
     point_t **initial_conserve = (point_t **)malloc(nombre_comb* sizeof(point_t *));
@@ -188,7 +195,7 @@ int main(int argc, char *argv[]) {
                 initial_centroids[i][j].coords[m] = 0;
             }      
         }
-        printf("k = %d\n", k);
+
         
     }
     for (int i = 0; i < nombre_comb; i++) {
@@ -210,7 +217,7 @@ int main(int argc, char *argv[]) {
                 initial_conserve[i][j].coords[m] = 0;
             }      
         }
-        printf("k = %d\n", k);
+
         
     }
     
@@ -218,39 +225,23 @@ int main(int argc, char *argv[]) {
         for (uint32_t j = 0; j < k; j++) {
             // Copier la dimension
             initial_centroids[i][j].dim =dimension; //initial_combinations[i][j][0].dim;
-            printf("%d\n", 0);
-            // Copier les coordonnées
-            
-            printf("initial_combinations[i][j][0].coords[0]=%ld\n",initial_combinations[i][j][0].coords[0]);
-            printf("%d\n", 0);
             //initial_centroids[i][j].coords = initial_combinations[i][j][0].coords;
             memcpy(initial_centroids[i][j].coords, initial_combinations[i][j][0].coords, dimension * sizeof(int64_t));
-            printf("%d\n", 1);
-            // Copier le nombre de vecteurs
-            initial_centroids[i][j].nbr_vector = initial_combinations[i][j][0].nbr_vector;
-            printf("%d\n", 2);
+
         }
     }
     for (int64_t i = 0; i < nombre_comb; i++) {
         for (uint32_t j = 0; j < k; j++) {
             // Copier la dimension
             initial_conserve[i][j].dim =dimension; //initial_combinations[i][j][0].dim;
-            printf("%d\n", 0);
-            // Copier les coordonnées
-            
-            printf("initial_combinations[i][j][0].coords[0]=%ld\n",initial_combinations[i][j][0].coords[0]);
-            printf("%d\n", 0);
+           
             //initial_centroids[i][j].coords = initial_combinations[i][j][0].coords;
             memcpy(initial_conserve[i][j].coords, initial_combinations[i][j][0].coords, dimension * sizeof(int64_t));
-            printf("%d\n", 1);
-            // Copier le nombre de vecteurs
+           
             initial_conserve[i][j].nbr_vector = initial_combinations[i][j][0].nbr_vector;
-            printf("%d\n", 2);
+          
         }
     }
-    printf("%d\n", 0);
-    printf("initial_centroids[0][1].coords[0]=%ld\n",initial_centroids[0][1].coords[0]);
-    printf("initial_combinations[0][1].coords[0]=%ld\n",initial_combinations[0][1]->coords[0]);
 
     point_t **final_centroids = initial_centroids;
     uint64_t distortion_list[nombre_comb];
@@ -266,22 +257,19 @@ int main(int argc, char *argv[]) {
 
     // Allocation et initialisation de chaque élément de la matrice
     for (uint32_t i = 0; i < k; i++) { //k
-        // Utilisation de calloc pour initialiser chaque élément à NULL
+      
         temps_cluster[i] = (cluster_t *)malloc(npoints*sizeof(cluster_t));
         if (temps_cluster[i] == NULL) {
             // Gestion d'erreur si l'allocation échoue
             exit(EXIT_FAILURE);
         }
-        //temps_cluster[i]->data = (point_t**)malloc(npoints * sizeof(point_t *));//k
-        printf("%d\n", 22);
-        //temps_cluster[i]->centroide.coords = (int64_t *)malloc(dimension * sizeof(int64_t));
     }
  
     for (int64_t i =0;i< nombre_comb;i++){
         for (uint32_t j=0;j<k;j++){
             temps_cluster[j]->centroide.dim = dimension;
             temps_cluster[j]->centroide.coords=initial_centroids[i][j].coords;
-            //memcpy(temps_cluster[j]->centroide.coords, initial_centroids[i][j].coords, dimension * sizeof(int64_t));
+
             temps_cluster[j]->centroide.nbr_vector = initial_centroids[i][j].nbr_vector;
             if (j==0){
                 temps_cluster[j]->data = donnes;
@@ -296,10 +284,7 @@ int main(int argc, char *argv[]) {
     }
 
     point_t* temp_centroide = (point_t*) malloc(k*sizeof(point_t));
-    //temp_centroide->coords = (int64_t *)malloc(dimension*sizeof(int64_t));
-    //temp_centroide->dim = dimension;
 
-    //cluster_t** temps_result_cluster;
     cluster_t** temps_result_cluster= malloc(k* sizeof(cluster_t*)); 
     for(int64_t i = 0; i < k; i++){
         temps_result_cluster[i] = malloc(sizeof(cluster_t));
@@ -342,33 +327,21 @@ int main(int argc, char *argv[]) {
 
     // Libérer la mémoire pour les combinaisons initiales
     for (int64_t i = 0; i < nombre_comb; i++) {
-        /*for (uint32_t j = 0; j < k; j++) {
-            free(initial_combinations[i][j]->coords);
-            free(initial_combinations[i][j]);
-            initial_combinations[i][j] = NULL;
-        }*/
+    
         free(initial_combinations[i]);
     }
     free(initial_combinations);
 
-
-
-
-    // Libérer la mémoire pour les centroids initiaux
     for (int64_t i = 0; i < nombre_comb; i++) {
-        /*for (uint32_t j = 0; j < k; j++) {
-            free(initial_centroids[i][j].coords);
-        }*/
+       
         free(initial_centroids[i]);
         free(initial_conserve[i]);
     }
     free(initial_centroids);
     free(initial_conserve);
 
-        // Libérer la mémoire pour les clusters temporaires
     for (uint32_t i = 0; i < k; i++) {
-        //free(temps_cluster[i]->centroide.coords);
-        //free(temps_cluster[i]->data);
+      
         free(temps_cluster[i]);
     }
     free(temps_cluster);
@@ -382,23 +355,7 @@ int main(int argc, char *argv[]) {
     //free(temp_centroide->coords);
     free(temp_centroide);
 
-    // Libérer la mémoire pour les centroids finaux
-    /*for (int64_t i = 0; i < nombre_comb; i++) {
-        for (uint32_t j = 0; j < k; j++) {
-            free(final_centroids[i][j].coords);
-        }
-        free(final_centroids[i]) ;
-    }
-    free(final_centroids);*/
 
-    // Libérer la mémoire pour les clusters
-    //for (int64_t i = 0; i < nombre_comb; i++) {
-        /*for (uint32_t j = 0; j < k; j++) {
-            free(clusters_list[i][j]);
-        }*/
-        //free(clusters_list[i]);
-
-    //}
     free(clusters_list);
 
 
