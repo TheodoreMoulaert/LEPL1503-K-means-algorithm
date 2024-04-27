@@ -457,7 +457,7 @@ int main(int argc, char *argv[]) {
         args->mutex = &mutex_combinaison;
         args->res_thread;
         args->position=0;
-        args->threads_lancé=0;
+        args->threads_lance=0;
         args->quiet = quiet_mode;
         if(quiet_mode == true){
             fprintf(output_file, "initialization centroids,distortion,centroids\n");
