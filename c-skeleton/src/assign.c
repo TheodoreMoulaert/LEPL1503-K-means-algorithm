@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../headers/assign_vector_to_centro.h"
+#include "../brouillons/assign.h"
 #include "../headers/distance.h"
 #include "../headers/cluster.h"
 

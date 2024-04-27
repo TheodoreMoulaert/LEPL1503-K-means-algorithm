@@ -14,7 +14,8 @@
 #include "../c-skeleton/headers/point.h"
 #include "../c-skeleton/headers/cluster.h"
 #include "../c-skeleton/headers/combinaison.h"
-#include "../c-skeleton/headers/assign_vector_to_centro.h"
+//#include "../c-skeleton/headers/assign_vector_to_centro.h"
+#include "../brouillons/assign.h"
 #include "../c-skeleton/headers/update_centroids.h"
 
 
