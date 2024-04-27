@@ -230,7 +230,7 @@ int main(int argc, char *argv[]) {
               
             }
         }
-
+ 
         point_t **final_centroids = initial_centroids;
         uint64_t distortion_list[nombre_comb];
         
