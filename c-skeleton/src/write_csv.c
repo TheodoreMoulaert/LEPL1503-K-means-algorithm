@@ -100,7 +100,7 @@ void write_csv(FILE *output_file, uint64_t* distortion, point_t **centroid_init_
         return;
     }
     if(quiet_mode == true){
-        fprintf(output_file, "initialization centroids,distortion,clusters\n");
+        fprintf(output_file, "initialization centroids,distortion,centroids\n");
         for (int64_t i = 0; i < nombre_comb; i++) {
             fprintf(output_file, "\"");
             write_centroid(output_file, centroid_init_Array[i], k, dimension);

@@ -460,8 +460,13 @@ int main(int argc, char *argv[]) {
         args->res_thread;
         args->position=0;
         args->threads_lancé=0;
+        if(quiet_mode == true){
+            fprintf(output_file, "initialization centroids,distortion,centroids\n");
+        }
+        else{
+            fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n");
+        }
         
-        fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n");
 
         if (pthread_mutex_init(&mutex_combinaison, NULL) != 0) {
             fprintf(stderr, "Erreur lors de l'initialisation du mutex\n");

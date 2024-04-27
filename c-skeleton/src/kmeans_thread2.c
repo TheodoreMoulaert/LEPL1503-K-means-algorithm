@@ -152,16 +152,14 @@ void *k_means_thread(void *args) {
         }
         write_thread(thread_args->output_file, res_th.temp_distorsion ,thread_args->initial_conserve[j]  ,
                                 res_th.final_centroids , res_th.temps_result_cluster , 
-                                thread_args->k, thread_args->dimension, thread_args->nombre_comb);
+                                thread_args->k, thread_args->dimension, thread_args->nombre_comb, thread_args->quiet);
         err = pthread_mutex_unlock(thread_args->mutex);
         if(err!=0){
             perror("pthread_mutex_unlock");
         }
         printf("thread : %d\n", 3);
 
-
     }                     
-    
     pthread_exit(NULL);
 }
 
