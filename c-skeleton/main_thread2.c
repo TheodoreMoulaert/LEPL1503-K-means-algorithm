@@ -149,8 +149,8 @@ int main(int argc, char *argv[]) {
     donnes =  point_input(input_file, &dimension, &npoints);
 
     if(p>npoints){
-        p = npoints; 
-
+        fprintf(stderr, "Not enough points to generate the combinations\n");
+        return -1;
     }
 
     int64_t nombre_comb = combinaison(p,k);
@@ -408,43 +408,60 @@ int main(int argc, char *argv[]) {
             }
         }
 
-        point_t **final_centroids = initial_centroids; 
-        cluster_t **temps_cluster = (cluster_t **)malloc(k *sizeof(cluster_t *));
+        point_t **final_centroids = initial_centroids;
+        uint64_t distortion_list[nombre_comb];
+        cluster_t*** clusters_list = malloc(nombre_comb*sizeof(cluster_t**)); 
+        cluster_t ***temps_cluster = (cluster_t ***)malloc(nombre_comb *sizeof(cluster_t **));//k * 
         if (temps_cluster == NULL) {
             // Gestion d'erreur si l'allocation échoue
             exit(EXIT_FAILURE);
         }
 
-        for (uint32_t i = 0; i < k; i++) {
-            temps_cluster[i] = (cluster_t *)malloc(npoints*sizeof(cluster_t));
+        for (uint32_t i = 0; i < nombre_comb; i++) {
+            temps_cluster[i] = (cluster_t **)malloc(k*sizeof(cluster_t*));
             if (temps_cluster[i] == NULL) {
                 exit(EXIT_FAILURE);
             }
+            for(uint32_t j = 0; j< k; j++){
+                temps_cluster[i][j] = (cluster_t*)malloc(npoints*sizeof(cluster_t)); 
+                if(temps_cluster[i][j]== NULL){
+                    exit(EXIT_FAILURE);
+                }
+            }
+            
             
         }
+
     
         for (int64_t i =0;i< nombre_comb;i++){
             for (uint32_t j=0;j<k;j++){
-                temps_cluster[j]->centroide.dim = dimension;
-                temps_cluster[j]->centroide.coords=initial_centroids[i][j].coords;
-                temps_cluster[j]->centroide.nbr_vector = initial_centroids[i][j].nbr_vector;
+                temps_cluster[i][j]->centroide.dim = dimension;
+                temps_cluster[i][j]->centroide.coords=initial_centroids[i][j].coords;
+                temps_cluster[i][j]->centroide.nbr_vector = initial_centroids[i][j].nbr_vector;
                 if (j==0){
-                    temps_cluster[j]->data = donnes;
-                    temps_cluster[j]->size = npoints;
+                    temps_cluster[i][j]->data = donnes;
+                    temps_cluster[i][j]->size = npoints;
                 }
                 else{
-                    temps_cluster[j]->data = NULL;
-                    temps_cluster[j]->size = 0;
+                    temps_cluster[i][j]->data = NULL;
+                    temps_cluster[i][j]->size = 0;
 
                 }
             }
         }
+
+        point_t* temp_centroide = (point_t*) malloc(k*sizeof(point_t));
+        cluster_t** temps_result_cluster= malloc(k* sizeof(cluster_t*)); 
+        for(int64_t i = 0; i < k; i++){
+            temps_result_cluster[i] = malloc(sizeof(cluster_t));
+        }
+
 
         pthread_mutex_t mutex_combinaison;
         pthread_t threads[n_thread-1];
         k_means_thread_args_t args[n_thread-1];
 
-        args->clusters = temps_cluster;
+        args->temps_clusters = temps_cluster;
         args->num_points =npoints ; 
         args->k = k;
         args->dimension = dimension;
@@ -458,8 +475,7 @@ int main(int argc, char *argv[]) {
         args->mutex = &mutex_combinaison;
         args->res_thread;
         args->position=0;
-        args->threads_lancé=0;
-        
+        //args->result;
         fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n");
 
         if (pthread_mutex_init(&mutex_combinaison, NULL) != 0) {
@@ -468,11 +484,13 @@ int main(int argc, char *argv[]) {
         }
         for (uint32_t i = 0; i < n_thread-1; i++){
             pthread_create(&threads[i], NULL, k_means_thread, (void *)&args);
+            //args->position++;
         }
 
         for (uint32_t i = 0; i < n_thread-1; i++) {
             pthread_join(threads[i], NULL);
         }
+
 
         // Libération des ressources du mutex
         pthread_mutex_destroy(&mutex_combinaison);
@@ -504,6 +522,15 @@ int main(int argc, char *argv[]) {
             free(temps_cluster[i]);
         }
         free(temps_cluster);
+
+        for (uint32_t i = 0; i < k; i++) {
+            free(temps_result_cluster[i]);
+        }
+        free(temps_result_cluster);
+        free(temp_centroide);
+        free(clusters_list);
+
+
 
     }
 

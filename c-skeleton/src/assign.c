@@ -22,7 +22,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
     result_t result;
     result.changes = false;
     result.result_cluster = NULL;
-
+    printf("assign de Clem%d\n",1);
     if (centroids == NULL || clusters == NULL) {
         // Handle null pointer error
         return result; 

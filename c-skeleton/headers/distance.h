@@ -6,21 +6,21 @@
 #include "../headers/cluster.h"
 
 /**
- * This typedef below defines the distance_func_t type, a function pointer type that groups all
- * functions with the following signature :
+ * Ce typedef ci-dessous définit le type distance_func_t, un type de pointeur de fonction qui regroupe toutes
+ * les fonctions ayant la signature suivante :
+ * 
+ *       int64_t nom_fonction(const point_t *, const point_t *)
  *
- *      int64_t function_name(const point_t *, const point_t *)
+ * Donc fondamentalement, une fois que vous avez implémenté squared_manhatan_distance et squared_euclidean_distance,
+ * vous pouvez faire ce qui suit si vous le souhaitez :
  *
- * So basically, once you've implemented squared_manhatan_distance and squared_euclidean_distance,
- * you can do the following if you want:
- *
- *      squared_distance_func_t generic_func;
+ *       squared_distance_func_t fonction_generique;
  *      if (some_condition) {
- *          generic_func = squared_manhattan_distance;
+ *          fonction_generique = squared_manhattan_distance;
  *      } else {
- *          generic_func = squared_euclidean_distance;
+ *          fonction_generique = squared_euclidean_distance;
  *      }
- *      int64_t dist = generic_func(a, b); // computes either the manhattan distance or the euclidean distance depending on the some_condition
+ *       int64_t dist = fonction_generique(a, b); // calcule soit la distance de Manhattan soit la distance euclidienne selon la some_condition
  *
  */
 typedef int64_t (*squared_distance_func_t) (const point_t *, const point_t *);

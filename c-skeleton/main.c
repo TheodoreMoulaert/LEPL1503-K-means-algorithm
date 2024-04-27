@@ -152,10 +152,8 @@ int main(int argc, char *argv[]) {
     printf(" donnes[0][0].coords[0] = %ld\n", donnes[0][0].coords[0]);
     printf(" donnes[9][0].coords[0] = %ld\n", donnes[6][0].coords[0]);
     printf("%d\n", 1);
-    if(p>npoints)
-    {
-        fprintf(stderr, "Not enough points to generate the combinations\n");
-        return -1;
+    if(p>npoints){
+        p = npoints; 
 
     }
 
@@ -311,41 +309,22 @@ int main(int argc, char *argv[]) {
 
     for (uint64_t i = 0; i < nombre_comb; i++) {
         
-        for(uint32_t j = 0; j<k; j++){
-            uint64_t temp_distorsion = 0;
-
-            printf("%d\n", 7);
-            printf("i : %ld , j : %d\n", i,j);
-            printf("%d\n", 8);
-            printf("temps_cluster[j]->centroide.coords[0]= %ld\n", temps_cluster[j]->centroide.coords[0]);
-            printf("initial_centroids[i][j].coords[0]= %ld\n", initial_centroids[i][j].coords[0]);
-            printf("donnes[j][0].coords[0] = %ld\n", donnes[6][0].coords[0]);
-            printf("temps_cluster[i][j].data[0][0].coords[0] = %ld\n", temps_cluster[0][0].data[1][0].coords[0]);
-        
-            printf("%d\n", 9);
-            temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], final_centroids[i], DISTANCE_SQUARED);
-            printf("temps_result_cluster[0][0].data[0][0].coords[0] = %ld\n", temps_result_cluster[0][0].data[0][0].coords[0]);
-            printf("temps_result_cluster[0][0].data[0][0].coords[1] = %ld\n", temps_result_cluster[0][0].data[0][0].coords[1]);
-            
-            printf("%d\n", 10);
-
-            for (uint32_t m=0 ; m<k; m++){
-                temp_centroide[m].coords = temps_result_cluster[m]->centroide.coords;
-                temp_centroide[m].nbr_vector = temps_result_cluster[m]->centroide.nbr_vector;
-                temp_centroide[m].dim = dimension;
-            }
-            printf("%d\n", 11);
-            temp_distorsion = distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);
-            printf(" temp_distorsion %ld\n", temp_distorsion);
-            
-
-            *final_centroids[i] = *temp_centroide; 
-            clusters_list[i] = temps_result_cluster;
-            distortion_list[i] = temp_distorsion;
-            printf("%d\n", 13);
-    
+        uint64_t temp_distorsion = 0;
+        temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], final_centroids[i], DISTANCE_SQUARED);
+     
+        for (uint32_t m=0 ; m<k; m++){
+            temp_centroide[m].coords = temps_result_cluster[m]->centroide.coords;
+            temp_centroide[m].nbr_vector = temps_result_cluster[m]->centroide.nbr_vector;
+            temp_centroide[m].dim = dimension;
         }
-    
+      
+        temp_distorsion = distortion((cluster_t const **)temps_result_cluster, k, DISTANCE_SQUARED);
+
+        *final_centroids[i] = *temp_centroide; 
+        clusters_list[i] = temps_result_cluster;
+        distortion_list[i] = temp_distorsion;
+        printf("%d\n", 13);
+        
     }
 
     //print csv
