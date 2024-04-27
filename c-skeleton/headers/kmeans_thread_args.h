@@ -11,8 +11,6 @@
 #define KMEANS_THREAD_ARGS_H
 
 typedef struct{
-    //bool changes; 
-    //cluster_t** result_cluster; 
     uint64_t temp_distorsion;
     cluster_t** temps_result_cluster;
     point_t *initial_centroids;
