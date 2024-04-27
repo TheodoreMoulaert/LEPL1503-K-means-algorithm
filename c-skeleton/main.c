@@ -6,7 +6,6 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <inttypes.h>
-//#include "../c-skeleton/headers/main.h"
 #include "../c-skeleton/headers/distance.h"
 #include "../c-skeleton/headers/binary_file_reader.h" 
 #include "../c-skeleton/headers/k_means.h"
