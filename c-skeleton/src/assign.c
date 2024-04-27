@@ -64,11 +64,12 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
         npoint += clusters[i]->size; 
     }
     uint64_t nconv = 0; 
-   
+    uint32_t tot_new_cluster=0;
     for (uint32_t current_centroid_idx = 0; current_centroid_idx < K; ++current_centroid_idx){ //K nbr_comb
         printf("%d\n",0);
         // Parcourir tous les vecteurs du cluster actuel
         for (uint64_t i = 0; i < clusters[current_centroid_idx]->size; ++i){
+            tot_new_cluster++;
             point_t *vector = clusters[current_centroid_idx]->data[i];
             printf("%d\n",1);
             // Trouver le centroïde le plus proche pour le vecteur
@@ -89,9 +90,6 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             // Ajouter le vecteur au cluster le plus proche dans le nouveau tableau de clusters
             uint32_t idx = new_clusters[closest_centroid_idx]->size;
             //uint32_t idx = result.result_cluster[closest_centroid_idx]->size;
-        
-            
-
             point_t **temp = malloc((idx) * sizeof(point_t *)); //(idx + 1)
             
             printf("%d\n",4);
@@ -138,6 +136,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
                 //free(new_clusters[closest_centroid_idx]->data[t]->coords);
                 //free(new_clusters[closest_centroid_idx]->data[t]->coords);
                 free(new_clusters[closest_centroid_idx]->data[t]);
+                
             }
 
             /*temp[idx]->coords = NULL;
@@ -145,6 +144,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             temp[idx]->nbr_vector=0;*/
             printf("%d\n",66);
             free(new_clusters[closest_centroid_idx]->data);
+            //free(new_clusters[closest_centroid_idx]);
             new_clusters[closest_centroid_idx]->data = (point_t**)malloc((idx+1) *sizeof(point_t*));
             printf("%d\n",66);
 
@@ -196,6 +196,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             //free(temp[idx]->coords);
             //free(temp[idx]);
             free(temp);
+            //free(vector->coords);
             free(vector);
             printf("%d\n",8);
         }      
@@ -203,6 +204,15 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
     }
     printf("%d\n",12);
     result.result_cluster = new_clusters;
+    /*for (int i=0;i<tot_new_cluster;i++){
+        for (int j=0; j<K;j++){
+            free(new_clusters[i]->data[j]);
+        }
+        free(new_clusters[i]->data);
+        //free(new_clusters[i]->centroide.coords);
+        free(new_clusters[i]);
+
+    }*/
     
     return result;
 }
