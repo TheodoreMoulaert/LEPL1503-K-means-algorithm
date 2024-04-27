@@ -309,14 +309,17 @@ int main(int argc, char *argv[]) {
         free(donnes);
 
         for (int64_t i = 0; i < nombre_comb; i++) {
-        
             free(initial_combinations[i]);
         }
         free(initial_combinations);
 
         // Libérer la mémoire pour les centroids initiaux
         for (int64_t i = 0; i < nombre_comb; i++) {
-        
+            for (uint32_t j = 0; j < k; j++) {
+                free(initial_centroids[i][j].coords);
+                free(initial_conserve[i][j].coords);
+
+            }
             free(initial_centroids[i]);
             free(initial_conserve[i]);
         }
@@ -378,7 +381,6 @@ int main(int argc, char *argv[]) {
             }
 
             for (uint32_t j = 0; j < k; j++) {
-            
                 initial_conserve[i][j].coords = (int64_t *)malloc(dimension* sizeof(int64_t));
                 if (initial_conserve[i][j].coords == NULL) {
                     // Gestion d'erreur si l'allocation échoue
@@ -460,6 +462,7 @@ int main(int argc, char *argv[]) {
         args->res_thread;
         args->position=0;
         args->threads_lancé=0;
+        args->quiet = quiet_mode;
         if(quiet_mode == true){
             fprintf(output_file, "initialization centroids,distortion,centroids\n");
         }
@@ -482,7 +485,7 @@ int main(int argc, char *argv[]) {
 
         // Libération des ressources du mutex
         pthread_mutex_destroy(&mutex_combinaison);
-        printf("%d\n", 9999);
+        
         // Libérer la mémoire pour les points de données
         for (uint64_t i = 0; i < npoints; i++) {
             free(donnes[i]->coords);
@@ -491,14 +494,17 @@ int main(int argc, char *argv[]) {
         free(donnes);
 
         for (int64_t i = 0; i < nombre_comb; i++) {
-        
             free(initial_combinations[i]);
         }
         free(initial_combinations);
 
         // Libérer la mémoire pour les centroids initiaux
         for (int64_t i = 0; i < nombre_comb; i++) {
-        
+            for (uint32_t j = 0; j < k; j++) {
+                free(initial_centroids[i][j].coords);
+                free(initial_conserve[i][j].coords);
+
+            }
             free(initial_centroids[i]);
             free(initial_conserve[i]);
         }
