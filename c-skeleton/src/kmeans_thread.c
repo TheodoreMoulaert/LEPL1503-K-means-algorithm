@@ -16,6 +16,7 @@
 #include "../headers/kmeans_thread_args.h"
 #include "../headers/write_thread.h"
 
+/*Ceci n'est pas le bon aller voir kmeans_thread2 */
 
 result_thread kmeans_thread(cluster_t** clusters, uint64_t num_points, uint32_t k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
    
