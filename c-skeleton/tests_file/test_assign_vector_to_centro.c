@@ -2,7 +2,10 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <CUnit/CUnit.h>
+//#include "../CUnit-2.1-3/CUnit/Headers/Cunit.h"
 #include <CUnit/Basic.h>
+//#include "../CUnit-2.1-3/CUnit/Headers/Basic.h"
+
 #include "../headers/assign_vector_to_centro.h" 
 #include "../headers/cluster.h"
 

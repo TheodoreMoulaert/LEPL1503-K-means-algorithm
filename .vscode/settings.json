@@ -3,6 +3,8 @@
   "files.associations": {
     "binary_file_reader.h": "c",
     "distance.h": "c",
-    "k_means.h": "c"
+    "k_means.h": "c",
+    "point.h": "c",
+    "cluster.h": "c"
   }
 }

@@ -1,8 +1,12 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
+
 #include <CUnit/CUnit.h>
+//#include "../CUnit-2.1-3/CUnit/Headers/CUnit.h"
 #include <CUnit/Basic.h>
+//#include "../CUnit-2.1-3/CUnit/Headers/Basic.h"
+
 #include "../headers/point.h"
 #include "../headers/cluster.h"
 #include "../headers/distance.h"
