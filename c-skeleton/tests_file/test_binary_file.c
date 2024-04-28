@@ -15,7 +15,7 @@ void test_point_input();
 
 // Fonction de test pour point_input
 void test_point_input() {
-    FILE *file = fopen("../python/exemple4.bin", "rb");
+    FILE *file = fopen("../python/exemple.bin", "rb");
     if (!file) {
         perror("Erreur lors de l'ouverture du fichier binaire");
         exit(EXIT_FAILURE);
@@ -26,8 +26,11 @@ void test_point_input() {
     
     point_t **vectors = point_input(file, &dim, &nbr_vectors);
     fclose(file);
-    printf("Dimension: %" PRIu32 "\n", dim);
-    printf("Nombre de vecteurs: %" PRIu64 "\n", nbr_vectors);
+    
+    // Assertions
+    CU_ASSERT_EQUAL(dim, 2);
+    CU_ASSERT_EQUAL(nbr_vectors, 7);
+
     if (vectors == NULL) {
         fprintf(stderr, "La fonction point_input a renvoyé NULL\n");
         return;
