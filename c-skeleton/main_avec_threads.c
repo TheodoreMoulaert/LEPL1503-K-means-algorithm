@@ -9,7 +9,6 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <time.h> // Include the time.h header for clock_gettime()
-//#include "../c-skeleton/headers/main.h"
 #include "../c-skeleton/headers/distance.h"
 #include "../c-skeleton/headers/binary_file_reader.h" 
 #include "../c-skeleton/headers/k_means.h"
@@ -447,22 +446,24 @@ int main(int argc, char *argv[]) {
         pthread_t threads[n_thread-1];
         k_means_thread_args_t args[n_thread-1];
 
-        args->clusters = temps_cluster;
-        args->num_points =npoints ; 
+        args->quiet = quiet_mode;
+        args->num_points =npoints;
         args->k = k;
         args->dimension = dimension;
         args->nombre_comb = nombre_comb;
+        args->distance_func = DISTANCE_SQUARED;
+        args->output_file= output_file;
+
+        args->clusters = temps_cluster;
         args->initial_centroids = initial_centroids;
         args->final_centroids = final_centroids;
         args->initial_conserve = initial_conserve;
-        args->distance_func = DISTANCE_SQUARED;
-        args->output_file= output_file;
+        
         args->n_thread = n_thread;
         args->mutex = &mutex_combinaison;
         args->res_thread;
         args->position=0;
-        args->threads_lance=0;
-        args->quiet = quiet_mode;
+        
         if(quiet_mode == true){
             fprintf(output_file, "initialization centroids,distortion,centroids\n");
         }

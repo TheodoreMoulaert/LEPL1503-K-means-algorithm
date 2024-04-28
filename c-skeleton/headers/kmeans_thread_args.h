@@ -15,14 +15,11 @@ typedef struct{
     cluster_t** temps_result_cluster;
     point_t *initial_centroids;
     point_t *final_centroids;
-    point_t **initial_conserve;
-
 } result_thread;
 
 // Structure pour passer les arguments à la fonction k_means_thread
 typedef struct {
     cluster_t **clusters;
-    cluster_t*** temps_clusters; 
     uint64_t num_points;
     uint32_t k;
     uint32_t dimension;
@@ -37,8 +34,6 @@ typedef struct {
     pthread_mutex_t *mutex;
     result_thread res_thread;
     uint32_t position;
-    uint32_t threads_lance;
-
 } k_means_thread_args_t;
 
 
