@@ -26,7 +26,7 @@ void test_distortion() {
     cluster_t **clusters = malloc(k * sizeof(cluster_t *));
     for (uint32_t i = 0; i < k; ++i) {
         clusters[i] = malloc(sizeof(cluster_t));
-        clusters[i]->size = 3; // Exemple de taille
+        clusters[i]->size = 3; 
         clusters[i]->centroide.dim = 2;
         clusters[i]->centroide.coords = malloc(2 * sizeof(int64_t));
         clusters[i]->centroide.coords[0] = i * 10;
@@ -66,7 +66,6 @@ void test_distortion() {
     free(clusters);
 }
 
-// Fonction principale
 int main() {
     // Initialisation du registre CUnit
     if (CUE_SUCCESS != CU_initialize_registry()) {

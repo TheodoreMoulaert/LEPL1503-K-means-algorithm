@@ -1,10 +1,8 @@
 
 #include "../headers/distance.h"
 #include "../headers/point.h"
-#include "../headers/main.h"
 #include "../headers/cluster.h"
-
-#include <stdlib.h> // Pour llabs()
+#include <stdlib.h>
 
 
 

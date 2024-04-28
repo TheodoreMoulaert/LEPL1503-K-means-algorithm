@@ -1,4 +1,4 @@
-#include <stdbool.h>
+/*#include <stdbool.h>
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
@@ -14,10 +14,10 @@
 #include "../headers/cluster.h"
 #include "../headers/distance.h"
 #include "../headers/kmeans_thread_args.h"
-#include "../headers/write_thread.h"
+#include "../headers/write_thread.h"*/
 
 
-result_thread kmeans_thread(cluster_t** clusters, uint64_t num_points, uint32_t k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
+/*result_thread kmeans_thread(cluster_t** clusters, uint64_t num_points, uint32_t k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
    
     result_t result; 
     result_thread res_thread;
@@ -109,11 +109,11 @@ result_thread kmeans_thread(cluster_t** clusters, uint64_t num_points, uint32_t 
     // Libérer la mémoire pour les old_centroids
     free(old_centroids);
     return res_thread;
-}
+}*/
 
 
 
-//Fonction pour le thread k_means 
+/*//Fonction pour le thread k_means 
 void *k_means_thread(void *args) { 
     int err;
     k_means_thread_args_t *thread_args = (k_means_thread_args_t*) args;
@@ -182,4 +182,4 @@ void *k_means_thread(void *args) {
         
     }                       
     pthread_exit(NULL);
-}
+}*/

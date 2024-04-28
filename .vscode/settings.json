@@ -1,3 +1,8 @@
 {
-  "C_Cpp_Runner.msvcBatchPath": ""
+  "C_Cpp_Runner.msvcBatchPath": "",
+  "files.associations": {
+    "binary_file_reader.h": "c",
+    "distance.h": "c",
+    "k_means.h": "c"
+  }
 }

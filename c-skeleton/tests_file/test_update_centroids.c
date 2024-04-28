@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
-#include <inttypes.h> // Pour PRI64
+#include <inttypes.h> 
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
 #include "../headers/point.h"
@@ -38,7 +38,7 @@ void test_update_centroids() {
             CU_FAIL_FATAL("Allocation échouée pour clusters[i]");
         }
 
-        clusters[i]->size = 3; // Exemple de taille
+        clusters[i]->size = 3; 
         clusters[i]->centroide.dim = 2;
         clusters[i]->centroide.coords = malloc(2 * sizeof(int64_t));
         if (clusters[i]->centroide.coords == NULL) {
@@ -165,7 +165,6 @@ void test_update_centroids() {
         printf("Centroïde %u: (%" PRId64 ", %" PRId64 ")\n", i, final_coords[i][0], final_coords[i][1]);
     }
 
-    // Nettoyage
     for (uint32_t i = 0; i < k; ++i) {
         free(clusters[i]->centroide.coords);
         for (uint64_t j = 0; j < clusters[i]->size; ++j) {

@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../headers/assign_vector_to_centro.h"
+#include "../brouillons/assign.h"
 #include "../headers/distance.h"
 #include "../headers/cluster.h"
 
@@ -51,6 +51,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
         // Initialise le cluster avec des valeurs par défaut
         new_clusters[i]->size = 0;
         new_clusters[i]->data = NULL; // Initialise à NULL, car il n'y a pas encore de données
+        //new_clusters[i]->data = (point_t**)malloc(sizeof(point_t*));
         new_clusters[i]->centroide.dim = 0; // Initialise la dimension à zéro
         new_clusters[i]->centroide.coords = NULL; // Initialise à NULL, car il n'y a pas encore de coordonnées
 
@@ -63,11 +64,12 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
         npoint += clusters[i]->size; 
     }
     uint64_t nconv = 0; 
-   
+    uint32_t tot_new_cluster=0;
     for (uint32_t current_centroid_idx = 0; current_centroid_idx < K; ++current_centroid_idx){ //K nbr_comb
         printf("%d\n",0);
         // Parcourir tous les vecteurs du cluster actuel
         for (uint64_t i = 0; i < clusters[current_centroid_idx]->size; ++i){
+            tot_new_cluster++;
             point_t *vector = clusters[current_centroid_idx]->data[i];
             printf("%d\n",1);
             // Trouver le centroïde le plus proche pour le vecteur
@@ -88,9 +90,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             // Ajouter le vecteur au cluster le plus proche dans le nouveau tableau de clusters
             uint32_t idx = new_clusters[closest_centroid_idx]->size;
             //uint32_t idx = result.result_cluster[closest_centroid_idx]->size;
-        
-            // Allouer une nouvelle zone mémoire pour temp avec la taille souhaitée
-            point_t **temp = malloc((idx+1) * sizeof(point_t *)); //(idx + 1)
+            point_t **temp = malloc((idx) * sizeof(point_t *)); //(idx + 1)
             
             printf("%d\n",4);
             if (temp == NULL){
@@ -116,41 +116,64 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
        
             }*/
             printf("%d\n",5);
-            for (uint32_t t =0; t <(idx + 1);t++){
-                temp[t]->coords = (int64_t*)malloc(new_clusters[closest_centroid_idx]->data[t]->dim*sizeof(int64_t));
-                temp[t]->dim=0;
+            uint32_t d = vector->dim;
+            
+            for (uint32_t t =0; t < (idx);t++){
+                printf("%d\n",555);
+                temp[t] = (point_t*)malloc(sizeof(point_t));
+                //temp[t]->coords =  (int64_t*)malloc(d*sizeof(int64_t));//NULL;//
+                //temp[t] = NULL;
+                printf("%d\n",5555);
+                temp[t]->dim=d;
                 temp[t]->nbr_vector=0;
+                
             }
-            printf("%d",3);
-            for (uint32_t t =0; t <(idx + 1);t++){
+            printf("%d\n",6);
+            for (uint32_t t =0; t <(idx);t++){
                 temp[t]->coords = new_clusters[closest_centroid_idx]->data[t]->coords;
-                temp[t]->dim=new_clusters[closest_centroid_idx]->data[t]->dim;
+                temp[t]->dim=d;//new_clusters[closest_centroid_idx]->data[t]->dim;
                 temp[t]->nbr_vector=new_clusters[closest_centroid_idx]->data[t]->nbr_vector;
+                //free(new_clusters[closest_centroid_idx]->data[t]->coords);
+                //free(new_clusters[closest_centroid_idx]->data[t]->coords);
+                free(new_clusters[closest_centroid_idx]->data[t]);
+                
             }
-            printf("%d",4);
-            /*for (uint32_t r =0; r <(idx + 1);r++){
-                new_clusters[closest_centroid_idx]->data[r]->coords = (int64_t*)malloc(temp[r]->dim*sizeof(int64_t));
+
+            /*temp[idx]->coords = NULL;
+            temp[idx]->dim=0;//new_clusters[closest_centroid_idx]->data[t]->dim;
+            temp[idx]->nbr_vector=0;*/
+            printf("%d\n",66);
+            free(new_clusters[closest_centroid_idx]->data);
+            //free(new_clusters[closest_centroid_idx]);
+            new_clusters[closest_centroid_idx]->data = (point_t**)malloc((idx+1) *sizeof(point_t*));
+            printf("%d\n",66);
+
+            for (uint32_t r =0; r <(idx);r++){
+                //new_clusters[closest_centroid_idx]->data[r]->coords = (int64_t*)malloc(d*sizeof(int64_t));
+                printf("%d\n",666);
+                new_clusters[closest_centroid_idx]->data[r] = malloc(sizeof(point_t));
+                //new_clusters[closest_centroid_idx]->data[r]->coords = (int64_t*)malloc(d*sizeof(int64_t));
+                printf("%d\n",666);
+                new_clusters[closest_centroid_idx]->data[r]->dim=d;
+                new_clusters[closest_centroid_idx]->data[r]->nbr_vector=temp[r]->nbr_vector;
+            }
+            new_clusters[closest_centroid_idx]->data[idx] = malloc(sizeof(point_t));
+            printf("%d\n",666);
+            for (uint32_t r =0; r <idx;r++){
+                new_clusters[closest_centroid_idx]->data[r]->coords = temp[r]->coords;
                 new_clusters[closest_centroid_idx]->data[r]->dim=temp[r]->dim;
                 new_clusters[closest_centroid_idx]->data[r]->nbr_vector=temp[r]->nbr_vector;
-            }*/
-            printf("%d", 55);
-            printf("%d",5);
-            
-            if (idx !=0){
-                for (uint32_t r =0; r <idx;r++){
-                    new_clusters[closest_centroid_idx]->data[r]->coords = temp[r]->coords;
-                    //new_clusters[closest_centroid_idx]->data[r]->dim=temp[r]->dim;
-                    //new_clusters[closest_centroid_idx]->data[r]->nbr_vector=temp[r]->nbr_vector;
-                }
-                new_clusters[closest_centroid_idx]->data[idx]->coords= vector->coords;
-                new_clusters[closest_centroid_idx]->data[idx]->dim= vector->dim;
-                new_clusters[closest_centroid_idx]->data[idx]->nbr_vector= vector->nbr_vector;
             }
-            
-            printf("%d",6);
-
-            //new_clusters[closest_centroid_idx]->data = temp;
-            //new_clusters[closest_centroid_idx]->data[idx] = vector;
+            printf("%d\n",6666);
+            //new_clusters[closest_centroid_idx]->data[idx]=vector;
+            new_clusters[closest_centroid_idx]->data[idx]->coords= vector->coords;
+            printf("%d\n",61);
+            new_clusters[closest_centroid_idx]->data[idx]->dim= vector->dim;
+            printf("%d\n",62);
+            new_clusters[closest_centroid_idx]->data[idx]->nbr_vector= vector->nbr_vector;
+            /*
+            new_clusters[closest_centroid_idx]->data = temp;
+            new_clusters[closest_centroid_idx]->data[idx] = vector;*/
             new_clusters[closest_centroid_idx]->size++;
             new_clusters[closest_centroid_idx]->centroide = centroids[closest_centroid_idx];
             new_clusters[closest_centroid_idx]->centroide.dim = centroids[closest_centroid_idx].dim;
@@ -161,16 +184,35 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
                 nconv += 1; 
                
             }
-            printf("%d\n",9);
+            printf("%d\n",7);
             if(nconv == npoint){
                  result.changes = true; 
             }
-            printf("%d\n",10);
+            //free(temp[idx]->coords);
+            for (uint32_t t =0; t <(idx);t++){
+                //free(temp[t]->coords);
+                free(temp[t]);
+            }
+            //free(temp[idx]->coords);
+            //free(temp[idx]);
+            free(temp);
+            //free(vector->coords);
+            //free(vector);
+            printf("%d\n",8);
         }      
 
     }
     printf("%d\n",12);
     result.result_cluster = new_clusters;
+    /*for (int i=0;i<tot_new_cluster;i++){
+        for (int j=0; j<K;j++){
+            free(new_clusters[i]->data[j]);
+        }
+        free(new_clusters[i]->data);
+        //free(new_clusters[i]->centroide.coords);
+        free(new_clusters[i]);
+
+    }*/
     
     return result;
 }
