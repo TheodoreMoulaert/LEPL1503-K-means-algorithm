@@ -1,6 +1,6 @@
 import time
 import psutil
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import numpy as np
 import os
 import subprocess
@@ -18,7 +18,7 @@ def run_kmeans(input_file, k, picking_limit, distance, quiet):
     return execution_time, process_memory
 
 # Function to generate a plot
-"""
+
 def generate_plot(x_values, y_values, x_label, y_label, title):
     plt.plot(x_values, y_values, marker='o')
     plt.xlabel(x_label)
@@ -26,7 +26,7 @@ def generate_plot(x_values, y_values, x_label, y_label, title):
     plt.title(title)
     plt.grid(True)
     plt.show()
-"""
+
 # Test scenarios
 input_file = "your_input_file_path"
 k_values = [2, 4, 6]  # Varying number of clusters
@@ -44,7 +44,7 @@ for k in k_values:
         memory_consumptions.append(memory_consumption)
 
 # Plotting execution time
-#generate_plot(np.arange(len(execution_times)), execution_times, "Test Case", "Execution Time (s)", "Execution Time Analysis")
+generate_plot(np.arange(len(execution_times)), execution_times, "Test Case", "Execution Time (s)", "Execution Time Analysis")
 
 # Plotting memory consumption
-#generate_plot(np.arange(len(memory_consumptions)), memory_consumptions, "Test Case", "Memory Consumption (KB)", "Memory Consumption Analysis")
+generate_plot(np.arange(len(memory_consumptions)), memory_consumptions, "Test Case", "Memory Consumption (KB)", "Memory Consumption Analysis")

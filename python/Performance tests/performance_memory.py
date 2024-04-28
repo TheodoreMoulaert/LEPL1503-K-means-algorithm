@@ -1,5 +1,5 @@
 import subprocess
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 from memory_profiler import profile, memory_usage
 
 # Function to run the k_means.py with given arguments and profile memory usage
@@ -31,10 +31,10 @@ if __name__ == "__main__":
     mem_usage_profiled = memory_usage((run_kmeans, (input_file, k, picking_limit, distance, quiet)))
 
     # Plot memory usage
-    """
+    
     plt.plot(mem_usage_profiled)
     plt.xlabel('Time (s)')
     plt.ylabel('Memory Usage (MiB)')
     plt.title('Memory Usage Over Time')
     plt.grid(True)
-    plt.show()"""
+    plt.show()

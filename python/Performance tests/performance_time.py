@@ -1,6 +1,6 @@
 import time
 import subprocess
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import numpy as np
 
 # Function to run the k_means.py with given arguments and return execution time
@@ -41,10 +41,10 @@ for k, execution_time in zip(k_values, average_execution_times):
     print(f"k={k}, average execution time={execution_time} seconds")
 
 # Plotting
-"""
+
 plt.plot(k_values, average_execution_times, marker='o')
 plt.xlabel('Number of Clusters (k)')
 plt.ylabel('Average Execution Time (seconds)')
 plt.title('Average Execution Time vs Number of Clusters (k)')
 plt.grid(True)
-plt.show()"""
+plt.show()
