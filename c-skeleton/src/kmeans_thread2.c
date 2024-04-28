@@ -113,11 +113,12 @@ void *k_means_thread(void *args) {
     
     while(thread_args->position < thread_args->nombre_comb){
 
-        uint32_t j = thread_args->position;
+    
         err = pthread_mutex_lock(thread_args->mutex);
         if(err!=0){
             perror("pthread_mutex_lock");
         }
+        uint32_t j = thread_args->position;
         thread_args->position++;
         err = pthread_mutex_unlock(thread_args->mutex);
         if(err!=0){
