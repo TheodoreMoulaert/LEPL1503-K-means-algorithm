@@ -462,7 +462,6 @@ int main(int argc, char *argv[]) {
         
         args->n_thread = n_thread;
         args->mutex = &mutex_combinaison;
-        args->res_thread;
         args->position=0;
         
         if(quiet_mode == true){
