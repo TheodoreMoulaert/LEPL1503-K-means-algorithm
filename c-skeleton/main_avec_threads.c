@@ -8,6 +8,7 @@
 #include <inttypes.h>
 #include <unistd.h>
 #include <pthread.h>
+//#include "../include/pthread.h"
 #include <time.h> // Include the time.h header for clock_gettime()
 #include "../c-skeleton/headers/distance.h"
 #include "../c-skeleton/headers/binary_file_reader.h" 
