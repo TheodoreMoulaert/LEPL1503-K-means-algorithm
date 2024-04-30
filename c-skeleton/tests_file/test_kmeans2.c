@@ -55,14 +55,14 @@ void test_k_means() {
     // Initialisation des clusters d'entrée avec les points donnés
     cluster_t *clusters_input[k];
     for (int i = 0; i < k; i++) {
-        clusters_input[i] = malloc(sizeof(cluster_t));
+        clusters_input[i] = (cluster_t*) malloc(sizeof(cluster_t));
         if (clusters_input[i] == NULL) {
             fprintf(stderr, "Erreur d'allocation mémoire pour un cluster.\n");
             exit(EXIT_FAILURE);
         }
 
         // Allocation de mémoire pour les points du cluster
-        clusters_input[i]->data = malloc(num_points * sizeof(point_t *));
+        clusters_input[i]->data = (point_t**) malloc(num_points * sizeof(point_t *));
         if (clusters_input[i]->data == NULL) {
             fprintf(stderr, "Erreur d'allocation mémoire pour les points du cluster.\n");
             exit(EXIT_FAILURE);
@@ -78,13 +78,13 @@ void test_k_means() {
     // Définition des points du premier cluster
     int64_t P1_coords[7][2] = {{1, 1}, {2, 2}, {3, 4}, {5, 7}, {3, 5}, {5, 5}, {4, 5}};
     for (int i = 0; i < 7; i++) {
-        clusters_input[0]->data[i] = malloc(sizeof(point_t));
+        clusters_input[0]->data[i] = (point_t*) malloc(sizeof(point_t));
         if (clusters_input[0]->data[i] == NULL) {
             fprintf(stderr, "Erreur d'allocation mémoire pour un point.\n");
             exit(EXIT_FAILURE);
         }
         clusters_input[0]->data[i]->dim = 2;
-        clusters_input[0]->data[i]->coords = malloc(2 * sizeof(int64_t));
+        clusters_input[0]->data[i]->coords = (int64_t*) malloc(2 * sizeof(int64_t));
         if (clusters_input[0]->data[i]->coords == NULL) {
             fprintf(stderr, "Erreur d'allocation mémoire pour les coordonnées d'un point.\n");
             exit(EXIT_FAILURE);
