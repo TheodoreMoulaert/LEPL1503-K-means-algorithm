@@ -20,7 +20,8 @@
 result_thread kmeans_thread(cluster_t** clusters, uint64_t num_points, uint32_t k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
    
     result_t result; 
-    result_thread res_thread;
+    //result_thread res_thread;
+    result_thread res_thread = {0}; 
 
     if (clusters == NULL || initial_centroids == NULL || final_centroids == NULL) {
         fprintf(stderr, "Paramètres invalides pour la fonction k_means.\n");

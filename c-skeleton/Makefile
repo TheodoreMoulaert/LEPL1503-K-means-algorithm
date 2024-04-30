@@ -6,10 +6,11 @@ INCLUDE_HEADERS_DIRECTORY= -Iheaders
 
 
 
-kmeans: main.c src/binary_file_reader.o src/combinaison.o src/distance.o src/update_centroids.o src/assign_vectors_to_centroides.o src/kmeans.o src/write_csv.o  # add your other object files needed to compile your program here. !! The ordering is important !! if file_a.o depends on file_b.o, file_a.o must be placed BEFORE file_b.o in the list !
+kmeans: main_avec_threads.c src/binary_file_reader.o src/combinaison.o src/distance.o src/update_centroids.o src/assign_vectors_to_centroides.o src/kmeans.o src/write_csv.o  src/kmeans_thread2.o src/write_thread.o  # add your other object files needed to compile your program here. !! The ordering is important !! if file_a.o depends on file_b.o, file_a.o must be placed BEFORE file_b.o in the list !
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)  
 
-
+kmeans_mono: main.c src/binary_file_reader.o src/combinaison.o src/distance.o src/update_centroids.o src/assign_vectors_to_centroides.o src/kmeans.o src/write_csv.o    # add your other object files needed to compile your program here. !! The ordering is important !! if file_a.o depends on file_b.o, file_a.o must be placed BEFORE file_b.o in the list !
+	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)  
 
 %.o: %.c # toutes les cibles en dépendance c sont crées comme ceci
 	@echo Compilation de kmeans                  
@@ -102,6 +103,7 @@ tests_memoire: test_distance_fichier test_binary_file  test_distance test_distan
 clean:
 	rm -f src/*.o
 	rm -f kmeans
+	rm -f kmeans_mono
 	rm -f test_distance
 	rm -f test_binary_file
 	rm -f test_up_centroids
