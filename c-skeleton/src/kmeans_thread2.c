@@ -17,14 +17,23 @@
 #include "../headers/write_thread.h"
 
 
-result_thread kmeans_thread(cluster_t** clusters, uint64_t num_points, uint32_t k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
+result_thread kmeans_thread2(cluster_t** clusters, uint64_t num_points, uint32_t k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
    
     result_t result; 
     //result_thread res_thread;
     result_thread res_thread = {0}; 
 
-    if (clusters == NULL || initial_centroids == NULL || final_centroids == NULL) {
-        fprintf(stderr, "Paramètres invalides pour la fonction k_means.\n");
+    if (clusters == NULL) {
+        fprintf(stderr, "Paramètres invalides cluster null pour la fonction k_means.\n");
+        return res_thread;
+    }
+    if(initial_centroids == NULL){
+        fprintf(stderr, "Paramètres centr pour la fonction k_means.\n");
+        return res_thread;
+
+    }
+    if( final_centroids == NULL){
+        fprintf(stderr, "Paramètres final pour la fonction k_means.\n");
         return res_thread;
     }
     // Initialise les centroids finaux avec les centroids initiaux
@@ -123,6 +132,7 @@ void *k_means_thread(void *args) {
         printf("%d\n", 7);
         uint32_t j = thread_args->position;
         thread_args->position++;
+        
         err = pthread_mutex_unlock(thread_args->mutex);
         if(err!=0){
             perror("pthread_mutex_unlock");
