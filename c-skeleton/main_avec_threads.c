@@ -453,6 +453,8 @@ int main(int argc, char *argv[]) {
         args->k = k;
         args->dimension = dimension;
         args->nombre_comb = nombre_comb;
+        // Imprimer le nombre de combinaisons
+        printf("Nombre de combinaisons : %ld\n",args->nombre_comb);
         args->distance_func = DISTANCE_SQUARED;
         args->output_file= output_file;
 

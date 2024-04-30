@@ -123,6 +123,7 @@ void *k_means_thread(void *args) {
     printf("%d\n", 6);
     
     while(thread_args->position < thread_args->nombre_comb){
+        printf("Nombre de combinaisons : %ld\n",thread_args->nombre_comb);
 
     
         err = pthread_mutex_lock(thread_args->mutex);
@@ -132,12 +133,25 @@ void *k_means_thread(void *args) {
         printf("%d\n", 7);
         uint32_t j = thread_args->position;
         thread_args->position++;
+        printf("Position de la combinaison : %d\n", j);
         
         err = pthread_mutex_unlock(thread_args->mutex);
         if(err!=0){
             perror("pthread_mutex_unlock");
         }
         printf("%d\n", 8);
+        if( j >= thread_args->nombre_comb){
+            break;
+        }
+        else{
+            printf("Initial centroids for combination %d:\n", j);
+        for (uint32_t centroid_index = 0; centroid_index < thread_args->k; centroid_index++) {
+            printf("Centroid %d: ", centroid_index);
+            for (uint32_t dim_index = 0; dim_index < thread_args->dimension; dim_index++) {
+                printf("%" PRId64 " ", thread_args->initial_centroids[j][centroid_index].coords[dim_index]);
+            }
+            printf("\n");
+        }
 
         res_th = kmeans_thread2(thread_args->clusters, thread_args->num_points, thread_args->k, thread_args->initial_centroids[j] , thread_args->final_centroids[j],thread_args->distance_func);
         thread_args->res_thread = res_th; 
@@ -158,6 +172,9 @@ void *k_means_thread(void *args) {
             perror("pthread_mutex_unlock");
         }
         printf("%d\n", 12);
+
+        }
+        
 
     }                     
     pthread_exit(NULL);
