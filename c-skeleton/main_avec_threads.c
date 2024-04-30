@@ -140,6 +140,7 @@ int main(int argc, char *argv[]) {
     uint64_t npoints;
     uint32_t dimension; 
     bool quiet_mode = program_arguments.quiet;
+    printf("Valeur de quiet_mode : %s\n", quiet_mode ? "true" : "false");
     uint32_t k = program_arguments.k;
     squared_distance_func_t DISTANCE_SQUARED;
     point_t** donnes;
@@ -463,7 +464,7 @@ int main(int argc, char *argv[]) {
         args->n_thread = n_thread;
         args->mutex = &mutex_combinaison;
         args->position=0;
-        
+        printf("%d\n", 1);
         if(quiet_mode == true){
             fprintf(output_file, "initialization centroids,distortion,centroids\n");
         }
@@ -471,11 +472,12 @@ int main(int argc, char *argv[]) {
             fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n");
         }
         
-
+        printf("%d\n", 2);
         if (pthread_mutex_init(&mutex_combinaison, NULL) != 0) {
             fprintf(stderr, "Erreur lors de l'initialisation du mutex\n");
             return EXIT_FAILURE;
         }
+        printf("%d\n", 3);
         for (uint32_t i = 0; i < n_thread-1; i++){
             pthread_create(&threads[i], NULL, k_means_thread, (void *)&args);
         }
@@ -483,6 +485,7 @@ int main(int argc, char *argv[]) {
         for (uint32_t i = 0; i < n_thread-1; i++) {
             pthread_join(threads[i], NULL);
         }
+        printf("%d\n", 4);
 
         // Libération des ressources du mutex
         pthread_mutex_destroy(&mutex_combinaison);
@@ -493,10 +496,11 @@ int main(int argc, char *argv[]) {
             free(donnes[i]);
         }
         free(donnes);
-
+        printf("%d\n", 5);
         for (int64_t i = 0; i < nombre_comb; i++) {
             free(initial_combinations[i]);
         }
+        printf("%d\n", 2);
         free(initial_combinations);
 
         // Libérer la mémoire pour les centroids initiaux
