@@ -16,16 +16,25 @@ Ce projet a été développé par :
 
 Description
 ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════
-L'objectif de ce projet est de résoudre le défi du regroupement en mettant en œuvre l'algorithme des k-means de Lloyd en langage C : 
-1. **Initialisation des clusters et des centroids** : Démarre avec des clusters composés de points et des centroids de base déjà assignés à chaque cluster.
+L'objectif de ce projet est de résoudre le défi du regroupement en mettant en œuvre l'algorithme des k-means de Lloyd en langage C.
 
+1. **Initialisation des clusters et des centroids** :
+    - Les clusters sont initialisés avec des points extraits d'un fichier binaire. Chaque cluster est associé à un centroid de base.
+    - Les centroides initiaux sont générés en utilisant une méthode de combinaison de points. Cette étape garantit une exploration exhaustive de l'espace des données dès le début de l'algorithme.
 2. **Boucle itérative** :
-    - **Attribution des points aux centroids les plus proches** : Pour chaque point, calcule sa distance par rapport à chaque centroid et l'assigne au centroid le plus proche.
-    - **Mise à jour des centroids** : Recalcule la position de chaque centroid en fonction des points qui lui sont attribués.
-
-3. **Critère d'arrêt** : La boucle itérative continue jusqu'à la convergence des centroides.
-
-4. **Résultat final** : Une fois la boucle terminée, les centroides finaux et les clusters correspondants représentent les groupes de points trouvés par l'algorithme.
+    - **Attribution des points aux centroids les plus proches** :
+        - Pour chaque point, sa distance par rapport à chaque centroid est calculée en utilisant une fonction de distance spécifiée (par exemple, distance de Manhattan ou distance euclidienne).
+        - Le point est ensuite attribué au centroid le plus proche.
+    - **Mise à jour des centroids** :
+        - Une fois tous les points attribués aux centroids, ces derniers sont mis à jour.
+        - La nouvelle position de chaque centroid est calculée en fonction des points qui lui sont attribués.
+    - La boucle itérative continue jusqu'à ce que les centroides convergent, c'est-à-dire qu'il n'y ait plus de changements significatifs dans leur position entre deux itérations successives.
+4. **Écriture des résultats dans un fichier CSV** :
+    - Une fois la convergence atteinte, les centroides finaux et les clusters correspondants sont écrits dans un fichier CSV.
+    - Les résultats incluent les coordonnées des centroides finaux ainsi que les points appartenant à chaque cluster.
+5. **Tests unitaires et analyse de la gestion de mémoire** :
+    - Des tests unitaires sont réalisés pour chaque fonction de l'algorithme, ainsi que pour les différentes étapes de lecture et d'écriture de fichiers.
+    - L'outil Valgrind est utilisé pour effectuer une analyse de la gestion de mémoire et détecter toute fuite de mémoire ou erreur potentielle.
 
 ---
 
