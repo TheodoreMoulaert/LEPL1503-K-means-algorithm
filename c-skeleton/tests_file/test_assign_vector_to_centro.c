@@ -86,6 +86,7 @@ void test_assign_vectors_to_centroids() {
     print_clusters("Clusters", result.result_cluster, 3, 2); // Printing new_clusters
 
     for (uint32_t i = 0; i < 2; ++i) {
+        free(clusters[i]->data);
         free(clusters[i]);
     }
     free(clusters);
