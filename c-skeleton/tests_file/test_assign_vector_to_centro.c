@@ -55,7 +55,8 @@ void test_assign_vectors_to_centroids() {
 
     cluster_t *cluster2 = (cluster_t*) malloc(sizeof(cluster_t));
     cluster2->size = 3;
-    cluster2->data = (point_t**) malloc(cluster2->size * sizeof(point_t *));
+    
+    
     for (int i = 0; i < 3; ++i) {
         cluster2->data[i] = (point_t*) malloc(sizeof(point_t));
         cluster2->data[i]->dim = 2;
