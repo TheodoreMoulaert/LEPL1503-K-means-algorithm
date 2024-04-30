@@ -98,6 +98,7 @@ clean:
 	rm -f test_comb
 	rm -f main
 	rm -f test_binary_file_beaucoup_de_points
+	rm -f main_avec_threads
 
 
 
