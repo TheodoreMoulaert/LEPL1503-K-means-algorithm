@@ -120,62 +120,42 @@ void *k_means_thread(void *args) {
     int err;
     k_means_thread_args_t *thread_args = (k_means_thread_args_t *) args;
     result_thread res_th;
-    printf("%d\n", 6);
     
     while(thread_args->position < thread_args->nombre_comb){
-        printf("Nombre de combinaisons : %ld\n",thread_args->nombre_comb);
-
-    
         err = pthread_mutex_lock(thread_args->mutex);
         if(err!=0){
             perror("pthread_mutex_lock");
         }
-        printf("%d\n", 7);
         uint32_t j = thread_args->position;
         thread_args->position++;
-        printf("Position de la combinaison : %d\n", j);
         
         err = pthread_mutex_unlock(thread_args->mutex);
         if(err!=0){
             perror("pthread_mutex_unlock");
         }
-        printf("%d\n", 8);
+        
         if( j >= thread_args->nombre_comb){
             break;
         }
         else{
-            printf("Initial centroids for combination %d:\n", j);
-        for (uint32_t centroid_index = 0; centroid_index < thread_args->k; centroid_index++) {
-            printf("Centroid %d: ", centroid_index);
-            for (uint32_t dim_index = 0; dim_index < thread_args->dimension; dim_index++) {
-                printf("%" PRId64 " ", thread_args->initial_centroids[j][centroid_index].coords[dim_index]);
+            
+            res_th = kmeans_thread2(thread_args->clusters, thread_args->num_points, thread_args->k, thread_args->initial_centroids[j] , thread_args->final_centroids[j],thread_args->distance_func);
+            thread_args->res_thread = res_th; 
+
+            err = pthread_mutex_lock(thread_args->mutex);
+            if(err!=0){
+                perror("pthread_mutex_lock");
             }
-            printf("\n");
+
+            write_thread(thread_args->output_file, res_th.temp_distorsion ,thread_args->initial_conserve[j]  ,
+                                    res_th.final_centroids , res_th.temps_result_cluster , 
+                                    thread_args->k, thread_args->dimension, thread_args->nombre_comb, thread_args->quiet);
+            
+            err = pthread_mutex_unlock(thread_args->mutex);
+            if(err!=0){
+                perror("pthread_mutex_unlock");
+            }
         }
-
-        res_th = kmeans_thread2(thread_args->clusters, thread_args->num_points, thread_args->k, thread_args->initial_centroids[j] , thread_args->final_centroids[j],thread_args->distance_func);
-        thread_args->res_thread = res_th; 
-        printf("%d\n", 9);
-
-        err = pthread_mutex_lock(thread_args->mutex);
-        if(err!=0){
-            perror("pthread_mutex_lock");
-        }
-        printf("%d\n", 10);
-
-        write_thread(thread_args->output_file, res_th.temp_distorsion ,thread_args->initial_conserve[j]  ,
-                                res_th.final_centroids , res_th.temps_result_cluster , 
-                                thread_args->k, thread_args->dimension, thread_args->nombre_comb, thread_args->quiet);
-        printf("%d\n", 11);
-        err = pthread_mutex_unlock(thread_args->mutex);
-        if(err!=0){
-            perror("pthread_mutex_unlock");
-        }
-        printf("%d\n", 12);
-
-        }
-        
-
     }                     
     pthread_exit(NULL);
 }
