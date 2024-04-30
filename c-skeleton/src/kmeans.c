@@ -38,7 +38,9 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
         return NULL; 
     }
 
-    result_t result; 
+    result_t result;
+    result.result_cluster = NULL;
+    result.changes= false;
 
     // Exécute des itérations jusqu'à convergence
     bool convergence = false;
