@@ -5,6 +5,7 @@
     "distance.h": "c",
     "k_means.h": "c",
     "point.h": "c",
-    "cluster.h": "c"
+    "cluster.h": "c",
+    "kmeans_thread_args.h": "c"
   }
 }
