@@ -446,7 +446,7 @@ int main(int argc, char *argv[]) {
 
         pthread_mutex_t mutex_combinaison;
         pthread_t threads[n_thread-1];
-        k_means_thread_args_t args[n_thread-1];
+        k_means_thread_args_t args[1];
 
         args->quiet = quiet_mode;
         args->num_points =npoints;
@@ -464,6 +464,7 @@ int main(int argc, char *argv[]) {
         args->n_thread = n_thread;
         args->mutex = &mutex_combinaison;
         args->position=0;
+    
         printf("%d\n", 1);
         if(quiet_mode == true){
             fprintf(output_file, "initialization centroids,distortion,centroids\n");
