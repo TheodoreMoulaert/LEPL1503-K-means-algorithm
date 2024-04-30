@@ -17,14 +17,23 @@
 #include "../headers/write_thread.h"
 
 
-result_thread kmeans_thread(cluster_t** clusters, uint64_t num_points, uint32_t k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
+result_thread kmeans_thread2(cluster_t** clusters, uint64_t num_points, uint32_t k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
    
     result_t result; 
     //result_thread res_thread;
     result_thread res_thread = {0}; 
 
-    if (clusters == NULL || initial_centroids == NULL || final_centroids == NULL) {
-        fprintf(stderr, "Paramètres invalides pour la fonction k_means.\n");
+    if (clusters == NULL) {
+        fprintf(stderr, "Paramètres invalides cluster null pour la fonction k_means.\n");
+        return res_thread;
+    }
+    if(initial_centroids == NULL){
+        fprintf(stderr, "Paramètres centr pour la fonction k_means.\n");
+        return res_thread;
+
+    }
+    if( final_centroids == NULL){
+        fprintf(stderr, "Paramètres final pour la fonction k_means.\n");
         return res_thread;
     }
     // Initialise les centroids finaux avec les centroids initiaux
@@ -113,35 +122,40 @@ void *k_means_thread(void *args) {
     result_thread res_th;
     
     while(thread_args->position < thread_args->nombre_comb){
-
-    
         err = pthread_mutex_lock(thread_args->mutex);
         if(err!=0){
             perror("pthread_mutex_lock");
         }
         uint32_t j = thread_args->position;
         thread_args->position++;
+        
         err = pthread_mutex_unlock(thread_args->mutex);
         if(err!=0){
             perror("pthread_mutex_unlock");
         }
-
-        res_th = kmeans_thread(thread_args->clusters, thread_args->num_points, thread_args->k, thread_args->initial_centroids[j] , thread_args->final_centroids[j],thread_args->distance_func);
-        thread_args->res_thread = res_th; 
-
-        err = pthread_mutex_lock(thread_args->mutex);
-        if(err!=0){
-            perror("pthread_mutex_lock");
+        
+        if( j >= thread_args->nombre_comb){
+            break;
         }
+        else{
+            
+            res_th = kmeans_thread2(thread_args->clusters, thread_args->num_points, thread_args->k, thread_args->initial_centroids[j] , thread_args->final_centroids[j],thread_args->distance_func);
+            thread_args->res_thread = res_th; 
 
-        write_thread(thread_args->output_file, res_th.temp_distorsion ,thread_args->initial_conserve[j]  ,
-                                res_th.final_centroids , res_th.temps_result_cluster , 
-                                thread_args->k, thread_args->dimension, thread_args->nombre_comb, thread_args->quiet);
-        err = pthread_mutex_unlock(thread_args->mutex);
-        if(err!=0){
-            perror("pthread_mutex_unlock");
+            err = pthread_mutex_lock(thread_args->mutex);
+            if(err!=0){
+                perror("pthread_mutex_lock");
+            }
+
+            write_thread(thread_args->output_file, res_th.temp_distorsion ,thread_args->initial_conserve[j]  ,
+                                    res_th.final_centroids , res_th.temps_result_cluster , 
+                                    thread_args->k, thread_args->dimension, thread_args->nombre_comb, thread_args->quiet);
+            
+            err = pthread_mutex_unlock(thread_args->mutex);
+            if(err!=0){
+                perror("pthread_mutex_unlock");
+            }
         }
-
     }                     
     pthread_exit(NULL);
 }

@@ -8,8 +8,6 @@
 #include <inttypes.h>
 #include <unistd.h>
 #include <pthread.h>
-//#include "../include/pthread.h"
-#include <time.h> // Include the time.h header for clock_gettime()
 #include "../c-skeleton/headers/distance.h"
 #include "../c-skeleton/headers/binary_file_reader.h" 
 #include "../c-skeleton/headers/k_means.h"
@@ -116,9 +114,7 @@ int parse_args(args_t *args, int argc, char *argv[]) {
 
 int main(int argc, char *argv[]) {
     args_t program_arguments;   // allocate the args on the stack
-    clock_t start_time, end_time;
-    double execution_time;
-    start_time = clock(); // Start the timer
+
     parse_args(&program_arguments, argc, argv);
 
     if (program_arguments.n_first_initialization_points < program_arguments.k) {
@@ -140,18 +136,17 @@ int main(int argc, char *argv[]) {
     uint64_t npoints;
     uint32_t dimension; 
     bool quiet_mode = program_arguments.quiet;
+    printf("Valeur de quiet_mode : %s\n", quiet_mode ? "true" : "false");
     uint32_t k = program_arguments.k;
     squared_distance_func_t DISTANCE_SQUARED;
     point_t** donnes;
-    
+    donnes =  point_input(input_file, &dimension, &npoints);
 
     if (program_arguments.squared_distance_func == squared_manhattan_distance) {
         DISTANCE_SQUARED = squared_manhattan_distance;
     } else {
         DISTANCE_SQUARED = squared_euclidean_distance;
     }
-
-    donnes =  point_input(input_file, &dimension, &npoints);
 
     if(p>npoints){
         p = npoints; 
@@ -164,7 +159,16 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "Wrong dimension. Needs a positive integer, received \"%u\"\n", dimension);
         return -1;
     }
+    if (n_thread <= 0) {
+        fprintf(stderr, "Wrong number of threads. Needs a positive integer, received \"%u\"\n", n_thread);
+        return -1;
+    }
+    if (k <= 0) {
+        fprintf(stderr, "Wrong number of clusters. Needs a positive integer, received \"%u\"\n", k);
+        return -1;
+    }
 
+    
     int64_t nombre_comb = combinaison(p,k);
     point_t ***initial_combinations = generate_combinations(donnes,npoints,k,p);
     
@@ -226,9 +230,7 @@ int main(int argc, char *argv[]) {
             for (uint32_t j = 0; j < k; j++) {
                 // Copier la dimension
                 initial_centroids[i][j].dim =dimension; 
-        
                 memcpy(initial_centroids[i][j].coords, initial_combinations[i][j][0].coords, dimension * sizeof(int64_t));
-        
                 initial_centroids[i][j].nbr_vector = initial_combinations[i][j][0].nbr_vector;
             
             }
@@ -245,7 +247,6 @@ int main(int argc, char *argv[]) {
 
         point_t **final_centroids = initial_centroids;
         uint64_t distortion_list[nombre_comb];
-        
         cluster_t*** clusters_list = malloc(nombre_comb*sizeof(cluster_t**)); 
 
 
@@ -269,7 +270,6 @@ int main(int argc, char *argv[]) {
             for (uint32_t j=0;j<k;j++){
                 temps_cluster[j]->centroide.dim = dimension;
                 temps_cluster[j]->centroide.coords=initial_centroids[i][j].coords;
-                //memcpy(temps_cluster[j]->centroide.coords, initial_centroids[i][j].coords, dimension * sizeof(int64_t));
                 temps_cluster[j]->centroide.nbr_vector = initial_centroids[i][j].nbr_vector;
                 if (j==0){
                     temps_cluster[j]->data = donnes;
@@ -284,7 +284,6 @@ int main(int argc, char *argv[]) {
         }
 
         point_t* temp_centroide = (point_t*) malloc(k*sizeof(point_t));
-
         cluster_t** temps_result_cluster;
 
         for (uint64_t i = 0; i < nombre_comb; i++) {
@@ -445,13 +444,14 @@ int main(int argc, char *argv[]) {
 
         pthread_mutex_t mutex_combinaison;
         pthread_t threads[n_thread-1];
-        k_means_thread_args_t args[n_thread-1];
+        k_means_thread_args_t args[1];
 
         args->quiet = quiet_mode;
         args->num_points =npoints;
         args->k = k;
         args->dimension = dimension;
         args->nombre_comb = nombre_comb;
+        // Imprimer le nombre de combinaisons
         args->distance_func = DISTANCE_SQUARED;
         args->output_file= output_file;
 
@@ -463,7 +463,7 @@ int main(int argc, char *argv[]) {
         args->n_thread = n_thread;
         args->mutex = &mutex_combinaison;
         args->position=0;
-        
+    
         if(quiet_mode == true){
             fprintf(output_file, "initialization centroids,distortion,centroids\n");
         }
@@ -471,7 +471,6 @@ int main(int argc, char *argv[]) {
             fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n");
         }
         
-
         if (pthread_mutex_init(&mutex_combinaison, NULL) != 0) {
             fprintf(stderr, "Erreur lors de l'initialisation du mutex\n");
             return EXIT_FAILURE;
@@ -493,7 +492,6 @@ int main(int argc, char *argv[]) {
             free(donnes[i]);
         }
         free(donnes);
-
         for (int64_t i = 0; i < nombre_comb; i++) {
             free(initial_combinations[i]);
         }
@@ -513,16 +511,12 @@ int main(int argc, char *argv[]) {
         free(initial_conserve);
 
         for (uint32_t i = 0; i < k; i++) {
-    
             free(temps_cluster[i]);
         }
         free(temps_cluster);
 
     }
-    end_time = clock(); // End the timer
-    execution_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-
-    printf("Execution time: %.9f seconds\n", execution_time); // Print the execution time
+    
     // close the files opened by parse_args
     if (program_arguments.input_stream != stdin) {
         fclose(program_arguments.input_stream);
