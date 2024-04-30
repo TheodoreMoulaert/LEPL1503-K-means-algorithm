@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include "../headers/point.h"
 #include "../headers/cluster.h"
-#include "../headers/write_csv.h"
+#include "../headers/write_thread.h"
 
 // Définir une fonction main de test
 int main() {
@@ -41,7 +41,7 @@ int main() {
                 centroid_final_Array[j].coords[d] = i * j * d; // Valeurs arbitraires pour le test
             }
 
-            clustersArray[i][j] = malloc(sizeof(cluster_t));
+            //clustersArray[i][j] = NULL;//malloc(sizeof(cluster_t));
             clustersArray[i][j].size = j + 1; // Taille arbitraire pour le test
             clustersArray[i][j].data = malloc((j + 1) * sizeof(point_t *));
             for (int l = 0; l <= j; l++) {
@@ -51,7 +51,7 @@ int main() {
     }
 
     // Appeler la fonction à tester
-    write_csv(output_file, distortion, centroid_init_Array, centroid_final_Array, clustersArray, k, dimension, nombre_comb, false);
+    write_thread(output_file, distortion, centroid_init_Array, centroid_final_Array, clustersArray, k, dimension, nombre_comb, false);
 
     // Libérer la mémoire allouée
     for (int i = 0; i < nombre_comb; i++) {
@@ -59,7 +59,7 @@ int main() {
             //free(centroid_init_Array[i][j].coords);
             //free(centroid_final_Array[i][j].coords);
             free(clustersArray[i][j].data);
-            free(clustersArray[i][j]);
+            //free(clustersArray[i][j]);
         }
         //free(centroid_init_Array[i]);
         //free(centroid_final_Array[i]);
@@ -68,8 +68,8 @@ int main() {
     for (int j = 0; j < k; j++) {
         free(centroid_init_Array[j].coords);
         free(centroid_final_Array[j].coords);
-        free(centroid_init_Array[j]);
-        free(centroid_final_Array[j]);
+       // free(centroid_init_Array[j]);
+       // free(centroid_final_Array[j]);
     }
     free(centroid_init_Array);
     free(centroid_final_Array);
