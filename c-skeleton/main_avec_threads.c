@@ -8,8 +8,6 @@
 #include <inttypes.h>
 #include <unistd.h>
 #include <pthread.h>
-//#include "../include/pthread.h"
-#include <time.h> // Include the time.h header for clock_gettime()
 #include "../c-skeleton/headers/distance.h"
 #include "../c-skeleton/headers/binary_file_reader.h" 
 #include "../c-skeleton/headers/k_means.h"
@@ -116,9 +114,7 @@ int parse_args(args_t *args, int argc, char *argv[]) {
 
 int main(int argc, char *argv[]) {
     args_t program_arguments;   // allocate the args on the stack
-    clock_t start_time, end_time;
-    double execution_time;
-    start_time = clock(); // Start the timer
+
     parse_args(&program_arguments, argc, argv);
 
     if (program_arguments.n_first_initialization_points < program_arguments.k) {
@@ -227,9 +223,7 @@ int main(int argc, char *argv[]) {
             for (uint32_t j = 0; j < k; j++) {
                 // Copier la dimension
                 initial_centroids[i][j].dim =dimension; 
-        
                 memcpy(initial_centroids[i][j].coords, initial_combinations[i][j][0].coords, dimension * sizeof(int64_t));
-        
                 initial_centroids[i][j].nbr_vector = initial_combinations[i][j][0].nbr_vector;
             
             }
@@ -246,7 +240,6 @@ int main(int argc, char *argv[]) {
 
         point_t **final_centroids = initial_centroids;
         uint64_t distortion_list[nombre_comb];
-        
         cluster_t*** clusters_list = malloc(nombre_comb*sizeof(cluster_t**)); 
 
 
@@ -270,7 +263,6 @@ int main(int argc, char *argv[]) {
             for (uint32_t j=0;j<k;j++){
                 temps_cluster[j]->centroide.dim = dimension;
                 temps_cluster[j]->centroide.coords=initial_centroids[i][j].coords;
-                //memcpy(temps_cluster[j]->centroide.coords, initial_centroids[i][j].coords, dimension * sizeof(int64_t));
                 temps_cluster[j]->centroide.nbr_vector = initial_centroids[i][j].nbr_vector;
                 if (j==0){
                     temps_cluster[j]->data = donnes;
@@ -285,7 +277,6 @@ int main(int argc, char *argv[]) {
         }
 
         point_t* temp_centroide = (point_t*) malloc(k*sizeof(point_t));
-
         cluster_t** temps_result_cluster;
 
         for (uint64_t i = 0; i < nombre_comb; i++) {
@@ -454,7 +445,6 @@ int main(int argc, char *argv[]) {
         args->dimension = dimension;
         args->nombre_comb = nombre_comb;
         // Imprimer le nombre de combinaisons
-        printf("Nombre de combinaisons : %ld\n",args->nombre_comb);
         args->distance_func = DISTANCE_SQUARED;
         args->output_file= output_file;
 
@@ -467,7 +457,6 @@ int main(int argc, char *argv[]) {
         args->mutex = &mutex_combinaison;
         args->position=0;
     
-        printf("%d\n", 1);
         if(quiet_mode == true){
             fprintf(output_file, "initialization centroids,distortion,centroids\n");
         }
@@ -475,12 +464,10 @@ int main(int argc, char *argv[]) {
             fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n");
         }
         
-        printf("%d\n", 2);
         if (pthread_mutex_init(&mutex_combinaison, NULL) != 0) {
             fprintf(stderr, "Erreur lors de l'initialisation du mutex\n");
             return EXIT_FAILURE;
         }
-        printf("%d\n", 3);
         for (uint32_t i = 0; i < n_thread-1; i++){
             pthread_create(&threads[i], NULL, k_means_thread, (void *)&args);
         }
@@ -488,7 +475,6 @@ int main(int argc, char *argv[]) {
         for (uint32_t i = 0; i < n_thread-1; i++) {
             pthread_join(threads[i], NULL);
         }
-        printf("%d\n", 4);
 
         // Libération des ressources du mutex
         pthread_mutex_destroy(&mutex_combinaison);
@@ -499,11 +485,9 @@ int main(int argc, char *argv[]) {
             free(donnes[i]);
         }
         free(donnes);
-        printf("%d\n", 5);
         for (int64_t i = 0; i < nombre_comb; i++) {
             free(initial_combinations[i]);
         }
-        printf("%d\n", 2);
         free(initial_combinations);
 
         // Libérer la mémoire pour les centroids initiaux
@@ -520,16 +504,12 @@ int main(int argc, char *argv[]) {
         free(initial_conserve);
 
         for (uint32_t i = 0; i < k; i++) {
-    
             free(temps_cluster[i]);
         }
         free(temps_cluster);
 
     }
-    end_time = clock(); // End the timer
-    execution_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-
-    printf("Execution time: %.9f seconds\n", execution_time); // Print the execution time
+    
     // close the files opened by parse_args
     if (program_arguments.input_stream != stdin) {
         fclose(program_arguments.input_stream);
