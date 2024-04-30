@@ -97,12 +97,12 @@ void write_clu_thread(FILE *file, cluster_t **cluster, int64_t k, int64_t dimens
  * @param dimension Nombre de dimensions des données
  * @param nombre_comb Nombre total de combinaisons
  */
-void write_thread(FILE *output_file, uint64_t distortion, point_t *centroid_init, point_t *centroid_final, cluster_t **clusters, int64_t k, int64_t dimension, int64_t nombre_comb, bool quiet_mode ) {
+void write_thread(FILE *output_file, uint64_t distortion, point_t *centroid_init, point_t *centroid_final, cluster_t **clusters, int64_t k, int64_t dimension, int64_t nombre_comb, bool quiet ) {
     if (output_file == NULL) {
         printf("Erreur : pointeur de fichier de sortie invalide.\n");
         return;
     }
-    if(quiet_mode == true){
+    if(quiet == true){
         fprintf(output_file, "\"");
         write_centro_thread(output_file, centroid_init, k, dimension);
         fprintf(output_file, "\",%" PRId64 ",\"", distortion);
