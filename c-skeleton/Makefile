@@ -1,8 +1,8 @@
 
 CC=gcc
 CFLAGS=-Wall -Werror -g
-LIBS=-lcunit -lpthread
-INCLUDE_HEADERS_DIRECTORY= -Iheaders
+LIBS=-lcunit -lpthread -L${HOME}/local/lib
+INCLUDE_HEADERS_DIRECTORY= -Iheaders -I${HOME}/local/include
 
 
 
