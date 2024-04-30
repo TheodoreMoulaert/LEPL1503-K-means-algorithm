@@ -140,7 +140,7 @@ int main(int argc, char *argv[]) {
     uint32_t k = program_arguments.k;
     squared_distance_func_t DISTANCE_SQUARED;
     point_t** donnes;
-    
+    donnes =  point_input(input_file, &dimension, &npoints);
 
     if (program_arguments.squared_distance_func == squared_manhattan_distance) {
         DISTANCE_SQUARED = squared_manhattan_distance;
@@ -168,7 +168,7 @@ int main(int argc, char *argv[]) {
         return -1;
     }
 
-    donnes =  point_input(input_file, &dimension, &npoints);
+    
     int64_t nombre_comb = combinaison(p,k);
     point_t ***initial_combinations = generate_combinations(donnes,npoints,k,p);
     
