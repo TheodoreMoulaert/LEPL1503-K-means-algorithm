@@ -41,6 +41,9 @@ test_distortion : tests_file/test_distortion.c src/distance.o
 test_write_csv : tests_file/test_write_csv.c src/write_csv.o
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
+test_write_thread : tests_file/test_write_thread.c src/write_thread.o
+	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
+
 test_assign_vector : tests_file/test_assign_vector_to_centro.c src/assign_vectors_to_centroides.o  src/distance.o
 	$(CC) $(INCLUDE_HEADERS_DIRECTORY) $(CFLAGS) -o $@ $^ $(LIBS)
 
@@ -53,13 +56,15 @@ test_comb : tests_file/test_comb.c src/combinaison.o
 
 
 # Règle pour exécuter les tests
-tests:  test_binary_file  test_distance test_up_centroids test_distance_fichier  test_distortion test_assign_vector test_kmeans test_comb test_binary_file_beaucoup_de_points 
+tests:  test_binary_file  test_distance test_up_centroids test_distance_fichier test_distortion test_write_csv test_write_thread test_assign_vector test_kmeans test_comb test_binary_file_beaucoup_de_points 
 	@echo "Exécution des tests"
 	./test_binary_file
 	./test_distance
 	./test_up_centroids
 	./test_distance_fichier
 	./test_distortion 
+	./test_write_csv
+	./test_write_thread
 	./test_assign_vector
 	./test_binary_file_beaucoup_de_points
 	./test_kmeans
@@ -67,7 +72,7 @@ tests:  test_binary_file  test_distance test_up_centroids test_distance_fichier 
 	make clean 
 
 
-tests_memoire:  test_binary_file  test_distance test_up_centroids test_distance_fichier  test_distortion test_assign_vector test_kmeans test_comb test_binary_file_beaucoup_de_points 
+tests_memoire:  test_binary_file  test_distance test_up_centroids test_distance_fichier  test_distortion test_write_csv test_write_thread test_assign_vector test_kmeans test_comb test_binary_file_beaucoup_de_points 
 #@echo
 	@echo Tests avec Valgrind:
 	valgrind --leak-check=full ./test_binary_file_beaucoup_de_points
@@ -78,6 +83,8 @@ tests_memoire:  test_binary_file  test_distance test_up_centroids test_distance_
 	valgrind --leak-check=full ./test_kmeans
 	valgrind --leak-check=full ./test_assign_vector
 	valgrind --leak-check=full ./test_distortion
+	valgrind --leak-check=full ./test_write_csv
+	valgrind --leak-check=full ./test_write_thread
 	valgrind --leak-check=full ./test_comb
 	
 	make clean 
@@ -93,6 +100,7 @@ clean:
 	rm -f test_distance_fichier
 	rm -f test_distortion 
 	rm -f test_write_csv 
+	rm -f test_write_thread
 	rm -f test_assign_vector
 	rm -f test_kmeans 
 	rm -f test_comb
