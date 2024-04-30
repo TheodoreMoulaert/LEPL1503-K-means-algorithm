@@ -97,10 +97,11 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             if(nconv == npoint){
                  result.changes = true; 
             }
+          
             
-        }      
+        }
+        free(clusters[current_centroid_idx]->data);   
     }
-
     result.result_cluster = new_clusters;
     return result;
 }
