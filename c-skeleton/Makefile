@@ -56,7 +56,7 @@ test_comb : tests_file/test_comb.c src/combinaison.o
 	#@echo Excécution des tests avec Valgrind
 	#valgrind --leak-check=full ./kmeans
 
-tests_fonctions : test_binary_file  test_distance test_up_centroids test_distance_fichier  test_distortion test_assign_vector test_comb 
+tests_fonctions : test_binary_file  test_distance test_up_centroids test_distance_fichier  test_distortion test_assign_vector test_kmeans test_comb 
 	@echo "Exécution des tests"
 	./test_binary_file
 	./test_distance
@@ -64,6 +64,7 @@ tests_fonctions : test_binary_file  test_distance test_up_centroids test_distanc
 	./test_distance_fichier
 	./test_distortion 
 	./test_assign_vector
+	./test_kmeans
 	./test_comb 
 	make clean 
 
@@ -75,7 +76,7 @@ tests:  test_binary_file  test_distance test_up_centroids test_distance_fichier 
 	./test_up_centroids
 	./test_distance_fichier
 	./test_distortion
-	./test_assign_vector 
+	./test_assign_vector
 	./test_comb 
 	@echo "Exécution des tests avec Valgrind"
 	valgrind --leak-check=full ./test_binary_file
