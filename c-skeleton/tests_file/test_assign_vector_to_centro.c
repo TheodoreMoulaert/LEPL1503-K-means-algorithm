@@ -94,6 +94,7 @@ void test_assign_vectors_to_centroids() {
     for (int i = 0; i < 2; ++i) {
         free(centroids[i].coords);
     }
+    
     for (int i = 0; i < 3; ++i) {
         free(result.result_cluster[0]->data[i]->coords); 
         free(result.result_cluster[0]->data[i]) ;
