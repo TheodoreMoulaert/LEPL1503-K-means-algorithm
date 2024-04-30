@@ -56,6 +56,8 @@ void test_assign_vectors_to_centroids() {
     cluster_t *cluster2 = (cluster_t*) malloc(sizeof(cluster_t));
     cluster2->size = 3;
     cluster2->data = (point_t**) malloc(cluster2->size * sizeof(point_t *));
+    
+    
     for (int i = 0; i < 3; ++i) {
         cluster2->data[i] = (point_t*) malloc(sizeof(point_t));
         cluster2->data[i]->dim = 2;
@@ -65,9 +67,6 @@ void test_assign_vectors_to_centroids() {
     }
 
     cluster_t **clusters = (cluster_t**) malloc(2 * sizeof(cluster_t *));
-    /*for (int i = 0; i < 2; ++i) {
-        clusters[i] = (cluster_t*) malloc(sizeof(cluster_t));
-    }*/
     clusters[0] = cluster1;
     clusters[1] = cluster2;
 
@@ -87,6 +86,7 @@ void test_assign_vectors_to_centroids() {
     print_clusters("Clusters", result.result_cluster, 3, 2); // Printing new_clusters
 
     for (uint32_t i = 0; i < 2; ++i) {
+        free(clusters[i]->data);
         free(clusters[i]);
     }
     free(clusters);
@@ -94,6 +94,7 @@ void test_assign_vectors_to_centroids() {
     for (int i = 0; i < 2; ++i) {
         free(centroids[i].coords);
     }
+    
     for (int i = 0; i < 3; ++i) {
         free(result.result_cluster[0]->data[i]->coords); 
         free(result.result_cluster[0]->data[i]) ;

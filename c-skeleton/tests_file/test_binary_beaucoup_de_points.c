@@ -42,13 +42,6 @@ void test_point_input1() {
 
     // Impression des coordonnées de chaque vecteur
     for (uint64_t i = 0; i < nbr_vectors; i++) {
-        printf("Vecteur %" PRIu64 ":\n", i + 1);
-        printf("Dimensions: %u\n", dim);
-        printf("Coordonnées: ");
-        for (uint32_t j = 0; j < dim; j++) {
-            printf("%" PRId64 " ", vectors[i]->coords[j]);
-        }
-        printf("\n");
 
         // Libération de la mémoire allouée pour les coordonnées du vecteur
         free(vectors[i]->coords);
