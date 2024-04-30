@@ -148,8 +148,6 @@ int main(int argc, char *argv[]) {
         DISTANCE_SQUARED = squared_euclidean_distance;
     }
 
-    donnes =  point_input(input_file, &dimension, &npoints);
-
     if(p>npoints){
         p = npoints; 
     }
@@ -161,7 +159,16 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "Wrong dimension. Needs a positive integer, received \"%u\"\n", dimension);
         return -1;
     }
+    if (n_thread <= 0) {
+        fprintf(stderr, "Wrong number of threads. Needs a positive integer, received \"%u\"\n", n_thread);
+        return -1;
+    }
+    if (k <= 0) {
+        fprintf(stderr, "Wrong number of clusters. Needs a positive integer, received \"%u\"\n", k);
+        return -1;
+    }
 
+    donnes =  point_input(input_file, &dimension, &npoints);
     int64_t nombre_comb = combinaison(p,k);
     point_t ***initial_combinations = generate_combinations(donnes,npoints,k,p);
     
