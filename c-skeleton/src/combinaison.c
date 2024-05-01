@@ -7,22 +7,21 @@
 
 
 // Fonction qui calcule la factorielle d'un entier
-uint64_t factorial(uint64_t n) {
-    if (n <= 1)
-        return 1;
-    else
-        return n * factorial(n - 1);
-}
-
-// Fonction qui calcule le nombre de combinaisons de p éléments pris k par k
-uint64_t combinaison(uint64_t p, uint32_t k) {
+uint64_t combinaison(uint64_t p, uint64_t k) {
     if (k > p) {
         return 0;
     }
-    uint64_t numerator = factorial(p);
-    uint64_t denominator = factorial(k) * factorial(p - k);
-    return numerator / denominator;
-    
+    if (k == 0 || k == p) {
+        return 1;
+    }
+    // Utilisation de la formule récursive pour calculer le coefficient binomial
+    uint64_t res = 1;
+    // Calcul du coefficient binomial en évitant le dépassement de capacité
+    for (uint64_t i = 0; i < k; ++i) {
+        res *= (p - i);
+        res /= (i + 1);
+    }
+    return res;
 }
 
 // Fonction qui génère la combinaison suivante de k éléments pris parmi n
