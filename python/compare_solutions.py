@@ -47,7 +47,6 @@ for key in keys:
 # Check each solution line
 
 row_by_centroid_1 = {}
-print(1)
 for i, row_1 in enumerate(reader_1):
     initialization_centroids = parse_centroids(row_1["initialization centroids"])
     assert initialization_centroids not in row_by_centroid_1, f"There are multiple times the same initialisation centroids" \
@@ -59,17 +58,14 @@ for i, row_1 in enumerate(reader_1):
         "centroids": parse_centroids(row_1["centroids"]),
         "clusters": parse_clusters(row_1["clusters"])
     }
-    print(2)
+
 
 used_row_by_centroid_1 = {}
 for i, row_2 in enumerate(reader_2):
     initialization_centroids = parse_centroids(row_2["initialization centroids"])
-    print(3)
     assert initialization_centroids in row_by_centroid_1, f"The solution for the centroids '{initialization_centroids}' is given in the csv" \
                                            f" at '{args.csv_2.name}' but not in the csv at '{args.csv_1.name}'"
-    print(4)
     used_row_by_centroid_1[initialization_centroids] = row_by_centroid_1[initialization_centroids]
-    print(5)
     for key, type_f in zip(keys, parsing_functions):
         val = type_f(row_2[key])
         assert row_by_centroid_1[initialization_centroids][key] == val, \
