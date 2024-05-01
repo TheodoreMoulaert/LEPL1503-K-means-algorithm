@@ -79,202 +79,6 @@ Structure du code
       * **clean** : supprime les fichiers objets et exécutables
 
 
-#### *Dans c-skeleton/src*
-  
-  * **assign_vectors_to_centroides.c**
-    * **assign_vectors_to_centroides** : 
-            Assignation des vecteurs aux centroïdes les plus proches.
-            Arguments :
-                    * pointeur point_t
-                    * double pointeur cluster_t
-                    * nombre de clusters à calculer (k)
-                    * fonction distance de type squared_distance_func_t
-            Retourne :
-                    * result_t 
-
-
-  * **binary_file_reader.c**
-    * **get_dimension_from_binary_file** : 
-            Fonction pour extraire la dimension et le nombre de vecteurs à partir d'un fichier binaire.
-            Arguments :
-                    * pointeur FILE
-                    * pointeur entier non-signé
-                    * pointeur entier non-signé
-            Retourne :
-                    * entier non-signé
-    * **point_input** : 
-            Fonction pour lire les points à partir d'un fichier binaire.
-            Arguments :
-                    * double pointeurs point_t
-                    * pointeur entier non-signé
-                    * pointeur entier non-signé
-            Retourne :
-                    * double pointeur point_t
-    * **free_vectors** : 
-            Fonction pour libérer la mémoire allouée aux vecteurs.
-            Arguments :
-                    * double pointeur point_t
-                    * entier non-signé
-
-
-  * **combinaison.c**
-    * **factorial** : 
-            Calcule la factorielle d'un entier.
-            Arguments :
-                    * entier non-signé
-            Retourne :
-                    * entier non-signé
-    * **combinaison** : 
-            Calcule le nombre de combinaisons de p éléments pris k par k.
-            Arguments :
-                    * entier non-signé
-                    * entier non-signé
-            Retourne :
-                    * entier non-signé
-    * **next_comb** : 
-            Génère la combinaison suivante de k éléments pris parmi n.
-            Arguments :
-                    * tableau d'entiers non-signés
-                    * entier non-signé
-                    * entier non-signé
-            Retourne :
-                    * pointeur entier non-signé
-    * **generate_combinations** : 
-            Génère toutes les combinaisons possibles de k éléments parmi un ensemble de n vecteurs.
-            Arguments :
-                    * double pointeurs point_t
-                    * entier non-signé
-                    * entier non-signé
-                    * entier non-signé
-            Retourne :
-                    * triple pointeurs point_t
-
-
-  * **distance.c**
-    * **squared_manhattan_distance** : 
-            Calcule la distance de Manhattan au carré entre deux points.
-            Arguments : 
-                    * pointeur point_t 
-                    * pointeur point_t
-            Retourne :
-                    * entier signé
-    * **squared_euclidean_distance** : 
-            Calcule la distance euclidienne au carré entre deux points.
-            Arguments  :
-                    * pointeur point_t 
-                    * pointeur point_t
-            Retourne :
-                    * entier signé
-    * **distortion** : 
-            Calcule la distorsion d'un ensemble de clusters.
-            Arguments :
-                    * double pointeur cluster_t
-                    * nombre de clusters (uint32_t)
-                    * fonction distance de type squared_distance_func_t
-            Retourne :
-                    * entier non-signé
-
-
-  * **kmeans_thread2.c**
-    * **kmeans_thread2** : 
-            Fonction principale qui implémente l'algorithme K-means multi-threadé.
-            Arguments :
-                    * double pointeurs cluster_t
-                    * entier non-signé
-                    * entier non-signé
-                    * pointeur point_t
-                    * pointeur point_t
-                    * fonction distance de type squared_distance_func_t
-            Retourne :
-                    * result_thread
-    * **k_means_thread** :
-            Fonction exécutée par les threads.
-            Arguments :
-                    * pointeur void
-
-
-  * **kmeans.c**
-    * **k_means** : 
-            Fonction principale qui implémente l'algorithme K-means.
-            Arguments :
-                    * double pointeurs cluster_t
-                    * entier non-signé
-                    * entier non-signé
-                    * pointeur point_t
-                    * pointeur point_t
-                    * fonction distance de type squared_distance_func_t
-            Retourne :
-                    * double pointeur cluster_t
-
-
-  * **update_centroids.c**
-    * **update_centroids** : 
-            Met à jour les centroids des clusters.
-            Arguments :
-                    * pointeur vers un tableau cluster_t
-                    * nombre de clusters à calculer (k)
-            Retourne :
-                    * double pointeurs cluster_t
-  
-
-  * **write_csv.c**
-    * **write_centroid** : 
-            Fonction pour écrire les coordonnées des centroids dans un fichier CSV.
-            Arguments :
-                    * pointeur FILE
-                    * pointeurs point_t 
-                    * entier signé
-                    * entier signé       
-    * **write_cluster** : 
-            Fonction pour écrire les points de chaque cluster dans un fichier CSV.
-            Arguments :
-                    * pointeur FILE
-                    * double pointeurs cluster_t
-                    * entier signé
-                    * entier signé
-    * **write_csv** : 
-            Fonction principale pour écrire les données initiales, de distortion, de centroids, et de clusters dans un fichier CSV.
-            Arguments :
-                    * pointeur FILE
-                    * pointeur entier non-signé
-                    * double pointeurs point_t
-                    * double pointeurs point_t
-                    * tripe pointeurs cluster_t
-                    * entier signé
-                    * entier signé
-                    * entier signé 
-                    * booléens
-    
-
-  * **write_thread.c**
-    * **write_centro_thread** : 
-            Fonction pour écrire les coordonnées des centroids dans un fichier CSV.
-            Arguments :
-                    * pointeur FILE
-                    * pointeurs point_t 
-                    * entier signé
-                    * entier signé       
-    * **write_clu_thread** : 
-            Fonction pour écrire les points de chaque cluster dans un fichier CSV.
-            Arguments :
-                    * pointeur FILE
-                    * double pointeurs cluster_t
-                    * entier signé
-                    * entier signé
-    * **write_thread** : 
-            Fonction principale pour écrire les données initiales, de distortion, de centroids, et de clusters obtenu lors de l'exécution d'un thread dans un fichier CSV.
-            Arguments :
-                    * pointeur FILE
-                    * entier non-signé
-                    * pointeur point_t
-                    * pointeur point_t
-                    * double pointeurs cluster_t
-                    * entier signé
-                    * entier signé
-                    * entier signé 
-                    * booléens
-
-
 
 #### *Dans c-skeleton/headers*
   * **cluster.h** : Définition de la structure `cluster_t` représentant un cluster et de la structure `result_t` pour le résultat des opérations sur les clusters.
@@ -294,6 +98,204 @@ Structure du code
 
   * **portable_endian.h** : Inclus les macros pour les conversions d'endian portable, notamment pour les systèmes Apple.
   * **portable_semaphore.h** : Fournit des fonctions d'initialisation et de destruction de sémaphores portables pour les systèmes Apple et autres.
+
+
+
+#### *Dans c-skeleton/src*
+  * **assign_vectors_to_centroides.c**
+    * **assign_vectors_to_centroides** : 
+            Assignation des vecteurs aux centroïdes les plus proches.
+            Arguments :
+                    * point_t *centroids => centroides auxquelles les vecteurs vont être assignés
+                    * cluster_t **clusters => vecteurs assignés
+                    * uint32_t K => nombre de clusters utiliser
+                    * squared_distance_func_t distance_func => fonction distance à utiliser 
+            Retourne :
+                    * Une structure result_t indiquant si les clusters ont été modifiés (changes = true) et contenant les nouveaux clusters (result_cluster)
+
+
+  * **binary_file_reader.c**
+    * **get_dimension_from_binary_file** : 
+            Fonction pour extraire la dimension et le nombre de vecteurs à partir d'un fichier binaire.
+            Arguments :
+                    * FILE *file => fichier contenant les données à lire
+                    * uint32_t* dim => pointeur vers lequel sera assigné la dimension des vecteurs du fichier
+                    * uint64_t* nbr_vector => pointeur vers lequel sera assigné le nombre de vecteurs du fichier
+            Retourne :
+                    * Entier (uint32_t), 0 si erreur, 1 sinon
+    * **point_input** : 
+            Fonction pour lire les points à partir d'un fichier binaire.
+            Arguments :
+                    * FILE *file => fichier contenant les données à lire
+                    * uint32_t* dim => pointeur vers la dimension des vecteurs du fichier
+                    * uint64_t* nbr_vector => pointeur vers le nombre de vecteurs du fichier
+            Retourne :
+                    * Tableau de pointeurs vers les vecteurs lus, ou NULL en cas d'erreur (point_t **)
+    * **free_vectors** : 
+            Fonction pour libérer la mémoire allouée aux vecteurs.
+            Arguments :
+                    * point_t **vectors => Tableau de pointeurs vers les vecteurs
+                    * uint64_t nbr_vectors => Nombre de vecteurs dans le tableau
+
+
+  * **combinaison.c**
+    * **factorial** : 
+            Calcule la factorielle d'un entier.
+            Arguments :
+                    * uint64_t n
+            Retourne :
+                    * La factorielle de n (uint64_t)
+    * **combinaison** : 
+            Calcule le nombre de combinaisons de p éléments pris k par k.
+            Arguments :
+                    * uint64_t p
+                    * uint32_t k
+            Retourne :
+                    * Le nombre de p éléments pris k par k (uint64_t)
+    * **next_comb** : 
+            Génère la combinaison suivante de k éléments pris parmi n.
+            Arguments :
+                    * uint64_t comb[] => tableau d'entiers
+                    * uint64_t n
+                    * uint64_t k
+            Retourne :
+                    * L'ensemble des combinaisons de k éléments pris k par k (uint64_t *)
+    * **generate_combinations** : 
+            Génère toutes les combinaisons possibles de k éléments parmi un ensemble de n vecteurs.
+            Arguments :
+                    * point_t **vectors => Pointeurs vers les vecteurs d'entrée
+                    * uint64_t n => Nombre total de vecteurs dans l'ensemble
+                    * uint64_t k => Taille de chaque combinaison à générer 
+                    * uint32_t p => Nombre total de vecteurs dans l'ensemble d'entrée
+            Retourne :
+                    * Tableau de pointeurs vers les combinaisons générées, ou NULL en cas d'erreur (point_t ***)
+
+
+  * **distance.c**
+    * **squared_manhattan_distance** : 
+            Calcule la distance de Manhattan au carré entre deux points.
+            Arguments : 
+                    * const point_t *p1 => Pointeur vers le premier point
+                    * const point_t *p2 => Pointeur vers le second point
+            Retourne :
+                    * La distance de Manhattan au carré entre les deux points (int64_t).
+    * **squared_euclidean_distance** : 
+            Calcule la distance euclidienne au carré entre deux points.
+            Arguments  :
+                    * const point_t *p1 => Pointeur vers le premier point
+                    * const point_t *p2 => Pointeur vers le second point
+            Retourne :
+                    * La distance euclidienne au carré entre les deux points (int64_t).
+    * **distortion** : 
+            Calcule la distorsion d'un ensemble de clusters.
+            Arguments :
+                    * cluster_t const **clusters => Un tableau de pointeurs vers les clusters
+                    * uint32_t num_clusters => nombre de clusters
+                    * squared_distance_func_t distance_func => fonction distance à utiliser
+            Retourne :
+                    * La distorsion totale des clusters (uint64_t)
+
+
+  * **kmeans_thread2.c**
+    * **kmeans_thread2** : 
+            Fonction principale qui implémente l'algorithme K-means multi-threadé.
+            Arguments :
+                    * cluster_t** clusters => clusters initial
+                    * uint64_t num_points => nombre de points dans les vecteurs du clusters
+                    * uint32_t k => nombre de cluster à utiliser
+                    * point_t *initial_centroids => centroides initiaux
+                    * point_t *final_centroids => centroides finaux 
+                    * squared_distance_func_t distance_func => fonction distance à utiliser
+            Retourne :
+                    *  Structure result_thread qui contient l'ensemble des éléments nécessaire à la fonction `write_thread`
+    * **k_means_thread** :
+            Fonction exécutée par les threads.
+            Arguments :
+                    * void *args => pointeur contenant les éléments nécessaires à la fonction `kmeans_thread2`
+
+
+  * **kmeans.c**
+    * **k_means** : 
+            Fonction principale qui implémente l'algorithme K-means.
+            Arguments :
+                    * cluster_t** clusters => clusters initial
+                    * uint64_t num_points => nombre de points dans les vecteurs du clusters
+                    * uint32_t k => nombre de cluster à utiliser
+                    * point_t *initial_centroids => centroides initiaux
+                    * point_t *final_centroids => centroides finaux 
+                    * squared_distance_func_t distance_func => fonction distance à utiliser
+            Retourne :
+                    * Tableau de pointeurs vers les clusters finaux, ou NULL en cas d'erreur (cluster_t**).
+
+
+  * **update_centroids.c**
+    * **update_centroids** : 
+            Met à jour les centroids des clusters.
+            Arguments :
+                    * cluster_t *clusters[] => Tableau de pointeurs vers les clusters
+                    * uint32_t K => nombre de clusters
+            Retourne :
+                    * Tableau de pointeurs vers les clusters mis à jour (cluster_t**)
+  
+
+  * **write_csv.c**
+    * **write_centroid** : 
+            Fonction pour écrire les coordonnées des centroids dans un fichier CSV.
+            Arguments :
+                    * FILE *file => Pointeur vers le fichier dans lequel écrire
+                    * point_t* centroid => Tableau contenant les centroïdes des clusters. 
+                    * int64_t k => Nombre total de centroïdes à écrire
+                    * int64_t dimension => Dimension des points dans les centroïdes      
+    * **write_cluster** : 
+            Fonction pour écrire les points de chaque cluster dans un fichier CSV.
+            Arguments :
+                    * FILE *file => Pointeur vers le fichier dans lequel écrire
+                    * cluster_t **cluster => Tableau de pointeurs vers les clusters.
+                    * int64_t k => Nombre total de clusters
+                    * int64_t dimension => Dimension des points dans les clusters
+    * **write_csv** : 
+            Fonction principale pour écrire les données initiales, de distortion, de centroids, et de clusters dans un fichier CSV.
+            Arguments :
+                    * FILE *file => Pointeur vers le fichier dans lequel écrire
+                    * uint64_t* distortion => Tableau des valeurs de distorsion
+                    * point_t **centroid_init_Array => Tableau des centroids initiaux pour chaque combinaison
+                    * point_t **centroid_final_Array => Tableau des centroids finaux pour chaque combinaison
+                    * cluster_t ***clustersArray => Tableau de tableaux de pointeurs vers les clusters pour chaque combinaison
+                    * int64_t k => Nombre de clusters
+                    * int64_t dimension => Nombre de dimensions des données
+                    * int64_t nombre_comb => Nombre total de combinaisons 
+                    * bool quiet_mode => Si false les clusters sont également écrits
+    
+
+  * **write_thread.c**
+    * **write_centro_thread** : 
+            Fonction pour écrire les coordonnées des centroids dans un fichier CSV.
+            Arguments :
+                    * FILE *file => Pointeur vers le fichier dans lequel écrire
+                    * point_t* centroid => Tableau contenant les centroïdes des clusters
+                    * int64_t k => Nombre total de centroïdes à écrire
+                    * int64_t dimension => Dimension des points dans les centroïdes       
+    * **write_clu_thread** : 
+            Fonction pour écrire les points de chaque cluster dans un fichier CSV.
+            Arguments :
+                    * FILE *file => Pointeur vers le fichier dans lequel écrire
+                    * cluster_t **cluster => Tableau de pointeurs vers les clusters
+                    * int64_t k => Nombre total de clusters
+                    * int64_t dimension => Dimension des points dans les clusters
+    * **write_thread** : 
+            Fonction principale pour écrire les données initiales, de distortion, de centroids, et de clusters obtenu lors de l'exécution d'un thread dans un fichier CSV.
+            Arguments :
+                    * FILE *file => Pointeur vers le fichier dans lequel écrire
+                    * uint64_t distortion => Tableau des valeurs de distorsion
+                    * point_t *centroid_init => Tableau des centroids initiaux pour chaque combinaison
+                    * point_t *centroid_final => Tableau des centroids finaux pour chaque combinaison
+                    * cluster_t **clusters => Tableau de tableaux de pointeurs vers les clusters pour chaque combinaison
+                    * int64_t k => Nombre de clusters
+                    * int64_t dimension => Nombre de dimensions des données
+                    * int64_t nombre_comb => Nombre total de combinaisons 
+                    * bool quiet => Si false les clusters sont également écrits
+
+
 
 #### *Dans c-skeleton/tests_file*
   * **test_assign_vector_to_centro.c** : Test CUnit de la fonction `assign_vector_to_centroids`.
@@ -376,9 +378,23 @@ Comparaison [compare_solutions.py]
   - distance = le noms de la fonction distance à appliquer soit manhattan soit euclidean
   - f = fichier de sortie
 
-Exemples
+Exemple de commande d'exécution
 ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════
+#### Exemple de commande pour exécuter le programme directement dans le terminal
 
+- Deux commandes doivent être écrites dans votre terminal afin de faire compilé le fichier main_avec_threads : 
+  1: Commande faisant appel à gcc et aux fonctions utilisées par le fichier main_avec_threads
+gcc -g -o exemple main_avec_threads.c ../c-skeleton/src/distance.c ../c-skeleton/src/binary_file_reader.c ../c-skeleton/src/kmeans.c 
+                    ../c-skeleton/src/kmeans_thread2.c ../c-skeleton/src/write_csv.c ../c-skeleton/src/write_thread.c 
+                    ../c-skeleton/src/combinaison.c ../c-skeleton/src/assign_vectors_to_centroides.c src/update_centroids.c -lm
+  2: Commande pour générer un fichier csv
+./exemple -k 4 -p 5 -n 5 -d manhattan -f d.csv ../python/exemple.bin
+  où : 
+  - fichier_binaire.bin  = fichier d'entrée
+  - k = le nombre de cluster
+  - p = le nombre de combinaison
+  - distance = le noms de la fonction distance à appliquer soit manhattan soit euclidean
+  - f = fichier de sortie
 --- 
 
 📌 Version
