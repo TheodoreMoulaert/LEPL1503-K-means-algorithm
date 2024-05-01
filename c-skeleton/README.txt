@@ -331,7 +331,18 @@ Utilisation [Makefile]
     Pour compiler le programme principal, utilisez la commande suivante :
     ```bash
     make kmeans
+    ./kmeans -q -k [] -p [] -n [] -d [] -f [] ../python/exemple.bin
     ```
+    où : 
+    - ../python/exemple.bin  = fichier d'entrée
+    - q si précisé, le programme n’affiche pas le contenu des clusters dans la sortie
+    - k = le nombre de cluster
+    - p = on considère les n_combinations premiers points présent en entrée pour générer les centroïdes initiaux de l’algorithme de Lloyd
+    - n = nombre de threads
+    - d = le noms de la fonction distance à appliquer soit manhattan soit euclidean
+    - f = fichier de sortie
+    
+    
 
   - **Compilation des tests unitaires individuels** :
     Chaque test unitaire peut être compilé individuellement. Par exemple, pour compiler le test de lecture de fichier binaire, utilisez la commande suivante :
@@ -373,10 +384,14 @@ Comparaison [compare_solutions.py]
 
   où : 
   - fichier_binaire.bin  = fichier d'entrée
+  - q si précisé, le programme n’affiche pas le contenu des clusters dans la sortie
   - k = le nombre de cluster
-  - p = le nombre de combinaison
-  - distance = le noms de la fonction distance à appliquer soit manhattan soit euclidean
+  - p = on considère les n_combinations premiers points présent en entrée pour générer les centroïdes initiaux de l’algorithme de Lloyd
+  - n = nombre de threads
+  - d = le noms de la fonction distance à appliquer soit manhattan soit euclidean
   - f = fichier de sortie
+  
+
 
 Exemple de commande d'exécution
 ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════
@@ -390,10 +405,12 @@ gcc -g -o exemple main_avec_threads.c ../c-skeleton/src/distance.c ../c-skeleton
   2: Commande pour générer un fichier csv
 ./exemple -k 4 -p 5 -n 5 -d manhattan -f d.csv ../python/exemple.bin
   où : 
-  - fichier_binaire.bin  = fichier d'entrée
+  - ../python/exemple.bin  = fichier d'entrée
+  - q si précisé, le programme n’affiche pas le contenu des clusters dans la sortie
   - k = le nombre de cluster
-  - p = le nombre de combinaison
-  - distance = le noms de la fonction distance à appliquer soit manhattan soit euclidean
+  - p = on considère les n_combinations premiers points présent en entrée pour générer les centroïdes initiaux de l’algorithme de Lloyd
+  - n = nombre de threads
+  - d = le noms de la fonction distance à appliquer soit manhattan soit euclidean
   - f = fichier de sortie
 --- 
 
