@@ -50,7 +50,6 @@ uint32_t get_dimension_from_binary_file(FILE *file, uint32_t* dim, uint64_t* nbr
  * @param nbr_vectors Pointeur vers la variable où stocker le nombre de vecteurs lus
  * @return Tableau de pointeurs vers les vecteurs lus, ou NULL en cas d'erreur
  */
-
 point_t **point_input(FILE *file, uint32_t *dim, uint64_t *nbr_vectors) { //* remplacé par&
     if (!file) {
         perror("Fonctions : Le pointeur de fichier est nul");

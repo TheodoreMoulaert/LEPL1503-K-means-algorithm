@@ -13,7 +13,6 @@
  * @param p2 Pointeur vers le deuxième point.
  * @return La distance de Manhattan au carré entre les deux points.
  */
-
 int64_t squared_manhattan_distance(const point_t *p1, const point_t *p2) {
     
     int64_t result = 0; 
@@ -31,7 +30,6 @@ int64_t squared_manhattan_distance(const point_t *p1, const point_t *p2) {
  * @param p2 Pointeur vers le deuxième point.
  * @return La distance euclidienne au carré entre les deux points.
  */
-
 int64_t squared_euclidean_distance(const point_t *p1, const point_t *p2) {
 
     int64_t result = 0; 
@@ -52,7 +50,6 @@ int64_t squared_euclidean_distance(const point_t *p1, const point_t *p2) {
  * @param DISTANCE_SQUARED La fonction de calcul de la distance au carré.
  * @return La distorsion totale des clusters.
  */
-
 uint64_t distortion(cluster_t const **clusters, uint32_t num_clusters, squared_distance_func_t DISTANCE_SQUARED) {
     uint64_t result = 0;
 
