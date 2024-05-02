@@ -2,10 +2,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Données des temps d'exécution
-n_threads = [1, 2, 3, 4, 5, 6, 7]
-temps_1 = [1.1, 1.2, 3.3, 4.4, 1.5, 6.6, 2.7]  # Exemple de liste de temps
-temps_2 = [1.4, 2.4, 2.7, 2.3, 4.9, 1.9, 2.2]  # Exemple de liste de temps
-temps_3 = [1.5, 4.9, 3.2, 1.1, 5.0, 6.2, 5.1]  # Exemple de liste de temps
+n_threads = [1, 2, 3, 4, 5, 6, 7,8,9,10]
+temps_1 = [0.2, 0.254, 0.166, 0.137, 0.132, 0.152, 0.138,0.155,0.155,0.166]  # Exemple de liste de temps
+temps_2 = [0.228, 0.24, 0.16, 0.144, 0.144, 0.152, 0.161,0.164,0.169,0.169]  # Exemple de liste de temps
+temps_3 = [0.167, 0.236, 0.144, 0.141, 0.136, 0.103, 0.173,0.156,0.121,0.144]  # Exemple de liste de temps
 
 # Calcul des temps min et max
 temps_min = [min(t1, t2, t3) for t1, t2, t3 in zip(temps_1, temps_2, temps_3)]
@@ -29,12 +29,12 @@ plt.plot(n_threads, temps_moy, color='orange', linestyle='dotted')
 
 # Affichage des annotations
 for i, txt in enumerate(n_threads):
-    plt.annotate(f"Moyenne: {temps_moy[i]:.2f}", (n_threads[i], temps_moy[i]), textcoords="offset points", xytext=(0,10), ha='center')
+    plt.annotate(f"Moyenne: {temps_moy[i]:.2f}", (n_threads[i], temps_moy[i]), textcoords="offset points", xytext=(0,10), ha='center', fontsize=8)
 
 # Configuration du graphique
 plt.title("Temps d'exécution en fonction du nombre de threads")
 plt.xlabel("Nombre de threads")
-plt.ylabel("Temps d'exécution [cs]")
+plt.ylabel("Temps d'exécution [s]")
 plt.xticks(n_threads)
 plt.grid(True)
 plt.legend()
