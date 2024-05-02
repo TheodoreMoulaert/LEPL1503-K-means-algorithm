@@ -15,7 +15,7 @@
  * @param distance_func Fonction de calcul de distance entre les points
  * @return Résultat de l'affectation des vecteurs aux centroids les plus proches
  */
-result_t assign_vectors_to_centroids(point_t *centroids, cluster_t **clusters, uint32_t K, squared_distance_func_t distance_func) {
+result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, uint32_t K, squared_distance_func_t distance_func) {
     result_t result;
     result.changes = false;
     result.result_cluster = NULL;
