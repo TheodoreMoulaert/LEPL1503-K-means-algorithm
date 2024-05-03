@@ -86,16 +86,8 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
         clusters = result.result_cluster; 
         // Mise à jour des centroids finaux avec les nouveaux centroids des clusters
         for (int j = 0; j < k; j++) {
-            if (clusters[j]->size <1){
-                printf("kmeans : size 0 %d\n",0);
-                //final_centroids[j].coords[0] = 0;
-                //final_centroids[j].coords[1] = 0;
-            }
-            else{
+            if (clusters[j]->size >=1){
                 final_centroids[j] = clusters[j]->centroide;
-                if (&clusters[j]->centroide.coords[0]== NULL){
-                    printf(" kmeans :clusters[j]->centroide.coords[0]%d\n",1);
-                }
             }
         }
 
