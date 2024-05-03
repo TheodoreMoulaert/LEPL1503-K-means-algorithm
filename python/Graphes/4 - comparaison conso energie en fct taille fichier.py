@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 tailles_fichier = ["7 points", "50 points", "100 points"]
 
 # Données de la consommation en énergie pour chaque taille de fichier
-energie_7_points = [10, 20, 30]  # Exemple de liste de consommation en énergie pour 7 points
-energie_50_points = [50, 100, 150]  # Exemple de liste de consommation en énergie pour 50 points
-energie_100_points = [100, 200, 300]  # Exemple de liste de consommation en énergie pour 100 points
+energie_7_points = [7.26639*10**-6, 6.40134*10**-6, 30]  # Exemple de liste de consommation en énergie pour 7 points avec p qui varie
+energie_50_points = [5-57931*10**-5, 0.000240258, 150]  # Exemple de liste de consommation en énergie pour 50 points
+energie_100_points = [0.000119634, 0.000800743, 300]  # Exemple de liste de consommation en énergie pour 100 points
 
 # Calcul de la consommation en énergie min et max pour chaque taille de fichier
 energie_min = [min(e1, e2, e3) for e1, e2, e3 in zip(energie_7_points, energie_50_points, energie_100_points)]
