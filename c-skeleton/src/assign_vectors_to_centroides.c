@@ -64,31 +64,15 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
     uint64_t nconv = 0; 
    
     for (uint32_t current_centroid_idx = 0; current_centroid_idx < K; ++current_centroid_idx){ //K nbr_comb
-        printf("current_centroid_idx = %d\n",current_centroid_idx);
-        printf("assign clusters[current_centroid_idx]->size = %ld\n ",clusters[current_centroid_idx]->size);
-        // Parcourir tous les vecteurs du cluster actuel
-        if (clusters[current_centroid_idx]->size ==0){
-            printf(" clusters[current_centroid_idx]->size =0 %d\n",0);
-        }
+
+
         for (uint64_t i = 0; i < clusters[current_centroid_idx]->size; ++i){//
-            //printf("assign i = %ld\n ",i);
-            if (&centroids[1].coords[0]== NULL){//.coords[0]
-                printf("coords[0] NULL %d\n",0);
-                printf("centroids[1].dim %d\n",centroids[1].dim);
-                printf("centroids[1].nbr_vector %ld\n",centroids[1].nbr_vector);
-                //printf("centroids[1].coords[1] %ln\n",&centroids[1].coords[1]);
-            }
-            if (&centroids[1].coords[1] == NULL){
-                printf("coords[1] NULL %d\n", 0);
-            }
+
             point_t *vector = clusters[current_centroid_idx]->data[i];
             // Trouver le centroïde le plus proche pour le vecteur
             uint32_t closest_centroid_idx = 0;
             uint64_t closest_centroid_distance = UINT64_MAX;
             for (uint32_t centroid_idx = 0; centroid_idx < K; ++centroid_idx) {
-                if (i==0){
-                    printf("assign distance%d\n",1);
-                }
                 uint64_t distance = distance_func(vector, &centroids[centroid_idx]);//&
         
                 if (distance < closest_centroid_distance) {
@@ -110,9 +94,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
                 //free(new_clusters[closest_centroid_idx]->data[i]);
             }
             
-            // Libérer l'ancienne zone mémoire
-            //free(new_clusters[closest_centroid_idx]->data);
-            //  Affecter temp à la nouvelle zone mémoire
+
             new_clusters[closest_centroid_idx]->data = temp;
             new_clusters[closest_centroid_idx]->data[idx] = vector;
             new_clusters[closest_centroid_idx]->size++;
