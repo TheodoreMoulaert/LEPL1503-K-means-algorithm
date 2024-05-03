@@ -1,3 +1,5 @@
+#DONE
+
 import matplotlib.pyplot as plt
 
 # Tailles de fichiers
