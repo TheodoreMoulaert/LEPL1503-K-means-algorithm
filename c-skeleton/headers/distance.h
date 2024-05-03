@@ -26,17 +26,31 @@
 typedef int64_t (*squared_distance_func_t) (const point_t *, const point_t *);
 
 /**
- * @return the squared manhattan distance between 2 points
+ * Calcule la distance de Manhattan au carré entre deux points.
+ * 
+ * @param p1 Pointeur vers le premier point.
+ * @param p2 Pointeur vers le deuxième point.
+ * @return La distance de Manhattan au carré entre les deux points.
  */
 int64_t squared_manhattan_distance(const point_t *, const point_t *);
 
 /**
- * @return the squared euclidean distance between 2 points
+ * Calcule la distance euclidienne au carré entre deux points.
+ * 
+ * @param p1 Pointeur vers le premier point.
+ * @param p2 Pointeur vers le deuxième point.
+ * @return La distance euclidienne au carré entre les deux points.
  */
 int64_t squared_euclidean_distance(const point_t *, const point_t *);
 
-
-
+/**
+ * Calcule la distorsion totale d'un ensemble de clusters.
+ * 
+ * @param clusters Un tableau de pointeurs vers les clusters.
+ * @param num_clusters Le nombre total de clusters.
+ * @param DISTANCE_SQUARED La fonction de calcul de la distance au carré.
+ * @return La distorsion totale des clusters.
+ */
 uint64_t distortion(cluster_t const **clusters, uint32_t num_clusters, squared_distance_func_t DISTANCE_SQUARED);
 /**
  * @return la distorsion moyenne

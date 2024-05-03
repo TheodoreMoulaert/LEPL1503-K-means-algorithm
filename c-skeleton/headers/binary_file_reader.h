@@ -5,13 +5,35 @@
 #include <stdint.h>
 #include <stdio.h>
 
-// Déclaration de la fonction pour obtenir la dimension des points et le nombre de vecteurs à partir du fichier binaire
+
+/**
+ * @brief Lit la dimension et le nombre de vecteurs à partir d'un fichier binaire.   
+ * Elle retourne 1 en cas de succès et 0 en cas d'échec.
+ * 
+ * @param file Pointeur vers le fichier binaire
+ * @param dim Pointeur vers la variable où stocker la dimension lue
+ * @param nbr_vector Pointeur vers la variable où stocker le nombre de vecteurs lus
+ * @return 1 si la lecture est réussie, sinon 0
+ * 
+ */
 uint32_t get_dimension_from_binary_file(FILE *file, uint32_t* dim, uint64_t* nbr_vector); 
 
-// Déclaration de la fonction pour obtenir les informations sur les coordonnées des points
+/**
+ * @brief Lit les vecteurs à partir d'un fichier binaire.
+ * 
+ * @param file Pointeur vers le fichier binaire
+ * @param dim Pointeur vers la variable où stocker la dimension lue
+ * @param nbr_vectors Pointeur vers la variable où stocker le nombre de vecteurs lus
+ * @return Tableau de pointeurs vers les vecteurs lus, ou NULL en cas d'erreur
+ */
 point_t **point_input(FILE *file, uint32_t *dim, uint64_t *nbr_vectors);
 
-// Déclaration de la fonction pour free
+/**
+ * @brief Libère la mémoire allouée pour un tableau de vecteurs,y compris les coordonnées de chaque vecteur et les vecteurs eux-mêmes.
+ * 
+ * @param vectors Tableau de pointeurs vers les vecteurs
+ * @param nbr_vectors Nombre de vecteurs dans le tableau
+ */  
 void free_vectors(point_t **vectors, uint64_t nbr_vectors);
 
 #endif // BINARY_FILE_READER_H

@@ -1,8 +1,10 @@
+#DONE
+
 import numpy as np
 
 # Temps d'exécution en secondes
-temps_python = [0.1, 2.5, 5.3]  # Exemple de temps d'exécution Python pour 7, 50 et 100 points
-temps_c = [0.05, 1.2, 2.6]  # Exemple de temps d'exécution C pour 7, 50 et 100 points
+temps_python = [0.287666667, 1.236333333, 3.720666667]  # Exemple de temps d'exécution Python pour 7, 50 et 100 points
+temps_c = [0.014, 0.104666667, 0.198333333]  # Exemple de temps d'exécution C pour 7, 50 et 100 points
 
 # Tailles de vecteurs de points en binaire
 tailles_vecteurs = ['7 points', '50 points', '100 points']

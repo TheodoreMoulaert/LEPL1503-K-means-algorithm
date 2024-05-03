@@ -1,11 +1,13 @@
+#DONE
+
 import matplotlib.pyplot as plt
 import numpy as np
 
 # Données des temps d'exécution
-n_threads = [1, 2, 3, 4, 5, 6, 7,8,9,10]
-temps_1 = [0.2, 0.254, 0.166, 0.137, 0.132, 0.152, 0.138,0.155,0.155,0.166]  # Exemple de liste de temps
-temps_2 = [0.228, 0.24, 0.16, 0.144, 0.144, 0.152, 0.161,0.164,0.169,0.169]  # Exemple de liste de temps
-temps_3 = [0.167, 0.236, 0.144, 0.141, 0.136, 0.103, 0.173,0.156,0.121,0.144]  # Exemple de liste de temps
+n_threads = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+temps_1 = [0.2, 0.166, 0.132, 0.138, 0.155, 0.152, 0.761, 0.565, 0.683, 0.732]  
+temps_2 = [0.228, 0.16, 0.144, 0.161, 0.169, 0.152, 0.756, 0.547, 0.688, 0.629]  
+temps_3 = [0.167, 0.144, 0.136, 0.173, 0.116, 0.103, 0.753, 0.574, 0.674, 0.688]
 
 # Calcul des temps min et max
 temps_min = [min(t1, t2, t3) for t1, t2, t3 in zip(temps_1, temps_2, temps_3)]
@@ -36,9 +38,15 @@ plt.title("Temps d'exécution en fonction du nombre de threads")
 plt.xlabel("Nombre de threads")
 plt.ylabel("Temps d'exécution [s]")
 plt.xticks(n_threads)
+plt.yscale('log')  # Utilisation d'une échelle logarithmique pour l'axe des y
 plt.grid(True)
+
+# Ajout de plus de nombres sur l'axe y
+plt.yticks([0.1, 0.2, 0.5, 1, 2, 5])
+
 plt.legend()
 
 # Affichage du graphique
 plt.tight_layout()
 plt.show()
+

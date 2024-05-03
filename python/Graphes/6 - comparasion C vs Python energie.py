@@ -1,11 +1,13 @@
+#DONE
+
 import matplotlib.pyplot as plt
 
 # Tailles de fichiers
 tailles_fichier = ["7 points", "50 points", "100 points"]
 
 # Données de consommation d'énergie pour Python (exemples)
-energie_python = [50, 100, 150]  # Exemple de liste de consommation d'énergie pour Python
-energie_C = [30, 80, 120]  # Exemple de liste de consommation d'énergie pour C
+energie_python = [0.00018159,0.001023238,0.003079368]  # Exemple de liste de consommation d'énergie pour Python
+energie_C = [0.00000726639, 0.0000557931, 0.000119634]  # Exemple de liste de consommation d'énergie pour C
 
 # Création du graphique
 plt.figure(figsize=(10, 6))

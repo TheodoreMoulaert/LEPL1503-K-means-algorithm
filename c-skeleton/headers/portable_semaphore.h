@@ -5,6 +5,14 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+/**
+ * Initialise un sémaphore avec la valeur spécifiée.
+ * Sur macOS, utilise sem_open avec un nom temporaire.
+ * Sur les autres plateformes, utilise sem_init.
+ *
+ * @param value La valeur initiale du sémaphore.
+ * @return Un pointeur vers le sémaphore initialisé, ou NULL en cas d'échec.
+ */
 static inline sem_t *
 my_sem_init(uint32_t value)
 {
@@ -26,6 +34,15 @@ my_sem_init(uint32_t value)
     return sem;
 #endif /* __APPLE__ */
 }
+
+/**
+ * Détruit le sémaphore spécifié et libère la mémoire associée.
+ * Sur macOS, utilise sem_close.
+ * Sur les autres plateformes, utilise sem_destroy et libère la mémoire manuellement.
+ *
+ * @param sem Le pointeur vers le sémaphore à détruire.
+ * @return 0 en cas de succès, -1 en cas d'erreur.
+ */
 
 static inline int
 my_sem_destroy(sem_t *sem)
