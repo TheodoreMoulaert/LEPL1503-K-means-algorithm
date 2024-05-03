@@ -13,10 +13,17 @@
 // Déclaration de la fonction test_point_input
 void test_point_input(); 
 
-// Fonction de test pour point_input
+/**
+ * @brief Fonction de test pour point_input
+ * 
+ * Cette fonction teste la fonction point_input en lisant des vecteurs à partir d'un fichier binaire.
+ * Elle vérifie également si les vecteurs sont correctement lus et affiche leurs coordonnées.
+ */
 void test_point_input() {
+    // Ouverture du fichier binaire
     FILE *file = fopen("../python/exemple.bin", "rb");
     if (!file) {
+        // Gestion de l'erreur si le fichier ne peut pas être ouvert
         perror("Erreur lors de l'ouverture du fichier binaire");
         exit(EXIT_FAILURE);
     }
@@ -24,6 +31,7 @@ void test_point_input() {
     uint32_t dim;
     uint64_t nbr_vectors;
     
+    // Appel de la fonction point_input pour obtenir les vecteurs à partir du fichier
     point_t **vectors = point_input(file, &dim, &nbr_vectors);
     fclose(file);
     
@@ -31,6 +39,7 @@ void test_point_input() {
     CU_ASSERT_EQUAL(dim, 2);
     CU_ASSERT_EQUAL(nbr_vectors, 7);
 
+    // Vérification si la fonction a renvoyé un résultat valide
     if (vectors == NULL) {
         fprintf(stderr, "La fonction point_input a renvoyé NULL\n");
         return;
@@ -66,16 +75,28 @@ void test_point_input() {
     free(vectors);
 }
 
-// Fonction principale pour exécuter les tests
+/**
+ * @brief Fonction principale pour exécuter les tests
+ * 
+ * Cette fonction initialise les tests, ajoute le test `test_point_input` à une suite de tests,
+ * exécute les tests, nettoie le registre de tests et renvoie le code d'erreur.
+ * 
+ * @return Le code d'erreur des tests.
+ */
 int main() {
+    // Initialisation du registre de tests
     CU_initialize_registry(); 
 
+    // Ajout d'une suite de tests au registre
     CU_pSuite suite = CU_add_suite("Suite_de_tests", NULL, NULL);
 
+    // Ajout du test "Test_point_input" à la suite de tests
     CU_add_test(suite, "Test_point_input", test_point_input);
 
+    // Exécution des tests
     CU_basic_run_tests();
 
+    // Nettoyage du registre de tests
     CU_cleanup_registry();
 
     return CU_get_error();

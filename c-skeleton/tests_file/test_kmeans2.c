@@ -11,10 +11,19 @@
 // Déclaration de la fonction de test 
 void test_k_means();
 
-// Fonction pour imprimer les clusters
+/**
+ * @brief Fonction pour imprimer les clusters.
+ * 
+ * @param clusters Tableau de clusters.
+ * @param num_clusters Nombre de clusters.
+ */
 void print_clusters(cluster_t **clusters, int num_clusters);
 
-// Fonction pour imprimer un seul centroïde
+/**
+ * @brief Fonction pour imprimer un seul centroïde.
+ * 
+ * @param centroid Centroïde à imprimer.
+ */
 void print_centroid(point_t centroid);
 
 // Fonction principale pour exécuter les tests
