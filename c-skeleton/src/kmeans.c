@@ -21,7 +21,6 @@
  * @param distance_func Fonction de calcul de distance entre les points
  * @return Tableau de pointeurs vers les clusters finaux, ou NULL en cas d'erreur
  */
-
 cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
     if (clusters == NULL || initial_centroids == NULL || final_centroids == NULL) {
         fprintf(stderr, "Paramètres invalides pour la fonction k_means.\n");

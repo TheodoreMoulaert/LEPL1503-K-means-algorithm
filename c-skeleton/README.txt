@@ -139,12 +139,6 @@ Structure du code
 
 
   * **combinaison.c**
-    * **factorial** : 
-            Calcule la factorielle d'un entier.
-            Arguments :
-                    * uint64_t n
-            Retourne :
-                    * La factorielle de n (uint64_t)
     * **combinaison** : 
             Calcule le nombre de combinaisons de p éléments pris k par k.
             Arguments :
