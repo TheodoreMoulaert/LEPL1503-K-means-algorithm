@@ -18,7 +18,13 @@
 void assert_equal_int64();
 point_t* create_point(); 
 
-// Fonction de comparaison pour les tests
+/**
+ * @brief Compare deux entiers 64 bits et affiche un message de succès ou d'échec.
+ * 
+ * @param expected Valeur attendue.
+ * @param actual Valeur reçue.
+ * @param message Message à afficher.
+ */
 void assert_equal_int64(int64_t expected, int64_t actual, const char *message) {
     if (expected == actual) {
         printf("%s : SUCCÈS\n", message);
@@ -29,7 +35,12 @@ void assert_equal_int64(int64_t expected, int64_t actual, const char *message) {
     }
 }
 
-// Crée un point de la dimension donnée et initialise ses coordonnées à zéro
+/**
+ * @brief Crée un point de la dimension donnée et initialise ses coordonnées à zéro.
+ * 
+ * @param dim Dimension du point.
+ * @return Point créé.
+ */
 point_t *create_point(uint32_t dim) {
     point_t *point = (point_t *)malloc(sizeof(point_t));
     if (point == NULL) {
