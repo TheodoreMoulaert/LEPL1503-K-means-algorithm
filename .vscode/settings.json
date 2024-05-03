@@ -6,6 +6,7 @@
     "k_means.h": "c",
     "point.h": "c",
     "cluster.h": "c",
-    "kmeans_thread_args.h": "c"
+    "kmeans_thread_args.h": "c",
+    "assign_vector_to_centro.h": "c"
   }
 }
