@@ -1,6 +1,6 @@
 # Consommation d'énergie en watts
-consommation_python = [10, 15, 20]  # Exemple de consommation d'énergie Python pour 7, 50 et 100 points
-consommation_c = [5, 8, 12]  # Exemple de consommation d'énergie C pour 7, 50 et 100 points
+consommation_python = [1.8159*10**-4, 1.023238*10**-3,3.079368*10**-3 ]  # Exemple de consommation d'énergie Python pour 7, 50 et 100 points
+consommation_c = [7.26639*10**-6, 5.57931*10**-5, 1.19634*10**-4]  # Exemple de consommation d'énergie C pour 7, 50 et 100 points
 
 # Tailles de vecteurs de points en binaire
 tailles_vecteurs = ['7 points', '50 points', '100 points']
