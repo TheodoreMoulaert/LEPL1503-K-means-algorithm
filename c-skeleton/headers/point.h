@@ -4,6 +4,9 @@
 
 #include <stdint.h>
 
+/**
+ * Structure représentant un point dans un espace multidimensionnel.
+ */
 typedef struct {
     uint32_t dim; 
     int64_t *coords; 

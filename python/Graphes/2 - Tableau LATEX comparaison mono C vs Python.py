@@ -1,3 +1,5 @@
+#DONE
+
 import numpy as np
 
 # Temps d'exécution en secondes
