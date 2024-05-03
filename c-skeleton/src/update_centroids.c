@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
-
+#include <inttypes.h>
 #include "../headers/point.h"
 #include "../headers/cluster.h"
 #include "../headers/update_centroids.h"
@@ -37,11 +37,10 @@ cluster_t** update_centroids(cluster_t *clusters[], uint32_t K) {
                 moyenne[xi] += clusters[i]->data[yi]->coords[xi];
             }
         }
-    
-        printf("update moyenne[0] = %ld\n", moyenne[0]);
 
         for (uint32_t xi = 0; xi < dim; xi++) {
-            moyenne[xi] /= clusters[i]->size; // Calcul de la moyenne
+            int64_t taille = (int64_t) clusters[i]->size; 
+            moyenne[xi] = moyenne[xi] / taille; // Calcul de la moyenne
             clusters[i]->centroide.coords[xi] = moyenne[xi]; // Mise à jour du centroïde
             clusters[i]->centroide.dim = dim; 
         }
@@ -50,3 +49,4 @@ cluster_t** update_centroids(cluster_t *clusters[], uint32_t K) {
     }
     return clusters;
 }
+
