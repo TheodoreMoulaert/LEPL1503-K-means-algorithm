@@ -53,6 +53,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
         new_clusters[i]->data = NULL; // Initialise à NULL, car il n'y a pas encore de données
         new_clusters[i]->centroide.dim = 0; // Initialise la dimension à zéro
         new_clusters[i]->centroide.coords = NULL; // Initialise à NULL, car il n'y a pas encore de coordonnées
+        new_clusters[i]->centroide.nbr_vector = 0;
     }
     //uint32_t final_cl=0;
     // Parcourir tous les centroides
@@ -66,13 +67,19 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
         printf("current_centroid_idx = %d\n",current_centroid_idx);
         printf("assign clusters[current_centroid_idx]->size = %ld\n ",clusters[current_centroid_idx]->size);
         // Parcourir tous les vecteurs du cluster actuel
+        if (clusters[current_centroid_idx]->size ==0){
+            printf(" clusters[current_centroid_idx]->size =0 %d\n",0);
+        }
         for (uint64_t i = 0; i < clusters[current_centroid_idx]->size; ++i){//
             //printf("assign i = %ld\n ",i);
-            if (&centroids[1].coords[0]== NULL){
+            if (&centroids[1].coords[0]== NULL){//.coords[0]
                 printf("coords[0] NULL %d\n",0);
+                printf("centroids[1].dim %d\n",centroids[1].dim);
+                printf("centroids[1].nbr_vector %ld\n",centroids[1].nbr_vector);
+                //printf("centroids[1].coords[1] %ln\n",&centroids[1].coords[1]);
             }
-            if (&centroids[1].coords[1]== NULL){
-                printf("coords[1] NULL %d\n",0);
+            if (&centroids[1].coords[1] == NULL){
+                printf("coords[1] NULL %d\n", 0);
             }
             point_t *vector = clusters[current_centroid_idx]->data[i];
             // Trouver le centroïde le plus proche pour le vecteur
@@ -109,8 +116,9 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             new_clusters[closest_centroid_idx]->data = temp;
             new_clusters[closest_centroid_idx]->data[idx] = vector;
             new_clusters[closest_centroid_idx]->size++;
-            new_clusters[closest_centroid_idx]->centroide = centroids[closest_centroid_idx];
+            new_clusters[closest_centroid_idx]->centroide.coords = centroids[closest_centroid_idx].coords;
             new_clusters[closest_centroid_idx]->centroide.dim = centroids[closest_centroid_idx].dim;
+            new_clusters[closest_centroid_idx]->centroide.nbr_vector = centroids[closest_centroid_idx].nbr_vector;
             if(current_centroid_idx == closest_centroid_idx){
                 nconv += 1; 
                
@@ -120,6 +128,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
                  result.changes = true; 
             }
         }
+        
        
     }
 
