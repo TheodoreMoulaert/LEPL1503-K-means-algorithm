@@ -64,9 +64,11 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
    
     for (uint32_t current_centroid_idx = 0; current_centroid_idx < K; ++current_centroid_idx){ //K nbr_comb
         printf("current_centroid_idx = %d\n",current_centroid_idx);
+        printf("assign clusters[current_centroid_idx]->size = %ld\n ",clusters[current_centroid_idx]->size);
         // Parcourir tous les vecteurs du cluster actuel
-        for (uint64_t i = 0; i < clusters[current_centroid_idx]->size; ++i){
-            printf("assign i = %ld\n ",i);
+        for (uint64_t i = 0; i < clusters[current_centroid_idx]->size; ++i){//
+            //printf("assign i = %ld\n ",i);
+            
             point_t *vector = clusters[current_centroid_idx]->data[i];
             // Trouver le centroïde le plus proche pour le vecteur
             uint32_t closest_centroid_idx = 0;

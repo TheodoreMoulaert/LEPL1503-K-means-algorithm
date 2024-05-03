@@ -37,7 +37,7 @@ cluster_t** update_centroids(cluster_t *clusters[], uint32_t K) {
                 moyenne[xi] += clusters[i]->data[yi]->coords[xi];
             }
         }
-        printf("%d\n", 6);
+        printf("update moyenne[0] = %ld\n", moyenne[0]);
 
         for (uint32_t xi = 0; xi < dim; xi++) {
             moyenne[xi] /= clusters[i]->size; // Calcul de la moyenne
