@@ -35,6 +35,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
 
     // Initialiser chaque nouveau cluster
     for (uint32_t i = 0; i < K; ++i) {
+        
         new_clusters[i] = (cluster_t*) malloc(sizeof(cluster_t));
         if (new_clusters[i] == NULL) {
             // Gérer l'erreur d'allocation de mémoire
@@ -62,9 +63,10 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
     uint64_t nconv = 0; 
    
     for (uint32_t current_centroid_idx = 0; current_centroid_idx < K; ++current_centroid_idx){ //K nbr_comb
-   
+        printf("current_centroid_idx = %d\n",current_centroid_idx);
         // Parcourir tous les vecteurs du cluster actuel
         for (uint64_t i = 0; i < clusters[current_centroid_idx]->size; ++i){
+            printf("assign i = %ld\n ",i);
             point_t *vector = clusters[current_centroid_idx]->data[i];
             // Trouver le centroïde le plus proche pour le vecteur
             uint32_t closest_centroid_idx = 0;
@@ -86,23 +88,15 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
         
             // Allouer une nouvelle zone mémoire pour temp avec la taille souhaitée
             point_t **temp = malloc((idx+1) * sizeof(point_t *)); //(idx + 1)
-            
-        
-
             // Copier les éléments existants de l'ancienne zone mémoire vers la nouvelle
             for (uint32_t i = 0; i < idx; ++i) {
-   
                 temp[i] = new_clusters[closest_centroid_idx]->data[i];
-
                 //free(new_clusters[closest_centroid_idx]->data[i]);
-
             }
             
             // Libérer l'ancienne zone mémoire
-            free(new_clusters[closest_centroid_idx]->data);
-            
-
-            // Affecter temp à la nouvelle zone mémoire
+            //free(new_clusters[closest_centroid_idx]->data);
+            //  Affecter temp à la nouvelle zone mémoire
             new_clusters[closest_centroid_idx]->data = temp;
             new_clusters[closest_centroid_idx]->data[idx] = vector;
             new_clusters[closest_centroid_idx]->size++;

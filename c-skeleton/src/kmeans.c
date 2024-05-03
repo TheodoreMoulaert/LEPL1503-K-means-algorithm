@@ -61,7 +61,7 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
                 old_centroids[j].coords[m] = final_centroids[j].coords[m];
             }
         }
-        
+        printf("kmeans i %ld\n",i);
         // Assigne les points aux clusters
         if (i == 0) {
             result = assign_vectors_to_centroides(final_centroids, clusters, k, distance_func);
