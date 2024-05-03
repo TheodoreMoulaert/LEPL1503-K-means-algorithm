@@ -1,0 +1,2032 @@
+--------------------------------------------------------------------------------
+Command:            ./kmeans -k 3 -p 10 -n 4 -d euclidean -f j.csv ../python/exemple50.bin
+Massif arguments:   --massif-out-file=massif.out
+ms_print arguments: massif.out
+--------------------------------------------------------------------------------
+
+
+    KB
+518.8^                                                                       #
+     |                                                                   @@@@#
+     |                                                              :@@@@@@@@#
+     |                                                          @@@@@@@@@@@@@#
+     |                                                     :@@@@@@@@@@@@@@@@@#
+     |                                                 :@:::@@@@@@@@@@@@@@@@@#
+     |                                             @@@::@:::@@@@@@@@@@@@@@@@@#
+     |                                        :::@@@@ ::@:::@@@@@@@@@@@@@@@@@#
+     |                                   @:@:::::@ @@ ::@:::@@@@@@@@@@@@@@@@@#
+     |                              :@:::@:@:::::@ @@ ::@:::@@@@@@@@@@@@@@@@@#
+     |                         ::::::@:: @:@:::::@ @@ ::@:::@@@@@@@@@@@@@@@@@#
+     |                     @@@:: ::::@:: @:@:::::@ @@ ::@:::@@@@@@@@@@@@@@@@@#
+     |                ::@::@@ :: ::::@:: @:@:::::@ @@ ::@:::@@@@@@@@@@@@@@@@@#
+     |           @::::::@: @@ :: ::::@:: @:@:::::@ @@ ::@:::@@@@@@@@@@@@@@@@@#
+     |       @@::@::::::@: @@ :: ::::@:: @:@:::::@ @@ ::@:::@@@@@@@@@@@@@@@@@#
+     |  :::::@ ::@::::::@: @@ :: ::::@:: @:@:::::@ @@ ::@:::@@@@@@@@@@@@@@@@@#
+     | :: :::@ ::@::::::@: @@ :: ::::@:: @:@:::::@ @@ ::@:::@@@@@@@@@@@@@@@@@#
+     | :: :::@ ::@::::::@: @@ :: ::::@:: @:@:::::@ @@ ::@:::@@@@@@@@@@@@@@@@@#
+     | :: :::@ ::@::::::@: @@ :: ::::@:: @:@:::::@ @@ ::@:::@@@@@@@@@@@@@@@@@#
+     | :: :::@ ::@::::::@: @@ :: ::::@:: @:@:::::@ @@ ::@:::@@@@@@@@@@@@@@@@@#
+   0 +----------------------------------------------------------------------->Mi
+     0                                                                   26.25
+
+Number of snapshots: 85
+ Detailed snapshots: [6, 9, 16, 18, 19, 27, 30, 32, 38, 39, 40, 41, 44, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84 (peak)]
+
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+  0              0                0                0             0            0
+  1        583,717          132,176          118,640        13,536            0
+  2      1,004,916          138,136          123,608        14,528            0
+  3      1,601,115          146,592          130,656        15,936            0
+  4      1,959,586          150,696          134,168        16,528            0
+  5      2,425,785          157,960          140,216        17,744            0
+  6      2,959,841          166,600          147,472        19,128            0
+88.52% (147,472B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->37.47% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->37.47% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->14.20% (23,664B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->11.27% (18,768B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->11.27% (18,768B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->11.27% (18,768B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->11.27% (18,768B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.94% (4,896B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.94% (4,896B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.94% (4,896B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.94% (4,896B) 0x5134A03: clone (clone.S:100)
+|         
+->05.53% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->05.53% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->03.07% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->03.07% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->03.07% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->02.46% (4,096B) 0x508EFD6: fwrite (iofwrite.c:39)
+|   |     | ->02.46% (4,096B) 0x10B6DF: main (main_avec_threads.c:471)
+|   |     |   
+|   |     ->00.61% (1,024B) in 1+ places, all below ms_print's threshold (01.00%)
+|   |     
+|   ->02.46% (4,096B) 0x509A4C3: _IO_file_xsgetn (fileops.c:1287)
+|     ->02.46% (4,096B) 0x508EBA8: fread (iofread.c:38)
+|       ->02.46% (4,096B) 0x10BC1B: point_input (binary_file_reader.c:63)
+|         ->02.46% (4,096B) 0x109B67: main (main_avec_threads.c:143)
+|           
+->05.19% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->05.19% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->04.45% (7,408B) in 13 places, all below massif's threshold (1.00%)
+| 
+->04.18% (6,960B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->03.31% (5,520B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->03.31% (5,520B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->03.31% (5,520B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->03.31% (5,520B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.86% (1,440B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->03.67% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->03.46% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->03.46% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+| 
+->01.73% (2,880B) 0x10C225: generate_combinations (combinaison.c:95)
+  ->01.73% (2,880B) 0x109CDE: main (main_avec_threads.c:173)
+    
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+  7      3,511,408          175,760          155,144        20,616            0
+  8      3,886,372          180,304          159,008        21,296            0
+  9      4,213,910          186,264          164,032        22,232            0
+88.06% (164,032B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->33.51% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->33.51% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->19.28% (35,904B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->15.55% (28,968B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->15.55% (28,968B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->15.55% (28,968B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->15.55% (28,968B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->03.72% (6,936B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->03.72% (6,936B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->03.72% (6,936B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->03.72% (6,936B) 0x5134A03: clone (clone.S:100)
+|         
+->05.67% (10,560B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->04.57% (8,520B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->04.57% (8,520B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->04.57% (8,520B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->04.57% (8,520B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->01.10% (2,040B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->01.10% (2,040B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->01.10% (2,040B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->01.10% (2,040B) 0x5134A03: clone (clone.S:100)
+|         
+->04.95% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->04.95% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->02.75% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->02.75% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->02.75% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->02.20% (4,096B) 0x508EFD6: fwrite (iofwrite.c:39)
+|   |     | ->02.20% (4,096B) 0x10B6DF: main (main_avec_threads.c:471)
+|   |     |   
+|   |     ->00.55% (1,024B) in 1+ places, all below ms_print's threshold (01.00%)
+|   |     
+|   ->02.20% (4,096B) 0x509A4C3: _IO_file_xsgetn (fileops.c:1287)
+|     ->02.20% (4,096B) 0x508EBA8: fread (iofread.c:38)
+|       ->02.20% (4,096B) 0x10BC1B: point_input (binary_file_reader.c:63)
+|         ->02.20% (4,096B) 0x109B67: main (main_avec_threads.c:143)
+|           
+->04.64% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->04.64% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->03.29% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->03.23% (6,016B) in 12 places, all below massif's threshold (1.00%)
+| 
+->03.09% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->03.09% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+| 
+->01.55% (2,880B) 0x10C225: generate_combinations (combinaison.c:95)
+| ->01.55% (2,880B) 0x109CDE: main (main_avec_threads.c:173)
+|   
+->01.13% (2,112B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+  ->01.13% (2,112B) in 2 places, all below massif's threshold (1.00%)
+    
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 10      4,669,350          193,080          169,728        23,352            0
+ 11      5,007,285          196,680          172,808        23,872            0
+ 12      5,395,218          204,240          179,112        25,128            0
+ 13      5,790,386          209,544          183,544        26,000            0
+ 14      6,404,715          217,784          190,472        27,312            0
+ 15      6,682,273          222,352          194,336        28,016            0
+ 16      7,063,406          229,704          200,464        29,240            0
+87.27% (200,464B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->27.35% (62,832B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->22.20% (51,000B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->22.20% (51,000B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->22.20% (51,000B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->22.20% (51,000B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->05.15% (11,832B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->05.15% (11,832B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->05.15% (11,832B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->05.15% (11,832B) 0x5134A03: clone (clone.S:100)
+|         
+->27.18% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->27.18% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->08.05% (18,480B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->06.53% (15,000B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->06.53% (15,000B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->06.53% (15,000B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->06.53% (15,000B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->01.51% (3,480B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->01.51% (3,480B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->01.51% (3,480B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->01.51% (3,480B) 0x5134A03: clone (clone.S:100)
+|         
+->04.01% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->04.01% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->02.23% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->02.23% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->02.23% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.78% (4,096B) 0x508EFD6: fwrite (iofwrite.c:39)
+|   |     | ->01.78% (4,096B) 0x10B6DF: main (main_avec_threads.c:471)
+|   |     |   
+|   |     ->00.45% (1,024B) in 1+ places, all below ms_print's threshold (01.00%)
+|   |     
+|   ->01.78% (4,096B) 0x509A4C3: _IO_file_xsgetn (fileops.c:1287)
+|     ->01.78% (4,096B) 0x508EBA8: fread (iofread.c:38)
+|       ->01.78% (4,096B) 0x10BC1B: point_input (binary_file_reader.c:63)
+|         ->01.78% (4,096B) 0x109B67: main (main_avec_threads.c:143)
+|           
+->03.76% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->03.76% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->02.66% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->02.62% (6,016B) in 12 places, all below massif's threshold (1.00%)
+| 
+->02.51% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->02.51% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+| 
+->01.61% (3,696B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->01.31% (3,000B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->01.31% (3,000B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->01.31% (3,000B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->01.31% (3,000B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.30% (696B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->01.25% (2,880B) 0x10C225: generate_combinations (combinaison.c:95)
+  ->01.25% (2,880B) 0x109CDE: main (main_avec_threads.c:173)
+    
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 17      7,531,616          236,760          206,424        30,336            0
+ 18      8,156,655          245,432          213,712        31,720            0
+87.08% (213,712B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->29.59% (72,624B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->23.94% (58,752B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->23.94% (58,752B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->23.94% (58,752B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->23.94% (58,752B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->05.65% (13,872B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->05.65% (13,872B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->05.65% (13,872B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->05.65% (13,872B) 0x5134A03: clone (clone.S:100)
+|         
+->25.43% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->25.43% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->08.70% (21,360B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->07.04% (17,280B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->07.04% (17,280B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->07.04% (17,280B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->07.04% (17,280B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->01.66% (4,080B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->01.66% (4,080B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->01.66% (4,080B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->01.66% (4,080B) 0x5134A03: clone (clone.S:100)
+|         
+->03.76% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->03.76% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->02.09% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->02.09% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->02.09% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.67% (4,096B) 0x508EFD6: fwrite (iofwrite.c:39)
+|   |     | ->01.67% (4,096B) 0x10B6DF: main (main_avec_threads.c:471)
+|   |     |   
+|   |     ->00.42% (1,024B) in 1+ places, all below ms_print's threshold (01.00%)
+|   |     
+|   ->01.67% (4,096B) 0x509A4C3: _IO_file_xsgetn (fileops.c:1287)
+|     ->01.67% (4,096B) 0x508EBA8: fread (iofread.c:38)
+|       ->01.67% (4,096B) 0x10BC1B: point_input (binary_file_reader.c:63)
+|         ->01.67% (4,096B) 0x109B67: main (main_avec_threads.c:143)
+|           
+->03.52% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->03.52% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->02.49% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->02.45% (6,016B) in 12 places, all below massif's threshold (1.00%)
+| 
+->02.35% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->02.35% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+| 
+->01.74% (4,272B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->01.41% (3,456B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->01.41% (3,456B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->01.41% (3,456B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->01.41% (3,456B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.33% (816B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->01.17% (2,880B) 0x10C225: generate_combinations (combinaison.c:95)
+  ->01.17% (2,880B) 0x109CDE: main (main_avec_threads.c:173)
+    
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 19      8,748,686          253,304          220,336        32,968            0
+86.98% (220,336B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->30.60% (77,520B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->24.64% (62,424B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->24.64% (62,424B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->24.64% (62,424B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->24.64% (62,424B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->05.96% (15,096B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->05.96% (15,096B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->05.96% (15,096B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->05.96% (15,096B) 0x5134A03: clone (clone.S:100)
+|         
+->24.64% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->24.64% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->09.00% (22,800B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->07.25% (18,360B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->07.25% (18,360B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->07.25% (18,360B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->07.25% (18,360B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->01.75% (4,440B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->01.75% (4,440B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->01.75% (4,440B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->01.75% (4,440B) 0x5134A03: clone (clone.S:100)
+|         
+->03.64% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->03.64% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->02.02% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->02.02% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->02.02% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.62% (4,096B) 0x508EFD6: fwrite (iofwrite.c:39)
+|   |     | ->01.62% (4,096B) 0x10B6DF: main (main_avec_threads.c:471)
+|   |     |   
+|   |     ->00.40% (1,024B) in 1+ places, all below ms_print's threshold (01.00%)
+|   |     
+|   ->01.62% (4,096B) 0x509A4C3: _IO_file_xsgetn (fileops.c:1287)
+|     ->01.62% (4,096B) 0x508EBA8: fread (iofread.c:38)
+|       ->01.62% (4,096B) 0x10BC1B: point_input (binary_file_reader.c:63)
+|         ->01.62% (4,096B) 0x109B67: main (main_avec_threads.c:143)
+|           
+->03.41% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->03.41% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->02.42% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->02.38% (6,016B) in 12 places, all below massif's threshold (1.00%)
+| 
+->02.27% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->02.27% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+| 
+->01.80% (4,560B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->01.45% (3,672B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->01.45% (3,672B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->01.45% (3,672B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->01.45% (3,672B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.35% (888B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->01.14% (2,880B) 0x10C225: generate_combinations (combinaison.c:95)
+  ->01.14% (2,880B) 0x109CDE: main (main_avec_threads.c:173)
+    
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 20      9,219,309          260,456          226,360        34,096            0
+ 21      9,620,444          265,744          230,768        34,976            0
+ 22      9,897,924          270,344          234,632        35,712            0
+ 23     10,339,751          276,912          240,184        36,728            0
+ 24     10,739,602          282,120          244,568        37,552            0
+ 25     11,186,742          288,680          250,088        38,592            0
+ 26     11,580,588          293,976          254,504        39,472            0
+ 27     12,105,111          302,592          261,736        40,856            0
+86.50% (261,736B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->35.73% (108,120B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->28.72% (86,904B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->28.72% (86,904B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->28.72% (86,904B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->28.72% (86,904B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->07.01% (21,216B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->07.01% (21,216B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->07.01% (21,216B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->07.01% (21,216B) 0x5134A03: clone (clone.S:100)
+|         
+->20.63% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->20.63% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->10.51% (31,800B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->08.45% (25,560B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->08.45% (25,560B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->08.45% (25,560B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->08.45% (25,560B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.06% (6,240B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.06% (6,240B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.06% (6,240B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.06% (6,240B) 0x5134A03: clone (clone.S:100)
+|         
+->03.05% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->03.05% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.69% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->01.69% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->01.69% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.35% (4,096B) 0x508EFD6: fwrite (iofwrite.c:39)
+|   |     | ->01.35% (4,096B) 0x10B6DF: main (main_avec_threads.c:471)
+|   |     |   
+|   |     ->00.34% (1,024B) in 1+ places, all below ms_print's threshold (01.00%)
+|   |     
+|   ->01.35% (4,096B) 0x509A4C3: _IO_file_xsgetn (fileops.c:1287)
+|     ->01.35% (4,096B) 0x508EBA8: fread (iofread.c:38)
+|       ->01.35% (4,096B) 0x10BC1B: point_input (binary_file_reader.c:63)
+|         ->01.35% (4,096B) 0x109B67: main (main_avec_threads.c:143)
+|           
+->02.94% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->02.86% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->02.86% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->02.10% (6,360B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->01.69% (5,112B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->01.69% (5,112B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->01.69% (5,112B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->01.69% (5,112B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.41% (1,248B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->02.02% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.90% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.90% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 28     12,443,976          308,288          266,576        41,712            0
+ 29     12,896,472          312,960          270,512        42,448            0
+ 30     13,539,031          322,272          278,296        43,976            0
+86.35% (278,296B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->37.35% (120,360B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->29.88% (96,288B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->29.88% (96,288B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->29.88% (96,288B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->29.88% (96,288B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->07.47% (24,072B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->07.47% (24,072B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->07.47% (24,072B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->07.47% (24,072B) 0x5134A03: clone (clone.S:100)
+|         
+->19.37% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->19.37% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->10.98% (35,400B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->08.79% (28,320B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->08.79% (28,320B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->08.79% (28,320B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->08.79% (28,320B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.20% (7,080B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.20% (7,080B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.20% (7,080B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.20% (7,080B) 0x5134A03: clone (clone.S:100)
+|         
+->02.86% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->02.86% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.59% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->01.59% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->01.59% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.27% (4,096B) 0x508EFD6: fwrite (iofwrite.c:39)
+|   |     | ->01.27% (4,096B) 0x10B6DF: main (main_avec_threads.c:471)
+|   |     |   
+|   |     ->00.32% (1,024B) in 1+ places, all below ms_print's threshold (01.00%)
+|   |     
+|   ->01.27% (4,096B) 0x509A4C3: _IO_file_xsgetn (fileops.c:1287)
+|     ->01.27% (4,096B) 0x508EBA8: fread (iofread.c:38)
+|       ->01.27% (4,096B) 0x10BC1B: point_input (binary_file_reader.c:63)
+|         ->01.27% (4,096B) 0x109B67: main (main_avec_threads.c:143)
+|           
+->02.76% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->02.68% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->02.68% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->02.20% (7,080B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->01.76% (5,664B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->01.76% (5,664B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->01.76% (5,664B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->01.76% (5,664B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.44% (1,416B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->01.90% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.79% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.79% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 31     13,908,783          326,760          282,104        44,656            0
+ 32     14,209,438          332,168          286,576        45,592            0
+86.27% (286,576B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->38.08% (126,480B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->30.46% (101,184B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->30.46% (101,184B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->30.46% (101,184B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->30.46% (101,184B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->07.62% (25,296B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->07.62% (25,296B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->07.62% (25,296B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->07.62% (25,296B) 0x5134A03: clone (clone.S:100)
+|         
+->18.79% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->18.79% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->11.20% (37,200B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->08.96% (29,760B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->08.96% (29,760B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->08.96% (29,760B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->08.96% (29,760B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.24% (7,440B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.24% (7,440B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.24% (7,440B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.24% (7,440B) 0x5134A03: clone (clone.S:100)
+|         
+->02.77% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->02.77% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.54% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->01.54% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->01.54% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.23% (4,096B) 0x508EFD6: fwrite (iofwrite.c:39)
+|   |     | ->01.23% (4,096B) 0x10B6DF: main (main_avec_threads.c:471)
+|   |     |   
+|   |     ->00.31% (1,024B) in 1+ places, all below ms_print's threshold (01.00%)
+|   |     
+|   ->01.23% (4,096B) 0x509A4C3: _IO_file_xsgetn (fileops.c:1287)
+|     ->01.23% (4,096B) 0x508EBA8: fread (iofread.c:38)
+|       ->01.23% (4,096B) 0x10BC1B: point_input (binary_file_reader.c:63)
+|         ->01.23% (4,096B) 0x109B67: main (main_avec_threads.c:143)
+|           
+->02.68% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->02.60% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->02.60% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->02.24% (7,440B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->01.79% (5,952B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->01.79% (5,952B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->01.79% (5,952B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->01.79% (5,952B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.45% (1,488B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->01.84% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.73% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.73% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 33     14,691,856          339,192          292,520        46,672            0
+ 34     15,027,378          343,248          295,904        47,344            0
+ 35     15,378,761          349,880          301,456        48,424            0
+ 36     15,885,427          357,664          308,048        49,616            0
+ 37     16,380,296          365,560          314,704        50,856            0
+ 38     16,713,420          371,480          319,696        51,784            0
+86.06% (319,696B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->40.64% (150,960B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->32.73% (121,584B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->32.73% (121,584B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->32.73% (121,584B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->32.73% (121,584B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->07.91% (29,376B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->07.91% (29,376B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->07.91% (29,376B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->07.91% (29,376B) 0x5134A03: clone (clone.S:100)
+|         
+->16.80% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->16.80% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->11.95% (44,400B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->09.63% (35,760B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->09.63% (35,760B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->09.63% (35,760B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->09.63% (35,760B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.33% (8,640B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.33% (8,640B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.33% (8,640B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.33% (8,640B) 0x5134A03: clone (clone.S:100)
+|         
+->02.48% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->02.48% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.38% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->01.38% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->01.38% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.10% (4,096B) 0x508EFD6: fwrite (iofwrite.c:39)
+|   |     | ->01.10% (4,096B) 0x10B6DF: main (main_avec_threads.c:471)
+|   |     |   
+|   |     ->00.28% (1,024B) in 1+ places, all below ms_print's threshold (01.00%)
+|   |     
+|   ->01.10% (4,096B) 0x509A4C3: _IO_file_xsgetn (fileops.c:1287)
+|     ->01.10% (4,096B) 0x508EBA8: fread (iofread.c:38)
+|       ->01.10% (4,096B) 0x10BC1B: point_input (binary_file_reader.c:63)
+|         ->01.10% (4,096B) 0x109B67: main (main_avec_threads.c:143)
+|           
+->02.39% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->02.39% (8,880B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->01.93% (7,152B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->01.93% (7,152B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->01.93% (7,152B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->01.93% (7,152B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.47% (1,728B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->02.33% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->02.33% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.65% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.55% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.55% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 39     17,214,238          379,320          326,320        53,000            0
+86.03% (326,320B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->41.09% (155,856B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->33.13% (125,664B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->33.13% (125,664B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->33.13% (125,664B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->33.13% (125,664B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->07.96% (30,192B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->07.96% (30,192B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->07.96% (30,192B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->07.96% (30,192B) 0x5134A03: clone (clone.S:100)
+|         
+->16.46% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->16.46% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->12.08% (45,840B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->09.74% (36,960B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->09.74% (36,960B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->09.74% (36,960B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->09.74% (36,960B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.34% (8,880B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.34% (8,880B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.34% (8,880B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.34% (8,880B) 0x5134A03: clone (clone.S:100)
+|         
+->02.43% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->02.43% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.35% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->01.35% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->01.35% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.08% (4,096B) 0x508EFD6: fwrite (iofwrite.c:39)
+|   |     | ->01.08% (4,096B) 0x10B6DF: main (main_avec_threads.c:471)
+|   |     |   
+|   |     ->00.27% (1,024B) in 1+ places, all below ms_print's threshold (01.00%)
+|   |     
+|   ->01.08% (4,096B) 0x509A4C3: _IO_file_xsgetn (fileops.c:1287)
+|     ->01.08% (4,096B) 0x508EBA8: fread (iofread.c:38)
+|       ->01.08% (4,096B) 0x10BC1B: point_input (binary_file_reader.c:63)
+|         ->01.08% (4,096B) 0x109B67: main (main_avec_threads.c:143)
+|           
+->02.42% (9,168B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->01.95% (7,392B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->01.95% (7,392B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->01.95% (7,392B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->01.95% (7,392B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.47% (1,776B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->02.35% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->02.28% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->02.28% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.61% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.52% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.52% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 40     17,464,624          383,288          329,632        53,656            0
+86.00% (329,632B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->41.30% (158,304B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->33.32% (127,704B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->33.32% (127,704B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->33.32% (127,704B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->33.32% (127,704B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->07.98% (30,600B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->07.98% (30,600B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->07.98% (30,600B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->07.98% (30,600B) 0x5134A03: clone (clone.S:100)
+|         
+->16.29% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->16.29% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->12.15% (46,560B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->09.80% (37,560B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->09.80% (37,560B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->09.80% (37,560B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->09.80% (37,560B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.35% (9,000B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.35% (9,000B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.35% (9,000B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.35% (9,000B) 0x5134A03: clone (clone.S:100)
+|         
+->02.43% (9,312B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->01.96% (7,512B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->01.96% (7,512B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->01.96% (7,512B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->01.96% (7,512B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.47% (1,800B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->02.40% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->02.40% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.34% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->01.34% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->01.34% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.07% (4,096B) 0x508EFD6: fwrite (iofwrite.c:39)
+|   |     | ->01.07% (4,096B) 0x10B6DF: main (main_avec_threads.c:471)
+|   |     |   
+|   |     ->00.27% (1,024B) in 1+ places, all below ms_print's threshold (01.00%)
+|   |     
+|   ->01.07% (4,096B) 0x509A4C3: _IO_file_xsgetn (fileops.c:1287)
+|     ->01.07% (4,096B) 0x508EBA8: fread (iofread.c:38)
+|       ->01.07% (4,096B) 0x10BC1B: point_input (binary_file_reader.c:63)
+|         ->01.07% (4,096B) 0x109B67: main (main_avec_threads.c:143)
+|           
+->02.32% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->02.25% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->02.25% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.60% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.50% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.50% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 41     17,965,910          391,176          336,256        54,920            0
+85.96% (336,256B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->41.72% (163,200B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->33.69% (131,784B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->33.69% (131,784B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->33.69% (131,784B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->33.69% (131,784B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->08.03% (31,416B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->08.03% (31,416B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->08.03% (31,416B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->08.03% (31,416B) 0x5134A03: clone (clone.S:100)
+|         
+->15.96% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->15.96% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->12.27% (48,000B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->09.91% (38,760B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->09.91% (38,760B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->09.91% (38,760B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->09.91% (38,760B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.36% (9,240B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.36% (9,240B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.36% (9,240B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.36% (9,240B) 0x5134A03: clone (clone.S:100)
+|         
+->02.45% (9,600B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->01.98% (7,752B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->01.98% (7,752B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->01.98% (7,752B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->01.98% (7,752B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.47% (1,848B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->02.36% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->02.36% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.31% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->01.31% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->01.31% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.05% (4,096B) 0x508EFD6: fwrite (iofwrite.c:39)
+|   |     | ->01.05% (4,096B) 0x10B6DF: main (main_avec_threads.c:471)
+|   |     |   
+|   |     ->00.26% (1,024B) in 1+ places, all below ms_print's threshold (01.00%)
+|   |     
+|   ->01.05% (4,096B) 0x509A4C3: _IO_file_xsgetn (fileops.c:1287)
+|     ->01.05% (4,096B) 0x508EBA8: fread (iofread.c:38)
+|       ->01.05% (4,096B) 0x10BC1B: point_input (binary_file_reader.c:63)
+|         ->01.05% (4,096B) 0x109B67: main (main_avec_threads.c:143)
+|           
+->02.27% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->02.21% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->02.21% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.56% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.47% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.47% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 42     18,389,434          397,008          341,168        55,840            0
+ 43     18,937,564          406,280          348,920        57,360            0
+ 44     19,228,009          408,992          351,160        57,832            0
+85.86% (351,160B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->42.60% (174,216B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->34.32% (140,352B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->34.32% (140,352B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->34.32% (140,352B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->34.32% (140,352B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->08.28% (33,864B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->08.28% (33,864B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->08.28% (33,864B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->08.28% (33,864B) 0x5134A03: clone (clone.S:100)
+|         
+->15.26% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->15.26% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->12.53% (51,240B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->10.09% (41,280B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->10.09% (41,280B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->10.09% (41,280B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->10.09% (41,280B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.44% (9,960B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.44% (9,960B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.44% (9,960B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.44% (9,960B) 0x5134A03: clone (clone.S:100)
+|         
+->02.51% (10,248B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->02.02% (8,256B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->02.02% (8,256B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->02.02% (8,256B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->02.02% (8,256B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.49% (1,992B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->02.25% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->02.25% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.25% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->01.25% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->01.25% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.00% (4,096B) 0x508EFD6: fwrite (iofwrite.c:39)
+|   |     | ->01.00% (4,096B) 0x10B6DF: main (main_avec_threads.c:471)
+|   |     |   
+|   |     ->00.25% (1,024B) in 1+ places, all below ms_print's threshold (01.00%)
+|   |     
+|   ->01.00% (4,096B) 0x509A4C3: _IO_file_xsgetn (fileops.c:1287)
+|     ->01.00% (4,096B) 0x508EBA8: fread (iofread.c:38)
+|       ->01.00% (4,096B) 0x10BC1B: point_input (binary_file_reader.c:63)
+|         ->01.00% (4,096B) 0x109B67: main (main_avec_threads.c:143)
+|           
+->02.18% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->02.11% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->02.11% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.50% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.41% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.41% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 45     19,677,985          415,456          356,624        58,832            0
+ 46     20,125,623          422,016          362,144        59,872            0
+ 47     20,626,781          429,904          368,768        61,136            0
+ 48     20,981,149          436,560          374,344        62,216            0
+85.75% (374,344B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->43.83% (191,352B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->35.42% (154,632B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->35.42% (154,632B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->35.42% (154,632B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->35.42% (154,632B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->08.41% (36,720B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->08.41% (36,720B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->08.41% (36,720B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->08.41% (36,720B) 0x5134A03: clone (clone.S:100)
+|         
+->14.30% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->14.30% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->12.89% (56,280B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->10.42% (45,480B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->10.42% (45,480B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->10.42% (45,480B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->10.42% (45,480B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.47% (10,800B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.47% (10,800B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.47% (10,800B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.47% (10,800B) 0x5134A03: clone (clone.S:100)
+|         
+->02.58% (11,256B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->02.08% (9,096B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->02.08% (9,096B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->02.08% (9,096B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->02.08% (9,096B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.49% (2,160B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->02.11% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->02.11% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.17% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->01.17% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->01.17% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.17% (5,120B) in 2 places, all below massif's threshold (1.00%)
+|   |       
+|   ->00.94% (4,096B) in 1+ places, all below ms_print's threshold (01.00%)
+|   
+->02.04% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->01.98% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->01.98% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.40% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.32% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.32% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 49     21,315,090          440,376          377,544        62,832            0
+ 50     21,348,495          441,160          378,208        62,952            0
+85.73% (378,208B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->44.02% (194,208B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->35.51% (156,672B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->35.51% (156,672B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->35.51% (156,672B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->35.51% (156,672B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->08.51% (37,536B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->08.51% (37,536B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->08.51% (37,536B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->08.51% (37,536B) 0x5134A03: clone (clone.S:100)
+|         
+->14.15% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->14.15% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->12.95% (57,120B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->10.45% (46,080B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->10.45% (46,080B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->10.45% (46,080B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->10.45% (46,080B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.50% (11,040B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.50% (11,040B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.50% (11,040B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.50% (11,040B) 0x5134A03: clone (clone.S:100)
+|         
+->02.59% (11,424B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->02.09% (9,216B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->02.09% (9,216B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->02.09% (9,216B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->02.09% (9,216B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.50% (2,208B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->02.09% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->02.09% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.16% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->01.16% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->01.16% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.16% (5,120B) in 2 places, all below massif's threshold (1.00%)
+|   |       
+|   ->00.93% (4,096B) in 1+ places, all below ms_print's threshold (01.00%)
+|   
+->02.02% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->01.96% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->01.96% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.39% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.31% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.31% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 51     21,599,293          445,072          381,512        63,560            0
+ 52     21,626,100          445,744          382,072        63,672            0
+85.72% (382,072B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->44.21% (197,064B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->35.70% (159,120B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->35.70% (159,120B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->35.70% (159,120B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->35.70% (159,120B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->08.51% (37,944B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->08.51% (37,944B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->08.51% (37,944B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->08.51% (37,944B) 0x5134A03: clone (clone.S:100)
+|         
+->14.00% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->14.00% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->13.00% (57,960B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->10.50% (46,800B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->10.50% (46,800B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->10.50% (46,800B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->10.50% (46,800B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.50% (11,160B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.50% (11,160B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.50% (11,160B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.50% (11,160B) 0x5134A03: clone (clone.S:100)
+|         
+->02.60% (11,592B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->02.10% (9,360B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->02.10% (9,360B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->02.10% (9,360B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->02.10% (9,360B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.50% (2,232B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->02.07% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->02.07% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.15% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->01.15% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->01.15% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.15% (5,120B) in 2 places, all below massif's threshold (1.00%)
+|   |       
+|   ->00.92% (4,096B) in 1+ places, all below ms_print's threshold (01.00%)
+|   
+->02.00% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->01.94% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->01.94% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.37% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.29% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.29% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 53     21,876,919          449,640          385,376        64,264            0
+ 54     21,903,801          450,312          385,936        64,376            0
+85.70% (385,936B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->44.40% (199,920B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->35.88% (161,568B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->35.88% (161,568B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->35.88% (161,568B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->35.88% (161,568B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->08.52% (38,352B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->08.52% (38,352B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->08.52% (38,352B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->08.52% (38,352B) 0x5134A03: clone (clone.S:100)
+|         
+->13.86% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->13.86% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->13.06% (58,800B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->10.55% (47,520B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->10.55% (47,520B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->10.55% (47,520B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->10.55% (47,520B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.50% (11,280B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.50% (11,280B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.50% (11,280B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.50% (11,280B) 0x5134A03: clone (clone.S:100)
+|         
+->02.61% (11,760B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->02.11% (9,504B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->02.11% (9,504B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->02.11% (9,504B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->02.11% (9,504B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.50% (2,256B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->02.05% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->02.05% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.14% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->01.14% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->01.14% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.14% (5,120B) in 2 places, all below massif's threshold (1.00%)
+|   |       
+|   ->00.91% (4,096B) in 1+ places, all below ms_print's threshold (01.00%)
+|   
+->01.98% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->01.92% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->01.92% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.36% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.28% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.28% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 55     22,221,195          453,520          388,640        64,880            0
+ 56     22,271,836          454,912          389,800        65,112            0
+85.69% (389,800B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->44.57% (202,776B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->35.96% (163,608B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->35.96% (163,608B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->35.96% (163,608B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->35.96% (163,608B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->08.61% (39,168B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->08.61% (39,168B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->08.61% (39,168B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->08.61% (39,168B) 0x5134A03: clone (clone.S:100)
+|         
+->13.72% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->13.72% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->13.11% (59,640B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->10.58% (48,120B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->10.58% (48,120B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->10.58% (48,120B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->10.58% (48,120B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.53% (11,520B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.53% (11,520B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.53% (11,520B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.53% (11,520B) 0x5134A03: clone (clone.S:100)
+|         
+->02.62% (11,928B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->02.12% (9,624B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->02.12% (9,624B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->02.12% (9,624B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->02.12% (9,624B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.51% (2,304B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->02.03% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->02.03% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.13% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->01.13% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->01.13% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.13% (5,120B) in 2 places, all below massif's threshold (1.00%)
+|   |       
+|   ->00.90% (4,096B) in 1+ places, all below ms_print's threshold (01.00%)
+|   
+->01.96% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->01.90% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->01.90% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.35% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.27% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.27% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 57     22,523,422          458,824          393,104        65,720            0
+ 58     22,639,321          459,528          393,664        65,864            0
+85.67% (393,664B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->44.75% (205,632B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->36.05% (165,648B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->36.05% (165,648B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->36.05% (165,648B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->36.05% (165,648B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->08.70% (39,984B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->08.70% (39,984B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->08.70% (39,984B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->08.70% (39,984B) 0x5134A03: clone (clone.S:100)
+|         
+->13.58% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->13.58% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->13.16% (60,480B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->10.60% (48,720B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->10.60% (48,720B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->10.60% (48,720B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->10.60% (48,720B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.56% (11,760B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.56% (11,760B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.56% (11,760B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.56% (11,760B) 0x5134A03: clone (clone.S:100)
+|         
+->02.63% (12,096B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->02.12% (9,744B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->02.12% (9,744B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->02.12% (9,744B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->02.12% (9,744B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.51% (2,352B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->02.01% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->02.01% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.11% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->01.11% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->01.11% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.11% (5,120B) in 2 places, all below massif's threshold (1.00%)
+|   |       
+|   ->00.89% (4,096B) in 1+ places, all below ms_print's threshold (01.00%)
+|   
+->01.94% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->01.88% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->01.88% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.33% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.25% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.25% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 59     22,890,710          463,440          396,968        66,472            0
+ 60     22,942,838          464,776          398,080        66,696            0
+85.65% (398,080B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->44.95% (208,896B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->36.25% (168,504B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->36.25% (168,504B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->36.25% (168,504B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->36.25% (168,504B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->08.69% (40,392B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->08.69% (40,392B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->08.69% (40,392B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->08.69% (40,392B) 0x5134A03: clone (clone.S:100)
+|         
+->13.43% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->13.43% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->13.22% (61,440B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->10.66% (49,560B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->10.66% (49,560B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->10.66% (49,560B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->10.66% (49,560B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.56% (11,880B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.56% (11,880B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.56% (11,880B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.56% (11,880B) 0x5134A03: clone (clone.S:100)
+|         
+->02.64% (12,288B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->02.13% (9,912B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->02.13% (9,912B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->02.13% (9,912B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->02.13% (9,912B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.51% (2,376B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->01.98% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->01.98% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.10% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->01.10% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->01.10% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.10% (5,120B) in 2 places, all below massif's threshold (1.00%)
+|   |       
+|   ->00.88% (4,096B) in 1+ places, all below ms_print's threshold (01.00%)
+|   
+->01.91% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->01.86% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->01.86% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.32% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.24% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.24% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 61     23,206,766          466,640          399,680        66,960            0
+ 62     23,426,953          470,008          402,496        67,512            0
+85.64% (402,496B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->45.14% (212,160B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->36.29% (170,544B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->36.29% (170,544B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->36.29% (170,544B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->36.29% (170,544B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->08.85% (41,616B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->08.85% (41,616B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->08.85% (41,616B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->08.85% (41,616B) 0x5134A03: clone (clone.S:100)
+|         
+->13.28% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->13.28% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->13.28% (62,400B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->10.67% (50,160B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->10.67% (50,160B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->10.67% (50,160B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->10.67% (50,160B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.60% (12,240B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.60% (12,240B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.60% (12,240B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.60% (12,240B) 0x5134A03: clone (clone.S:100)
+|         
+->02.66% (12,480B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->02.13% (10,032B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->02.13% (10,032B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->02.13% (10,032B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->02.13% (10,032B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.52% (2,448B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->01.96% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->01.96% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.09% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->01.09% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->01.09% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.09% (5,120B) in 2 places, all below massif's threshold (1.00%)
+|   |       
+|   ->00.87% (4,096B) in 1+ places, all below ms_print's threshold (01.00%)
+|   
+->01.89% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->01.84% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->01.84% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.30% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.23% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.23% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 63     23,677,643          473,904          405,800        68,104            0
+ 64     23,731,201          475,240          406,912        68,328            0
+85.62% (406,912B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->45.33% (215,424B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->36.49% (173,400B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->36.49% (173,400B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->36.49% (173,400B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->36.49% (173,400B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->08.84% (42,024B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->08.84% (42,024B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->08.84% (42,024B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->08.84% (42,024B) 0x5134A03: clone (clone.S:100)
+|         
+->13.33% (63,360B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->10.73% (51,000B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->10.73% (51,000B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->10.73% (51,000B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->10.73% (51,000B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.60% (12,360B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.60% (12,360B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.60% (12,360B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.60% (12,360B) 0x5134A03: clone (clone.S:100)
+|         
+->13.14% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->13.14% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->02.67% (12,672B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->02.15% (10,200B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->02.15% (10,200B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->02.15% (10,200B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->02.15% (10,200B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.52% (2,472B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->01.94% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->01.94% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.08% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->01.08% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->01.08% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.08% (5,120B) in 2 places, all below massif's threshold (1.00%)
+|   |       
+|   ->00.86% (4,096B) in 1+ places, all below ms_print's threshold (01.00%)
+|   
+->01.87% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->01.82% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->01.82% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.29% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.21% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.21% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 65     24,048,430          478,480          409,616        68,864            0
+ 66     24,125,482          480,536          411,328        69,208            0
+85.60% (411,328B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->45.51% (218,688B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->36.59% (175,848B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->36.59% (175,848B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->36.59% (175,848B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->36.59% (175,848B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->08.92% (42,840B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->08.92% (42,840B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->08.92% (42,840B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->08.92% (42,840B) 0x5134A03: clone (clone.S:100)
+|         
+->13.39% (64,320B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->10.76% (51,720B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->10.76% (51,720B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->10.76% (51,720B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->10.76% (51,720B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.62% (12,600B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.62% (12,600B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.62% (12,600B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.62% (12,600B) 0x5134A03: clone (clone.S:100)
+|         
+->12.99% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->12.99% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->02.68% (12,864B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->02.15% (10,344B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->02.15% (10,344B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->02.15% (10,344B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->02.15% (10,344B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.52% (2,520B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->01.92% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->01.92% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.07% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->01.07% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->01.07% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.07% (5,120B) in 2 places, all below massif's threshold (1.00%)
+|   |       
+|   ->00.85% (4,096B) in 1+ places, all below ms_print's threshold (01.00%)
+|   
+->01.85% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->01.80% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->01.80% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.27% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.20% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.20% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 67     24,376,383          484,448          414,632        69,816            0
+ 68     24,429,742          485,768          415,744        70,024            0
+85.58% (415,744B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->45.69% (221,952B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->36.79% (178,704B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->36.79% (178,704B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->36.79% (178,704B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->36.79% (178,704B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->08.90% (43,248B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->08.90% (43,248B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->08.90% (43,248B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->08.90% (43,248B) 0x5134A03: clone (clone.S:100)
+|         
+->13.44% (65,280B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->10.82% (52,560B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->10.82% (52,560B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->10.82% (52,560B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->10.82% (52,560B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.62% (12,720B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.62% (12,720B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.62% (12,720B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.62% (12,720B) 0x5134A03: clone (clone.S:100)
+|         
+->12.85% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->12.85% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->02.69% (13,056B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->02.16% (10,512B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->02.16% (10,512B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->02.16% (10,512B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->02.16% (10,512B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.52% (2,544B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->01.90% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->01.90% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.05% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->01.05% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->01.05% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.05% (5,120B) in 2 places, all below massif's threshold (1.00%)
+|   |       
+|   ->00.84% (4,096B) in 1+ places, all below ms_print's threshold (01.00%)
+|   
+->01.83% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->01.78% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->01.78% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.26% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.19% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.19% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 69     24,719,607          488,312          417,896        70,416            0
+ 70     24,823,166          491,016          420,160        70,856            0
+85.57% (420,160B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->45.87% (225,216B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->36.89% (181,152B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->36.89% (181,152B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->36.89% (181,152B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->36.89% (181,152B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->08.97% (44,064B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->08.97% (44,064B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->08.97% (44,064B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->08.97% (44,064B) 0x5134A03: clone (clone.S:100)
+|         
+->13.49% (66,240B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->10.85% (53,280B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->10.85% (53,280B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->10.85% (53,280B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->10.85% (53,280B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.64% (12,960B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.64% (12,960B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.64% (12,960B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.64% (12,960B) 0x5134A03: clone (clone.S:100)
+|         
+->12.71% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->12.71% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->02.70% (13,248B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->02.17% (10,656B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->02.17% (10,656B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->02.17% (10,656B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->02.17% (10,656B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.53% (2,592B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->01.88% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->01.88% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.04% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->01.04% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->01.04% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.04% (5,120B) in 2 places, all below massif's threshold (1.00%)
+|   |       
+|   ->00.83% (4,096B) in 1+ places, all below ms_print's threshold (01.00%)
+|   
+->01.81% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->01.76% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->01.76% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.25% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.17% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.17% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 71     25,073,859          494,928          423,464        71,464            0
+ 72     25,127,394          496,248          424,576        71,672            0
+85.56% (424,576B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->46.04% (228,480B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->37.08% (184,008B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->37.08% (184,008B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->37.08% (184,008B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->37.08% (184,008B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->08.96% (44,472B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->08.96% (44,472B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->08.96% (44,472B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->08.96% (44,472B) 0x5134A03: clone (clone.S:100)
+|         
+->13.54% (67,200B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->10.91% (54,120B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->10.91% (54,120B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->10.91% (54,120B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->10.91% (54,120B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.64% (13,080B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.64% (13,080B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.64% (13,080B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.64% (13,080B) 0x5134A03: clone (clone.S:100)
+|         
+->12.58% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->12.58% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->02.71% (13,440B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->02.18% (10,824B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->02.18% (10,824B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->02.18% (10,824B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->02.18% (10,824B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.53% (2,616B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->01.86% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->01.86% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.03% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->01.03% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->01.03% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.03% (5,120B) in 2 places, all below massif's threshold (1.00%)
+|   |       
+|   ->00.83% (4,096B) in 1+ places, all below ms_print's threshold (01.00%)
+|   
+->01.79% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->01.74% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->01.74% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.23% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.16% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.16% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 73     25,417,613          498,776          426,728        72,048            0
+ 74     25,521,394          501,496          428,992        72,504            0
+85.54% (428,992B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->46.21% (231,744B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->37.18% (186,456B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->37.18% (186,456B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->37.18% (186,456B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->37.18% (186,456B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->09.03% (45,288B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->09.03% (45,288B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->09.03% (45,288B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->09.03% (45,288B) 0x5134A03: clone (clone.S:100)
+|         
+->13.59% (68,160B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->10.94% (54,840B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->10.94% (54,840B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->10.94% (54,840B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->10.94% (54,840B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.66% (13,320B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.66% (13,320B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.66% (13,320B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.66% (13,320B) 0x5134A03: clone (clone.S:100)
+|         
+->12.45% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->12.45% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->02.72% (13,632B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->02.19% (10,968B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->02.19% (10,968B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->02.19% (10,968B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->02.19% (10,968B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.53% (2,664B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->01.84% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->01.84% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.02% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->01.02% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->01.02% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.02% (5,120B) in 2 places, all below massif's threshold (1.00%)
+|   |       
+|   ->00.82% (4,096B) in 1+ places, all below ms_print's threshold (01.00%)
+|   
+->01.77% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->01.72% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->01.72% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.22% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.15% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.15% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 75     25,772,503          505,504          432,296        73,208            0
+ 76     25,915,672          506,872          433,408        73,464            0
+85.51% (433,408B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->46.36% (235,008B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->37.27% (188,904B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->37.27% (188,904B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->37.27% (188,904B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->37.27% (188,904B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->09.10% (46,104B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->09.10% (46,104B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->09.10% (46,104B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->09.10% (46,104B) 0x5134A03: clone (clone.S:100)
+|         
+->13.64% (69,120B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->10.96% (55,560B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->10.96% (55,560B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->10.96% (55,560B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->10.96% (55,560B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.68% (13,560B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.68% (13,560B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.68% (13,560B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.68% (13,560B) 0x5134A03: clone (clone.S:100)
+|         
+->12.32% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->12.32% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->02.73% (13,824B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->02.19% (11,112B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->02.19% (11,112B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->02.19% (11,112B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->02.19% (11,112B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.54% (2,712B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->01.82% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->01.82% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.01% (5,120B) 0x509BF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+|   | ->01.01% (5,120B) 0x509A6D4: _IO_new_file_xsputn (fileops.c:1243)
+|   |   ->01.01% (5,120B) 0x509A6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+|   |     ->01.01% (5,120B) in 2 places, all below massif's threshold (1.00%)
+|   |       
+|   ->00.81% (4,096B) in 1+ places, all below ms_print's threshold (01.00%)
+|   
+->01.76% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->01.70% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->01.70% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.21% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.14% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.14% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 77     26,167,562          510,784          436,712        74,072            0
+ 78     26,308,905          512,120          437,824        74,296            0
+85.49% (437,824B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->46.53% (238,272B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->37.36% (191,352B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->37.36% (191,352B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->37.36% (191,352B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->37.36% (191,352B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->09.16% (46,920B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->09.16% (46,920B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->09.16% (46,920B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->09.16% (46,920B) 0x5134A03: clone (clone.S:100)
+|         
+->13.68% (70,080B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->10.99% (56,280B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->10.99% (56,280B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->10.99% (56,280B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->10.99% (56,280B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.69% (13,800B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.69% (13,800B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.69% (13,800B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.69% (13,800B) 0x5134A03: clone (clone.S:100)
+|         
+->12.19% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->12.19% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->02.74% (14,016B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->02.20% (11,256B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->02.20% (11,256B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->02.20% (11,256B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->02.20% (11,256B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.54% (2,760B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->01.80% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->01.80% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.80% (9,216B) in 2 places, all below massif's threshold (1.00%)
+|     
+->01.74% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->01.69% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->01.69% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.20% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.12% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.12% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 79     26,559,827          516,048          441,128        74,920            0
+ 80     26,613,466          517,400          442,240        75,160            0
+85.47% (442,240B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->46.68% (241,536B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->37.54% (194,208B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->37.54% (194,208B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->37.54% (194,208B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->37.54% (194,208B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->09.15% (47,328B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->09.15% (47,328B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->09.15% (47,328B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->09.15% (47,328B) 0x5134A03: clone (clone.S:100)
+|         
+->13.73% (71,040B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->11.04% (57,120B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->11.04% (57,120B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->11.04% (57,120B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->11.04% (57,120B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.69% (13,920B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.69% (13,920B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.69% (13,920B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.69% (13,920B) 0x5134A03: clone (clone.S:100)
+|         
+->12.06% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->12.06% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->02.75% (14,208B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->02.21% (11,424B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->02.21% (11,424B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->02.21% (11,424B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->02.21% (11,424B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.54% (2,784B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->01.78% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->01.78% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.78% (9,216B) in 2 places, all below massif's threshold (1.00%)
+|     
+->01.72% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->01.67% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->01.67% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.18% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.11% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.11% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 81     26,930,189          520,544          444,944        75,600            0
+ 82     27,007,154          522,600          446,656        75,944            0
+85.47% (446,656B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->46.84% (244,800B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->37.63% (196,656B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->37.63% (196,656B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->37.63% (196,656B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->37.63% (196,656B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->09.21% (48,144B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->09.21% (48,144B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->09.21% (48,144B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->09.21% (48,144B) 0x5134A03: clone (clone.S:100)
+|         
+->13.78% (72,000B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->11.07% (57,840B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->11.07% (57,840B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->11.07% (57,840B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->11.07% (57,840B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.71% (14,160B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.71% (14,160B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.71% (14,160B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.71% (14,160B) 0x5134A03: clone (clone.S:100)
+|         
+->11.94% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->11.94% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->02.76% (14,400B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->02.21% (11,568B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->02.21% (11,568B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->02.21% (11,568B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->02.21% (11,568B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.54% (2,832B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->01.76% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->01.76% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.76% (9,216B) in 2 places, all below massif's threshold (1.00%)
+|     
+->01.70% (8,896B) in 13 places, all below massif's threshold (1.00%)
+| 
+->01.65% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->01.65% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.17% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.10% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.10% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+ 83     27,297,667          525,128          448,808        76,320            0
+ 84     27,526,874          531,216          454,494        76,722            0
+85.56% (454,494B) (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+->46.62% (247,656B) 0x10CA7F: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+| ->37.40% (198,696B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->37.40% (198,696B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->37.40% (198,696B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->37.40% (198,696B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->09.22% (48,960B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->09.22% (48,960B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->09.22% (48,960B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->09.22% (48,960B) 0x5134A03: clone (clone.S:100)
+|         
+->13.71% (72,840B) 0x10C823: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+| ->11.00% (58,440B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->11.00% (58,440B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->11.00% (58,440B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->11.00% (58,440B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->02.71% (14,400B) 0x10DC28: kmeans_thread2 (kmeans_thread2.c:84)
+|   ->02.71% (14,400B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+|     ->02.71% (14,400B) 0x50A3AC2: start_thread (pthread_create.c:442)
+|       ->02.71% (14,400B) 0x5134A03: clone (clone.S:100)
+|         
+->11.75% (62,424B) 0x10BD33: point_input (binary_file_reader.c:88)
+| ->11.75% (62,424B) 0x109B67: main (main_avec_threads.c:143)
+|   
+->02.74% (14,568B) 0x10C7DC: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+| ->02.20% (11,688B) 0x10DC53: kmeans_thread2 (kmeans_thread2.c:86)
+| | ->02.20% (11,688B) 0x10DF72: k_means_thread (kmeans_thread2.c:156)
+| |   ->02.20% (11,688B) 0x50A3AC2: start_thread (pthread_create.c:442)
+| |     ->02.20% (11,688B) 0x5134A03: clone (clone.S:100)
+| |       
+| ->00.54% (2,880B) in 1+ places, all below ms_print's threshold (01.00%)
+| 
+->02.42% (12,870B) in 20 places, all below massif's threshold (1.00%)
+| 
+->01.73% (9,216B) 0x508DBA3: _IO_file_doallocate (filedoalloc.c:101)
+| ->01.73% (9,216B) 0x509CCDF: _IO_doallocbuf (genops.c:347)
+|   ->01.73% (9,216B) in 2 places, all below massif's threshold (1.00%)
+|     
+->01.63% (8,640B) 0x10AC85: main (main_avec_threads.c:354)
+| 
+->01.63% (8,640B) 0x10AE42: main (main_avec_threads.c:376)
+| 
+->01.15% (6,120B) 0x10B325: main (main_avec_threads.c:421)
+| 
+->01.08% (5,760B) 0x10AD0F: main (main_avec_threads.c:362)
+| 
+->01.08% (5,760B) 0x10AECC: main (main_avec_threads.c:383)
+  
