@@ -9,15 +9,28 @@
 #include "../headers/assign_vector_to_centro.h" 
 #include "../headers/cluster.h"
 
-// Function to print centroids
+/**
+ * Fonction pour afficher les centroïdes.
+ *
+ * @param title Titre à afficher.
+ * @param centroids Tableau des centroïdes.
+ * @param num_centroids Nombre de centroïdes.
+ */
 void print_centroids(const char* title, point_t centroids[], int num_centroids) {
     printf("%s:\n", title);
     for (int i = 0; i < num_centroids; ++i) {
-        printf("Centroid %d: (%ld, %ld)\n", i, centroids[i].coords[0], centroids[i].coords[1]);
+        printf("Centroïde %d: (%ld, %ld)\n", i, centroids[i].coords[0], centroids[i].coords[1]);
     }
 }
 
-// Function to print cluster points
+/**
+ * Fonction pour afficher les points des clusters.
+ *
+ * @param title Titre à afficher.
+ * @param clusters Tableau des clusters.
+ * @param nbr_vectors Nombre total de vecteurs.
+ * @param K Nombre de clusters.
+ */
 void print_clusters(const char* title, cluster_t **clusters, uint64_t nbr_vectors, uint32_t K) {
     printf("%s:\n", title);
     for (int i = 0; i < K; ++i) {
@@ -28,8 +41,11 @@ void print_clusters(const char* title, cluster_t **clusters, uint64_t nbr_vector
     }
 }
 
+/**
+ * Fonction de test pour assigner les vecteurs aux centroïdes.
+ */
 void test_assign_vectors_to_centroids() {
-    // Define centroids
+    // Définition des centroïdes
     point_t centroids[2];
     centroids[0].coords = malloc(2 * sizeof(int64_t));
     centroids[0].coords[0] = 4;
@@ -41,7 +57,7 @@ void test_assign_vectors_to_centroids() {
     centroids[1].coords[1] = 0;
     centroids[1].dim = 2; 
 
-    // Define clusters
+    // Définition des clusters
     cluster_t *cluster1 = (cluster_t*) malloc(sizeof(cluster_t));
     cluster1->size = 3;
     cluster1->data = (point_t**) malloc(cluster1->size * sizeof(point_t *));
@@ -57,7 +73,6 @@ void test_assign_vectors_to_centroids() {
     cluster2->size = 3;
     cluster2->data = (point_t**) malloc(cluster2->size * sizeof(point_t *));
     
-    
     for (int i = 0; i < 3; ++i) {
         cluster2->data[i] = (point_t*) malloc(sizeof(point_t));
         cluster2->data[i]->dim = 2;
@@ -70,20 +85,20 @@ void test_assign_vectors_to_centroids() {
     clusters[0] = cluster1;
     clusters[1] = cluster2;
 
-    // Print centroids and clusters before assignment
-    print_centroids("Centroids", centroids, 2);
+    // Afficher les centroïdes et les clusters avant l'assignation
+    print_centroids("Centroïdes", centroids, 2);
     print_clusters("Clusters", clusters, 3, 2);
 
-    // Perform the assignment
+    // Effectuer l'assignation
     result_t result = assign_vectors_to_centroides(centroids, clusters, 2, squared_euclidean_distance);
     
-    // Check the result
+    // Vérifier le résultat
     CU_ASSERT_FALSE(result.changes);
     CU_ASSERT_PTR_NOT_NULL_FATAL(result.result_cluster);
     
-    // Print centroids and clusters after assignment
-    print_centroids("Centroids", centroids, 2);
-    print_clusters("Clusters", result.result_cluster, 3, 2); // Printing new_clusters
+    // Afficher les centroïdes et les clusters après l'assignation
+    print_centroids("Centroïdes", centroids, 2);
+    print_clusters("Clusters", result.result_cluster, 3, 2); // Impression de new_clusters
 
     for (uint32_t i = 0; i < 2; ++i) {
         free(clusters[i]->data);
@@ -104,31 +119,35 @@ void test_assign_vectors_to_centroids() {
     free(result.result_cluster[0]);
     free(result.result_cluster[1]);
     free(result.result_cluster);
-
 }
+
+/**
+ * Fonction principale pour exécuter les tests.
+ */
 int main() {
-    // Initialize CUnit test registry
+    // Initialiser le registre des tests CUnit
     if (CUE_SUCCESS != CU_initialize_registry()) {
         return CU_get_error();
     }
 
-    // Add a suite to the registry
+    // Ajouter une suite au registre
     CU_pSuite pSuite = CU_add_suite("Suite", NULL, NULL);
     if (NULL == pSuite) {
         CU_cleanup_registry();
         return CU_get_error();
     }
 
-    // Add the test case to the suite
+    // Ajouter le cas de test à la suite
     if ((NULL == CU_add_test(pSuite, "test_assign_vectors_to_centroids", test_assign_vectors_to_centroids))) {
         CU_cleanup_registry();
         return CU_get_error();
     }
 
-    // Run the tests
+    // Exécuter les tests
     CU_basic_set_mode(CU_BRM_VERBOSE);
     CU_basic_run_tests();
     CU_cleanup_registry();
 
     return CU_get_error();
 }
+
