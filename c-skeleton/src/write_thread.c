@@ -90,12 +90,13 @@ void write_clu_thread(FILE *file, cluster_t **cluster, int64_t k, int64_t dimens
  * 
  * @param output_file Pointeur vers le fichier de sortie
  * @param distortion Tableau des valeurs de distorsion
- * @param centroid_init_Array Tableau des centroids initiaux pour chaque combinaison
- * @param centroid_final_Array Tableau des centroids finaux pour chaque combinaison
- * @param clustersArray Tableau de tableaux de pointeurs vers les clusters pour chaque combinaison
+ * @param centroid_init Tableau des centroids initiaux pour chaque combinaison
+ * @param centroid_final Tableau des centroids finaux pour chaque combinaison
+ * @param clusters Tableau de tableaux de pointeurs vers les clusters pour chaque combinaison
  * @param k Nombre de clusters
  * @param dimension Nombre de dimensions des données
  * @param nombre_comb Nombre total de combinaisons
+ * @param quiet_mode Si false les clusters sont également écrits
  */
 void write_thread(FILE *output_file, uint64_t distortion, point_t *centroid_init, point_t *centroid_final, cluster_t **clusters, int64_t k, int64_t dimension, int64_t nombre_comb, bool quiet ) {
     if (output_file == NULL) {
