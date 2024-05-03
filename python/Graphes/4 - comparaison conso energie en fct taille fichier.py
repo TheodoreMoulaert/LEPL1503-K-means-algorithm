@@ -3,7 +3,7 @@ import numpy as np
 
 # Données de la consommation d'énergie
 n_threads = list(range(1, 11))
-energie_1 = [1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500]  # Exemple de liste de consommation d'énergie en Wh
+energie_1 = [0.000119634,0.000143364,9.88958*10**(-5),8.28761*10**(-5),8.47652*10**(-5),8.56396*10**(-5),9.49026*10**(-5),9.55058*10**(-5),9.05259*10**(-5),9.85498*10**(-5)]  # Exemple de liste de consommation d'énergie en Wh
 
 # Conversion de Wh en kWh pour la moyenne
 energie_kwh = [e / 1000 for e in energie_1]
