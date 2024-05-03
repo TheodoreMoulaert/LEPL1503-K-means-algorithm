@@ -49,3 +49,4 @@ cluster_t** update_centroids(cluster_t *clusters[], uint32_t K) {
     }
     return clusters;
 }
+
