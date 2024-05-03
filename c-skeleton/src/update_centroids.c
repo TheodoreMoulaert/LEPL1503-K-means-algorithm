@@ -37,14 +37,10 @@ cluster_t** update_centroids(cluster_t *clusters[], uint32_t K) {
                 moyenne[xi] += clusters[i]->data[yi]->coords[xi];
             }
         }
-    
-        printf("update moyenne[0] = %" PRId64 "\n", moyenne[0]);
 
         for (uint32_t xi = 0; xi < dim; xi++) {
             int64_t taille = (int64_t) clusters[i]->size; 
             moyenne[xi] = moyenne[xi] / taille; // Calcul de la moyenne
-            printf("Taille du cluster %d après mise à jour des centroïdes : %" PRIu64 "\n", i, clusters[i]->size);
-            printf("update moyenne[xi] = %" PRId64 "\n", moyenne[xi]);
             clusters[i]->centroide.coords[xi] = moyenne[xi]; // Mise à jour du centroïde
             clusters[i]->centroide.dim = dim; 
         }
