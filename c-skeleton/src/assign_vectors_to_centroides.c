@@ -93,7 +93,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
                 temp[i] = new_clusters[closest_centroid_idx]->data[i];
                 //free(new_clusters[closest_centroid_idx]->data[i]);
             }
-            
+            free(new_clusters[closest_centroid_idx]->data);
 
             new_clusters[closest_centroid_idx]->data = temp;
             new_clusters[closest_centroid_idx]->data[idx] = vector;

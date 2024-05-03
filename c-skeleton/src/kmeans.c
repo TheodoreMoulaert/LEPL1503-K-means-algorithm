@@ -31,11 +31,11 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
         clusters[i]->centroide = initial_centroids[i];
     }
 
-    point_t *old_centroids = (point_t *)malloc(k * sizeof(point_t));
+    /*point_t *old_centroids = (point_t *)malloc(k * sizeof(point_t));
     if (old_centroids == NULL) {
         fprintf(stderr, "L'allocation de mémoire a échoué (/src/kmeans.c) 3.\n");
         return NULL; 
-    }
+    }*/
 
     result_t result;
     result.result_cluster = NULL;
@@ -71,13 +71,13 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
 
         if (result.result_cluster == NULL) {
             fprintf(stderr, "L'allocation de mémoire a échoué pour result.result_cluster.\n");
-            free(old_centroids);
+            free(final_centroids);
             return NULL;
         }
 
         if (clusters == NULL) {
             fprintf(stderr, "L'allocation de mémoire a échoué (/src/kmeans.c) 4.\n");
-            free(old_centroids);
+            free(final_centroids);
             return NULL;
         }
         convergence = result.changes; 
@@ -107,6 +107,6 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
     }
 
     // Libérer la mémoire pour les old_centroids
-    free(old_centroids);
+    //free(old_centroids);
     return result.result_cluster;
 }
