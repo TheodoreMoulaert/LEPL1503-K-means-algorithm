@@ -1,0 +1,1820 @@
+desc: --massif-out-file=exemple_massif2.out
+cmd: ./exemple_thread2 -k 2 -p 10 -n 4 -d manhattan -f 7.csv ../python/exemple.bin
+time_unit: i
+#-----------
+snapshot=0
+#-----------
+time=0
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=1
+#-----------
+time=175951
+mem_heap_B=472
+mem_heap_extra_B=16
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=2
+#-----------
+time=186652
+mem_heap_B=6120
+mem_heap_extra_B=64
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=3
+#-----------
+time=193443
+mem_heap_B=8536
+mem_heap_extra_B=528
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=4
+#-----------
+time=205039
+mem_heap_B=11576
+mem_heap_extra_B=1440
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=5
+#-----------
+time=212445
+mem_heap_B=11624
+mem_heap_extra_B=1464
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=6
+#-----------
+time=222099
+mem_heap_B=16784
+mem_heap_extra_B=1600
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=7
+#-----------
+time=231411
+mem_heap_B=17008
+mem_heap_extra_B=1736
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=8
+#-----------
+time=249486
+mem_heap_B=17056
+mem_heap_extra_B=1744
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=9
+#-----------
+time=258649
+mem_heap_B=17312
+mem_heap_extra_B=1880
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=10
+#-----------
+time=276724
+mem_heap_B=17360
+mem_heap_extra_B=1904
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=11
+#-----------
+time=284382
+mem_heap_B=17704
+mem_heap_extra_B=2080
+mem_stacks_B=0
+heap_tree=detailed
+n13: 17704 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 9216 0x48D7BA3: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 9216 0x48E6CDF: _IO_doallocbuf (genops.c:347)
+   n1: 5120 0x48E5F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+    n1: 5120 0x48E46D4: _IO_new_file_xsputn (fileops.c:1243)
+     n2: 5120 0x48E46D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+      n1: 4096 0x48D8FD6: fwrite (iofwrite.c:39)
+       n0: 4096 0x10B6DF: main (main_avec_threads.c:471)
+      n1: 1024 0x48CE14C: outstring_func (vfprintf-internal.c:239)
+       n1: 1024 0x48CE14C: __vfprintf_internal (vfprintf-internal.c:1263)
+        n1: 1024 0x48B979E: printf (printf.c:33)
+         n0: 1024 0x109B3B: main (main_avec_threads.c:139)
+   n1: 4096 0x48E44C3: _IO_file_xsgetn (fileops.c:1287)
+    n1: 4096 0x48D8BA8: fread (iofread.c:38)
+     n1: 4096 0x10BDE3: point_input (binary_file_reader.c:63)
+      n0: 4096 0x109B67: main (main_avec_threads.c:143)
+ n1: 1176 0x10BEFB: point_input (binary_file_reader.c:88)
+  n0: 1176 0x109B67: main (main_avec_threads.c:143)
+ n0: 1008 0x10AC85: main (main_avec_threads.c:354)
+ n0: 1008 0x10AE42: main (main_avec_threads.c:376)
+ n1: 944 0x48D864D: __fopen_internal (iofopen.c:65)
+  n2: 944 0x48D864D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+   n1: 472 0x1097BB: parse_args (main_avec_threads.c:80)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+   n1: 472 0x1098E3: parse_args (main_avec_threads.c:105)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+ n0: 888 in 11 places, all below massif's threshold (1.00%)
+ n0: 672 0x10AD0F: main (main_avec_threads.c:362)
+ n0: 672 0x10AECC: main (main_avec_threads.c:383)
+ n0: 560 0x10B325: main (main_avec_threads.c:421)
+ n2: 560 0x10DF51: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+  n1: 320 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 320 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 320 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 320 0x497EA03: clone (clone.S:100)
+  n1: 240 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 240 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 240 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 240 0x497EA03: clone (clone.S:100)
+ n2: 392 0x10E1AD: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+  n1: 224 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 224 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 224 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 224 0x497EA03: clone (clone.S:100)
+  n0: 168 in 1 place, below massif's threshold (1.00%)
+ n1: 336 0x10DD77: generate_combinations (combinaison.c:95)
+  n0: 336 0x109CDE: main (main_avec_threads.c:173)
+ n1: 272 0x40147D9: calloc (rtld-malloc.h:44)
+  n1: 272 0x40147D9: allocate_dtv (dl-tls.c:375)
+   n1: 272 0x40147D9: _dl_allocate_tls (dl-tls.c:634)
+    n1: 272 0x48EE7B4: allocate_stack (allocatestack.c:430)
+     n1: 272 0x48EE7B4: pthread_create@@GLIBC_2.34 (pthread_create.c:647)
+      n0: 272 0x10B76A: main (main_avec_threads.c:479)
+#-----------
+snapshot=12
+#-----------
+time=290089
+mem_heap_B=17768
+mem_heap_extra_B=2104
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=13
+#-----------
+time=308164
+mem_heap_B=17816
+mem_heap_extra_B=2128
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=14
+#-----------
+time=317327
+mem_heap_B=18072
+mem_heap_extra_B=2264
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=15
+#-----------
+time=335402
+mem_heap_B=18120
+mem_heap_extra_B=2288
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=16
+#-----------
+time=344565
+mem_heap_B=18376
+mem_heap_extra_B=2424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=17
+#-----------
+time=362640
+mem_heap_B=18424
+mem_heap_extra_B=2448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=18
+#-----------
+time=371803
+mem_heap_B=18680
+mem_heap_extra_B=2584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=19
+#-----------
+time=389878
+mem_heap_B=18728
+mem_heap_extra_B=2608
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=20
+#-----------
+time=399041
+mem_heap_B=18984
+mem_heap_extra_B=2744
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=21
+#-----------
+time=417116
+mem_heap_B=19032
+mem_heap_extra_B=2768
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=22
+#-----------
+time=424843
+mem_heap_B=19376
+mem_heap_extra_B=2928
+mem_stacks_B=0
+heap_tree=detailed
+n14: 19376 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 9216 0x48D7BA3: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 9216 0x48E6CDF: _IO_doallocbuf (genops.c:347)
+   n1: 5120 0x48E5F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+    n1: 5120 0x48E46D4: _IO_new_file_xsputn (fileops.c:1243)
+     n2: 5120 0x48E46D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+      n1: 4096 0x48D8FD6: fwrite (iofwrite.c:39)
+       n0: 4096 0x10B6DF: main (main_avec_threads.c:471)
+      n1: 1024 0x48CE14C: outstring_func (vfprintf-internal.c:239)
+       n1: 1024 0x48CE14C: __vfprintf_internal (vfprintf-internal.c:1263)
+        n1: 1024 0x48B979E: printf (printf.c:33)
+         n0: 1024 0x109B3B: main (main_avec_threads.c:139)
+   n1: 4096 0x48E44C3: _IO_file_xsgetn (fileops.c:1287)
+    n1: 4096 0x48D8BA8: fread (iofread.c:38)
+     n1: 4096 0x10BDE3: point_input (binary_file_reader.c:63)
+      n0: 4096 0x109B67: main (main_avec_threads.c:143)
+ n2: 1440 0x10DF51: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+  n1: 800 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 800 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 800 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 800 0x497EA03: clone (clone.S:100)
+  n1: 640 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 640 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 640 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 640 0x497EA03: clone (clone.S:100)
+ n1: 1176 0x10BEFB: point_input (binary_file_reader.c:88)
+  n0: 1176 0x109B67: main (main_avec_threads.c:143)
+ n0: 1008 0x10AC85: main (main_avec_threads.c:354)
+ n0: 1008 0x10AE42: main (main_avec_threads.c:376)
+ n2: 1008 0x10E1AD: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+  n1: 560 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 560 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 560 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 560 0x497EA03: clone (clone.S:100)
+  n1: 448 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 448 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 448 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 448 0x497EA03: clone (clone.S:100)
+ n1: 944 0x48D864D: __fopen_internal (iofopen.c:65)
+  n2: 944 0x48D864D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+   n1: 472 0x1097BB: parse_args (main_avec_threads.c:80)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+   n1: 472 0x1098E3: parse_args (main_avec_threads.c:105)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+ n0: 776 in 10 places, all below massif's threshold (1.00%)
+ n0: 672 0x10AD0F: main (main_avec_threads.c:362)
+ n0: 672 0x10AECC: main (main_avec_threads.c:383)
+ n0: 560 0x10B325: main (main_avec_threads.c:421)
+ n1: 336 0x10DD77: generate_combinations (combinaison.c:95)
+  n0: 336 0x109CDE: main (main_avec_threads.c:173)
+ n1: 288 0x10DF0A: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+  n0: 288 in 2 places, all below massif's threshold (1.00%)
+ n1: 272 0x40147D9: calloc (rtld-malloc.h:44)
+  n1: 272 0x40147D9: allocate_dtv (dl-tls.c:375)
+   n1: 272 0x40147D9: _dl_allocate_tls (dl-tls.c:634)
+    n1: 272 0x48EE7B4: allocate_stack (allocatestack.c:430)
+     n1: 272 0x48EE7B4: pthread_create@@GLIBC_2.34 (pthread_create.c:647)
+      n0: 272 0x10B76A: main (main_avec_threads.c:479)
+#-----------
+snapshot=23
+#-----------
+time=434679
+mem_heap_B=19592
+mem_heap_extra_B=3016
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=24
+#-----------
+time=452754
+mem_heap_B=19640
+mem_heap_extra_B=3040
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=25
+#-----------
+time=461917
+mem_heap_B=19896
+mem_heap_extra_B=3176
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=26
+#-----------
+time=479992
+mem_heap_B=19944
+mem_heap_extra_B=3200
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=27
+#-----------
+time=487650
+mem_heap_B=20288
+mem_heap_extra_B=3360
+mem_stacks_B=0
+heap_tree=detailed
+n14: 20288 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 9216 0x48D7BA3: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 9216 0x48E6CDF: _IO_doallocbuf (genops.c:347)
+   n1: 5120 0x48E5F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+    n1: 5120 0x48E46D4: _IO_new_file_xsputn (fileops.c:1243)
+     n2: 5120 0x48E46D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+      n1: 4096 0x48D8FD6: fwrite (iofwrite.c:39)
+       n0: 4096 0x10B6DF: main (main_avec_threads.c:471)
+      n1: 1024 0x48CE14C: outstring_func (vfprintf-internal.c:239)
+       n1: 1024 0x48CE14C: __vfprintf_internal (vfprintf-internal.c:1263)
+        n1: 1024 0x48B979E: printf (printf.c:33)
+         n0: 1024 0x109B3B: main (main_avec_threads.c:139)
+   n1: 4096 0x48E44C3: _IO_file_xsgetn (fileops.c:1287)
+    n1: 4096 0x48D8BA8: fread (iofread.c:38)
+     n1: 4096 0x10BDE3: point_input (binary_file_reader.c:63)
+      n0: 4096 0x109B67: main (main_avec_threads.c:143)
+ n2: 1920 0x10DF51: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+  n1: 1120 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 1120 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1120 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1120 0x497EA03: clone (clone.S:100)
+  n1: 800 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 800 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 800 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 800 0x497EA03: clone (clone.S:100)
+ n2: 1344 0x10E1AD: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+  n1: 784 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 784 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 784 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 784 0x497EA03: clone (clone.S:100)
+  n1: 560 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 560 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 560 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 560 0x497EA03: clone (clone.S:100)
+ n1: 1176 0x10BEFB: point_input (binary_file_reader.c:88)
+  n0: 1176 0x109B67: main (main_avec_threads.c:143)
+ n0: 1008 0x10AC85: main (main_avec_threads.c:354)
+ n0: 1008 0x10AE42: main (main_avec_threads.c:376)
+ n1: 944 0x48D864D: __fopen_internal (iofopen.c:65)
+  n2: 944 0x48D864D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+   n1: 472 0x1097BB: parse_args (main_avec_threads.c:80)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+   n1: 472 0x1098E3: parse_args (main_avec_threads.c:105)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+ n0: 776 in 10 places, all below massif's threshold (1.00%)
+ n0: 672 0x10AD0F: main (main_avec_threads.c:362)
+ n0: 672 0x10AECC: main (main_avec_threads.c:383)
+ n0: 560 0x10B325: main (main_avec_threads.c:421)
+ n1: 384 0x10DF0A: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+  n0: 384 in 2 places, all below massif's threshold (1.00%)
+ n1: 336 0x10DD77: generate_combinations (combinaison.c:95)
+  n0: 336 0x109CDE: main (main_avec_threads.c:173)
+ n1: 272 0x40147D9: calloc (rtld-malloc.h:44)
+  n1: 272 0x40147D9: allocate_dtv (dl-tls.c:375)
+   n1: 272 0x40147D9: _dl_allocate_tls (dl-tls.c:634)
+    n1: 272 0x48EE7B4: allocate_stack (allocatestack.c:430)
+     n1: 272 0x48EE7B4: pthread_create@@GLIBC_2.34 (pthread_create.c:647)
+      n0: 272 0x10B76A: main (main_avec_threads.c:479)
+#-----------
+snapshot=28
+#-----------
+time=493357
+mem_heap_B=20352
+mem_heap_extra_B=3384
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=29
+#-----------
+time=511432
+mem_heap_B=20400
+mem_heap_extra_B=3408
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=30
+#-----------
+time=520595
+mem_heap_B=20656
+mem_heap_extra_B=3544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=31
+#-----------
+time=538670
+mem_heap_B=20704
+mem_heap_extra_B=3568
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=32
+#-----------
+time=549365
+mem_heap_B=21176
+mem_heap_extra_B=3792
+mem_stacks_B=0
+heap_tree=detailed
+n14: 21176 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 9216 0x48D7BA3: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 9216 0x48E6CDF: _IO_doallocbuf (genops.c:347)
+   n1: 5120 0x48E5F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+    n1: 5120 0x48E46D4: _IO_new_file_xsputn (fileops.c:1243)
+     n2: 5120 0x48E46D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+      n1: 4096 0x48D8FD6: fwrite (iofwrite.c:39)
+       n0: 4096 0x10B6DF: main (main_avec_threads.c:471)
+      n1: 1024 0x48CE14C: outstring_func (vfprintf-internal.c:239)
+       n1: 1024 0x48CE14C: __vfprintf_internal (vfprintf-internal.c:1263)
+        n1: 1024 0x48B979E: printf (printf.c:33)
+         n0: 1024 0x109B3B: main (main_avec_threads.c:139)
+   n1: 4096 0x48E44C3: _IO_file_xsgetn (fileops.c:1287)
+    n1: 4096 0x48D8BA8: fread (iofread.c:38)
+     n1: 4096 0x10BDE3: point_input (binary_file_reader.c:63)
+      n0: 4096 0x109B67: main (main_avec_threads.c:143)
+ n2: 2400 0x10DF51: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+  n1: 1440 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 1440 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1440 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1440 0x497EA03: clone (clone.S:100)
+  n1: 960 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 960 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 960 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 960 0x497EA03: clone (clone.S:100)
+ n2: 1664 0x10E1AD: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+  n1: 992 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 992 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 992 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 992 0x497EA03: clone (clone.S:100)
+  n1: 672 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 672 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 672 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 672 0x497EA03: clone (clone.S:100)
+ n1: 1176 0x10BEFB: point_input (binary_file_reader.c:88)
+  n0: 1176 0x109B67: main (main_avec_threads.c:143)
+ n0: 1008 0x10AC85: main (main_avec_threads.c:354)
+ n0: 1008 0x10AE42: main (main_avec_threads.c:376)
+ n1: 944 0x48D864D: __fopen_internal (iofopen.c:65)
+  n2: 944 0x48D864D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+   n1: 472 0x1097BB: parse_args (main_avec_threads.c:80)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+   n1: 472 0x1098E3: parse_args (main_avec_threads.c:105)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+ n0: 768 in 10 places, all below massif's threshold (1.00%)
+ n0: 672 0x10AD0F: main (main_avec_threads.c:362)
+ n0: 672 0x10AECC: main (main_avec_threads.c:383)
+ n0: 560 0x10B325: main (main_avec_threads.c:421)
+ n2: 480 0x10DF0A: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+  n1: 288 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 288 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 288 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 288 0x497EA03: clone (clone.S:100)
+  n0: 192 in 1 place, below massif's threshold (1.00%)
+ n1: 336 0x10DD77: generate_combinations (combinaison.c:95)
+  n0: 336 0x109CDE: main (main_avec_threads.c:173)
+ n1: 272 0x40147D9: calloc (rtld-malloc.h:44)
+  n1: 272 0x40147D9: allocate_dtv (dl-tls.c:375)
+   n1: 272 0x40147D9: _dl_allocate_tls (dl-tls.c:634)
+    n1: 272 0x48EE7B4: allocate_stack (allocatestack.c:430)
+     n1: 272 0x48EE7B4: pthread_create@@GLIBC_2.34 (pthread_create.c:647)
+      n0: 272 0x10B76A: main (main_avec_threads.c:479)
+#-----------
+snapshot=33
+#-----------
+time=560427
+mem_heap_B=21416
+mem_heap_extra_B=3896
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=34
+#-----------
+time=578502
+mem_heap_B=21464
+mem_heap_extra_B=3920
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=35
+#-----------
+time=586160
+mem_heap_B=21808
+mem_heap_extra_B=4080
+mem_stacks_B=0
+heap_tree=detailed
+n14: 21808 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 9216 0x48D7BA3: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 9216 0x48E6CDF: _IO_doallocbuf (genops.c:347)
+   n1: 5120 0x48E5F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+    n1: 5120 0x48E46D4: _IO_new_file_xsputn (fileops.c:1243)
+     n2: 5120 0x48E46D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+      n1: 4096 0x48D8FD6: fwrite (iofwrite.c:39)
+       n0: 4096 0x10B6DF: main (main_avec_threads.c:471)
+      n1: 1024 0x48CE14C: outstring_func (vfprintf-internal.c:239)
+       n1: 1024 0x48CE14C: __vfprintf_internal (vfprintf-internal.c:1263)
+        n1: 1024 0x48B979E: printf (printf.c:33)
+         n0: 1024 0x109B3B: main (main_avec_threads.c:139)
+   n1: 4096 0x48E44C3: _IO_file_xsgetn (fileops.c:1287)
+    n1: 4096 0x48D8BA8: fread (iofread.c:38)
+     n1: 4096 0x10BDE3: point_input (binary_file_reader.c:63)
+      n0: 4096 0x109B67: main (main_avec_threads.c:143)
+ n2: 2720 0x10DF51: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+  n1: 1680 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 1680 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1680 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1680 0x497EA03: clone (clone.S:100)
+  n1: 1040 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1040 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1040 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1040 0x497EA03: clone (clone.S:100)
+ n2: 1904 0x10E1AD: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+  n1: 1176 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 1176 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1176 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1176 0x497EA03: clone (clone.S:100)
+  n1: 728 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 728 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 728 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 728 0x497EA03: clone (clone.S:100)
+ n1: 1176 0x10BEFB: point_input (binary_file_reader.c:88)
+  n0: 1176 0x109B67: main (main_avec_threads.c:143)
+ n0: 1008 0x10AC85: main (main_avec_threads.c:354)
+ n0: 1008 0x10AE42: main (main_avec_threads.c:376)
+ n1: 944 0x48D864D: __fopen_internal (iofopen.c:65)
+  n2: 944 0x48D864D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+   n1: 472 0x1097BB: parse_args (main_avec_threads.c:80)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+   n1: 472 0x1098E3: parse_args (main_avec_threads.c:105)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+ n0: 776 in 10 places, all below massif's threshold (1.00%)
+ n0: 672 0x10AD0F: main (main_avec_threads.c:362)
+ n0: 672 0x10AECC: main (main_avec_threads.c:383)
+ n0: 560 0x10B325: main (main_avec_threads.c:421)
+ n2: 544 0x10DF0A: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+  n1: 336 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 336 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 336 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 336 0x497EA03: clone (clone.S:100)
+  n0: 208 in 1 place, below massif's threshold (1.00%)
+ n1: 336 0x10DD77: generate_combinations (combinaison.c:95)
+  n0: 336 0x109CDE: main (main_avec_threads.c:173)
+ n1: 272 0x40147D9: calloc (rtld-malloc.h:44)
+  n1: 272 0x40147D9: allocate_dtv (dl-tls.c:375)
+   n1: 272 0x40147D9: _dl_allocate_tls (dl-tls.c:634)
+    n1: 272 0x48EE7B4: allocate_stack (allocatestack.c:430)
+     n1: 272 0x48EE7B4: pthread_create@@GLIBC_2.34 (pthread_create.c:647)
+      n0: 272 0x10B76A: main (main_avec_threads.c:479)
+#-----------
+snapshot=36
+#-----------
+time=591076
+mem_heap_B=21936
+mem_heap_extra_B=4136
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=37
+#-----------
+time=609942
+mem_heap_B=21920
+mem_heap_extra_B=4128
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=38
+#-----------
+time=615112
+mem_heap_B=22208
+mem_heap_extra_B=4264
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=39
+#-----------
+time=626714
+mem_heap_B=22544
+mem_heap_extra_B=4408
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=40
+#-----------
+time=645580
+mem_heap_B=22528
+mem_heap_extra_B=4400
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=41
+#-----------
+time=650750
+mem_heap_B=22816
+mem_heap_extra_B=4536
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=42
+#-----------
+time=657436
+mem_heap_B=23024
+mem_heap_extra_B=4624
+mem_stacks_B=0
+heap_tree=detailed
+n13: 23024 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 9216 0x48D7BA3: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 9216 0x48E6CDF: _IO_doallocbuf (genops.c:347)
+   n1: 5120 0x48E5F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+    n1: 5120 0x48E46D4: _IO_new_file_xsputn (fileops.c:1243)
+     n2: 5120 0x48E46D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+      n1: 4096 0x48D8FD6: fwrite (iofwrite.c:39)
+       n0: 4096 0x10B6DF: main (main_avec_threads.c:471)
+      n1: 1024 0x48CE14C: outstring_func (vfprintf-internal.c:239)
+       n1: 1024 0x48CE14C: __vfprintf_internal (vfprintf-internal.c:1263)
+        n1: 1024 0x48B979E: printf (printf.c:33)
+         n0: 1024 0x109B3B: main (main_avec_threads.c:139)
+   n1: 4096 0x48E44C3: _IO_file_xsgetn (fileops.c:1287)
+    n1: 4096 0x48D8BA8: fread (iofread.c:38)
+     n1: 4096 0x10BDE3: point_input (binary_file_reader.c:63)
+      n0: 4096 0x109B67: main (main_avec_threads.c:143)
+ n2: 3360 0x10DF51: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+  n1: 2160 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 2160 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 2160 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 2160 0x497EA03: clone (clone.S:100)
+  n1: 1200 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1200 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1200 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1200 0x497EA03: clone (clone.S:100)
+ n2: 2352 0x10E1AD: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+  n1: 1512 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 1512 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1512 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1512 0x497EA03: clone (clone.S:100)
+  n1: 840 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 840 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 840 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 840 0x497EA03: clone (clone.S:100)
+ n1: 1176 0x10BEFB: point_input (binary_file_reader.c:88)
+  n0: 1176 0x109B67: main (main_avec_threads.c:143)
+ n0: 1048 in 11 places, all below massif's threshold (1.00%)
+ n0: 1008 0x10AC85: main (main_avec_threads.c:354)
+ n0: 1008 0x10AE42: main (main_avec_threads.c:376)
+ n1: 944 0x48D864D: __fopen_internal (iofopen.c:65)
+  n2: 944 0x48D864D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+   n1: 472 0x1097BB: parse_args (main_avec_threads.c:80)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+   n1: 472 0x1098E3: parse_args (main_avec_threads.c:105)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+ n0: 672 0x10AD0F: main (main_avec_threads.c:362)
+ n0: 672 0x10AECC: main (main_avec_threads.c:383)
+ n2: 672 0x10DF0A: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+  n1: 432 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 432 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 432 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 432 0x497EA03: clone (clone.S:100)
+  n0: 240 in 1 place, below massif's threshold (1.00%)
+ n0: 560 0x10B325: main (main_avec_threads.c:421)
+ n1: 336 0x10DD77: generate_combinations (combinaison.c:95)
+  n0: 336 0x109CDE: main (main_avec_threads.c:173)
+#-----------
+snapshot=43
+#-----------
+time=662352
+mem_heap_B=23152
+mem_heap_extra_B=4680
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=44
+#-----------
+time=681218
+mem_heap_B=23136
+mem_heap_extra_B=4672
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=45
+#-----------
+time=688054
+mem_heap_B=23464
+mem_heap_extra_B=4840
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=46
+#-----------
+time=698758
+mem_heap_B=23696
+mem_heap_extra_B=4936
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=47
+#-----------
+time=716833
+mem_heap_B=23744
+mem_heap_extra_B=4960
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=48
+#-----------
+time=720216
+mem_heap_B=23936
+mem_heap_extra_B=5088
+mem_stacks_B=0
+heap_tree=detailed
+n13: 23936 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 9216 0x48D7BA3: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 9216 0x48E6CDF: _IO_doallocbuf (genops.c:347)
+   n1: 5120 0x48E5F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+    n1: 5120 0x48E46D4: _IO_new_file_xsputn (fileops.c:1243)
+     n2: 5120 0x48E46D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+      n1: 4096 0x48D8FD6: fwrite (iofwrite.c:39)
+       n0: 4096 0x10B6DF: main (main_avec_threads.c:471)
+      n1: 1024 0x48CE14C: outstring_func (vfprintf-internal.c:239)
+       n1: 1024 0x48CE14C: __vfprintf_internal (vfprintf-internal.c:1263)
+        n1: 1024 0x48B979E: printf (printf.c:33)
+         n0: 1024 0x109B3B: main (main_avec_threads.c:139)
+   n1: 4096 0x48E44C3: _IO_file_xsgetn (fileops.c:1287)
+    n1: 4096 0x48D8BA8: fread (iofread.c:38)
+     n1: 4096 0x10BDE3: point_input (binary_file_reader.c:63)
+      n0: 4096 0x109B67: main (main_avec_threads.c:143)
+ n2: 3840 0x10DF51: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+  n1: 2480 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 2480 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 2480 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 2480 0x497EA03: clone (clone.S:100)
+  n1: 1360 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1360 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1360 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1360 0x497EA03: clone (clone.S:100)
+ n2: 2688 0x10E1AD: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+  n1: 1736 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 1736 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1736 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1736 0x497EA03: clone (clone.S:100)
+  n1: 952 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 952 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 952 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 952 0x497EA03: clone (clone.S:100)
+ n1: 1176 0x10BEFB: point_input (binary_file_reader.c:88)
+  n0: 1176 0x109B67: main (main_avec_threads.c:143)
+ n0: 1048 in 11 places, all below massif's threshold (1.00%)
+ n0: 1008 0x10AC85: main (main_avec_threads.c:354)
+ n0: 1008 0x10AE42: main (main_avec_threads.c:376)
+ n1: 944 0x48D864D: __fopen_internal (iofopen.c:65)
+  n2: 944 0x48D864D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+   n1: 472 0x1097BB: parse_args (main_avec_threads.c:80)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+   n1: 472 0x1098E3: parse_args (main_avec_threads.c:105)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+ n2: 768 0x10DF0A: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+  n1: 496 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 496 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 496 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 496 0x497EA03: clone (clone.S:100)
+  n0: 272 in 1 place, below massif's threshold (1.00%)
+ n0: 672 0x10AD0F: main (main_avec_threads.c:362)
+ n0: 672 0x10AECC: main (main_avec_threads.c:383)
+ n0: 560 0x10B325: main (main_avec_threads.c:421)
+ n1: 336 0x10DD77: generate_combinations (combinaison.c:95)
+  n0: 336 0x109CDE: main (main_avec_threads.c:173)
+#-----------
+snapshot=49
+#-----------
+time=722012
+mem_heap_B=24032
+mem_heap_extra_B=5128
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=50
+#-----------
+time=725565
+mem_heap_B=24080
+mem_heap_extra_B=5136
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=51
+#-----------
+time=728912
+mem_heap_B=24240
+mem_heap_extra_B=5232
+mem_stacks_B=0
+heap_tree=detailed
+n13: 24240 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 9216 0x48D7BA3: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 9216 0x48E6CDF: _IO_doallocbuf (genops.c:347)
+   n1: 5120 0x48E5F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+    n1: 5120 0x48E46D4: _IO_new_file_xsputn (fileops.c:1243)
+     n2: 5120 0x48E46D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+      n1: 4096 0x48D8FD6: fwrite (iofwrite.c:39)
+       n0: 4096 0x10B6DF: main (main_avec_threads.c:471)
+      n1: 1024 0x48CE14C: outstring_func (vfprintf-internal.c:239)
+       n1: 1024 0x48CE14C: __vfprintf_internal (vfprintf-internal.c:1263)
+        n1: 1024 0x48B979E: printf (printf.c:33)
+         n0: 1024 0x109B3B: main (main_avec_threads.c:139)
+   n1: 4096 0x48E44C3: _IO_file_xsgetn (fileops.c:1287)
+    n1: 4096 0x48D8BA8: fread (iofread.c:38)
+     n1: 4096 0x10BDE3: point_input (binary_file_reader.c:63)
+      n0: 4096 0x109B67: main (main_avec_threads.c:143)
+ n2: 4000 0x10DF51: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+  n1: 2640 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 2640 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 2640 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 2640 0x497EA03: clone (clone.S:100)
+  n1: 1360 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1360 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1360 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1360 0x497EA03: clone (clone.S:100)
+ n2: 2800 0x10E1AD: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+  n1: 1848 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 1848 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1848 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1848 0x497EA03: clone (clone.S:100)
+  n1: 952 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 952 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 952 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 952 0x497EA03: clone (clone.S:100)
+ n1: 1176 0x10BEFB: point_input (binary_file_reader.c:88)
+  n0: 1176 0x109B67: main (main_avec_threads.c:143)
+ n0: 1048 in 11 places, all below massif's threshold (1.00%)
+ n0: 1008 0x10AC85: main (main_avec_threads.c:354)
+ n0: 1008 0x10AE42: main (main_avec_threads.c:376)
+ n1: 944 0x48D864D: __fopen_internal (iofopen.c:65)
+  n2: 944 0x48D864D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+   n1: 472 0x1097BB: parse_args (main_avec_threads.c:80)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+   n1: 472 0x1098E3: parse_args (main_avec_threads.c:105)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+ n2: 800 0x10DF0A: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+  n1: 528 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 528 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 528 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 528 0x497EA03: clone (clone.S:100)
+  n0: 272 in 1 place, below massif's threshold (1.00%)
+ n0: 672 0x10AD0F: main (main_avec_threads.c:362)
+ n0: 672 0x10AECC: main (main_avec_threads.c:383)
+ n0: 560 0x10B325: main (main_avec_threads.c:421)
+ n1: 336 0x10DD77: generate_combinations (combinaison.c:95)
+  n0: 336 0x109CDE: main (main_avec_threads.c:173)
+#-----------
+snapshot=52
+#-----------
+time=732384
+mem_heap_B=24384
+mem_heap_extra_B=5280
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=53
+#-----------
+time=752454
+mem_heap_B=24352
+mem_heap_extra_B=5264
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=54
+#-----------
+time=755837
+mem_heap_B=24544
+mem_heap_extra_B=5392
+mem_stacks_B=0
+heap_tree=detailed
+n13: 24544 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 9216 0x48D7BA3: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 9216 0x48E6CDF: _IO_doallocbuf (genops.c:347)
+   n1: 5120 0x48E5F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+    n1: 5120 0x48E46D4: _IO_new_file_xsputn (fileops.c:1243)
+     n2: 5120 0x48E46D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+      n1: 4096 0x48D8FD6: fwrite (iofwrite.c:39)
+       n0: 4096 0x10B6DF: main (main_avec_threads.c:471)
+      n1: 1024 0x48CE14C: outstring_func (vfprintf-internal.c:239)
+       n1: 1024 0x48CE14C: __vfprintf_internal (vfprintf-internal.c:1263)
+        n1: 1024 0x48B979E: printf (printf.c:33)
+         n0: 1024 0x109B3B: main (main_avec_threads.c:139)
+   n1: 4096 0x48E44C3: _IO_file_xsgetn (fileops.c:1287)
+    n1: 4096 0x48D8BA8: fread (iofread.c:38)
+     n1: 4096 0x10BDE3: point_input (binary_file_reader.c:63)
+      n0: 4096 0x109B67: main (main_avec_threads.c:143)
+ n2: 4160 0x10DF51: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+  n1: 2720 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 2720 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 2720 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 2720 0x497EA03: clone (clone.S:100)
+  n1: 1440 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1440 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1440 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1440 0x497EA03: clone (clone.S:100)
+ n2: 2912 0x10E1AD: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+  n1: 1904 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 1904 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1904 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1904 0x497EA03: clone (clone.S:100)
+  n1: 1008 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1008 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1008 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1008 0x497EA03: clone (clone.S:100)
+ n1: 1176 0x10BEFB: point_input (binary_file_reader.c:88)
+  n0: 1176 0x109B67: main (main_avec_threads.c:143)
+ n0: 1048 in 11 places, all below massif's threshold (1.00%)
+ n0: 1008 0x10AC85: main (main_avec_threads.c:354)
+ n0: 1008 0x10AE42: main (main_avec_threads.c:376)
+ n1: 944 0x48D864D: __fopen_internal (iofopen.c:65)
+  n2: 944 0x48D864D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+   n1: 472 0x1097BB: parse_args (main_avec_threads.c:80)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+   n1: 472 0x1098E3: parse_args (main_avec_threads.c:105)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+ n2: 832 0x10DF0A: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+  n1: 544 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 544 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 544 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 544 0x497EA03: clone (clone.S:100)
+  n0: 288 in 1 place, below massif's threshold (1.00%)
+ n0: 672 0x10AD0F: main (main_avec_threads.c:362)
+ n0: 672 0x10AECC: main (main_avec_threads.c:383)
+ n0: 560 0x10B325: main (main_avec_threads.c:421)
+ n1: 336 0x10DD77: generate_combinations (combinaison.c:95)
+  n0: 336 0x109CDE: main (main_avec_threads.c:173)
+#-----------
+snapshot=55
+#-----------
+time=759297
+mem_heap_B=24680
+mem_heap_extra_B=5432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=56
+#-----------
+time=762837
+mem_heap_B=24816
+mem_heap_extra_B=5512
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=57
+#-----------
+time=764533
+mem_heap_B=24848
+mem_heap_extra_B=5536
+mem_stacks_B=0
+heap_tree=detailed
+n13: 24848 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 9216 0x48D7BA3: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 9216 0x48E6CDF: _IO_doallocbuf (genops.c:347)
+   n1: 5120 0x48E5F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+    n1: 5120 0x48E46D4: _IO_new_file_xsputn (fileops.c:1243)
+     n2: 5120 0x48E46D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+      n1: 4096 0x48D8FD6: fwrite (iofwrite.c:39)
+       n0: 4096 0x10B6DF: main (main_avec_threads.c:471)
+      n1: 1024 0x48CE14C: outstring_func (vfprintf-internal.c:239)
+       n1: 1024 0x48CE14C: __vfprintf_internal (vfprintf-internal.c:1263)
+        n1: 1024 0x48B979E: printf (printf.c:33)
+         n0: 1024 0x109B3B: main (main_avec_threads.c:139)
+   n1: 4096 0x48E44C3: _IO_file_xsgetn (fileops.c:1287)
+    n1: 4096 0x48D8BA8: fread (iofread.c:38)
+     n1: 4096 0x10BDE3: point_input (binary_file_reader.c:63)
+      n0: 4096 0x109B67: main (main_avec_threads.c:143)
+ n2: 4320 0x10DF51: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+  n1: 2880 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 2880 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 2880 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 2880 0x497EA03: clone (clone.S:100)
+  n1: 1440 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1440 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1440 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1440 0x497EA03: clone (clone.S:100)
+ n2: 3024 0x10E1AD: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+  n1: 2016 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 2016 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 2016 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 2016 0x497EA03: clone (clone.S:100)
+  n1: 1008 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1008 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1008 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1008 0x497EA03: clone (clone.S:100)
+ n1: 1176 0x10BEFB: point_input (binary_file_reader.c:88)
+  n0: 1176 0x109B67: main (main_avec_threads.c:143)
+ n0: 1048 in 11 places, all below massif's threshold (1.00%)
+ n0: 1008 0x10AC85: main (main_avec_threads.c:354)
+ n0: 1008 0x10AE42: main (main_avec_threads.c:376)
+ n1: 944 0x48D864D: __fopen_internal (iofopen.c:65)
+  n2: 944 0x48D864D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+   n1: 472 0x1097BB: parse_args (main_avec_threads.c:80)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+   n1: 472 0x1098E3: parse_args (main_avec_threads.c:105)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+ n2: 864 0x10DF0A: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+  n1: 576 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 576 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 576 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 576 0x497EA03: clone (clone.S:100)
+  n0: 288 in 1 place, below massif's threshold (1.00%)
+ n0: 672 0x10AD0F: main (main_avec_threads.c:362)
+ n0: 672 0x10AECC: main (main_avec_threads.c:383)
+ n0: 560 0x10B325: main (main_avec_threads.c:421)
+ n1: 336 0x10DD77: generate_combinations (combinaison.c:95)
+  n0: 336 0x109CDE: main (main_avec_threads.c:173)
+#-----------
+snapshot=58
+#-----------
+time=768005
+mem_heap_B=24992
+mem_heap_extra_B=5584
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=59
+#-----------
+time=788075
+mem_heap_B=24960
+mem_heap_extra_B=5568
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=60
+#-----------
+time=791750
+mem_heap_B=25152
+mem_heap_extra_B=5696
+mem_stacks_B=0
+heap_tree=detailed
+n13: 25152 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 9216 0x48D7BA3: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 9216 0x48E6CDF: _IO_doallocbuf (genops.c:347)
+   n1: 5120 0x48E5F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+    n1: 5120 0x48E46D4: _IO_new_file_xsputn (fileops.c:1243)
+     n2: 5120 0x48E46D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+      n1: 4096 0x48D8FD6: fwrite (iofwrite.c:39)
+       n0: 4096 0x10B6DF: main (main_avec_threads.c:471)
+      n1: 1024 0x48CE14C: outstring_func (vfprintf-internal.c:239)
+       n1: 1024 0x48CE14C: __vfprintf_internal (vfprintf-internal.c:1263)
+        n1: 1024 0x48B979E: printf (printf.c:33)
+         n0: 1024 0x109B3B: main (main_avec_threads.c:139)
+   n1: 4096 0x48E44C3: _IO_file_xsgetn (fileops.c:1287)
+    n1: 4096 0x48D8BA8: fread (iofread.c:38)
+     n1: 4096 0x10BDE3: point_input (binary_file_reader.c:63)
+      n0: 4096 0x109B67: main (main_avec_threads.c:143)
+ n2: 4480 0x10DF51: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+  n1: 2960 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 2960 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 2960 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 2960 0x497EA03: clone (clone.S:100)
+  n1: 1520 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1520 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1520 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1520 0x497EA03: clone (clone.S:100)
+ n2: 3136 0x10E1AD: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+  n1: 2072 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 2072 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 2072 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 2072 0x497EA03: clone (clone.S:100)
+  n1: 1064 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1064 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1064 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1064 0x497EA03: clone (clone.S:100)
+ n1: 1176 0x10BEFB: point_input (binary_file_reader.c:88)
+  n0: 1176 0x109B67: main (main_avec_threads.c:143)
+ n0: 1048 in 11 places, all below massif's threshold (1.00%)
+ n0: 1008 0x10AC85: main (main_avec_threads.c:354)
+ n0: 1008 0x10AE42: main (main_avec_threads.c:376)
+ n1: 944 0x48D864D: __fopen_internal (iofopen.c:65)
+  n2: 944 0x48D864D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+   n1: 472 0x1097BB: parse_args (main_avec_threads.c:80)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+   n1: 472 0x1098E3: parse_args (main_avec_threads.c:105)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+ n2: 896 0x10DF0A: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+  n1: 592 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 592 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 592 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 592 0x497EA03: clone (clone.S:100)
+  n0: 304 in 1 place, below massif's threshold (1.00%)
+ n0: 672 0x10AD0F: main (main_avec_threads.c:362)
+ n0: 672 0x10AECC: main (main_avec_threads.c:383)
+ n0: 560 0x10B325: main (main_avec_threads.c:421)
+ n1: 336 0x10DD77: generate_combinations (combinaison.c:95)
+  n0: 336 0x109CDE: main (main_avec_threads.c:173)
+#-----------
+snapshot=61
+#-----------
+time=795225
+mem_heap_B=25296
+mem_heap_extra_B=5744
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=62
+#-----------
+time=798770
+mem_heap_B=25432
+mem_heap_extra_B=5808
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=63
+#-----------
+time=799996
+mem_heap_B=25456
+mem_heap_extra_B=5824
+mem_stacks_B=0
+heap_tree=detailed
+n13: 25456 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 9216 0x48D7BA3: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 9216 0x48E6CDF: _IO_doallocbuf (genops.c:347)
+   n1: 5120 0x48E5F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+    n1: 5120 0x48E46D4: _IO_new_file_xsputn (fileops.c:1243)
+     n2: 5120 0x48E46D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+      n1: 4096 0x48D8FD6: fwrite (iofwrite.c:39)
+       n0: 4096 0x10B6DF: main (main_avec_threads.c:471)
+      n1: 1024 0x48CE14C: outstring_func (vfprintf-internal.c:239)
+       n1: 1024 0x48CE14C: __vfprintf_internal (vfprintf-internal.c:1263)
+        n1: 1024 0x48B979E: printf (printf.c:33)
+         n0: 1024 0x109B3B: main (main_avec_threads.c:139)
+   n1: 4096 0x48E44C3: _IO_file_xsgetn (fileops.c:1287)
+    n1: 4096 0x48D8BA8: fread (iofread.c:38)
+     n1: 4096 0x10BDE3: point_input (binary_file_reader.c:63)
+      n0: 4096 0x109B67: main (main_avec_threads.c:143)
+ n2: 4640 0x10DF51: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+  n1: 3120 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 3120 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 3120 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 3120 0x497EA03: clone (clone.S:100)
+  n1: 1520 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1520 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1520 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1520 0x497EA03: clone (clone.S:100)
+ n2: 3248 0x10E1AD: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+  n1: 2184 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 2184 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 2184 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 2184 0x497EA03: clone (clone.S:100)
+  n1: 1064 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1064 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1064 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1064 0x497EA03: clone (clone.S:100)
+ n1: 1176 0x10BEFB: point_input (binary_file_reader.c:88)
+  n0: 1176 0x109B67: main (main_avec_threads.c:143)
+ n0: 1048 in 11 places, all below massif's threshold (1.00%)
+ n0: 1008 0x10AC85: main (main_avec_threads.c:354)
+ n0: 1008 0x10AE42: main (main_avec_threads.c:376)
+ n1: 944 0x48D864D: __fopen_internal (iofopen.c:65)
+  n2: 944 0x48D864D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+   n1: 472 0x1097BB: parse_args (main_avec_threads.c:80)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+   n1: 472 0x1098E3: parse_args (main_avec_threads.c:105)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+ n2: 928 0x10DF0A: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+  n1: 624 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 624 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 624 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 624 0x497EA03: clone (clone.S:100)
+  n0: 304 in 1 place, below massif's threshold (1.00%)
+ n0: 672 0x10AD0F: main (main_avec_threads.c:362)
+ n0: 672 0x10AECC: main (main_avec_threads.c:383)
+ n0: 560 0x10B325: main (main_avec_threads.c:421)
+ n1: 336 0x10DD77: generate_combinations (combinaison.c:95)
+  n0: 336 0x109CDE: main (main_avec_threads.c:173)
+#-----------
+snapshot=64
+#-----------
+time=803631
+mem_heap_B=25600
+mem_heap_extra_B=5872
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=65
+#-----------
+time=807181
+mem_heap_B=25736
+mem_heap_extra_B=5952
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=66
+#-----------
+time=808332
+mem_heap_B=25760
+mem_heap_extra_B=5968
+mem_stacks_B=0
+heap_tree=detailed
+n13: 25760 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 9216 0x48D7BA3: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 9216 0x48E6CDF: _IO_doallocbuf (genops.c:347)
+   n1: 5120 0x48E5F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+    n1: 5120 0x48E46D4: _IO_new_file_xsputn (fileops.c:1243)
+     n2: 5120 0x48E46D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+      n1: 4096 0x48D8FD6: fwrite (iofwrite.c:39)
+       n0: 4096 0x10B6DF: main (main_avec_threads.c:471)
+      n1: 1024 0x48CE14C: outstring_func (vfprintf-internal.c:239)
+       n1: 1024 0x48CE14C: __vfprintf_internal (vfprintf-internal.c:1263)
+        n1: 1024 0x48B979E: printf (printf.c:33)
+         n0: 1024 0x109B3B: main (main_avec_threads.c:139)
+   n1: 4096 0x48E44C3: _IO_file_xsgetn (fileops.c:1287)
+    n1: 4096 0x48D8BA8: fread (iofread.c:38)
+     n1: 4096 0x10BDE3: point_input (binary_file_reader.c:63)
+      n0: 4096 0x109B67: main (main_avec_threads.c:143)
+ n2: 4800 0x10DF51: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+  n1: 3280 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 3280 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 3280 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 3280 0x497EA03: clone (clone.S:100)
+  n1: 1520 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1520 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1520 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1520 0x497EA03: clone (clone.S:100)
+ n2: 3360 0x10E1AD: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+  n1: 2296 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 2296 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 2296 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 2296 0x497EA03: clone (clone.S:100)
+  n1: 1064 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1064 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1064 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1064 0x497EA03: clone (clone.S:100)
+ n1: 1176 0x10BEFB: point_input (binary_file_reader.c:88)
+  n0: 1176 0x109B67: main (main_avec_threads.c:143)
+ n0: 1048 in 11 places, all below massif's threshold (1.00%)
+ n0: 1008 0x10AC85: main (main_avec_threads.c:354)
+ n0: 1008 0x10AE42: main (main_avec_threads.c:376)
+ n2: 960 0x10DF0A: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+  n1: 656 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 656 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 656 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 656 0x497EA03: clone (clone.S:100)
+  n0: 304 in 1 place, below massif's threshold (1.00%)
+ n1: 944 0x48D864D: __fopen_internal (iofopen.c:65)
+  n2: 944 0x48D864D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+   n1: 472 0x1097BB: parse_args (main_avec_threads.c:80)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+   n1: 472 0x1098E3: parse_args (main_avec_threads.c:105)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+ n0: 672 0x10AD0F: main (main_avec_threads.c:362)
+ n0: 672 0x10AECC: main (main_avec_threads.c:383)
+ n0: 560 0x10B325: main (main_avec_threads.c:421)
+ n1: 336 0x10DD77: generate_combinations (combinaison.c:95)
+  n0: 336 0x109CDE: main (main_avec_threads.c:173)
+#-----------
+snapshot=67
+#-----------
+time=827907
+mem_heap_B=25720
+mem_heap_extra_B=5936
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=68
+#-----------
+time=831509
+mem_heap_B=25904
+mem_heap_extra_B=6016
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=69
+#-----------
+time=835064
+mem_heap_B=26056
+mem_heap_extra_B=6080
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=70
+#-----------
+time=835634
+mem_heap_B=26064
+mem_heap_extra_B=6096
+mem_stacks_B=0
+heap_tree=detailed
+n13: 26064 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 9216 0x48D7BA3: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 9216 0x48E6CDF: _IO_doallocbuf (genops.c:347)
+   n1: 5120 0x48E5F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+    n1: 5120 0x48E46D4: _IO_new_file_xsputn (fileops.c:1243)
+     n2: 5120 0x48E46D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+      n1: 4096 0x48D8FD6: fwrite (iofwrite.c:39)
+       n0: 4096 0x10B6DF: main (main_avec_threads.c:471)
+      n1: 1024 0x48CE14C: outstring_func (vfprintf-internal.c:239)
+       n1: 1024 0x48CE14C: __vfprintf_internal (vfprintf-internal.c:1263)
+        n1: 1024 0x48B979E: printf (printf.c:33)
+         n0: 1024 0x109B3B: main (main_avec_threads.c:139)
+   n1: 4096 0x48E44C3: _IO_file_xsgetn (fileops.c:1287)
+    n1: 4096 0x48D8BA8: fread (iofread.c:38)
+     n1: 4096 0x10BDE3: point_input (binary_file_reader.c:63)
+      n0: 4096 0x109B67: main (main_avec_threads.c:143)
+ n2: 4960 0x10DF51: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+  n1: 3360 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 3360 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 3360 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 3360 0x497EA03: clone (clone.S:100)
+  n1: 1600 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1600 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1600 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1600 0x497EA03: clone (clone.S:100)
+ n2: 3472 0x10E1AD: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+  n1: 2352 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 2352 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 2352 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 2352 0x497EA03: clone (clone.S:100)
+  n1: 1120 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1120 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1120 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1120 0x497EA03: clone (clone.S:100)
+ n1: 1176 0x10BEFB: point_input (binary_file_reader.c:88)
+  n0: 1176 0x109B67: main (main_avec_threads.c:143)
+ n0: 1048 in 11 places, all below massif's threshold (1.00%)
+ n0: 1008 0x10AC85: main (main_avec_threads.c:354)
+ n0: 1008 0x10AE42: main (main_avec_threads.c:376)
+ n2: 992 0x10DF0A: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+  n1: 672 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 672 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 672 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 672 0x497EA03: clone (clone.S:100)
+  n0: 320 in 1 place, below massif's threshold (1.00%)
+ n1: 944 0x48D864D: __fopen_internal (iofopen.c:65)
+  n2: 944 0x48D864D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+   n1: 472 0x1097BB: parse_args (main_avec_threads.c:80)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+   n1: 472 0x1098E3: parse_args (main_avec_threads.c:105)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+ n0: 672 0x10AD0F: main (main_avec_threads.c:362)
+ n0: 672 0x10AECC: main (main_avec_threads.c:383)
+ n0: 560 0x10B325: main (main_avec_threads.c:421)
+ n1: 336 0x10DD77: generate_combinations (combinaison.c:95)
+  n0: 336 0x109CDE: main (main_avec_threads.c:173)
+#-----------
+snapshot=71
+#-----------
+time=839269
+mem_heap_B=26208
+mem_heap_extra_B=6144
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=72
+#-----------
+time=842819
+mem_heap_B=26344
+mem_heap_extra_B=6224
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=73
+#-----------
+time=843970
+mem_heap_B=26368
+mem_heap_extra_B=6240
+mem_stacks_B=0
+heap_tree=detailed
+n13: 26368 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 9216 0x48D7BA3: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 9216 0x48E6CDF: _IO_doallocbuf (genops.c:347)
+   n1: 5120 0x48E5F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+    n1: 5120 0x48E46D4: _IO_new_file_xsputn (fileops.c:1243)
+     n2: 5120 0x48E46D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+      n1: 4096 0x48D8FD6: fwrite (iofwrite.c:39)
+       n0: 4096 0x10B6DF: main (main_avec_threads.c:471)
+      n1: 1024 0x48CE14C: outstring_func (vfprintf-internal.c:239)
+       n1: 1024 0x48CE14C: __vfprintf_internal (vfprintf-internal.c:1263)
+        n1: 1024 0x48B979E: printf (printf.c:33)
+         n0: 1024 0x109B3B: main (main_avec_threads.c:139)
+   n1: 4096 0x48E44C3: _IO_file_xsgetn (fileops.c:1287)
+    n1: 4096 0x48D8BA8: fread (iofread.c:38)
+     n1: 4096 0x10BDE3: point_input (binary_file_reader.c:63)
+      n0: 4096 0x109B67: main (main_avec_threads.c:143)
+ n2: 5120 0x10DF51: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+  n1: 3520 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 3520 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 3520 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 3520 0x497EA03: clone (clone.S:100)
+  n1: 1600 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1600 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1600 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1600 0x497EA03: clone (clone.S:100)
+ n2: 3584 0x10E1AD: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+  n1: 2464 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 2464 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 2464 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 2464 0x497EA03: clone (clone.S:100)
+  n1: 1120 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1120 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1120 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1120 0x497EA03: clone (clone.S:100)
+ n1: 1176 0x10BEFB: point_input (binary_file_reader.c:88)
+  n0: 1176 0x109B67: main (main_avec_threads.c:143)
+ n0: 1048 in 11 places, all below massif's threshold (1.00%)
+ n2: 1024 0x10DF0A: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+  n1: 704 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 704 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 704 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 704 0x497EA03: clone (clone.S:100)
+  n0: 320 in 1 place, below massif's threshold (1.00%)
+ n0: 1008 0x10AC85: main (main_avec_threads.c:354)
+ n0: 1008 0x10AE42: main (main_avec_threads.c:376)
+ n1: 944 0x48D864D: __fopen_internal (iofopen.c:65)
+  n2: 944 0x48D864D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+   n1: 472 0x1097BB: parse_args (main_avec_threads.c:80)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+   n1: 472 0x1098E3: parse_args (main_avec_threads.c:105)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+ n0: 672 0x10AD0F: main (main_avec_threads.c:362)
+ n0: 672 0x10AECC: main (main_avec_threads.c:383)
+ n0: 560 0x10B325: main (main_avec_threads.c:421)
+ n1: 336 0x10DD77: generate_combinations (combinaison.c:95)
+  n0: 336 0x109CDE: main (main_avec_threads.c:173)
+#-----------
+snapshot=74
+#-----------
+time=863545
+mem_heap_B=26328
+mem_heap_extra_B=6208
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=75
+#-----------
+time=867001
+mem_heap_B=26512
+mem_heap_extra_B=6288
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=76
+#-----------
+time=870704
+mem_heap_B=26664
+mem_heap_extra_B=6368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=77
+#-----------
+time=871349
+mem_heap_B=26672
+mem_heap_extra_B=6384
+mem_stacks_B=0
+heap_tree=detailed
+n13: 26672 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 9216 0x48D7BA3: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 9216 0x48E6CDF: _IO_doallocbuf (genops.c:347)
+   n1: 5120 0x48E5F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+    n1: 5120 0x48E46D4: _IO_new_file_xsputn (fileops.c:1243)
+     n2: 5120 0x48E46D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+      n1: 4096 0x48D8FD6: fwrite (iofwrite.c:39)
+       n0: 4096 0x10B6DF: main (main_avec_threads.c:471)
+      n1: 1024 0x48CE14C: outstring_func (vfprintf-internal.c:239)
+       n1: 1024 0x48CE14C: __vfprintf_internal (vfprintf-internal.c:1263)
+        n1: 1024 0x48B979E: printf (printf.c:33)
+         n0: 1024 0x109B3B: main (main_avec_threads.c:139)
+   n1: 4096 0x48E44C3: _IO_file_xsgetn (fileops.c:1287)
+    n1: 4096 0x48D8BA8: fread (iofread.c:38)
+     n1: 4096 0x10BDE3: point_input (binary_file_reader.c:63)
+      n0: 4096 0x109B67: main (main_avec_threads.c:143)
+ n2: 5280 0x10DF51: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+  n1: 3600 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 3600 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 3600 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 3600 0x497EA03: clone (clone.S:100)
+  n1: 1680 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1680 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1680 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1680 0x497EA03: clone (clone.S:100)
+ n2: 3696 0x10E1AD: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+  n1: 2520 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 2520 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 2520 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 2520 0x497EA03: clone (clone.S:100)
+  n1: 1176 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1176 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1176 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1176 0x497EA03: clone (clone.S:100)
+ n1: 1176 0x10BEFB: point_input (binary_file_reader.c:88)
+  n0: 1176 0x109B67: main (main_avec_threads.c:143)
+ n2: 1056 0x10DF0A: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+  n1: 720 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 720 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 720 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 720 0x497EA03: clone (clone.S:100)
+  n1: 336 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 336 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 336 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 336 0x497EA03: clone (clone.S:100)
+ n0: 1048 in 11 places, all below massif's threshold (1.00%)
+ n0: 1008 0x10AC85: main (main_avec_threads.c:354)
+ n0: 1008 0x10AE42: main (main_avec_threads.c:376)
+ n1: 944 0x48D864D: __fopen_internal (iofopen.c:65)
+  n2: 944 0x48D864D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+   n1: 472 0x1097BB: parse_args (main_avec_threads.c:80)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+   n1: 472 0x1098E3: parse_args (main_avec_threads.c:105)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+ n0: 672 0x10AD0F: main (main_avec_threads.c:362)
+ n0: 672 0x10AECC: main (main_avec_threads.c:383)
+ n0: 560 0x10B325: main (main_avec_threads.c:421)
+ n1: 336 0x10DD77: generate_combinations (combinaison.c:95)
+  n0: 336 0x109CDE: main (main_avec_threads.c:173)
+#-----------
+snapshot=78
+#-----------
+time=874897
+mem_heap_B=26816
+mem_heap_extra_B=6432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=79
+#-----------
+time=878406
+mem_heap_B=26952
+mem_heap_extra_B=6504
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=80
+#-----------
+time=879813
+mem_heap_B=26976
+mem_heap_extra_B=6544
+mem_stacks_B=0
+heap_tree=detailed
+n13: 26976 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 9216 0x48D7BA3: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 9216 0x48E6CDF: _IO_doallocbuf (genops.c:347)
+   n1: 5120 0x48E5F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+    n1: 5120 0x48E46D4: _IO_new_file_xsputn (fileops.c:1243)
+     n2: 5120 0x48E46D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+      n1: 4096 0x48D8FD6: fwrite (iofwrite.c:39)
+       n0: 4096 0x10B6DF: main (main_avec_threads.c:471)
+      n1: 1024 0x48CE14C: outstring_func (vfprintf-internal.c:239)
+       n1: 1024 0x48CE14C: __vfprintf_internal (vfprintf-internal.c:1263)
+        n1: 1024 0x48B979E: printf (printf.c:33)
+         n0: 1024 0x109B3B: main (main_avec_threads.c:139)
+   n1: 4096 0x48E44C3: _IO_file_xsgetn (fileops.c:1287)
+    n1: 4096 0x48D8BA8: fread (iofread.c:38)
+     n1: 4096 0x10BDE3: point_input (binary_file_reader.c:63)
+      n0: 4096 0x109B67: main (main_avec_threads.c:143)
+ n2: 5440 0x10DF51: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+  n1: 3760 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 3760 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 3760 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 3760 0x497EA03: clone (clone.S:100)
+  n1: 1680 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1680 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1680 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1680 0x497EA03: clone (clone.S:100)
+ n2: 3808 0x10E1AD: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+  n1: 2632 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 2632 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 2632 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 2632 0x497EA03: clone (clone.S:100)
+  n1: 1176 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1176 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1176 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1176 0x497EA03: clone (clone.S:100)
+ n1: 1176 0x10BEFB: point_input (binary_file_reader.c:88)
+  n0: 1176 0x109B67: main (main_avec_threads.c:143)
+ n2: 1088 0x10DF0A: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+  n1: 752 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 752 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 752 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 752 0x497EA03: clone (clone.S:100)
+  n1: 336 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 336 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 336 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 336 0x497EA03: clone (clone.S:100)
+ n0: 1048 in 11 places, all below massif's threshold (1.00%)
+ n0: 1008 0x10AC85: main (main_avec_threads.c:354)
+ n0: 1008 0x10AE42: main (main_avec_threads.c:376)
+ n1: 944 0x48D864D: __fopen_internal (iofopen.c:65)
+  n2: 944 0x48D864D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+   n1: 472 0x1097BB: parse_args (main_avec_threads.c:80)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+   n1: 472 0x1098E3: parse_args (main_avec_threads.c:105)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+ n0: 672 0x10AD0F: main (main_avec_threads.c:362)
+ n0: 672 0x10AECC: main (main_avec_threads.c:383)
+ n0: 560 0x10B325: main (main_avec_threads.c:421)
+ n1: 336 0x10DD77: generate_combinations (combinaison.c:95)
+  n0: 336 0x109CDE: main (main_avec_threads.c:173)
+#-----------
+snapshot=81
+#-----------
+time=900856
+mem_heap_B=27160
+mem_heap_extra_B=6480
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=82
+#-----------
+time=907129
+mem_heap_B=28494
+mem_heap_extra_B=6570
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=83
+#-----------
+time=958330
+mem_heap_B=28958
+mem_heap_extra_B=6602
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=84
+#-----------
+time=958575
+mem_heap_B=31262
+mem_heap_extra_B=6610
+mem_stacks_B=0
+heap_tree=peak
+n16: 31262 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 9216 0x48D7BA3: _IO_file_doallocate (filedoalloc.c:101)
+  n2: 9216 0x48E6CDF: _IO_doallocbuf (genops.c:347)
+   n1: 5120 0x48E5F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+    n1: 5120 0x48E46D4: _IO_new_file_xsputn (fileops.c:1243)
+     n2: 5120 0x48E46D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+      n1: 4096 0x48D8FD6: fwrite (iofwrite.c:39)
+       n0: 4096 0x10B6DF: main (main_avec_threads.c:471)
+      n1: 1024 0x48CE14C: outstring_func (vfprintf-internal.c:239)
+       n1: 1024 0x48CE14C: __vfprintf_internal (vfprintf-internal.c:1263)
+        n1: 1024 0x48B979E: printf (printf.c:33)
+         n0: 1024 0x109B3B: main (main_avec_threads.c:139)
+   n1: 4096 0x48E44C3: _IO_file_xsgetn (fileops.c:1287)
+    n1: 4096 0x48D8BA8: fread (iofread.c:38)
+     n1: 4096 0x10BDE3: point_input (binary_file_reader.c:63)
+      n0: 4096 0x109B67: main (main_avec_threads.c:143)
+ n2: 5440 0x10DF51: assign_vectors_to_centroides (assign_vectors_to_centroides.c:36)
+  n1: 3760 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 3760 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 3760 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 3760 0x497EA03: clone (clone.S:100)
+  n1: 1680 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1680 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1680 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1680 0x497EA03: clone (clone.S:100)
+ n2: 3808 0x10E1AD: assign_vectors_to_centroides (assign_vectors_to_centroides.c:73)
+  n1: 2632 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 2632 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 2632 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 2632 0x497EA03: clone (clone.S:100)
+  n1: 1176 0x10CA9A: kmeans_thread2 (kmeans_thread2.c:84)
+   n1: 1176 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 1176 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 1176 0x497EA03: clone (clone.S:100)
+ n1: 2304 0x4005D97: malloc (rtld-malloc.h:56)
+  n1: 2304 0x4005D97: _dlfo_mappings_segment_allocate (dl-find_object.c:217)
+   n1: 2304 0x4005D97: _dl_find_object_update_1 (dl-find_object.c:671)
+    n1: 2304 0x4005D97: _dl_find_object_update (dl-find_object.c:804)
+     n1: 2304 0x400ECCF: dl_open_worker_begin (dl-open.c:735)
+      n1: 2304 0x49CDA97: _dl_catch_exception (dl-error-skeleton.c:208)
+       n1: 2304 0x400DF99: dl_open_worker (dl-open.c:782)
+        n1: 2304 0x49CDA97: _dl_catch_exception (dl-error-skeleton.c:208)
+         n1: 2304 0x400E34D: _dl_open (dl-open.c:883)
+          n1: 2304 0x49CDE00: do_dlopen (dl-libc.c:95)
+           n1: 2304 0x49CDA97: _dl_catch_exception (dl-error-skeleton.c:208)
+            n1: 2304 0x49CDB62: _dl_catch_error (dl-error-skeleton.c:227)
+             n1: 2304 0x49CDF36: dlerror_run (dl-libc.c:45)
+              n1: 2304 0x49CDF36: __libc_dlopen_mode (dl-libc.c:162)
+               n1: 2304 0x497E610: __libc_unwind_link_get (unwind-link.c:50)
+                n1: 2304 0x497E610: __libc_unwind_link_get (unwind-link.c:40)
+                 n1: 2304 0x48EEC8C: pthread_exit (pthread_exit.c:28)
+                  n1: 2304 0x10CEEF: k_means_thread (kmeans_thread2.c:174)
+                   n1: 2304 0x48EDAC2: start_thread (pthread_create.c:442)
+                    n0: 2304 0x497EA03: clone (clone.S:100)
+ n1: 1206 0x400DA02: calloc (rtld-malloc.h:44)
+  n1: 1206 0x400DA02: _dl_new_object (dl-object.c:92)
+   n1: 1206 0x4008C82: _dl_map_object_from_fd (dl-load.c:1063)
+    n1: 1206 0x400A600: _dl_map_object (dl-load.c:2327)
+     n1: 1206 0x400E9A8: dl_open_worker_begin (dl-open.c:534)
+      n1: 1206 0x49CDA97: _dl_catch_exception (dl-error-skeleton.c:208)
+       n1: 1206 0x400DF99: dl_open_worker (dl-open.c:782)
+        n1: 1206 0x49CDA97: _dl_catch_exception (dl-error-skeleton.c:208)
+         n1: 1206 0x400E34D: _dl_open (dl-open.c:883)
+          n1: 1206 0x49CDE00: do_dlopen (dl-libc.c:95)
+           n1: 1206 0x49CDA97: _dl_catch_exception (dl-error-skeleton.c:208)
+            n1: 1206 0x49CDB62: _dl_catch_error (dl-error-skeleton.c:227)
+             n1: 1206 0x49CDF36: dlerror_run (dl-libc.c:45)
+              n1: 1206 0x49CDF36: __libc_dlopen_mode (dl-libc.c:162)
+               n1: 1206 0x497E610: __libc_unwind_link_get (unwind-link.c:50)
+                n1: 1206 0x497E610: __libc_unwind_link_get (unwind-link.c:40)
+                 n1: 1206 0x48EEC8C: pthread_exit (pthread_exit.c:28)
+                  n1: 1206 0x10CEEF: k_means_thread (kmeans_thread2.c:174)
+                   n1: 1206 0x48EDAC2: start_thread (pthread_create.c:442)
+                    n0: 1206 0x497EA03: clone (clone.S:100)
+ n1: 1176 0x10BEFB: point_input (binary_file_reader.c:88)
+  n0: 1176 0x109B67: main (main_avec_threads.c:143)
+ n0: 1160 in 15 places, all below massif's threshold (1.00%)
+ n2: 1088 0x10DF0A: assign_vectors_to_centroides (assign_vectors_to_centroides.c:28)
+  n1: 752 0x10CAC5: kmeans_thread2 (kmeans_thread2.c:86)
+   n1: 752 0x10CDE4: k_means_thread (kmeans_thread2.c:156)
+    n1: 752 0x48EDAC2: start_thread (pthread_create.c:442)
+     n0: 752 0x497EA03: clone (clone.S:100)
+  n0: 336 in 1 place, below massif's threshold (1.00%)
+ n0: 1008 0x10AC85: main (main_avec_threads.c:354)
+ n0: 1008 0x10AE42: main (main_avec_threads.c:376)
+ n1: 944 0x48D864D: __fopen_internal (iofopen.c:65)
+  n2: 944 0x48D864D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+   n1: 472 0x1097BB: parse_args (main_avec_threads.c:80)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+   n1: 472 0x1098E3: parse_args (main_avec_threads.c:105)
+    n0: 472 0x10999D: main (main_avec_threads.c:118)
+ n0: 672 0x10AD0F: main (main_avec_threads.c:362)
+ n0: 672 0x10AECC: main (main_avec_threads.c:383)
+ n0: 560 0x10B325: main (main_avec_threads.c:421)
+ n1: 544 0x40147D9: calloc (rtld-malloc.h:44)
+  n1: 544 0x40147D9: allocate_dtv (dl-tls.c:375)
+   n1: 544 0x40147D9: _dl_allocate_tls (dl-tls.c:634)
+    n1: 544 0x48EE7B4: allocate_stack (allocatestack.c:430)
+     n1: 544 0x48EE7B4: pthread_create@@GLIBC_2.34 (pthread_create.c:647)
+      n0: 544 0x10B76A: main (main_avec_threads.c:479)
+ n1: 456 0x40162DC: calloc (rtld-malloc.h:44)
+  n1: 456 0x40162DC: _dl_check_map_versions (dl-version.c:273)
+   n1: 456 0x400ED13: dl_open_worker_begin (dl-open.c:600)
+    n1: 456 0x49CDA97: _dl_catch_exception (dl-error-skeleton.c:208)
+     n1: 456 0x400DF99: dl_open_worker (dl-open.c:782)
+      n1: 456 0x49CDA97: _dl_catch_exception (dl-error-skeleton.c:208)
+       n1: 456 0x400E34D: _dl_open (dl-open.c:883)
+        n1: 456 0x49CDE00: do_dlopen (dl-libc.c:95)
+         n1: 456 0x49CDA97: _dl_catch_exception (dl-error-skeleton.c:208)
+          n1: 456 0x49CDB62: _dl_catch_error (dl-error-skeleton.c:227)
+           n1: 456 0x49CDF36: dlerror_run (dl-libc.c:45)
+            n1: 456 0x49CDF36: __libc_dlopen_mode (dl-libc.c:162)
+             n1: 456 0x497E610: __libc_unwind_link_get (unwind-link.c:50)
+              n1: 456 0x497E610: __libc_unwind_link_get (unwind-link.c:40)
+               n1: 456 0x48EEC8C: pthread_exit (pthread_exit.c:28)
+                n1: 456 0x10CEEF: k_means_thread (kmeans_thread2.c:174)
+                 n1: 456 0x48EDAC2: start_thread (pthread_create.c:442)
+                  n0: 456 0x497EA03: clone (clone.S:100)
+#-----------
+snapshot=85
+#-----------
+time=972617
+mem_heap_B=31526
+mem_heap_extra_B=6602
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=86
+#-----------
+time=990142
+mem_heap_B=31510
+mem_heap_extra_B=6594
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=87
+#-----------
+time=993558
+mem_heap_B=28398
+mem_heap_extra_B=5850
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=88
+#-----------
+time=996979
+mem_heap_B=25702
+mem_heap_extra_B=5178
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=89
+#-----------
+time=1000914
+mem_heap_B=15246
+mem_heap_extra_B=5098
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=90
+#-----------
+time=1005215
+mem_heap_B=13918
+mem_heap_extra_B=5042
+mem_stacks_B=0
+heap_tree=empty

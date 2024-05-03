@@ -10,11 +10,13 @@
 #include "../headers/distance.h"
 #include "../headers/point.h"
 
-// Déclaration de la fonction test_distance_functions
+// Déclaration de la fonction de test pour les fonctions de distance (test 1).
 void test_distance_functions1();
+
+// Déclaration de la fonction de test pour les fonctions de distance (test 2).
 void test_distance_functions2();
 
-// Fonction de test pour les fonctions de distance
+// Fonction de test pour les fonctions de distance (test 1).
 void test_distance_functions1() {
     FILE *file = fopen("../python/exemple.bin", "rb");
     if (!file) {
@@ -79,7 +81,7 @@ void test_distance_functions1() {
     free_vectors(vectors, nbr_vectors);
 }
 
-// Fonction de test pour les fonctions de distance
+// Fonction de test pour les fonctions de distance (test 2).
 void test_distance_functions2() {
     FILE *file = fopen("../python/exemple3.bin", "rb");
     if (!file) {
@@ -145,16 +147,21 @@ void test_distance_functions2() {
 }
 
 int main() {
-    CU_initialize_registry();
+    CU_initialize_registry(); // Initialisation du registre de tests
 
+    // Ajout d'une suite de tests
     CU_pSuite suite = CU_add_suite("Suite_de_tests", NULL, NULL);
 
+    // Ajout des fonctions de test à la suite
     CU_add_test(suite, "Test_distance_functions1", test_distance_functions1);
     CU_add_test(suite, "Test_distance_functions2", test_distance_functions2);
 
+    // Exécution des tests
     CU_basic_run_tests();
 
+    // Nettoyage du registre de tests
     CU_cleanup_registry();
 
-    return CU_get_error();
+    return CU_get_error(); // Renvoie le code d'erreur des tests
 }
+
