@@ -46,7 +46,7 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
     uint64_t i = 0; 
     while (convergence == false) {
         // Sauvegarde les anciens centroids
-        for (int j = 0; j < k; j++) {
+        /*for (int j = 0; j < k; j++) {
             old_centroids[j].dim = final_centroids[j].dim;
             old_centroids[j].coords = (int64_t *)calloc(final_centroids[j].dim ,sizeof(int64_t));
             if (old_centroids[j].coords == NULL) {
@@ -60,7 +60,7 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
             for (int m = 0; m < final_centroids[j].dim; m++) {
                 old_centroids[j].coords[m] = final_centroids[j].coords[m];
             }
-        }
+        }*/
         printf("kmeans i %ld\n",i);
         // Assigne les points aux clusters
         if (i == 0) {
@@ -100,9 +100,9 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
         }
 
         // Libérer la mémoire pour les old_centroids
-        for (int j = 0; j < k; j++) {
+        /*for (int j = 0; j < k; j++) {
             free(old_centroids[j].coords);
-        }
+        }*/
         i++;  
     }
 
