@@ -28,6 +28,7 @@ cluster_t** update_centroids(cluster_t *clusters[], uint32_t K) {
         
         if (clusters[i]->size < 1) {
             fprintf(stderr, "Size of cluster less than 1: division by zero\n");
+             printf("%d\n", 5);
             free(moyenne); // Libérer la mémoire allouée pour moyenne
             continue; // Passer à l'itération suivante si la taille du cluster est inférieure à 1
         }
@@ -37,12 +38,14 @@ cluster_t** update_centroids(cluster_t *clusters[], uint32_t K) {
                 moyenne[xi] += clusters[i]->data[yi]->coords[xi];
             }
         }
+        printf("%d\n", 6);
 
         for (uint32_t xi = 0; xi < dim; xi++) {
             moyenne[xi] /= clusters[i]->size; // Calcul de la moyenne
             clusters[i]->centroide.coords[xi] = moyenne[xi]; // Mise à jour du centroïde
             clusters[i]->centroide.dim = dim; 
         }
+        printf("%d\n", 7);
 
         free(moyenne); // Libérer la mémoire allouée pour moyenne
     }

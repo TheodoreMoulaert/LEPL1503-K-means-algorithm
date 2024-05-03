@@ -248,6 +248,7 @@ int main(int argc, char *argv[]) {
         point_t **final_centroids = initial_centroids;
         uint64_t distortion_list[nombre_comb];
         cluster_t*** clusters_list = malloc(nombre_comb*sizeof(cluster_t**)); 
+        printf("%d\n", 1);
 
 
         cluster_t **temps_cluster = (cluster_t **)malloc(k *sizeof(cluster_t *));//k * 
@@ -265,6 +266,7 @@ int main(int argc, char *argv[]) {
             }
         
         }
+        printf("%d\n", 2);
     
         for (int64_t i =0;i< nombre_comb;i++){
             for (uint32_t j=0;j<k;j++){
@@ -288,8 +290,9 @@ int main(int argc, char *argv[]) {
 
         for (uint64_t i = 0; i < nombre_comb; i++) {
             uint64_t temp_distorsion = 0;
+            printf("%d\n", 3);
             temps_result_cluster = k_means(temps_cluster, npoints, k, initial_centroids[i], final_centroids[i], DISTANCE_SQUARED);
-
+            printf("%d\n", 4);
             for (uint32_t m=0 ; m<k; m++){
                 temp_centroide[m].coords = temps_result_cluster[m]->centroide.coords;
                 temp_centroide[m].nbr_vector = temps_result_cluster[m]->centroide.nbr_vector;

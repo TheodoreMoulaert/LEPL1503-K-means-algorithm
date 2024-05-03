@@ -3,6 +3,7 @@
 #include "../headers/point.h"
 #include "../headers/cluster.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 
 
