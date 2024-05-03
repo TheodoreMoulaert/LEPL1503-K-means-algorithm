@@ -19,7 +19,7 @@ cluster_t** update_centroids(cluster_t *clusters[], uint32_t K) {
     for (uint32_t i = 0; i < K; i++) {
      
         uint32_t dim = clusters[0]->data[0]->dim;
-        uint32_t *moyenne = calloc(dim, sizeof(uint32_t));
+        int64_t *moyenne = calloc(dim, sizeof(int64_t));
 
         if (moyenne == NULL) {
             fprintf(stderr, "Memory allocation failed\n");
