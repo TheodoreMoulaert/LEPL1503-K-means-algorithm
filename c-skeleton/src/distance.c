@@ -3,6 +3,7 @@
 #include "../headers/point.h"
 #include "../headers/cluster.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 
 
@@ -18,6 +19,8 @@ int64_t squared_manhattan_distance(const point_t *p1, const point_t *p2) {
     int64_t result = 0; 
     uint32_t dim = p1->dim; 
     for(uint32_t i = 0; i < dim; i++){
+        //printf("p2->coords[i] : %ld\n",p2->coords[i]);
+        //printf("p1->coords[i] : %ld\n",p1->coords[i]);
         result += llabs(p2->coords[i] - p1->coords[i]); 
     }
     return result * result;
