@@ -10,6 +10,6 @@
  * @param K Nombre de clusters
  * @return Tableau de pointeurs vers les clusters mis à jour
  */
-cluster_t** update_centroids(cluster_t *clusters[], uint32_t K) ; 
+cluster_t** update_centroids(cluster_t *clusters[], int32_t K) ; 
 
 #endif // UPDATE_CENTROIDS_H

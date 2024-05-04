@@ -15,8 +15,8 @@
  * @return Tableau de pointeurs vers les clusters mis à jour
  */
 
-cluster_t** update_centroids(cluster_t *clusters[], uint32_t K) {
-    for (uint32_t i = 0; i < K; i++) {
+cluster_t** update_centroids(cluster_t *clusters[], int32_t K) {
+    for (int32_t i = 0; i < K; i++) {
      
         uint32_t dim = clusters[0]->data[0]->dim;
         int64_t *moyenne = calloc(dim, sizeof(int64_t));
