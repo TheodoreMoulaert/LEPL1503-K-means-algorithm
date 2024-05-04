@@ -27,15 +27,9 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
         return NULL;
     }
     // Initialise les centroids finaux avec les centroids initiaux
-    for (int i = 0; i < k; i++) {
+    for (uint32_t i = 0; i < k; i++) {
         clusters[i]->centroide = initial_centroids[i];
     }
-
-    /*point_t *old_centroids = (point_t *)malloc(k * sizeof(point_t));
-    if (old_centroids == NULL) {
-        fprintf(stderr, "L'allocation de mémoire a échoué (/src/kmeans.c) 3.\n");
-        return NULL; 
-    }*/
 
     result_t result;
     result.result_cluster = NULL;
@@ -45,23 +39,6 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
     bool convergence = false;
     uint64_t i = 0; 
     while (convergence == false) {
-        // Sauvegarde les anciens centroids
-        /*for (int j = 0; j < k; j++) {
-            old_centroids[j].dim = final_centroids[j].dim;
-            old_centroids[j].coords = (int64_t *)calloc(final_centroids[j].dim ,sizeof(int64_t));
-            if (old_centroids[j].coords == NULL) {
-                fprintf(stderr, "L'allocation de mémoire a échoué pour old_centroids.\n");
-                for (int l = 0; l < j; l++) {
-                    free(old_centroids[l].coords);
-                }
-                free(old_centroids);
-                return NULL;
-            }
-            for (int m = 0; m < final_centroids[j].dim; m++) {
-                old_centroids[j].coords[m] = final_centroids[j].coords[m];
-            }
-        }*/
-        printf("kmeans i %ld\n",i);
         // Assigne les points aux clusters
         if (i == 0) {
             result = assign_vectors_to_centroides(final_centroids, clusters, k, distance_func);
@@ -83,22 +60,15 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
         convergence = result.changes; 
     
         update_centroids(result.result_cluster, k);
-        clusters = result.result_cluster; 
+        clusters = result.result_cluster;
+
         // Mise à jour des centroids finaux avec les nouveaux centroids des clusters
-        for (int j = 0; j < k; j++) {
+        for (uint32_t j = 0; j < k; j++) {
             if (clusters[j]->size >=1){
                 final_centroids[j] = clusters[j]->centroide;
             }
         }
-
-        // Libérer la mémoire pour les old_centroids
-        /*for (int j = 0; j < k; j++) {
-            free(old_centroids[j].coords);
-        }*/
         i++;  
     }
-
-    // Libérer la mémoire pour les old_centroids
-    //free(old_centroids);
     return result.result_cluster;
 }
