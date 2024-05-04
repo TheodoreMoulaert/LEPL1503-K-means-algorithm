@@ -141,6 +141,8 @@ int main(int argc, char *argv[]) {
     } else {
         DISTANCE_SQUARED = squared_euclidean_distance;
     }
+    printf("La valeur de myInt64 est : %ld\n", p);
+    printf("npoints: %lu\n", npoints);
     if(p<0){
         p = npoints + p; 
     }
@@ -158,7 +160,6 @@ int main(int argc, char *argv[]) {
         else{
             fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n");
         }
-        
         for (uint64_t i = 0; i < npoints; i++) {
             free(donnes[i]->coords);
             free(donnes[i]);
@@ -173,7 +174,7 @@ int main(int argc, char *argv[]) {
         }
             return 0;
     }
-    
+    printf("npoints: %lu\n", npoints);
     if(p>npoints){
         p = npoints; 
     }
