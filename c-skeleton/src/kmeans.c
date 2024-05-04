@@ -21,13 +21,13 @@
  * @param distance_func Fonction de calcul de distance entre les points
  * @return Tableau de pointeurs vers les clusters finaux, ou NULL en cas d'erreur
  */
-cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
+cluster_t** k_means(cluster_t** clusters, uint64_t num_points, int32_t k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func) {
     if (clusters == NULL || initial_centroids == NULL || final_centroids == NULL) {
         fprintf(stderr, "Paramètres invalides pour la fonction k_means.\n");
         return NULL;
     }
     // Initialise les centroids finaux avec les centroids initiaux
-    for (uint32_t i = 0; i < k; i++) {
+    for (int32_t i = 0; i < k; i++) {
         clusters[i]->centroide = initial_centroids[i];
     }
 
@@ -63,7 +63,7 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
         clusters = result.result_cluster;
 
         // Mise à jour des centroids finaux avec les nouveaux centroids des clusters
-        for (uint32_t j = 0; j < k; j++) {
+        for (int32_t j = 0; j < k; j++) {
             if (clusters[j]->size >=1){
                 final_centroids[j] = clusters[j]->centroide;
             }
