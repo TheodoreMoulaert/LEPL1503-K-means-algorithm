@@ -142,7 +142,7 @@ Structure du code
     * **combinaison** : 
             Calcule le nombre de combinaisons de p éléments pris k par k.
             Arguments :
-                    * uint64_t p
+                    * int32_t p
                     * uint32_t k
             Retourne :
                     * Le nombre de p éléments pris k par k (uint64_t)
@@ -160,7 +160,7 @@ Structure du code
                     * point_t **vectors => Pointeurs vers les vecteurs d'entrée
                     * uint64_t n => Nombre total de vecteurs dans l'ensemble
                     * uint64_t k => Taille de chaque combinaison à générer 
-                    * uint32_t p => Nombre total de vecteurs dans l'ensemble d'entrée
+                    * int32_t p => Nombre total de vecteurs dans l'ensemble d'entrée
             Retourne :
                     * Tableau de pointeurs vers les combinaisons générées, ou NULL en cas d'erreur (point_t ***)
 
@@ -335,6 +335,9 @@ Utilisation [Makefile]
     - n = nombre de threads
     - d = le noms de la fonction distance à appliquer soit manhattan soit euclidean
     - f = fichier de sortie
+
+    Note : dans notre fichier tous les fichiers binaires se trouve dans le répertoire python il est donc important de noter le chemin (../python/exemple.bin) 
+    pour y accéder lorsque vous vous trouvez dans le répertoire c-skeleton pour exécuter le Makefile.
     
     
 
