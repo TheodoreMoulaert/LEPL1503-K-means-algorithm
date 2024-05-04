@@ -193,12 +193,6 @@ int main(int argc, char *argv[]) {
     point_t ***initial_combinations = generate_combinations(donnes,npoints,k,p);
     
     
-
-
-    
-    //int64_t nombre_comb = combinaison(p,k);
-    //point_t ***initial_combinations = generate_combinations(donnes,npoints,k,p);
-    
     /*
      *
      * **********************************************
