@@ -23,7 +23,7 @@
  * @param distance_func Fonction de calcul de distance entre les points
  * @return Résultat de l'algorithme des k-moyennes encapsulé dans une structure result_thread
  */
-result_thread kmeans_thread2(cluster_t** clusters, uint64_t num_points, uint32_t k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func);
+result_thread kmeans_thread2(cluster_t** clusters, uint64_t num_points, int32_t k, point_t *initial_centroids, point_t *final_centroids, squared_distance_func_t distance_func);
 
 
 /**

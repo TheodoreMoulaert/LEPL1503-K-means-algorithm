@@ -26,7 +26,7 @@ typedef struct{
 typedef struct {
     cluster_t **clusters;
     uint64_t num_points;
-    uint32_t k;
+    int32_t k;
     uint32_t dimension;
     int64_t nombre_comb;
     point_t **initial_centroids;
