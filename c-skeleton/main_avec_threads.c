@@ -126,7 +126,7 @@ int main(int argc, char *argv[]) {
     
     FILE *input_file = program_arguments.input_stream;
     FILE *output_file = program_arguments.output_stream;
-    int64_t p = (int64_t) program_arguments.n_first_initialization_points;
+    int32_t p = (int32_t) program_arguments.n_first_initialization_points;
     uint32_t n_thread = program_arguments.n_threads; 
     uint64_t npoints;
     uint32_t dimension; 
@@ -141,7 +141,7 @@ int main(int argc, char *argv[]) {
     } else {
         DISTANCE_SQUARED = squared_euclidean_distance;
     }
-    printf("La valeur de myInt64 est : %ld\n", p);
+    printf("La valeur de myInt64 est : %d\n", p);
     printf("npoints: %lu\n", npoints);
     if(p<0){
         p = npoints + p; 
@@ -152,7 +152,7 @@ int main(int argc, char *argv[]) {
     }
 
     if (p < k || p ==0 || k> npoints) {
-        fprintf(stderr, "Cannot generate an instance of k-means with less initialization points than needed clusters: %"PRId64" < %"PRIu32"\n",
+        fprintf(stderr, "Cannot generate an instance of k-means with less initialization points than needed clusters: %"PRId32" < %"PRIu32"\n",
                 p, program_arguments.k);
         if(quiet_mode == true){
             fprintf(output_file, "initialization centroids,distortion,centroids\n");
@@ -193,12 +193,6 @@ int main(int argc, char *argv[]) {
     int64_t nombre_comb = combinaison(p,k);
     point_t ***initial_combinations = generate_combinations(donnes,npoints,k,p);
     
-    
-
-
-    
-    //int64_t nombre_comb = combinaison(p,k);
-    //point_t ***initial_combinations = generate_combinations(donnes,npoints,k,p);
     
     /*
      *
