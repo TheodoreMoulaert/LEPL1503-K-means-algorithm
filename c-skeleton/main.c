@@ -248,14 +248,14 @@ int main(int argc, char *argv[]) {
     cluster_t*** clusters_list = malloc(nombre_comb*sizeof(cluster_t**)); 
 
 
-    cluster_t **temps_cluster = (cluster_t **)malloc(k *sizeof(cluster_t *));//k * 
+    cluster_t **temps_cluster = (cluster_t **)malloc(k *sizeof(cluster_t *));
     if (temps_cluster == NULL) {
         // Gestion d'erreur si l'allocation échoue
         exit(EXIT_FAILURE);
     }
 
     // Allocation et initialisation de chaque élément de la matrice
-    for (uint32_t i = 0; i < k; i++) { //k
+    for (uint32_t i = 0; i < k; i++) {
       
         temps_cluster[i] = (cluster_t *)malloc(npoints*sizeof(cluster_t));
         if (temps_cluster[i] == NULL) {
@@ -289,8 +289,6 @@ int main(int argc, char *argv[]) {
         temps_result_cluster[i] = malloc(sizeof(cluster_t));
     }
 
-     
-    printf("%d\n", 6);
 
     for (uint64_t i = 0; i < nombre_comb; i++) {
         
@@ -308,14 +306,14 @@ int main(int argc, char *argv[]) {
         *final_centroids[i] = *temp_centroide; 
         clusters_list[i] = temps_result_cluster;
         distortion_list[i] = temp_distorsion;
-        printf("%d\n", 13);
+       
         
     }
 
     //print csv
-    printf("%d\n", 14);
+   
     write_csv(output_file, distortion_list, initial_conserve, final_centroids, clusters_list, k, dimension, nombre_comb, quiet_mode);
-    printf("%d\n", 15);
+
 
         // Libérer la mémoire pour les points de données
     for (uint64_t i = 0; i < npoints; i++) {
@@ -332,7 +330,6 @@ int main(int argc, char *argv[]) {
     free(initial_combinations);
 
     for (int64_t i = 0; i < nombre_comb; i++) {
-       
         free(initial_centroids[i]);
         free(initial_conserve[i]);
     }
@@ -340,7 +337,6 @@ int main(int argc, char *argv[]) {
     free(initial_conserve);
 
     for (uint32_t i = 0; i < k; i++) {
-      
         free(temps_cluster[i]);
     }
     free(temps_cluster);
@@ -350,15 +346,8 @@ int main(int argc, char *argv[]) {
         free(temps_result_cluster[i]);
     }
     free(temps_result_cluster);
-
-    //free(temp_centroide->coords);
     free(temp_centroide);
-
-
     free(clusters_list);
-
-
-    printf("%d\n", 16);
 
     // close the files opened by parse_args
     if (program_arguments.input_stream != stdin) {

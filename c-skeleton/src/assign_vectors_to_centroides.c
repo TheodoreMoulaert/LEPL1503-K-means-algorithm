@@ -62,9 +62,9 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
     }
 
     uint64_t nconv = 0; 
+    
     for (int32_t current_centroid_idx = 0; current_centroid_idx < K; ++current_centroid_idx){
         for (uint64_t i = 0; i < clusters[current_centroid_idx]->size; ++i){
-
             point_t *vector = clusters[current_centroid_idx]->data[i];
 
             // Trouver le centroïde le plus proche pour le vecteur
@@ -90,7 +90,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
                 temp[i] = new_clusters[closest_centroid_idx]->data[i];
             }
             free(new_clusters[closest_centroid_idx]->data);
-
+            
             new_clusters[closest_centroid_idx]->data = temp;
             new_clusters[closest_centroid_idx]->data[idx] = vector;
             new_clusters[closest_centroid_idx]->size++;
@@ -105,7 +105,9 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             if(nconv == npoint){
                  result.changes = true; 
             }
+            
         }
+        
     }
 
     result.result_cluster = new_clusters;
