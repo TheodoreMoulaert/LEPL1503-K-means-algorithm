@@ -108,7 +108,7 @@ Structure du code
             Arguments :
                     * point_t *centroids => centroides auxquelles les vecteurs vont être assignés
                     * cluster_t **clusters => vecteurs assignés
-                    * uint32_t K => nombre de clusters utiliser
+                    * int32_t K => nombre de clusters utiliser
                     * squared_distance_func_t distance_func => fonction distance à utiliser 
             Retourne :
                     * Une structure result_t indiquant si les clusters ont été modifiés (changes = true) et contenant les nouveaux clusters (result_cluster)
@@ -143,7 +143,7 @@ Structure du code
             Calcule le nombre de combinaisons de p éléments pris k par k.
             Arguments :
                     * int32_t p
-                    * uint32_t k
+                    * int32_t k
             Retourne :
                     * Le nombre de p éléments pris k par k (uint64_t)
     * **next_comb** : 
@@ -159,7 +159,7 @@ Structure du code
             Arguments :
                     * point_t **vectors => Pointeurs vers les vecteurs d'entrée
                     * uint64_t n => Nombre total de vecteurs dans l'ensemble
-                    * uint32_t k => Taille de chaque combinaison à générer 
+                    * int32_t k => Taille de chaque combinaison à générer 
                     * int32_t p => Nombre total de vecteurs dans l'ensemble d'entrée
             Retourne :
                     * Tableau de pointeurs vers les combinaisons générées, ou NULL en cas d'erreur (point_t ***)
@@ -184,7 +184,7 @@ Structure du code
             Calcule la distorsion d'un ensemble de clusters.
             Arguments :
                     * cluster_t const **clusters => Un tableau de pointeurs vers les clusters
-                    * uint32_t num_clusters => nombre de clusters
+                    * int32_t num_clusters (k) => nombre de clusters
                     * squared_distance_func_t distance_func => fonction distance à utiliser
             Retourne :
                     * La distorsion totale des clusters (uint64_t)
@@ -196,7 +196,7 @@ Structure du code
             Arguments :
                     * cluster_t** clusters => clusters initial
                     * uint64_t num_points => nombre de points dans les vecteurs du clusters
-                    * uint32_t k => nombre de cluster à utiliser
+                    * int32_t k => nombre de cluster à utiliser
                     * point_t *initial_centroids => centroides initiaux
                     * point_t *final_centroids => centroides finaux 
                     * squared_distance_func_t distance_func => fonction distance à utiliser
@@ -214,7 +214,7 @@ Structure du code
             Arguments :
                     * cluster_t** clusters => clusters initial
                     * uint64_t num_points => nombre de points dans les vecteurs du clusters
-                    * uint32_t k => nombre de cluster à utiliser
+                    * int32_t k => nombre de cluster à utiliser
                     * point_t *initial_centroids => centroides initiaux
                     * point_t *final_centroids => centroides finaux 
                     * squared_distance_func_t distance_func => fonction distance à utiliser
@@ -227,7 +227,7 @@ Structure du code
             Met à jour les centroids des clusters.
             Arguments :
                     * cluster_t *clusters[] => Tableau de pointeurs vers les clusters
-                    * uint32_t K => nombre de clusters
+                    * int32_t K => nombre de clusters
             Retourne :
                     * Tableau de pointeurs vers les clusters mis à jour (cluster_t**)
   
@@ -239,14 +239,14 @@ Structure du code
                     * FILE *file => Pointeur vers le fichier dans lequel écrire
                     * point_t* centroid => Tableau contenant les centroïdes des clusters. 
                     * int64_t k => Nombre total de centroïdes à écrire
-                    * int64_t dimension => Dimension des points dans les centroïdes      
+                    * uint32_t dimension => Dimension des points dans les centroïdes      
     * **write_cluster** : 
             Fonction pour écrire les points de chaque cluster dans un fichier CSV.
             Arguments :
                     * FILE *file => Pointeur vers le fichier dans lequel écrire
                     * cluster_t **cluster => Tableau de pointeurs vers les clusters.
-                    * int64_t k => Nombre total de clusters
-                    * int64_t dimension => Dimension des points dans les clusters
+                    * int32_t k => Nombre total de clusters
+                    * uint32_t dimension => Dimension des points dans les clusters
     * **write_csv** : 
             Fonction principale pour écrire les données initiales, de distortion, de centroids, et de clusters dans un fichier CSV.
             Arguments :
@@ -255,8 +255,8 @@ Structure du code
                     * point_t **centroid_init_Array => Tableau des centroids initiaux pour chaque combinaison
                     * point_t **centroid_final_Array => Tableau des centroids finaux pour chaque combinaison
                     * cluster_t ***clustersArray => Tableau de tableaux de pointeurs vers les clusters pour chaque combinaison
-                    * int64_t k => Nombre de clusters
-                    * int64_t dimension => Nombre de dimensions des données
+                    * int32_t k => Nombre de clusters
+                    * uint32_t dimension => Nombre de dimensions des données
                     * int64_t nombre_comb => Nombre total de combinaisons 
                     * bool quiet_mode => Si false les clusters sont également écrits
     
@@ -267,15 +267,15 @@ Structure du code
             Arguments :
                     * FILE *file => Pointeur vers le fichier dans lequel écrire
                     * point_t* centroid => Tableau contenant les centroïdes des clusters
-                    * int64_t k => Nombre total de centroïdes à écrire
-                    * int64_t dimension => Dimension des points dans les centroïdes       
+                    * int32_t k => Nombre total de centroïdes à écrire
+                    * uint32_t dimension => Dimension des points dans les centroïdes       
     * **write_clu_thread** : 
             Fonction pour écrire les points de chaque cluster dans un fichier CSV.
             Arguments :
                     * FILE *file => Pointeur vers le fichier dans lequel écrire
                     * cluster_t **cluster => Tableau de pointeurs vers les clusters
-                    * int64_t k => Nombre total de clusters
-                    * int64_t dimension => Dimension des points dans les clusters
+                    * int32_t k => Nombre total de clusters
+                    * uint32_t dimension => Dimension des points dans les clusters
     * **write_thread** : 
             Fonction principale pour écrire les données initiales, de distortion, de centroids, et de clusters obtenu lors de l'exécution d'un thread dans un fichier CSV.
             Arguments :
@@ -284,8 +284,8 @@ Structure du code
                     * point_t *centroid_init => Tableau des centroids initiaux pour chaque combinaison
                     * point_t *centroid_final => Tableau des centroids finaux pour chaque combinaison
                     * cluster_t **clusters => Tableau de tableaux de pointeurs vers les clusters pour chaque combinaison
-                    * int64_t k => Nombre de clusters
-                    * int64_t dimension => Nombre de dimensions des données
+                    * int32_t k => Nombre de clusters
+                    * uint32_t_t dimension => Nombre de dimensions des données
                     * int64_t nombre_comb => Nombre total de combinaisons 
                     * bool quiet => Si false les clusters sont également écrits
 
