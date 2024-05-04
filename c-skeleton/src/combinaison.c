@@ -7,7 +7,7 @@
 
 
 // Fonction qui calcule la factorielle d'un entier
-uint64_t combinaison(int32_t p , uint64_t k) {
+uint64_t combinaison(int32_t p , uint32_t k) {
     if (k > p) {
         return 0;
     }
@@ -27,7 +27,7 @@ uint64_t combinaison(int32_t p , uint64_t k) {
 // Fonction qui génère la combinaison suivante de k éléments pris parmi n
 // Elle renvoie NULL si aucune combinaison suivante n'est possible
 
-uint64_t *next_comb(uint64_t comb[], uint64_t n, uint64_t k) {
+uint64_t *next_comb(uint64_t comb[], uint64_t n, uint32_t k) {
     // Recherche de l'indice de l'élément à modifier
     uint64_t index = k - 1;
     while (index > 0 && comb[index] == n - k + index) {
@@ -60,7 +60,7 @@ uint64_t *next_comb(uint64_t comb[], uint64_t n, uint64_t k) {
  * @param p Nombre total de vecteurs dans l'ensemble d'entrée
  * @return Tableau de pointeurs vers les combinaisons générées, ou NULL en cas d'erreur
  */
-point_t ***generate_combinations(point_t **vectors, uint64_t n, uint64_t k, int32_t p) {
+point_t ***generate_combinations(point_t **vectors, uint64_t n, uint32_t k, int32_t p) {
     // Vérification des paramètres
     if (n < k || k <= 0 || p < k) {
         return NULL;
