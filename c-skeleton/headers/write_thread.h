@@ -17,7 +17,7 @@
  * @param k Nombre total de centroïdes à écrire.
  * @param dimension Dimension des points dans les centroïdes.
  */
-void write_centro_thread(FILE *file, point_t *centroid, int64_t k, int64_t dimension);
+void write_centro_thread(FILE *file, point_t *centroid, int32_t k, uint32_t dimension);
 
 /**
  * Écrit les clusters dans un fichier au format spécifié.
@@ -27,7 +27,7 @@ void write_centro_thread(FILE *file, point_t *centroid, int64_t k, int64_t dimen
  * @param k Nombre total de clusters.
  * @param dimension Dimension des points dans les clusters.
  */
-void write_clu_thread(FILE *file, cluster_t **cluster, int64_t k, int64_t dimension);
+void write_clu_thread(FILE *file, cluster_t **cluster, int32_t k, uint32_t dimension);
 
 /**
  * @brief Écrit les données de clustering dans un fichier CSV.
@@ -41,5 +41,5 @@ void write_clu_thread(FILE *file, cluster_t **cluster, int64_t k, int64_t dimens
  * @param dimension Nombre de dimensions des données
  * @param nombre_comb Nombre total de combinaisons
  */
-void write_thread(FILE *output_file, uint64_t distortion, point_t *centroid_init, point_t *centroid_final, cluster_t **clusters, int64_t k, int64_t dimension, int64_t nombre_comb, bool quiet); 
+void write_thread(FILE *output_file, uint64_t distortion, point_t *centroid_init, point_t *centroid_final, cluster_t **clusters, int32_t k, uint32_t dimension, int64_t nombre_comb, bool quiet); 
 #endif //WRITE_THREAD_H
