@@ -329,6 +329,7 @@ int main(int argc, char *argv[]) {
             free(temps_cluster[i]);
         }
         free(temps_cluster);
+        
         free(temp_centroide);
         free(clusters_list);
 

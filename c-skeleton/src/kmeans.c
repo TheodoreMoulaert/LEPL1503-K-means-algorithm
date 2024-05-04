@@ -45,7 +45,7 @@ cluster_t** k_means(cluster_t** clusters, uint64_t num_points, uint32_t k, point
         } else {
             result = assign_vectors_to_centroides(final_centroids, result.result_cluster, k,distance_func);
         }
-
+        
         if (result.result_cluster == NULL) {
             fprintf(stderr, "L'allocation de mémoire a échoué pour result.result_cluster.\n");
             free(final_centroids);
