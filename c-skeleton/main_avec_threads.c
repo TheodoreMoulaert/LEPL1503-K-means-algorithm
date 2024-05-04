@@ -120,13 +120,13 @@ int main(int argc, char *argv[]) {
 
     fprintf(stderr, "\tnumber of threads executing the LLoyd's algoprithm in parallel: %" PRIu32 "\n", program_arguments.n_threads);
     fprintf(stderr, "\tnumber of clusters (k): %" PRIu32 "\n", program_arguments.k);
-    fprintf(stderr, "\twe consider all the combinations of the %" PRIu32 " first points of the input as initializations of the Lloyd's algorithm\n", program_arguments.n_first_initialization_points);
+    fprintf(stderr, "\twe consider all the combinations of the %" PRIu32" first points of the input as initializations of the Lloyd's algorithm\n", program_arguments.n_first_initialization_points);
     fprintf(stderr, "\tquiet mode: %s\n", program_arguments.quiet ? "enabled" : "disabled");
     fprintf(stderr, "\tsquared distance function: %s\n", program_arguments.squared_distance_func == squared_manhattan_distance ? "manhattan" : "euclidean");
     
     FILE *input_file = program_arguments.input_stream;
     FILE *output_file = program_arguments.output_stream;
-    int32_t p = (int32_t) program_arguments.n_first_initialization_points;
+    int64_t p = (int64_t) program_arguments.n_first_initialization_points;
     uint32_t n_thread = program_arguments.n_threads; 
     uint64_t npoints;
     uint32_t dimension; 
@@ -141,7 +141,8 @@ int main(int argc, char *argv[]) {
     } else {
         DISTANCE_SQUARED = squared_euclidean_distance;
     }
-
+    printf("La valeur de myInt64 est : %ld\n", p);
+    printf("npoints: %lu\n", npoints);
     if(p<0){
         p = npoints + p; 
     }
@@ -151,14 +152,27 @@ int main(int argc, char *argv[]) {
     }
 
     if (p < k || p ==0 || k> npoints) {
-        fprintf(stderr, "Cannot generate an instance of k-means with less initialization points than needed clusters: %"PRIu32" < %"PRIu32"\n",
-                program_arguments.n_first_initialization_points, program_arguments.k);
+        fprintf(stderr, "Cannot generate an instance of k-means with less initialization points than needed clusters: %"PRId64" < %"PRIu32"\n",
+                p, program_arguments.k);
         if(quiet_mode == true){
             fprintf(output_file, "initialization centroids,distortion,centroids\n");
         }
         else{
             fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n");
         }
+        for (uint64_t i = 0; i < npoints; i++) {
+            free(donnes[i]->coords);
+            free(donnes[i]);
+        }
+        free(donnes);
+        
+        if (program_arguments.input_stream != stdin) {
+            fclose(program_arguments.input_stream);
+        }
+        if (program_arguments.output_stream != stdout) {
+            fclose(program_arguments.output_stream);
+        }
+            return 0;
     }
     printf("npoints: %lu\n", npoints);
     if(p>npoints){
@@ -176,13 +190,15 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "Wrong number of threads. Needs a positive integer, received \"%u\"\n", n_thread);
         return -1;
     }
-    
-    
-
-
-    
     int64_t nombre_comb = combinaison(p,k);
     point_t ***initial_combinations = generate_combinations(donnes,npoints,k,p);
+    
+    
+
+
+    
+    //int64_t nombre_comb = combinaison(p,k);
+    //point_t ***initial_combinations = generate_combinations(donnes,npoints,k,p);
     
     /*
      *
