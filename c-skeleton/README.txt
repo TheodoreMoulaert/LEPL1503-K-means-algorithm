@@ -151,7 +151,7 @@ Structure du code
             Arguments :
                     * uint64_t comb[] => tableau d'entiers
                     * uint64_t n
-                    * uint64_t k
+                    * uint32_t k
             Retourne :
                     * L'ensemble des combinaisons de k éléments pris k par k (uint64_t *)
     * **generate_combinations** : 
@@ -159,7 +159,7 @@ Structure du code
             Arguments :
                     * point_t **vectors => Pointeurs vers les vecteurs d'entrée
                     * uint64_t n => Nombre total de vecteurs dans l'ensemble
-                    * uint64_t k => Taille de chaque combinaison à générer 
+                    * uint32_t k => Taille de chaque combinaison à générer 
                     * int32_t p => Nombre total de vecteurs dans l'ensemble d'entrée
             Retourne :
                     * Tableau de pointeurs vers les combinaisons générées, ou NULL en cas d'erreur (point_t ***)
