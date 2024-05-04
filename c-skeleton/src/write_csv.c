@@ -15,14 +15,14 @@
  * @param dimension Dimension des points dans les centroïdes.
  */
 
-void write_centroid(FILE *file, point_t* centroid, int64_t k, int64_t dimension) {
+void write_centroid(FILE *file, point_t* centroid, int32_t k, uint32_t dimension) {
     if (file == NULL || centroid == NULL) {
         fprintf(file, "Erreur : pointeur de fichier ou de centroïde invalide.\n");
         return;
     }
 
     fprintf(file, "["); 
-    for (int i = 0; i < k; i++){
+    for (int32_t i = 0; i < k; i++){
         fprintf(file, "(");
         for (int j = 0; j < dimension; j++) {
             fprintf(file, "%" PRId64, centroid[i].coords[j]);
@@ -47,14 +47,14 @@ void write_centroid(FILE *file, point_t* centroid, int64_t k, int64_t dimension)
  * @param dimension Dimension des points dans les clusters.
  */
 
-void write_cluster(FILE *file, cluster_t **cluster, int64_t k, int64_t dimension) {
+void write_cluster(FILE *file, cluster_t **cluster, int32_t k, uint32_t dimension) {
     if (file == NULL || cluster == NULL) {
         fprintf(file, "Erreur : pointeur de fichier ou de cluster invalide.\n");
         return;
     }
     
     fprintf(file, "[");
-    for (int64_t i = 0; i < k; i++) {
+    for (int32_t i = 0; i < k; i++) {
         fprintf(file, "[");
         for (int64_t j = 0; j < cluster[i]->size; j++) {
             if (j > 0) {
@@ -95,7 +95,7 @@ void write_cluster(FILE *file, cluster_t **cluster, int64_t k, int64_t dimension
  * @param nombre_comb Nombre total de combinaisons
  * @param quiet_mode Si false les clusters sont également écrits
  */
-void write_csv(FILE *output_file, uint64_t* distortion, point_t **centroid_init_Array, point_t **centroid_final_Array, cluster_t ***clustersArray, int64_t k, int64_t dimension, int64_t nombre_comb, bool quiet_mode ) {
+void write_csv(FILE *output_file, uint64_t* distortion, point_t **centroid_init_Array, point_t **centroid_final_Array, cluster_t ***clustersArray, int32_t k, uint32_t dimension, int64_t nombre_comb, bool quiet_mode ) {
     if (output_file == NULL) {
         printf("Erreur : pointeur de fichier de sortie invalide.\n");
         return;
