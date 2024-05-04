@@ -154,7 +154,6 @@ int main(int argc, char *argv[]) {
         else{
             fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n");
         }
-        return 0;
     }
 
     if(p>npoints){
