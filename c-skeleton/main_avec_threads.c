@@ -66,7 +66,7 @@ int parse_args(args_t *args, int argc, char *argv[]) {
                 args->n_first_initialization_points = atoi(optarg);
                 if (args->n_first_initialization_points <= 0) {
                     fprintf(stderr, "Wrong number of initialization points. Needs a positive integer, received \"%s\"\n", optarg);
-                    return -1;
+                    //return -1;
                 }
                 break;
             case 'k':
@@ -194,6 +194,18 @@ int main(int argc, char *argv[]) {
         }
         else{
             fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n");
+        }
+        for (uint64_t i = 0; i < npoints; i++) {
+            free(donnes[i]->coords);
+            free(donnes[i]);
+        }
+        free(donnes);
+
+        if (program_arguments.input_stream != stdin) {
+                fclose(program_arguments.input_stream);
+            }
+        if (program_arguments.output_stream != stdout) {
+            fclose(program_arguments.output_stream);
         }
         return 0;
     }
