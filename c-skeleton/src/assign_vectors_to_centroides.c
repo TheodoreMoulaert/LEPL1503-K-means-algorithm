@@ -16,7 +16,7 @@
  * @return Résultat de l'assignation
  */
 
-result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, uint32_t K, squared_distance_func_t distance_func) {
+result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, int32_t K, squared_distance_func_t distance_func) {
     result_t result;
     result.changes = false;
     result.result_cluster = NULL;
@@ -34,7 +34,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
     }
 
     // Initialiser chaque nouveau cluster
-    for (uint32_t i = 0; i < K; ++i) {
+    for (int32_t i = 0; i < K; ++i) {
         new_clusters[i] = (cluster_t*) malloc(sizeof(cluster_t));
         // Gérer l'erreur d'allocation de mémoire
         if (new_clusters[i] == NULL) {
@@ -57,12 +57,12 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
     
     // Parcourir tous les centroides
     uint64_t npoint = 0; 
-    for(uint64_t i = 0; i < K; ++i) {
+    for(int32_t i = 0; i < K; ++i) {
         npoint += clusters[i]->size; 
     }
 
     uint64_t nconv = 0; 
-    for (uint32_t current_centroid_idx = 0; current_centroid_idx < K; ++current_centroid_idx){
+    for (int32_t current_centroid_idx = 0; current_centroid_idx < K; ++current_centroid_idx){
         for (uint64_t i = 0; i < clusters[current_centroid_idx]->size; ++i){
 
             point_t *vector = clusters[current_centroid_idx]->data[i];
@@ -70,7 +70,7 @@ result_t assign_vectors_to_centroides(point_t *centroids, cluster_t **clusters, 
             // Trouver le centroïde le plus proche pour le vecteur
             uint32_t closest_centroid_idx = 0;
             uint64_t closest_centroid_distance = UINT64_MAX;
-            for (uint32_t centroid_idx = 0; centroid_idx < K; ++centroid_idx) {
+            for (int32_t centroid_idx = 0; centroid_idx < K; ++centroid_idx) {
                 uint64_t distance = distance_func(vector, &centroids[centroid_idx]);
         
                 if (distance < closest_centroid_distance) {
