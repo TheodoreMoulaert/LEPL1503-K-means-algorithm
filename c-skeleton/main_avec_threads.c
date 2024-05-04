@@ -127,7 +127,7 @@ int main(int argc, char *argv[]) {
     FILE *input_file = program_arguments.input_stream;
     FILE *output_file = program_arguments.output_stream;
     int32_t p = (int32_t) program_arguments.n_first_initialization_points;
-    uint32_t n_thread = program_arguments.n_threads; 
+    int32_t n_thread = (int32_t)program_arguments.n_threads; 
     uint64_t npoints;
     uint32_t dimension; 
     bool quiet_mode = program_arguments.quiet;
@@ -141,24 +141,12 @@ int main(int argc, char *argv[]) {
     } else {
         DISTANCE_SQUARED = squared_euclidean_distance;
     }
-
-    if(p<0){
-        p = npoints + p; 
-    }
-    if (k <= 0) {
-        fprintf(stderr, "Wrong number of clusters. Needs a positive integer, received \"%u\"\n", k);
+    if (n_thread == 0) {
+        fprintf(stderr, "Wrong number of threads. Needs a positive integer, received %d\n", n_thread);
         return -1;
     }
-
-    if (p < k || p ==0 || k> npoints) {
-        fprintf(stderr, "Cannot generate an instance of k-means with less initialization points than needed clusters: %"PRId32" < %"PRIu32"\n",
-                p, program_arguments.k);
-        if(quiet_mode == true){
-            fprintf(output_file, "initialization centroids,distortion,centroids\n");
-        }
-        else{
-            fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n");
-        }
+    if (n_thread < 0) {
+        fprintf(stderr, "Wrong number of threads. Needs a positive integer, received %d\n", n_thread);
         for (uint64_t i = 0; i < npoints; i++) {
             free(donnes[i]->coords);
             free(donnes[i]);
@@ -171,8 +159,74 @@ int main(int argc, char *argv[]) {
         if (program_arguments.output_stream != stdout) {
             fclose(program_arguments.output_stream);
         }
-            return 0;
+        return -1;
     }
+
+    if(p<0){
+        p = npoints + p; 
+    }
+    if (k == 0) {
+        fprintf(stderr, "Wrong number of clusters. Needs a positive integer, received \"%d\"\n", k);
+        return -1;
+    }
+    if (k < 0) {
+        fprintf(stderr, "Wrong number of clusters. Needs a positive integer, received \"%d\"\n", k);
+        for (uint64_t i = 0; i < npoints; i++) {
+            free(donnes[i]->coords);
+            free(donnes[i]);
+        }
+        free(donnes);
+        
+        if (program_arguments.input_stream != stdin) {
+            fclose(program_arguments.input_stream);
+        }
+        if (program_arguments.output_stream != stdout) {
+            fclose(program_arguments.output_stream);
+        }
+        return -1;
+    }
+
+    if (p ==0){
+        fprintf(stderr, "Cannot generate an instance of k-means with less initialization points than needed clusters: %"PRId32" < %"PRIu32"\n",
+                p, program_arguments.k);
+        if(quiet_mode == true){
+            fprintf(output_file, "initialization centroids,distortion,centroids\n");
+        }
+        else{
+            fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n");
+        }
+        return 0;
+    }
+
+    if (p < k || k> npoints) {
+        fprintf(stderr, "Cannot generate an instance of k-means with less initialization points than needed clusters: %"PRId32" < %"PRIu32"\n",
+                p, program_arguments.k);
+        if(quiet_mode == true){
+            fprintf(output_file, "initialization centroids,distortion,centroids\n");
+        }
+        else{
+            fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n");
+        }
+        if (p>0){
+            for (uint64_t i = 0; i < npoints; i++) {
+                free(donnes[i]->coords);
+                free(donnes[i]);
+            }
+            free(donnes);
+            
+
+        }
+        if (program_arguments.input_stream != stdin) {
+                fclose(program_arguments.input_stream);
+            }
+        if (program_arguments.output_stream != stdout) {
+            fclose(program_arguments.output_stream);
+        }
+        
+        return 0;
+    }
+
+
 
     if(p>npoints){
         p = npoints; 
@@ -181,14 +235,28 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "Wrong number of points. Needs a positive integer, received \"%lu\"\n", npoints);
         return -1;
     }
-    if (dimension <= 0) {
+    if (dimension < 0) {
+        fprintf(stderr, "Wrong dimension. Needs a positive integer, received \"%u\"\n", dimension);
+        for (uint64_t i = 0; i < npoints; i++) {
+            free(donnes[i]->coords);
+            free(donnes[i]);
+        }
+        free(donnes);
+        
+        if (program_arguments.input_stream != stdin) {
+            fclose(program_arguments.input_stream);
+        }
+        if (program_arguments.output_stream != stdout) {
+            fclose(program_arguments.output_stream);
+        }
+        return -1;
+    }
+    if (dimension ==0) {
         fprintf(stderr, "Wrong dimension. Needs a positive integer, received \"%u\"\n", dimension);
         return -1;
     }
-    if (n_thread <= 0) {
-        fprintf(stderr, "Wrong number of threads. Needs a positive integer, received \"%u\"\n", n_thread);
-        return -1;
-    }
+    
+
     int64_t nombre_comb = combinaison(p,k);
     point_t ***initial_combinations = generate_combinations(donnes,npoints,k,p);
     
@@ -387,7 +455,7 @@ int main(int argc, char *argv[]) {
             
             
         }
-        for (int i = 0; i < nombre_comb; i++) {
+        for (int64_t i = 0; i < nombre_comb; i++) {
         // Utilisation de calloc pour initialiser chaque élément à NULL
             initial_conserve[i] = (point_t *)malloc(k* sizeof(point_t));
             if (initial_conserve[i] == NULL) {
@@ -395,7 +463,7 @@ int main(int argc, char *argv[]) {
                 exit(EXIT_FAILURE);
             }
 
-            for (uint32_t j = 0; j < k; j++) {
+            for (int32_t j = 0; j < k; j++) {
                 initial_conserve[i][j].coords = (int64_t *)malloc(dimension* sizeof(int64_t));
                 if (initial_conserve[i][j].coords == NULL) {
                     // Gestion d'erreur si l'allocation échoue
@@ -409,7 +477,7 @@ int main(int argc, char *argv[]) {
         }
         
         for (int64_t i = 0; i < nombre_comb; i++) {
-            for (uint32_t j = 0; j < k; j++) {
+            for (int32_t j = 0; j < k; j++) {
                 // Copier la dimension
                     initial_centroids[i][j].dim =dimension; 
                     memcpy(initial_centroids[i][j].coords, initial_combinations[i][j][0].coords, dimension * sizeof(int64_t));
@@ -490,11 +558,11 @@ int main(int argc, char *argv[]) {
             fprintf(stderr, "Erreur lors de l'initialisation du mutex\n");
             return EXIT_FAILURE;
         }
-        for (uint32_t i = 0; i < n_thread-1; i++){
+        for (int32_t i = 0; i < n_thread-1; i++){
             pthread_create(&threads[i], NULL, k_means_thread, (void *)&args);
         }
 
-        for (uint32_t i = 0; i < n_thread-1; i++) {
+        for (int32_t i = 0; i < n_thread-1; i++) {
             pthread_join(threads[i], NULL);
         }
 

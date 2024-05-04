@@ -47,7 +47,7 @@ result_thread kmeans_thread2(cluster_t** clusters, uint64_t num_points, int32_t 
         return res_thread;
     }
     // Initialise les centroids finaux avec les centroids initiaux
-    for (int i = 0; i < k; i++) { 
+    for (int32_t i = 0; i < k; i++) { 
         clusters[i]->centroide = initial_centroids[i];
     }
 
@@ -62,22 +62,7 @@ result_thread kmeans_thread2(cluster_t** clusters, uint64_t num_points, int32_t 
     bool convergence = false;
     uint64_t i = 0; 
     while (convergence == false) {
-        // Sauvegarde les anciens centroids
-        for (int j = 0; j < k; j++) {
-            old_centroids[j].dim = final_centroids[j].dim;
-            old_centroids[j].coords = (int64_t *)calloc(final_centroids[j].dim ,sizeof(int64_t));
-            if (old_centroids[j].coords == NULL) {
-                fprintf(stderr, "L'allocation de mémoire a échoué pour old_centroids.\n");
-                for (int l = 0; l < j; l++) {
-                    free(old_centroids[l].coords);
-                }
-                free(old_centroids);
-                return res_thread; 
-            }
-            for (int m = 0; m < final_centroids[j].dim; m++) {
-                old_centroids[j].coords[m] = final_centroids[j].coords[m];
-            }
-        }
+        
         
         // Assigne les points aux clusters
         if (i == 0) {
@@ -88,13 +73,13 @@ result_thread kmeans_thread2(cluster_t** clusters, uint64_t num_points, int32_t 
 
         if (result.result_cluster == NULL) {
             fprintf(stderr, "L'allocation de mémoire a échoué pour result.result_cluster.\n");
-            free(old_centroids);
+            free(final_centroids);
             return res_thread;
         }
 
         if (clusters == NULL) {
             fprintf(stderr, "L'allocation de mémoire a échoué (/src/kmeans.c) 4.\n");
-            free(old_centroids);
+            free(final_centroids);
             return res_thread;
         }
         
@@ -103,13 +88,8 @@ result_thread kmeans_thread2(cluster_t** clusters, uint64_t num_points, int32_t 
         update_centroids(result.result_cluster, k);
         clusters = result.result_cluster; 
         // Mise à jour des centroids finaux avec les nouveaux centroids des clusters
-        for (int j = 0; j < k; j++) {
+        for (int32_t j = 0; j < k; j++) {
             final_centroids[j] = clusters[j]->centroide;
-        }
-             
-        // Libérer la mémoire pour les old_centroids
-        for (int j = 0; j < k; j++) {
-            free(old_centroids[j].coords);
         }
         i++;  
     }
@@ -118,8 +98,7 @@ result_thread kmeans_thread2(cluster_t** clusters, uint64_t num_points, int32_t 
     res_thread.final_centroids= final_centroids;
     res_thread.initial_centroids = initial_centroids;
     res_thread.temp_distorsion = distortion((cluster_t const **)res_thread.temps_result_cluster, k, distance_func);
-    // Libérer la mémoire pour les old_centroids
-    free(old_centroids);
+   
     return res_thread;
 }
 
@@ -161,8 +140,8 @@ void *k_means_thread(void *args) {
                 perror("pthread_mutex_lock");
             }
 
-            write_thread(thread_args->output_file, res_th.temp_distorsion ,thread_args->initial_conserve[j]  ,
-                                    res_th.final_centroids , res_th.temps_result_cluster , 
+            write_thread(thread_args->output_file, res_th.temp_distorsion ,thread_args->initial_conserve[j],
+                                    res_th.final_centroids , res_th.temps_result_cluster, 
                                     thread_args->k, thread_args->dimension, thread_args->nombre_comb, thread_args->quiet);
             
             err = pthread_mutex_unlock(thread_args->mutex);
