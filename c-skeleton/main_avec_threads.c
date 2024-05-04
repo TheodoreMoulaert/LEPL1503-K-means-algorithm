@@ -131,7 +131,7 @@ int main(int argc, char *argv[]) {
     uint64_t npoints;
     uint32_t dimension; 
     bool quiet_mode = program_arguments.quiet;
-    uint32_t k = program_arguments.k;
+    int32_t k = (int32_t) program_arguments.k;
     squared_distance_func_t DISTANCE_SQUARED;
     point_t** donnes;
     donnes =  point_input(input_file, &dimension, &npoints);
@@ -145,6 +145,11 @@ int main(int argc, char *argv[]) {
     if(p<0){
         p = npoints + p; 
     }
+    if (k <= 0) {
+        fprintf(stderr, "Wrong number of clusters. Needs a positive integer, received \"%u\"\n", k);
+        return -1;
+    }
+
     if (p < k || p ==0 || k> npoints) {
         fprintf(stderr, "Cannot generate an instance of k-means with less initialization points than needed clusters: %"PRIu32" < %"PRIu32"\n",
                 program_arguments.n_first_initialization_points, program_arguments.k);
@@ -155,7 +160,7 @@ int main(int argc, char *argv[]) {
             fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n");
         }
     }
-
+    printf("npoints: %lu\n", npoints);
     if(p>npoints){
         p = npoints; 
     }
@@ -171,10 +176,7 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "Wrong number of threads. Needs a positive integer, received \"%u\"\n", n_thread);
         return -1;
     }
-    if (k <= 0) {
-        fprintf(stderr, "Wrong number of clusters. Needs a positive integer, received \"%u\"\n", k);
-        return -1;
-    }
+    
     
 
 
