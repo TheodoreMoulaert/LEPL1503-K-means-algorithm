@@ -119,8 +119,8 @@ int main(int argc, char *argv[]) {
 
 
     fprintf(stderr, "\tnumber of threads executing the LLoyd's algoprithm in parallel: %" PRIu32 "\n", program_arguments.n_threads);
-    fprintf(stderr, "\tnumber of clusters (k): %" PRIu32 "\n", program_arguments.k);
-    fprintf(stderr, "\twe consider all the combinations of the %" PRIu32" first points of the input as initializations of the Lloyd's algorithm\n", program_arguments.n_first_initialization_points);
+    fprintf(stderr, "\tnumber of clusters (k): %" PRId32 "\n", (int32_t) program_arguments.k);
+    fprintf(stderr, "\twe consider all the combinations of the %" PRId32" first points of the input as initializations of the Lloyd's algorithm\n", (int32_t) program_arguments.n_first_initialization_points);
     fprintf(stderr, "\tquiet mode: %s\n", program_arguments.quiet ? "enabled" : "disabled");
     fprintf(stderr, "\tsquared distance function: %s\n", program_arguments.squared_distance_func == squared_manhattan_distance ? "manhattan" : "euclidean");
     
@@ -141,8 +141,7 @@ int main(int argc, char *argv[]) {
     } else {
         DISTANCE_SQUARED = squared_euclidean_distance;
     }
-    printf("La valeur de myInt64 est : %d\n", p);
-    printf("npoints: %lu\n", npoints);
+
     if(p<0){
         p = npoints + p; 
     }
@@ -174,7 +173,7 @@ int main(int argc, char *argv[]) {
         }
             return 0;
     }
-    printf("npoints: %lu\n", npoints);
+
     if(p>npoints){
         p = npoints; 
     }
@@ -193,6 +192,12 @@ int main(int argc, char *argv[]) {
     int64_t nombre_comb = combinaison(p,k);
     point_t ***initial_combinations = generate_combinations(donnes,npoints,k,p);
     
+    
+
+
+    
+    //int64_t nombre_comb = combinaison(p,k);
+    //point_t ***initial_combinations = generate_combinations(donnes,npoints,k,p);
     
     /*
      *
