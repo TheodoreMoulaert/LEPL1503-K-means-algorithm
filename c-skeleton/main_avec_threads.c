@@ -117,26 +117,20 @@ int main(int argc, char *argv[]) {
 
     parse_args(&program_arguments, argc, argv);
 
-    if (program_arguments.n_first_initialization_points < program_arguments.k) {
-        fprintf(stderr, "Cannot generate an instance of k-means with less initialization points than needed clusters: %"PRIu32" < %"PRIu32"\n",
-                program_arguments.n_first_initialization_points, program_arguments.k);
-        return -1;
-    }
+
     fprintf(stderr, "\tnumber of threads executing the LLoyd's algoprithm in parallel: %" PRIu32 "\n", program_arguments.n_threads);
     fprintf(stderr, "\tnumber of clusters (k): %" PRIu32 "\n", program_arguments.k);
     fprintf(stderr, "\twe consider all the combinations of the %" PRIu32 " first points of the input as initializations of the Lloyd's algorithm\n", program_arguments.n_first_initialization_points);
     fprintf(stderr, "\tquiet mode: %s\n", program_arguments.quiet ? "enabled" : "disabled");
     fprintf(stderr, "\tsquared distance function: %s\n", program_arguments.squared_distance_func == squared_manhattan_distance ? "manhattan" : "euclidean");
     
-
     FILE *input_file = program_arguments.input_stream;
     FILE *output_file = program_arguments.output_stream;
-    uint32_t p = program_arguments.n_first_initialization_points;
+    int32_t p = (int32_t) program_arguments.n_first_initialization_points;
     uint32_t n_thread = program_arguments.n_threads; 
     uint64_t npoints;
     uint32_t dimension; 
     bool quiet_mode = program_arguments.quiet;
-    printf("Valeur de quiet_mode : %s\n", quiet_mode ? "true" : "false");
     uint32_t k = program_arguments.k;
     squared_distance_func_t DISTANCE_SQUARED;
     point_t** donnes;
@@ -146,6 +140,21 @@ int main(int argc, char *argv[]) {
         DISTANCE_SQUARED = squared_manhattan_distance;
     } else {
         DISTANCE_SQUARED = squared_euclidean_distance;
+    }
+
+    if(p<0){
+        p = npoints + p; 
+    }
+    if (p < k || p ==0 || k> npoints) {
+        fprintf(stderr, "Cannot generate an instance of k-means with less initialization points than needed clusters: %"PRIu32" < %"PRIu32"\n",
+                program_arguments.n_first_initialization_points, program_arguments.k);
+        if(quiet_mode == true){
+            fprintf(output_file, "initialization centroids,distortion,centroids\n");
+        }
+        else{
+            fprintf(output_file, "initialization centroids,distortion,centroids,clusters\n");
+        }
+        return 0;
     }
 
     if(p>npoints){
@@ -167,6 +176,8 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "Wrong number of clusters. Needs a positive integer, received \"%u\"\n", k);
         return -1;
     }
+    
+
 
     
     int64_t nombre_comb = combinaison(p,k);
