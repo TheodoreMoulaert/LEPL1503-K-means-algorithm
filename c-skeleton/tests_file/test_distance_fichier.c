@@ -18,7 +18,7 @@ void test_distance_functions2();
 
 // Fonction de test pour les fonctions de distance (test 1).
 void test_distance_functions1() {
-    FILE *file = fopen("../python/exemple.bin", "rb");
+    FILE *file = fopen("exemple.bin", "rb");
     if (!file) {
         perror("Erreur lors de l'ouverture du fichier binaire");
         exit(EXIT_FAILURE);
@@ -83,7 +83,7 @@ void test_distance_functions1() {
 
 // Fonction de test pour les fonctions de distance (test 2).
 void test_distance_functions2() {
-    FILE *file = fopen("../python/exemple3.bin", "rb");
+    FILE *file = fopen("exemple3.bin", "rb");
     if (!file) {
         perror("Erreur lors de l'ouverture du fichier binaire");
         exit(EXIT_FAILURE);

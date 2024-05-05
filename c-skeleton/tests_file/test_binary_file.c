@@ -21,7 +21,7 @@ void test_point_input();
  */
 void test_point_input() {
     // Ouverture du fichier binaire
-    FILE *file = fopen("../python/exemple.bin", "rb");
+    FILE *file = fopen("exemple.bin", "rb");
     if (!file) {
         // Gestion de l'erreur si le fichier ne peut pas être ouvert
         perror("Erreur lors de l'ouverture du fichier binaire");
