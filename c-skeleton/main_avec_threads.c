@@ -247,7 +247,7 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "Wrong number of points. Needs a positive integer, received \"%lu\"\n", npoints);
         return -1;
     }
-    if (dimension < 0) {
+    if (dimension <= 0) {
         fprintf(stderr, "Wrong dimension. Needs a positive integer, received \"%u\"\n", dimension);
         for (uint64_t i = 0; i < npoints; i++) {
             free(donnes[i]->coords);
@@ -261,10 +261,6 @@ int main(int argc, char *argv[]) {
         if (program_arguments.output_stream != stdout) {
             fclose(program_arguments.output_stream);
         }
-        return -1;
-    }
-    if (dimension ==0) {
-        fprintf(stderr, "Wrong dimension. Needs a positive integer, received \"%u\"\n", dimension);
         return -1;
     }
     
