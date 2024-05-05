@@ -6,15 +6,15 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <inttypes.h>
-#include "../c-skeleton/headers/distance.h"
-#include "../c-skeleton/headers/binary_file_reader.h" 
-#include "../c-skeleton/headers/k_means.h"
-#include "../c-skeleton/headers/write_csv.h"
-#include "../c-skeleton/headers/point.h"
-#include "../c-skeleton/headers/cluster.h"
-#include "../c-skeleton/headers/combinaison.h"
-#include "../c-skeleton/headers/assign_vector_to_centro.h"
-#include "../c-skeleton/headers/update_centroids.h"
+#include "../headers/distance.h"
+#include "../headers/binary_file_reader.h" 
+#include "../headers/k_means.h"
+#include "../headers/write_csv.h"
+#include "../headers/point.h"
+#include "../headers/cluster.h"
+#include "../headers/combinaison.h"
+#include "../headers/assign_vector_to_centro.h"
+#include "../headers/update_centroids.h"
 
 
 typedef struct {

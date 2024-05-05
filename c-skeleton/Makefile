@@ -1,6 +1,6 @@
 
 CC=gcc
-CFLAGS=-Wall -Werror -g
+CFLAGS=-Wall -Werror -g --std=gnu99
 LIBS=-lcunit -lpthread -L${HOME}/local/lib
 INCLUDE_HEADERS_DIRECTORY= -Iheaders -I${HOME}/local/include
 
