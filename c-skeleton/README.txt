@@ -400,7 +400,7 @@ gcc -g -o exemple main_avec_threads.c ../c-skeleton/src/distance.c ../c-skeleton
                     ../c-skeleton/src/kmeans_thread2.c ../c-skeleton/src/write_csv.c ../c-skeleton/src/write_thread.c 
                     ../c-skeleton/src/combinaison.c ../c-skeleton/src/assign_vectors_to_centroides.c src/update_centroids.c -lm
   2: Commande pour générer un fichier csv
-./exemple -k 4 -p 5 -n 5 -d manhattan -f d.csv ../python/exemple.bin
+./exemple -k 4 -p 5 -n 5 -d manhattan -f d.csv ../c-skeleton/exemple.bin
   où : 
   - ../python/exemple.bin  = fichier d'entrée
   - q si précisé, le programme n’affiche pas le contenu des clusters dans la sortie
