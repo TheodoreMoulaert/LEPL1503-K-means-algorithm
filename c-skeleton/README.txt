@@ -41,7 +41,7 @@ L'objectif de ce projet est de résoudre le défi du regroupement en mettant en 
 
 Structure du code
 ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════
-#### *Dans c-skeleton*
+#### *Dans dossier racine*
   * **main_avec_threads.c** : Fichier exécutant l'algorithme Kmeans monothreadé et multithreadé.
         * **parse_args** : fonction pour analyser les arguments de la ligne de commande
         * **usage** : fonction pour afficher l'usage du programme
@@ -80,7 +80,7 @@ Structure du code
 
 
 
-#### *Dans c-skeleton/headers*
+#### *Dans headers*
   * **cluster.h** : Définition de la structure `cluster_t` représentant un cluster et de la structure `result_t` pour le résultat des opérations sur les clusters.
   * **point.h** : Définition de la structure `point_t` représentant un point dans l'espace.
   * **kmeans_thread_args.h** : Définition de la structure `result_thread` rassemblant le résultats nécessaires pour l'écriture dans le fichier CSV lors que l'exécution avec threads 
@@ -101,7 +101,7 @@ Structure du code
 
 
 
-#### *Dans c-skeleton/src*
+#### *Dans src*
   * **assign_vectors_to_centroides.c**
     * **assign_vectors_to_centroides** : 
             Assignation des vecteurs aux centroïdes les plus proches.
@@ -291,7 +291,7 @@ Structure du code
 
 
 
-#### *Dans c-skeleton/tests_file*
+#### *Dans tests_file*
   * **test_assign_vector_to_centro.c** : Test CUnit de la fonction `assign_vector_to_centroids`.
   * **test_binary_file_beaucoup_de_points.c** : Test CUnit avec beaucoup de points des fonctions du fichier `binary_file_reader`.
   * **test_binary_file.c** : Test CUnit des fonctions du fichier `binary_file_reader`.
@@ -373,10 +373,10 @@ Comparaison [compare_solutions.py]
   En cas de succès, le code renvoit "Success !" 
 
 - Pour générer un fichier csv à partir du code python voici la commande à utiliser : 
-  python3 k-means.py ../c-skeleton/fichier_binaire.bin -k 3 -p 3 -d distance -f output.csv
+  python3 k-means.py fichier_binaire.bin -k 3 -p 3 -d distance -f output.csv
 
   où : 
-  - ../c-skeleton/fichier_binaire.bin  = fichier d'entrée
+  - fichier_binaire.bin  = fichier d'entrée
   - q si précisé, le programme n’affiche pas le contenu des clusters dans la sortie
   - k = le nombre de cluster
   - p = on considère les n_combinations premiers points présent en entrée pour générer les centroïdes initiaux de l’algorithme de Lloyd
@@ -392,9 +392,9 @@ Exemple de commande d'exécution
 
 - Deux commandes doivent être écrites dans votre terminal afin de faire compilé le fichier main_avec_threads : 
   1: Commande faisant appel à gcc et aux fonctions utilisées par le fichier main_avec_threads
-gcc -g -o exemple main_avec_threads.c ../c-skeleton/src/distance.c ../c-skeleton/src/binary_file_reader.c ../c-skeleton/src/kmeans.c 
-                    ../c-skeleton/src/kmeans_thread2.c ../c-skeleton/src/write_csv.c ../c-skeleton/src/write_thread.c 
-                    ../c-skeleton/src/combinaison.c ../c-skeleton/src/assign_vectors_to_centroides.c src/update_centroids.c -lm
+gcc -g -o exemple main_avec_threads.c src/distance.c src/binary_file_reader.c src/kmeans.c 
+                    src/kmeans_thread2.c src/write_csv.c src/write_thread.c 
+                    src/combinaison.c src/assign_vectors_to_centroides.c src/update_centroids.c -lm
   2: Commande pour générer un fichier csv
 ./exemple -k 4 -p 5 -n 5 -d manhattan -f d.csv exemple.bin
   où : 
