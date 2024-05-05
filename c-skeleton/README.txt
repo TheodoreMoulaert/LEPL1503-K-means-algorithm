@@ -324,10 +324,10 @@ Utilisation [Makefile]
     Pour compiler le programme principal, utilisez la commande suivante :
     ```bash
     make kmeans
-    ./kmeans -q -k [] -p [] -n [] -d [] -f [] ../exemple.bin
+    ./kmeans -q -k [] -p [] -n [] -d [] -f [] exemple.bin
     ```
     où : 
-    - ../exemple.bin  = fichier d'entrée
+    - exemple.bin  = fichier d'entrée
     - q si précisé, le programme n’affiche pas le contenu des clusters dans la sortie
     - k = le nombre de cluster
     - p = on considère les n_combinations premiers points présent en entrée pour générer les centroïdes initiaux de l’algorithme de Lloyd
@@ -373,10 +373,10 @@ Comparaison [compare_solutions.py]
   En cas de succès, le code renvoit "Success !" 
 
 - Pour générer un fichier csv à partir du code python voici la commande à utiliser : 
-  python3 k-means.py fichier_binaire.bin -k 3 -p 3 -d distance -f output.csv
+  python3 k-means.py ../c-skeleton/fichier_binaire.bin -k 3 -p 3 -d distance -f output.csv
 
   où : 
-  - fichier_binaire.bin  = fichier d'entrée
+  - ../c-skeleton/fichier_binaire.bin  = fichier d'entrée
   - q si précisé, le programme n’affiche pas le contenu des clusters dans la sortie
   - k = le nombre de cluster
   - p = on considère les n_combinations premiers points présent en entrée pour générer les centroïdes initiaux de l’algorithme de Lloyd
@@ -396,9 +396,9 @@ gcc -g -o exemple main_avec_threads.c ../c-skeleton/src/distance.c ../c-skeleton
                     ../c-skeleton/src/kmeans_thread2.c ../c-skeleton/src/write_csv.c ../c-skeleton/src/write_thread.c 
                     ../c-skeleton/src/combinaison.c ../c-skeleton/src/assign_vectors_to_centroides.c src/update_centroids.c -lm
   2: Commande pour générer un fichier csv
-./exemple -k 4 -p 5 -n 5 -d manhattan -f d.csv ../c-skeleton/exemple.bin
+./exemple -k 4 -p 5 -n 5 -d manhattan -f d.csv exemple.bin
   où : 
-  - ../exemple.bin  = fichier d'entrée
+  - exemple.bin  = fichier d'entrée
   - q si précisé, le programme n’affiche pas le contenu des clusters dans la sortie
   - k = le nombre de cluster
   - p = on considère les n_combinations premiers points présent en entrée pour générer les centroïdes initiaux de l’algorithme de Lloyd
