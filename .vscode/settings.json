@@ -7,6 +7,8 @@
     "point.h": "c",
     "cluster.h": "c",
     "kmeans_thread_args.h": "c",
-    "assign_vector_to_centro.h": "c"
+    "assign_vector_to_centro.h": "c",
+    "update_centroids.h": "c",
+    "inttypes.h": "c"
   }
 }
