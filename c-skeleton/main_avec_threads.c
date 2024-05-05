@@ -161,7 +161,35 @@ int main(int argc, char *argv[]) {
         }
         return -1;
     }
-
+    if (dimension <=0) {
+        printf("%d\n",0);
+        fprintf(stderr, "Wrong dimension. Needs a positive integer, received \"%u\"\n", dimension);
+        for (uint64_t i = 0; i < npoints; i++) {
+            free(donnes[i]->coords);
+            free(donnes[i]);
+        }
+        free(donnes);
+        
+        if (program_arguments.input_stream != stdin) {
+            fclose(program_arguments.input_stream);
+        }
+        if (program_arguments.output_stream != stdout) {
+            fclose(program_arguments.output_stream);
+        }
+        return -1;
+    }
+    if (npoints <= 0) {
+        fprintf(stderr, "Wrong number of points. Needs a positive integer\n");//, received \"%lu\"\n", npoints);
+        
+        
+        if (program_arguments.input_stream != stdin) {
+            fclose(program_arguments.input_stream);
+        }
+        if (program_arguments.output_stream != stdout) {
+            fclose(program_arguments.output_stream);
+        }
+        return -1;
+    }
     if(p<0){
         p = npoints + p; 
     }
@@ -243,26 +271,7 @@ int main(int argc, char *argv[]) {
     if(p>npoints){
         p = npoints; 
     }
-    if (npoints <= 0) {
-        fprintf(stderr, "Wrong number of points. Needs a positive integer, received \"%lu\"\n", npoints);
-        return -1;
-    }
-    if (dimension <= 0) {
-        fprintf(stderr, "Wrong dimension. Needs a positive integer, received \"%u\"\n", dimension);
-        for (uint64_t i = 0; i < npoints; i++) {
-            free(donnes[i]->coords);
-            free(donnes[i]);
-        }
-        free(donnes);
-        
-        if (program_arguments.input_stream != stdin) {
-            fclose(program_arguments.input_stream);
-        }
-        if (program_arguments.output_stream != stdout) {
-            fclose(program_arguments.output_stream);
-        }
-        return -1;
-    }
+    
     
 
     int64_t nombre_comb = combinaison(p,k);
