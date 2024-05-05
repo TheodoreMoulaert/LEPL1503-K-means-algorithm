@@ -73,7 +73,7 @@ int parse_args(args_t *args, int argc, char *argv[]) {
                 args->k = atoi(optarg);
                 if (args->k <= 0) {
                     fprintf(stderr, "Wrong k. Needs a positive integer, received \"%s\"\n", optarg);
-                    return -1;
+                    //return -1;
                 }
                 break;
             case 'f':
@@ -161,6 +161,22 @@ int main(int argc, char *argv[]) {
         }
         return -1;
     }
+    if (k <= 0) {
+        fprintf(stderr, "Wrong number of clusters. Needs a positive integer, received \"%d\"\n", k);
+        for (uint64_t i = 0; i < npoints; i++) {
+            free(donnes[i]->coords);
+            free(donnes[i]);
+        }
+        free(donnes);
+        
+        if (program_arguments.input_stream != stdin) {
+            fclose(program_arguments.input_stream);
+        }
+        if (program_arguments.output_stream != stdout) {
+            fclose(program_arguments.output_stream);
+        }
+        return -1;
+    }
     if (dimension <=0) {
         printf("%d\n",0);
         fprintf(stderr, "Wrong dimension. Needs a positive integer, received \"%u\"\n", dimension);
@@ -180,8 +196,6 @@ int main(int argc, char *argv[]) {
     }
     if (npoints <= 0) {
         fprintf(stderr, "Wrong number of points. Needs a positive integer\n");//, received \"%lu\"\n", npoints);
-        
-        
         if (program_arguments.input_stream != stdin) {
             fclose(program_arguments.input_stream);
         }
@@ -192,26 +206,6 @@ int main(int argc, char *argv[]) {
     }
     if(p<0){
         p = npoints + p; 
-    }
-    if (k == 0) {
-        fprintf(stderr, "Wrong number of clusters. Needs a positive integer, received \"%d\"\n", k);
-        return -1;
-    }
-    if (k < 0) {
-        fprintf(stderr, "Wrong number of clusters. Needs a positive integer, received \"%d\"\n", k);
-        for (uint64_t i = 0; i < npoints; i++) {
-            free(donnes[i]->coords);
-            free(donnes[i]);
-        }
-        free(donnes);
-        
-        if (program_arguments.input_stream != stdin) {
-            fclose(program_arguments.input_stream);
-        }
-        if (program_arguments.output_stream != stdout) {
-            fclose(program_arguments.output_stream);
-        }
-        return -1;
     }
 
     if (p ==0){
@@ -253,8 +247,6 @@ int main(int argc, char *argv[]) {
                 free(donnes[i]);
             }
             free(donnes);
-            
-
         }
         if (program_arguments.input_stream != stdin) {
                 fclose(program_arguments.input_stream);
@@ -266,14 +258,10 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-
-
     if(p>npoints){
         p = npoints; 
     }
     
-    
-
     int64_t nombre_comb = combinaison(p,k);
     point_t ***initial_combinations = generate_combinations(donnes,npoints,k,p);
     
