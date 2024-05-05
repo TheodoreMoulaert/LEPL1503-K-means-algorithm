@@ -311,9 +311,8 @@ Structure du code
 Utilisation [Makefile]
 ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════
 ### Lancement simple du programme
-  1. Assurez-vous que vous vous trouvez dans le répertoire racine du projet `c-skeleton`.
-  2. Ouvrez un terminal.
-  3. Exécutez la commande suivante pour compiler le programme :
+  1. Ouvrez un terminal.
+  2. Exécutez la commande suivante pour compiler le programme :
     ```bash
     make
     ```
@@ -325,10 +324,10 @@ Utilisation [Makefile]
     Pour compiler le programme principal, utilisez la commande suivante :
     ```bash
     make kmeans
-    ./kmeans -q -k [] -p [] -n [] -d [] -f [] ../python/exemple.bin
+    ./kmeans -q -k [] -p [] -n [] -d [] -f [] ../exemple.bin
     ```
     où : 
-    - ../python/exemple.bin  = fichier d'entrée
+    - ../exemple.bin  = fichier d'entrée
     - q si précisé, le programme n’affiche pas le contenu des clusters dans la sortie
     - k = le nombre de cluster
     - p = on considère les n_combinations premiers points présent en entrée pour générer les centroïdes initiaux de l’algorithme de Lloyd
@@ -336,10 +335,7 @@ Utilisation [Makefile]
     - d = le noms de la fonction distance à appliquer soit manhattan soit euclidean
     - f = fichier de sortie
 
-    Note : dans notre fichier tous les fichiers binaires se trouve dans le répertoire python il est donc important de noter le chemin (../python/exemple.bin) 
-    pour y accéder lorsque vous vous trouvez dans le répertoire c-skeleton pour exécuter le Makefile.
-    
-    
+
 
   - **Compilation des tests unitaires individuels** :
     Chaque test unitaire peut être compilé individuellement. Par exemple, pour compiler le test de lecture de fichier binaire, utilisez la commande suivante :
@@ -402,7 +398,7 @@ gcc -g -o exemple main_avec_threads.c ../c-skeleton/src/distance.c ../c-skeleton
   2: Commande pour générer un fichier csv
 ./exemple -k 4 -p 5 -n 5 -d manhattan -f d.csv ../c-skeleton/exemple.bin
   où : 
-  - ../python/exemple.bin  = fichier d'entrée
+  - ../exemple.bin  = fichier d'entrée
   - q si précisé, le programme n’affiche pas le contenu des clusters dans la sortie
   - k = le nombre de cluster
   - p = on considère les n_combinations premiers points présent en entrée pour générer les centroïdes initiaux de l’algorithme de Lloyd
