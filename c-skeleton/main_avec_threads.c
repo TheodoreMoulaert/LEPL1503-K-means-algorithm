@@ -117,7 +117,6 @@ int main(int argc, char *argv[]) {
 
     parse_args(&program_arguments, argc, argv);
 
-
     fprintf(stderr, "\tnumber of threads executing the LLoyd's algoprithm in parallel: %" PRIu32 "\n", program_arguments.n_threads);
     fprintf(stderr, "\tnumber of clusters (k): %" PRId32 "\n", (int32_t) program_arguments.k);
     fprintf(stderr, "\twe consider all the combinations of the %" PRId32" first points of the input as initializations of the Lloyd's algorithm\n", (int32_t) program_arguments.n_first_initialization_points);
