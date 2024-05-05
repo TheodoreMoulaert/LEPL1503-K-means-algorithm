@@ -195,7 +195,7 @@ int main(int argc, char *argv[]) {
         return -1;
     }
     if (npoints <= 0) {
-        fprintf(stderr, "Wrong number of points. Needs a positive integer\n");//, received \"%lu\"\n", npoints);
+        fprintf(stderr, "Wrong number of points. Needs a positive integer\n");
         if (program_arguments.input_stream != stdin) {
             fclose(program_arguments.input_stream);
         }
